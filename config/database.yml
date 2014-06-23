@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: mandarinminds_production
-  username: mandarinminds
+
   password: <%= ENV['MANDARINMINDS_DATABASE_PASSWORD'] %>
