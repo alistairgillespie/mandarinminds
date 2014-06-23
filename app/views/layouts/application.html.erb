@@ -8,7 +8,53 @@
 </head>
 <body>
 
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Mandarin Minds</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right">
+        <% if user_signed_in? %>
+<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+<% else %>
+<li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
+<li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+<% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>Hello, world!</h1>
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <p><a role="button" class="btn btn-primary btn-lg">Learn more »</a></p>
+  </div>
+</div>
+
+<div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
 <%= yield %>
+
+      </div>
+</div>
 
 </body>
 </html>
