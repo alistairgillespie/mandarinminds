@@ -16,3 +16,10 @@
 //= require_tree .
 // Loads all Bootstrap javascripts
 //= require bootstrap
+
+$(function() {
+  try {
+    Typekit.load();
+  }
+  catch(e) {}
+});
