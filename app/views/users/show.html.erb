@@ -7,9 +7,9 @@
 			<div class="col-md-9"><h1>Welcome to your Mandarin Minds user profile</h1>
 				<h2><%= @user.email %></h2></div>
 			</div>
-			<p></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis turpis sit amet sem congue gravida. Sed auctor orci velit, eget rutrum mauris condimentum sit amet. Nullam at viverra tortor. Curabitur in euismod ipsum, pretium convallis sem. Fusce rhoncus blandit fringilla. Quisque vel molestie leo, at posuere nibh. Pellentesque dictum felis sem, ac condimentum dui rhoncus sed. Nulla egestas erat in elit pulvinar, id pharetra ante pellentesque. Vivamus non nulla ac elit sodales scelerisque eu nec lorem. Cras mattis dui nunc, sed tempus ligula egestas a. Integer vehicula nisl sapien, ut mollis velit semper ut.
+			<p></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis turpis sit amet sem congue gravida. Sed auctor orci velit, eget rutrum mauris condimentum sit amet. Nullam at viverra tortor. Curabitur in euismod ipsum, pretium convallis sem. Fusce rhoncus blandit fringilla. Quisque vel molestie leo, at posuere nibh. Pellentesque dictum felis sem, ac condimentum dui rhoncus sed. Nulla egestas erat in elit pulvinar, id pharetra ante pellentesque. Vivamus non nulla ac elit sodales scelerisque eu nec lorem. Cras mattis dui nunc, sed tempus ligula egestas a. </br></br>
 
-				Donec id rhoncus purus, nec lobortis orci. Nullam sed arcu at mauris fermentum viverra ut et lorem. Mauris a ipsum eget nunc porta ullamcorper. Sed enim nisl, porttitor nec aliquam sed, posuere id lorem. Duis et vehicula purus. Nulla facilisi. Mauris a neque in lacus viverra mollis eget ac diam. Suspendisse potenti.</p>
+			Integer vehicula nisl sapien, ut mollis velit semper ut. Donec id rhoncus purus, nec lobortis orci. Nullam sed arcu at mauris fermentum viverra ut et lorem. Mauris a ipsum eget nunc porta ullamcorper. Sed enim nisl, porttitor nec aliquam sed, posuere id lorem. Duis et vehicula purus. Nulla facilisi. Mauris a neque in lacus viverra mollis eget ac diam. Suspendisse potenti.</p>
 			</div>
 			<div class="col-md-2">
 				<div>
@@ -28,6 +28,45 @@
 				</div>
 			</div>
 		</div>
+<div>
+	Your schedule for the next week:
+	<div class="row profile-calendar-div">
+	<div class="col-md-1 profile-calendar-box">
+		<%=-1.day.from_now.strftime("%A")%></br>
+		<%=-1.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box today">
+		<%=Time.zone.now.strftime("%A")%></br>
+		<%=Time.zone.now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=1.day.from_now.strftime("%A")%></br>
+		<%=1.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=2.day.from_now.strftime("%A")%></br>
+		<%=2.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=3.day.from_now.strftime("%A")%></br>
+		<%=3.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=4.day.from_now.strftime("%A")%></br>
+		<%=4.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=5.day.from_now.strftime("%A")%></br>
+		<%=5.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	<div class="col-md-1 profile-calendar-box">	
+		<%=6.day.from_now.strftime("%A")%></br>
+		<%=6.day.from_now.strftime("%-d/%-m/%y")%>
+	</div>
+	</div>
+</div>
+
+
 
 
 
