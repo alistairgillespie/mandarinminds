@@ -25,7 +25,7 @@
       <ul class="nav navbar-nav pull-right">
         <% if user_signed_in? %>
 <li>
-  <%= image_tag current_user.gravatar_url, :class => 'scotts-image img-circle' %> 
+  <%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> 
 </li>
 
 <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
@@ -41,7 +41,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>Hello, world!</h1>
+    <h1>Hello, World</h1>
     <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
     <p><a role="button" class="btn btn-primary btn-lg">Learn more »</a></p>
   </div>

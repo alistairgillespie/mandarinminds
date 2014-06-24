@@ -21,13 +21,37 @@ body {
  padding-bottom: 20px;
 }
 
-.scotts-image {
+.gravatar-nav {
 	height: 40px;
 	width: 40px;
 	margin-top: 5px;
-	z-index: 10;
 }
 
+.profile-lessons-remaining {
+	width: 90%;
+	margin: auto;
+    word-wrap: normal;
+    display: block;
+    background: navy;
+    color: white;
+}
+
+.profile-calendar-div {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.profile-calendar-box {
+	border: 1px solid black;
+	height: 100px;
+	width: 12%;
+	margin-top: 10px;
+
+}
+
+.profile-calendar-box.today {
+		background-color: yellow;
+	}
 
 .jumbotron {
 	background-image: url('/assets/front-bg.jpg');
