@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
+  # Gravatar gem requirements
   include Gravtastic
-gravtastic
+  gravtastic
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

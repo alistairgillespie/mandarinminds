@@ -1,8 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @user.email %></h1>
+<div class="row">
+	<div class="col-md-10 well">
+		<div class="row">
+			<div class="col-md-3"><%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-square' %> </div>
+			<div class="col-md-9"><h1>Welcome to your Mandarin Minds user profile</h1>
+				<h2><%= @user.email %></h2></div>
+			</div>
+			<p></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis turpis sit amet sem congue gravida. Sed auctor orci velit, eget rutrum mauris condimentum sit amet. Nullam at viverra tortor. Curabitur in euismod ipsum, pretium convallis sem. Fusce rhoncus blandit fringilla. Quisque vel molestie leo, at posuere nibh. Pellentesque dictum felis sem, ac condimentum dui rhoncus sed. Nulla egestas erat in elit pulvinar, id pharetra ante pellentesque. Vivamus non nulla ac elit sodales scelerisque eu nec lorem. Cras mattis dui nunc, sed tempus ligula egestas a. Integer vehicula nisl sapien, ut mollis velit semper ut.
 
-<%= image_tag current_user.gravatar_url, :class => 'scotts-image img-circle' %> 
+				Donec id rhoncus purus, nec lobortis orci. Nullam sed arcu at mauris fermentum viverra ut et lorem. Mauris a ipsum eget nunc porta ullamcorper. Sed enim nisl, porttitor nec aliquam sed, posuere id lorem. Duis et vehicula purus. Nulla facilisi. Mauris a neque in lacus viverra mollis eget ac diam. Suspendisse potenti.</p>
+			</div>
+			<div class="col-md-2">
+				<div>
+					<button type="button" class="profile-lessons-remaining">
+						You have 9 lessons left to spend</br></br>
 
-Hi, this is the user's page
+						<a>Buy more</a>
+					</button>
+				</div>	
+				</br>
+				<div class="list-group sidebar-offcanvas">
+					<a href="#" class="list-group-item active">Main</a>
+					<a href="#" class="list-group-item">Schedule</a>
+					<a href="#" class="list-group-item">Invoicing</a>
+					<a href="#" class="list-group-item">Account Settings</a>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
 

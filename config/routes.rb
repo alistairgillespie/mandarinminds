@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   
   #devise_scope :user do
@@ -62,6 +61,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  match 'users/:id' => 'users#show', via: :get
+  #match 'users/:id' => 'users#show', via: :get
+  get 'profile', to: :show
   
 end

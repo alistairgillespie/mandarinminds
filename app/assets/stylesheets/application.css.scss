@@ -21,11 +21,19 @@ body {
  padding-bottom: 20px;
 }
 
-.scotts-image {
+.gravatar-nav {
 	height: 40px;
 	width: 40px;
 	margin-top: 5px;
-	z-index: 10;
+}
+
+.profile-lessons-remaining {
+	width: 90%;
+	margin: auto;
+    word-wrap: normal;
+    display: block;
+    background: navy;
+    color: white;
 }
 
 
