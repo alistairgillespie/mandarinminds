@@ -49,6 +49,8 @@ gem 'devise'
 
 gem 'omniauth-facebook'
 
+gem 'my_gem', :git => "https://#{WilsonAus}:#{Premiers13}@github.com/me/my_gem.git"
+
 #Testing gems
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
