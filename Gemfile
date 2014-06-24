@@ -49,6 +49,8 @@ gem 'devise'
 
 gem 'omniauth-facebook'
 
+#Gravitar gem
+gem 'gravtastic'
 
 #Testing gems
 group :development, :test do
