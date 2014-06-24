@@ -47,3 +47,7 @@ ruby "2.1.1"
 
 gem 'devise'
 
+gem 'omniauth-facebook'
+
+
+
