@@ -61,5 +61,8 @@ group :test do
   gem 'capybara', '~> 2.1.0'
 end
 
+#Calendar Gem
+gem "watu_table_builder", :require => "table_builder"
+
 
 
