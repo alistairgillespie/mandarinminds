@@ -32,8 +32,10 @@
 	Your schedule for the next week:
 	<div class="row profile-calendar-div">
 	<div class="col-md-1 profile-calendar-box">
-		<%=-1.day.from_now.strftime("%A")%></br>
-		<%=-1.day.from_now.strftime("%-d/%-m/%y")%>
+		<% @date = -1.day.from_now %>
+
+		<%= @date.strftime("%A")%></br>
+		<%= @date.strftime("%-d/%-m/%y")%>
 	</div>
 	<div class="col-md-1 profile-calendar-box today">
 		<%=Time.zone.now.strftime("%A")%></br>

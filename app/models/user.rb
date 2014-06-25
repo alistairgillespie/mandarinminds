@@ -11,8 +11,9 @@ class User < ActiveRecord::Base
 
 
 
-  has_many :lessons
-  has_many :teachers, through: :lessons
+  has_many :lessons_to_attend, :class_name => 'Lesson', :foreign_key => 'student_id'
+  has_many :lessons_to_teach, :class_name => 'Lesson', :foreign_key => 'teacher_id'
+
   
   def self.from_omniauth(auth)
 	where(auth.slice(:provider, :uid)).first_or_create do |user|
