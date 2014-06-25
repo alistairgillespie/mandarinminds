@@ -36,6 +36,9 @@
 		<% @date = -1.day.from_now %>
 		<%= @date.strftime("%A")%></br>
 		<%= @date.strftime("%-d/%-m/%y")%>
+		<% @user.lessons_to_attend.each do |l| %>
+   			Lesson    
+		<% end %>
 	</div>
 	<div class="col-md-1 profile-calendar-box today">
 		<% @date = Time.zone.now %>
