@@ -48,7 +48,6 @@ ruby "2.1.1"
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-facebook'
 
 #Gravitar gem
 gem 'gravtastic'
