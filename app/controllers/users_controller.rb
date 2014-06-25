@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @lessons = Lesson.find(params[:id])
   end
 
   # GET /users/new

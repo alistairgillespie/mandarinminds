@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   
   get 'welcome/index'
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'static#index'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -63,6 +63,10 @@ Rails.application.routes.draw do
   #   end
 
   match 'users/:id' => 'users#show', via: :get
-  
+
+  # Add static pages here. 
+  # get "/extension" => "static#extension_in_controller"
+  get "/help" => "static#help"
+
   
 end
