@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   # get "/extension" => "static#extension_in_controller"
   get "/help" => "static#help"
   get "/about" => "static#about"
+  get "/about" => "static#pricing"
 
   
 end
