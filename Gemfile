@@ -57,8 +57,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
 end
 
-gem 'rails_12factor'
-
 group :test do
   gem 'capybara', '~> 2.1.0'
 end
