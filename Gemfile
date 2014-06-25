@@ -52,6 +52,9 @@ gem 'omniauth-google-oauth2'
 #Gravitar gem
 gem 'gravtastic'
 
+#Gem for calendar
+gem "simple_calendar", "~> 1.1.0"
+
 #Testing gems
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
