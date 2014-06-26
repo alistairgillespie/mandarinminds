@@ -25,14 +25,15 @@
       <ul class="nav navbar-nav pull-right">
 <li><%= link_to 'About', "/about", :class => 'navbar-link' %></li>
 <li><%= link_to 'Pricing', "/pricing", :class => 'navbar-link' %></li>
+<li><%= link_to 'Asian Century', "/asian-century", :class => 'navbar-link' %></li>
         <% if user_signed_in? %>
+
+
+<!--/<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li> -->
 <li>
   <%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> 
 </li>
-
-<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-
-<li><%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+<li><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></li> 
 <% else %>
 <li><%= link_to "Sign up", new_user_registration_path %></li>
 <li><%= link_to "Sign in", new_user_session_path %></li>
