@@ -60,8 +60,8 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  match 'users/:id' => 'users#show', via: :get
+  
+  match 'users/:id' => 'users#show', as: :user, via: :get
 
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
