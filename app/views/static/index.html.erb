@@ -1,14 +1,40 @@
-<div class="jumbotron">
-  <div class="container">
-    <h1>Learn Mandarin live, 1 on 1 with teachers in China</h1>
-    <p><a role="button" class="btn btn-primary btn-lg">Try it out for free</a> <a class="btn btn-primary btn-grey btn-lg" href="/about">How it Works</a></p>
-  </div>
-</div>
-<div class="container">
-<div class="row">
-<h2>Homepage for Mandarin Minds</h2>
-<p>
+
+<!-- <p>
   The time is now: <%= Time.now %>
 </p>
-</div>
-</div>
+-->
+
+
+<% flash.each do |name, msg| %>
+ <%= content_tag(:div, class: "alert alert-success") do%>
+    <%=msg%>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <%end%>
+
+<% end %>
+
+
+<h2>Sign in</h2>
+
+<%= form_for(resource, as: resource_name, :html => {:class => 'form-inline'},url: session_path(resource_name)) do |f| %>
+	<div class="form-group">
+		<%= f.label :email, :class => "sr-only" %>
+		<%= f.email_field :email, :class => "form-control",autofocus: true %>
+	</div>
+
+  	<div class="form-group">
+  		<%= f.label :password, :class => "sr-only" %>
+  		<%= f.password_field :password, :class => "form-control", autocomplete: "off" %>
+    </div>
+
+  <!-- <% if devise_mapping.rememberable? -%>
+   <div class="checkbox">
+    <label>
+	<%= f.check_box :remember_me %> <%= f.label :remember_me %>
+    </label>
+  </div>
+  <% end -%>
+  -->
+<%= f.submit "Sign in", :class => "btn btn-default" %>
+  
+<% end %>
