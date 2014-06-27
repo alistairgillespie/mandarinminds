@@ -38,7 +38,33 @@ body {
 	}
 }
 
+.dropdown-toggle {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    
+    .caret {
+	    border-top: 5px solid;
+	    color: white;
+	    margin-top: 15px;
+    }
+}
 
+.dropdown-menu {
+    background-color: #93192c;
+    border-bottom: 3px solid #890f0f;
+    
+    .navbar-link {
+	    color: white;
+    }
+    
+    > li {
+    	a {
+		    &:hover {
+			    background: #890f0f;
+		    }
+	    }
+    }
+}
 
 .gravatar-nav {
 	height: 40px;
@@ -110,12 +136,13 @@ body {
 //Buttons
 
 .btn-primary {
-	color: white;
+	color: white !important;
 	background-color: #93192C;
 	border-radius: 5px;
 	border: 0px;
 	border-bottom: 3px solid #890f0f;
 	transition: background-color 0.5s ease;
+	margin-right: 10px;
 	
 	&:hover {
 	    color: white;
@@ -132,6 +159,15 @@ body {
 	border: 0px;
 	border-bottom: 3px solid;
 	border-color: #aab3bb;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-image: none;
+    border-radius: 5px;
+    border-style: none none solid;
+    border-width: 0 0 3px;
+	transition: background-color 0.5s ease;
 	
 	&:hover {
 		color: white;
@@ -141,7 +177,11 @@ body {
 	}
 }
 
-
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+    background-color: #890f0f;
+    border-color: #890f0f;
+    color: white;
+}
  
 
  
