@@ -56,8 +56,8 @@
 
 
       <!-- Example row of columns -->
-     
-<%= render "static/jumbotron" %>
+<%= render  "static/jumbotron"  if controller_name == "static" || action_name == "index"  %>
+
 <div class="container">
 <div class="row">
 <%= yield %>
