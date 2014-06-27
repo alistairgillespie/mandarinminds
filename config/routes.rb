@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
-  get "/about" => "static#about"
+  get "/pricing" => "static#about"
   get "/about" => "static#pricing"
 
   
