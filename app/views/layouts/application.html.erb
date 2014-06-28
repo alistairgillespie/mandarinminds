@@ -19,18 +19,30 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Mandarin Minds</a>
+      <a class="navbar-brand" href="/"><%= image_tag("logo.png", :alt => "rss feed") %></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
+<li><%= link_to 'About', "/about", :class => 'navbar-link' %></li>
+<li><%= link_to 'Pricing', "/pricing", :class => 'navbar-link' %></li>
+<li><%= link_to 'Asian Century', "/asian-century", :class => 'navbar-link' %></li>
         <% if user_signed_in? %>
+
+
+<!--/<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li> -->
 <li>
-  <%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> 
+  <div class="dropdown dropdown-menu-right">
+  	<button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
+  	<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> <span class="caret"></span>
+  	</button>
+  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+  		<li role="presentation"><%= link_to 'Dashboard', current_user, :class => 'navbar-link' %></li>
+	    <li role="presentation"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+	    <li role="presentation"><%= link_to "Sign out", destroy_user_session_path, :class => 'navbar-link', :method => :delete %></li>
+	</ul>
+  </div>
 </li>
-
-<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-
-<li><%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+<li></li> 
 <% else %>
 <li><%= link_to "Sign up", new_user_registration_path %></li>
 <li><%= link_to "Sign in", new_user_session_path %></li>
@@ -44,17 +56,12 @@
 
 
       <!-- Example row of columns -->
-     
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+<%= render  "static/jumbotron"  if controller_name == "static" || action_name == "index"  %>
 
-
-
+<div class="container">
+<div class="row">
 <%= yield %>
-
+</div>
+</div>
 </body>
 </html>

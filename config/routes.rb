@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  devise_for :users 
+  devise_for :users, :path_names => {:sign_up => "register"} 
     #devise_scope :user do
 	#get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   #end
@@ -60,13 +60,14 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  match 'users/:id' => 'users#show', via: :get
+  
+  match 'users/:id' => 'users#show', as: :user, via: :get
 
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
-  get "/help" => "static#help"
-  get "/about" => "static#about"
+  get "/asian-century" => "static#asian-century"
+  get "/pricing" => "static#about"
+  get "/about" => "static#pricing"
 
   
 end

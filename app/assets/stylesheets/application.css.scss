@@ -21,10 +21,55 @@ body {
  padding-bottom: 20px;
 }
 
+//Navigation Styling
+.navbar {
+	background: #93192c;
+	border: 0px;
+	min-height: 60px;
+	border-bottom: 3px solid #890f0f;
+	.navbar-nav > li > a {
+    	color: white;
+    	font-size: 16px;
+    	font-family: "museo",sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		padding-bottom: 7px;
+		padding-top: 30px;
+	}
+}
+
+.dropdown-toggle {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    
+    .caret {
+	    border-top: 5px solid;
+	    color: white;
+	    margin-top: 15px;
+    }
+}
+
+.dropdown-menu {
+    background-color: #93192c;
+    border-bottom: 3px solid #890f0f;
+    
+    .navbar-link {
+	    color: white;
+    }
+    
+    > li {
+    	a {
+		    &:hover {
+			    background: #890f0f;
+		    }
+	    }
+    }
+}
+
 .gravatar-nav {
 	height: 40px;
 	width: 40px;
-	margin-top: 5px;
+	margin-top: 15px;
 }
 
 .profile-lessons-remaining {
@@ -53,23 +98,90 @@ body {
 		background-color: yellow;
 	}
 
+//Jumbotron Styling
 .jumbotron {
-	background-image: url('/assets/front-bg.jpg');
+	margin-top: -50px;
+	background-image: url('/assets/front-bg2.jpg');
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 600px;
+    padding-top: 120px;
     
-    h1, p {
+    h1 {
 	    color: white;
+	    font-family: "clavo",sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 55px;
+		line-height: 1.5;
+		width: 50%;
+		margin-bottom: 50px;
+		
+    }
+    
+    p {
+	    color: rgba(255, 255, 255, 0.9);
+	    line-height: 1.5;
+	    font-size: 22px;
+	    font-family: "museo",sans-serif;
+		font-style: normal;
+		font-weight: 100;
+		width: 50%;
     }
     
     
 }
 
+//Buttons
 
+.btn-primary {
+	color: white !important;
+	background-color: #93192C;
+	border-radius: 5px;
+	border: 0px;
+	border-bottom: 3px solid #890f0f;
+	transition: background-color 0.5s ease;
+	margin-right: 10px;
+	
+	&:hover {
+	    color: white;
+	    background-color: #890f0f;
+	    border: 0px;
+		border-bottom: 3px solid #890f0f;
+	}
 
+}
 
+.btn-grey {
+	color: white !important;
+	background-color: #c6ccd2;
+	border: 0px;
+	border-bottom: 3px solid;
+	border-color: #aab3bb;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-image: none;
+    border-radius: 5px;
+    border-style: none none solid;
+    border-width: 0 0 3px;
+	transition: background-color 0.5s ease;
+	
+	&:hover {
+		color: white;
+	    background-color: #aab3bb;
+	    border: 0px;
+		border-bottom: 3px solid #aab3bb;
+	}
+}
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+    background-color: #890f0f;
+    border-color: #890f0f;
+    color: white;
+}
  
 
  
