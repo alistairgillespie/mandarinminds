@@ -12,20 +12,29 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%= lesson.student %></td>
-        <td><%= lesson.teacher %></td>
-        <td><%= lesson.starts_at %></td>
-        <td><%= link_to 'Show', lesson %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= lesson.student %></td>
+      <td><%= lesson.teacher %></td>
+      <td><%= lesson.starts_at %></td>
+      <td><%= link_to 'Show', lesson %></td>
+      <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+      <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Lesson', new_lesson_path %>
+<p><%= link_to 'New Lesson', new_lesson_path %></p>
+
+<p>The Calendar starts below:</p>
+
+<%= month_calendar events: @lessons, td: ->(start_date, current_calendar_date) { {class: "calendar-date", data: {day: current_calendar_date}} } do |day, lessons| %>
+  <%= day %>
+  
+<% end %>
+
+
 
 
