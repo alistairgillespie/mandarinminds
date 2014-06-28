@@ -7,3 +7,23 @@ td.day {
 	height: 100px;
 	width: 200px;
 }
+
+td.prev-month {
+	color: lightgray;
+}
+
+td.next-month {
+	color: lightgray;
+}
+
+td p{
+	font-weight: bold;
+}
+
+span.booked {
+	color: crimson;
+}
+
+span.available {
+	color: green;
+}
