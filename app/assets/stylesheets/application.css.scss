@@ -21,6 +21,19 @@ body {
  padding-bottom: 20px;
 }
 
+a:hover, a:focus {
+    color: #93192c;
+    text-decoration: underline;
+}
+
+//Typography
+
+h1 {
+	font-family: "museo",sans-serif;
+	font-style: normal;
+	font-weight: 400;
+}
+
 //Navigation Styling
 .navbar {
 	background: #93192c;
