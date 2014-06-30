@@ -28,27 +28,9 @@
 
 <p>The Calendar starts below:</p>
 
-<%= month_calendar events: @lessons do |date, events| %>
-  <p><%= date.strftime("#{date.day.ordinalize}") %></p>
-  <% @bookedlessons = 0 %>
-  <% @availablelessons = 0 %>
-
-  <% events.each do |lesson| %>
-    <div>
-      <% lesson.student.nil? ? @availablelessons += 1 : @bookedlessons += 1 %>
-    </div>
-  <% end %>
-  <% if @bookedlessons > 0 %>
-    <%= @bookedlesson == 1 ? 
-    content_tag(:span, "#{@bookedlessons} slot booked", :class => "booked") : 
-    content_tag(:span, "#{@bookedlessons} slots booked", :class => "booked") %></br>
-  <% end %>
-  <% if @availablelessons > 0 %>
-    <%= @availablelessons == 1 ? 
-    content_tag(:span, "#{@availablelessons} slot available", :class => "available") :
-    content_tag(:span, "#{@availablelessons} slots available", :class => "available") %></br>
-  <% end %>
-<% end %>
+<div id="lessons_calendar">
+  <%= render partial: "calendar", locals: {events: @lessons} %>
+</div>
 
 
 
