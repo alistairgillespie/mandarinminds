@@ -1,0 +1,216 @@
+<div class="page active" id="page-login">
+      <div class="row-fluid banner">
+        <div class="container">
+          <div class="span12">
+            <h2>WebRTC + PubNub</h2>
+            <h4>Open Source Template for Powerful Video Chat, No Plugins</h4>
+            </div>
+        </div>
+      </div>
+
+<div class="container">
+        <div class="row-fluid" id="login-container">
+          <div class="span4 offset4">
+            <div class="pad-20 center">
+              <div class="box">
+                <h3>Try Now</h3>
+                <input type="text" id="userid" placeholder="Username" />
+                <br />
+                <a href="#" class="btn btn-large btn-inverse" id="login">Log In</a>
+                <br />
+                <p style="padding-top: 12px;">- or -</p>
+                <span id="signinButton">
+                  <span
+                    class="g-signin"
+                    data-callback="signinCallback"
+                    data-clientid="587465758861.apps.googleusercontent.com"
+                    data-cookiepolicy="single_host_origin"
+                    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                    data-scope="https://www.googleapis.com/auth/plus.login"
+                    data-approvalprompt="force">
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</div>
+
+<div id="page-caller" class="page">
+      <div class="row-fluid">
+        <div class="span3 sidebar">
+          <h3>Online Contacts</h3>
+          <ul id="user-list">
+          </ul>
+        </div>
+
+        <div class="span9 call-content">
+          <div class="row">
+            <div class="span12" id="video-container">
+              <div class="row" id="video">
+                <div class="span12">
+                  <video id="self-call-video" src="" autoplay="autoplay" muted="true"></video>
+                  <video id="call-video" src="" autoplay="autoplay"></video>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="span12" id="video-controls">
+                  <a href="#" class="btn btn-danger" id="hang-up">Hang Up</a>
+                  <span id="time">10:00</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="span12" id="chat-area">
+                  <div id="chat-receive-message">
+                    Hello, World!
+                  </div>
+                  <input type="text" id="chat-message" name="message" placeholder="Type to chat" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="answer-modal" class="modal hide">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Incoming Call</h3>
+      </div>
+      <div class="modal-body">
+        <p class="caller">(User) is calling...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Ignore</button>
+        <button class="btn btn-primary">Answer</button>
+      </div>
+    </div>
+
+    <div id="calling-modal" class="modal hide">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Outgoing Call</h3>
+      </div>
+      <div class="modal-body">
+        <p class="calling">Calling (User)...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+    </div>
+    
+<div class="page active" id="page-login">
+      <div class="row-fluid banner">
+        <div class="container">
+          <div class="span12">
+            <h2>WebRTC + PubNub</h2>
+            <h4>Open Source Template for Powerful Video Chat, No Plugins</h4>
+            </div>
+        </div>
+      </div>
+
+<div class="container">
+        <div class="row-fluid" id="login-container">
+          <div class="span4 offset4">
+            <div class="pad-20 center">
+              <div class="box">
+                <h3>Try Now</h3>
+                <input type="text" id="userid" placeholder="Username" />
+                <br />
+                <a href="#" class="btn btn-large btn-inverse" id="login">Log In</a>
+                <br />
+                <p style="padding-top: 12px;">- or -</p>
+                <span id="signinButton">
+                  <span
+                    class="g-signin"
+                    data-callback="signinCallback"
+                    data-clientid="587465758861.apps.googleusercontent.com"
+                    data-cookiepolicy="single_host_origin"
+                    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                    data-scope="https://www.googleapis.com/auth/plus.login"
+                    data-approvalprompt="force">
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</div>
+
+<div id="page-caller" class="page">
+      <div class="row-fluid">
+        <div class="span3 sidebar">
+          <h3>Online Contacts</h3>
+          <ul id="user-list">
+          </ul>
+        </div>
+
+        <div class="span9 call-content">
+          <div class="row">
+            <div class="span12" id="video-container">
+              <div class="row" id="video">
+                <div class="span12">
+                  <video id="self-call-video" src="" autoplay="autoplay" muted="true"></video>
+                  <video id="call-video" src="" autoplay="autoplay"></video>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="span12" id="video-controls">
+                  <a href="#" class="btn btn-danger" id="hang-up">Hang Up</a>
+                  <span id="time">10:00</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="span12" id="chat-area">
+                  <div id="chat-receive-message">
+                    Hello, World!
+                  </div>
+                  <input type="text" id="chat-message" name="message" placeholder="Type to chat" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="answer-modal" class="modal hide">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Incoming Call</h3>
+      </div>
+      <div class="modal-body">
+        <p class="caller">(User) is calling...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Ignore</button>
+        <button class="btn btn-primary">Answer</button>
+      </div>
+    </div>
+
+    <div id="calling-modal" class="modal hide">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Outgoing Call</h3>
+      </div>
+      <div class="modal-body">
+        <p class="calling">Calling (User)...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+    </div>
+    
+<script type="text/html" id="user-item-template">
+      <li class="user" data-user="<%= id %>>">
+      <span class="name"><%= name %>></span>
+      <a href="#" class="btn btn-success" data-user="<%= id %>>">Call</a>
+      </li>
+    </script>
