@@ -1,5 +1,26 @@
 <%= month_calendar events: @lessons, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link do |date, events| %>
-  <p><%= date.strftime("#{date.day.ordinalize}") %></p>
+  
+  <button type="button" class="btn btn-default popover-btn" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="
+  Add New Lesson Slot 
+  <%= form_for(Lesson.new) do |f| %>
+  <div class="field">
+    <%= f.label :starts_at %><br>
+    <%= f.datetime_select :starts_at, :value => date.in_time_zone("Perth").beginning_of_day.advance(:hours => 6), :discard_year => true, :discard_day => true, :discard_month => true %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :teacher_id, :value => current_user.id %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+  "
+  <%= date.strftime("#{date.day.ordinalize}") %>
+</button></br>
+
   <% @bookedlessons = 0 %>
   <% @availablelessons = 0 %>
 

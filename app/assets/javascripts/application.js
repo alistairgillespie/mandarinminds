@@ -16,6 +16,7 @@
 //= require_tree .
 // Loads all Bootstrap javascripts
 //= require bootstrap
+//= require bootstrap
 
 $(function() {
   try {
@@ -23,3 +24,11 @@ $(function() {
   }
   catch(e) {}
 });
+
+$(function () {
+  $('.popover-btn').popover({ 
+    html : true
+  }).popover('show');
+});
+
+
