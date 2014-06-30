@@ -54,6 +54,7 @@ gem 'gravtastic'
 
 #Gem for calendar
 gem "simple_calendar", "~> 1.1.0"
+gem 'time_diff', '~> 0.3.0'
 
 #Testing gems
 group :development, :test do
