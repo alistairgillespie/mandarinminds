@@ -68,6 +68,7 @@ Rails.application.routes.draw do
   get "/asian-century" => "static#asian-century"
   get "/pricing" => "static#about"
   get "/about" => "static#pricing"
-
+  get "/chatroom" => "static#chatroom"
+  
   
 end
