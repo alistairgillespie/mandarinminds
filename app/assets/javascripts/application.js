@@ -24,10 +24,5 @@ $(function() {
   catch(e) {}
 });
 
-$(function () {
-  $('.popover-btn').popover({ 
-    html : true
-  }).popover('show');
-});
 
 

@@ -26,9 +26,11 @@ class LessonsController < ApplicationController
   # POST /lessons.json
   def create
     @lesson = Lesson.new(lesson_params)
-
+    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+    
     respond_to do |format|
       if @lesson.save
+
         format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else

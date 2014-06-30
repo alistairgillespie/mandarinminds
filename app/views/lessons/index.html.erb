@@ -43,11 +43,21 @@
       <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
       <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
+
+<div id="lessons_calendar">
+  <%= render partial: "teachercalendar", locals: {events: @lessons} %>
+</div>
+
 <% end %>
 </table></br>
 <% else %>
 <h2> You are a Student</h2>
 <p>You cannot add new lessons</p>
+
+<div id="lessons_calendar">
+  <%= render partial: "studentcalendar", locals: {events: @lessons} %>
+</div>
+
 <%end%>
 
 <table>
@@ -76,14 +86,10 @@
 
 <p><%= link_to 'New Lesson (Students wont see this)', new_lesson_path %></p>
 
-<p>The Calendar starts below:</p>
-
 <div id="lessons_calendar">
   <%= render partial: "calendar", locals: {events: @lessons} %>
 </div>
 
 
-
-Calendar will go here
 
 
