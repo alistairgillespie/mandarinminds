@@ -4,23 +4,25 @@
 				<div class="col-sm-3"><%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %> </div>
 				<div class="col-sm-9"><h1>Welcome</h1>
 					<h2><%= @user.email %></h2><br>
-					<%= Time.now.strftime("%I:%M:%S") %></div>
+					The current time in Perth, Western Australia is <%= Time.now.in_time_zone("Perth").strftime("%I:%M:%S") %></div>
 			</div>
 
-<p>Your schedule for the next week:</p>
+
 <div id="week-schedule">
 	<% @numberoflessons = @userlessons.size %> 
-	<p>Lessons Booked: <%= @numberoflessons %></p>
+	<p>Lessons Booked: <%= @numberoflessons %></br>
+		<%= link_to "Go to Lesson Bookings", lessons_path%></p>
+
 	
 	<% if @numberoflessons > 0 %>
-		<% @hourstolesson = ((@userlessons.first.starts_at - Time.now) / 1.hour).round %>
+		<% @timetolesson = Time.diff(@userlessons.first.starts_at, Time.now, "%H %N")%>
 
 		<p>
-		<% if @nextlessontime > 72.hours %>
+		<% if @timetolesson[:day] > 2 %>
 			Your next lesson is on 
 			<%= @userlessons.first.starts_at.strftime("#{@userlessons.first.starts_at.day.ordinalize} %b %Y") %>
-		<% elsif @nextlessontime > 0.hours %>
-			Counting down to your next lesson <%= @userlessons.first.starts_at.strftime("%l:%M")%>
+		<% elsif @timetolesson[:hour] > 0 || @timetolesson[:minute] > 0 %>
+			Counting down to your next lesson: <%=  @timetolesson[:diff]%>
 		<% else %> 
 			You have a scheduled lesson currently running!
 		
@@ -28,7 +30,7 @@
 		</p>
 		
 	<% end %>
-
+	<p>Your schedule for the next week:</p>
 	<%= week_calendar previous_link: false, next_link: false, events: @userlessons do |date, events| %>
   		<p><%= date.strftime("#{date.day.ordinalize} %b") %></p>
  		<% events.each do |lesson| %>
