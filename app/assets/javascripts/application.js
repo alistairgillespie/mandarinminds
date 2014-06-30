@@ -23,7 +23,3 @@ $(function() {
   }
   catch(e) {}
 });
-
-$(function(){
-   $("[rel='tooltip']").tooltip();
-});
