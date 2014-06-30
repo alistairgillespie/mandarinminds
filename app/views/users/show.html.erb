@@ -1,80 +1,63 @@
-<p id="notice"><%= notice %></p>
-
-<div class="row">
-	<div class="col-md-10 well">
-		<div class="row">
-			<div class="col-md-3"><%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-square' %> </div>
-			<div class="col-md-9"><h1>Welcome to your Mandarin Minds user profile</h1>
-				<h2><%= @user.email %></h2></div>
+<!-- <p id="notice"><%= notice %></p> -->
+		
+			<div class="row">
+				<div class="col-sm-3"><%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %> </div>
+				<div class="col-sm-9"><h1>Welcome</h1>
+					<h2><%= @user.email %></h2><br>
+					<%= Time.now.strftime("%I:%M:%S") %></div>
 			</div>
-			<p></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis turpis sit amet sem congue gravida. Sed auctor orci velit, eget rutrum mauris condimentum sit amet. Nullam at viverra tortor. Curabitur in euismod ipsum, pretium convallis sem. Fusce rhoncus blandit fringilla. Quisque vel molestie leo, at posuere nibh. Pellentesque dictum felis sem, ac condimentum dui rhoncus sed. Nulla egestas erat in elit pulvinar, id pharetra ante pellentesque. Vivamus non nulla ac elit sodales scelerisque eu nec lorem. Cras mattis dui nunc, sed tempus ligula egestas a. </br></br>
-
-			Integer vehicula nisl sapien, ut mollis velit semper ut. Donec id rhoncus purus, nec lobortis orci. Nullam sed arcu at mauris fermentum viverra ut et lorem. Mauris a ipsum eget nunc porta ullamcorper. Sed enim nisl, porttitor nec aliquam sed, posuere id lorem. Duis et vehicula purus. Nulla facilisi. Mauris a neque in lacus viverra mollis eget ac diam. Suspendisse potenti.</p>
-			</div>
-			<div class="col-md-2">
 				<div>
-					<button type="button" class="profile-lessons-remaining">
-						You have 9 lessons left to spend</br></br>
-
-						<a>Buy more</a>
-					</button>
-				</div>	
-				</br>
-				<div class="list-group sidebar-offcanvas">
-					<a href="#" class="list-group-item active">Main</a>
-					<a href="#" class="list-group-item">Schedule</a>
-					<a href="#" class="list-group-item">Invoicing</a>
-					<a href="#" class="list-group-item">Account Settings</a>
+				Your schedule for the next week:
+				<div class="row profile-calendar-div">
+			
+				<div class="col-md-1 profile-calendar-box">
+					<% @date = -1.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+					<% @user.lessons_to_attend.each do |l| %>
+			   			Lesson    
+					<% end %>
+				</div>
+				<div class="col-md-1 profile-calendar-box today">
+					<% @date = Time.zone.now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 1.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 2.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 3.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 4.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>	</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 5.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
+				<div class="col-md-1 profile-calendar-box">	
+					<% @date = 6.day.from_now %>
+					<%= @date.strftime("%A")%></br>
+					<%= @date.strftime("%-d/%-m/%y")%>
+				</div>
 				</div>
 			</div>
+		
+<!-- Close of user inner -->
 		</div>
-<div>
-	Your schedule for the next week:
-	<div class="row profile-calendar-div">
-
-	<div class="col-md-1 profile-calendar-box">
-		<% @date = -1.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-		<% @user.lessons_to_attend.each do |l| %>
-   			Lesson    
-		<% end %>
-	</div>
-	<div class="col-md-1 profile-calendar-box today">
-		<% @date = Time.zone.now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 1.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 2.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 3.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 4.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 5.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	<div class="col-md-1 profile-calendar-box">	
-		<% @date = 6.day.from_now %>
-		<%= @date.strftime("%A")%></br>
-		<%= @date.strftime("%-d/%-m/%y")%>
-	</div>
-	</div>
+	</div>	
 </div>
 
 
