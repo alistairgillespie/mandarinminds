@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @userlessons = @user.lessons_to_attend.all
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."
     end
