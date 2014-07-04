@@ -1,0 +1,9 @@
+<%= month_calendar events: @lessons, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link do |date, events| %>
+    <% @formatteddate = date.strftime('%Y-%m-%d') %>
+    <p><%= date.strftime("#{date.day.ordinalize}") %></p>
+
+    <% events.each do |lesson| %>
+    <% end %>
+   
+
+<% end %>
