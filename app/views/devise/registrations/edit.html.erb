@@ -16,11 +16,6 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-    <div><%= f.radio_button :role, "1", :checked => true %>
-        <%= f.label :role_1, "Student" %>
-        <%= f.radio_button :role, "2" %>
-        <%= f.label :role_2, "Teacher" %>
-      </div>
 
       <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %></div>

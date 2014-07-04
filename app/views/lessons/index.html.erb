@@ -5,7 +5,7 @@
 
   <p>Your current lessons:</p>
 
-  <strong>Booked</strong>
+  <strong>Unbooked</strong>
   <table>
     <thead>
       <tr>
@@ -43,21 +43,20 @@
         <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
         <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-
-  <div id="lessons_calendar">
-    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
-  </div>
-
   <% end %>
   </table></br>
+  
+  <div id="teacher_calendar">
+    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
+  </div></br>
+
 <% else %>
   <h2> You are a Student</h2>
   <p>You cannot add new lessons</p>
 
-  <div id="lessons_calendar">
+  <div id="student_calendar">
     <%= render partial: "studentcalendar", locals: {events: @lessons} %>
-  </div>
-
+  </div></br>
 <%end%>
 
 <table>

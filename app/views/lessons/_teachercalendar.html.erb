@@ -1,8 +1,19 @@
-<%= month_calendar events: @lessons, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link do |date, events| %>
+<%= month_calendar events: @lessons do |date, events| %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
     <p><%= date.strftime("#{date.day.ordinalize}") %></p>
    
-      Add New Lesson Slot (Perth time is used)
+      Current Lessons:</br>
+
+      <% events.each do |lesson| %>
+      <div>
+        <% if lesson.teacher == current_user %>
+          <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> 
+          <%= lesson.student.nil? ? "" : " (Booked)" %></br>
+        <% end %>
+      </div>
+    <% end %></br>
+
+    Add New Lesson Slot (Perth time is used)
 
 <form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
 
