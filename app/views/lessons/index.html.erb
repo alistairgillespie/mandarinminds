@@ -1,3 +1,7 @@
+<% if flash[:notice] %>
+    <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
 <h1>Listing lessons</h1>
 <% if current_user.role_id == 2 %>
   <h2> You are a Teacher</h2>
