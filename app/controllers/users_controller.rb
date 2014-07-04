@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @userlessons = @user.lessons_to_attend.all
+    @userlessons = @user.lessons_to_attend.where("starts_at > ?", Time.now.advance(:hours => -1)).order(starts_at: :asc)
+
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."
     end
