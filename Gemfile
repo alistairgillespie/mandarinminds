@@ -57,9 +57,12 @@ gem 'gravtastic'
 gem "simple_calendar", "~> 1.1.0"
 gem 'time_diff', '~> 0.3.0'
 
-#Testing gems
+#Development gems
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  #Better errors
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do

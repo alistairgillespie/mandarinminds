@@ -50,7 +50,7 @@ class LessonsController < ApplicationController
         format.html { redirect_to @lesson, notice: 'Your lesson has been booked successfully. Check your Dashboard for your upcoming timetable' }
         format.json { render :show, status: :ok, location: @lesson }
       else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"}}
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
