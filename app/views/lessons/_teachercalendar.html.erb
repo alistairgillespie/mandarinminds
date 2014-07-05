@@ -12,10 +12,13 @@
         <% end %>
       </div>
     <% end %></br>
+<div style="padding-bottom: 5px" class="form wrapper">
+<button type="button" style="padding: 0px 5px" class="btn btn-default" onclick="toggle_visibility('<%= @formatteddate.to_s%>');">Add New</button></br>
+     
 
-    Add New Lesson Slot (Perth time is used)
-
-<form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+<form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post" style="display:none">
+  
+  <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
 
   <div class="field">
         <label for="lesson_starts_at">Starts at</label><br>
@@ -47,7 +50,7 @@
           <option value="21">9pm</option>
           <option value="22">10pm</option>
           <option value="23">11pm</option>
-        </select>
+        </select> (Perth time)
         <input id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00">
       </div>
       <div class="field">
@@ -58,4 +61,17 @@
       </div>
   </form>
 <% end %>
+</div>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
 
