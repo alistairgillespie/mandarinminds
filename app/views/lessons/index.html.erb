@@ -1,6 +1,9 @@
 <% if flash[:notice] %>
     <div id="notice"><%= flash[:notice] %></div>
 <% end %>
+<% if flash[:error] %>
+    <div id="error"><%= flash[:error] %></div>
+<% end %>
 
 <h1>Listing lessons</h1>
 <% if current_user.role_id == 2 %>
@@ -19,7 +22,7 @@
     </thead>
   <% current_user.lessons_to_teach.where(student: nil).order(starts_at: :asc).each do |lesson| %>
   <tr>
-        <td><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
+        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
         <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
         <td><%= link_to 'Show ', lesson %></td>
         <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>

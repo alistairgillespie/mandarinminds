@@ -2,6 +2,8 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
+  
+
   # GET /lessons
   # GET /lessons.json
   def index
@@ -31,10 +33,10 @@ class LessonsController < ApplicationController
     respond_to do |format|
       if @lesson.save
 
-        format.html { redirect_to (lessons_path), notice: 'Lesson was successfully created.' }
+        format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
-        format.html { render :new }
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
@@ -45,10 +47,10 @@ class LessonsController < ApplicationController
   def update
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to @lesson, notice: 'Your lesson has been booked successfully. Check your Dashboard for your upcoming timetable' }
         format.json { render :show, status: :ok, location: @lesson }
       else
-        format.html { render :edit }
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
