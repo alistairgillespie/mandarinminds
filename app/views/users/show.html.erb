@@ -31,6 +31,7 @@
 		
 	<% end %>
 	<p>Your schedule for the next week:</p>
+	<div class="calendar">
 	<%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @userlessons do |date, events| %>
   		
   			<p><%= date.strftime("#{date.day.ordinalize} %b") %></p>
@@ -41,6 +42,7 @@
 		<% end %>
 		
 	<% end %>
+</div>
 				
 </div>
 		

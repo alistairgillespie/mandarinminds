@@ -29,8 +29,15 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
-    
+
+
     respond_to do |format|
+
+      if @lesson.starts_at < Time.now 
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        return
+      end
+
       if @lesson.save
 
         format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
@@ -46,6 +53,12 @@ class LessonsController < ApplicationController
   # PATCH/PUT /lessons/1.json
   def update
     respond_to do |format|
+
+      if @lesson.starts_at < Time.now 
+        redirect_to (lessons_path), :flash => { :error => "That lesson has already passed. Please try a later time"}
+        return
+      end
+
       if @lesson.update(lesson_params)
         format.html { redirect_to @lesson, notice: 'Your lesson has been booked successfully. Check your Dashboard for your upcoming timetable' }
         format.json { render :show, status: :ok, location: @lesson }

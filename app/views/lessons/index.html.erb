@@ -53,7 +53,7 @@
   <% end %>
   </table></br>
   
-  <div id="teacher_calendar">
+  <div id="teacher_calendar" class="calendar">
     <%= render partial: "teachercalendar", locals: {events: @lessons} %>
   </div></br>
 
@@ -61,7 +61,7 @@
   <h2> You are a Student</h2>
   <p>You cannot add new lessons</p>
 
-  <div id="student_calendar">
+  <div id="student_calendar" class="calendar">
     <%= render partial: "studentcalendar", locals: {events: @lessons} %>
   </div></br>
 <%end%>

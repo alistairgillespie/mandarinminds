@@ -1,7 +1,7 @@
 <%= month_calendar events: @lessons do |date, events| %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
-    <p><%= date.strftime("#{date.day.ordinalize}") %></p>
-   
+      <p class="date"><%= date.strftime("#{date.day.ordinalize}") %></p>
+   <div class="contents">
       Current Lessons:</br>
 
       <% events.each do |lesson| %>
@@ -60,6 +60,7 @@
         <input name="commit" type="submit" value="Create Lesson Slot">
       </div>
   </form>
+</div>
 <% end %>
 </div>
 

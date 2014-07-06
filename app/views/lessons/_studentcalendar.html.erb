@@ -1,7 +1,7 @@
 <%= month_calendar events: @lessons do |date, events| %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
-    <p><%= date.strftime("#{date.day.ordinalize}") %></p>
-
+    <p class ="date"><%= date.strftime("#{date.day.ordinalize}") %></p>
+    <div class="contents">
     <% @availablelessons = 0 %>
     <% @bookedlessons = 0 %>
 
@@ -27,4 +27,5 @@
       content_tag(:span, "#{@availablelessons} slot available", :class => "available") :
       content_tag(:span, "#{@availablelessons} slots available", :class => "available") %></br>
     <% end %>
+  </div>
 <% end %>
