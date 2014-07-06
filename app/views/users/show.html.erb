@@ -30,11 +30,12 @@
 		</p>
 		
 	<% end %>
-	<p>Your schedule for the next week:</p>
+	
 	<div class="calendar">
+	<header>Your schedule for the next week:</header>
 	<%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @userlessons do |date, events| %>
   		
-  			<p><%= date.strftime("#{date.day.ordinalize} %b") %></p>
+  			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
  		<% events.each do |lesson| %>
     		<div>
       			<%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %>
