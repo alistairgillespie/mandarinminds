@@ -12,11 +12,13 @@
         <div class="row-fluid" id="login-container">
           <div class="span4 offset4">
             <div class="pad-20 center">
-              <div class="box">
+              <form ng-controller="ctrl" ng-submit="submit()"class="box">
                 <h3>Try Now</h3>
-                <input type="text" id="userid" placeholder="Username" />
+                <div>
+                <input type="text" id="userid" placeholder="Username" ng-model="text" />
                 <br />
-                <a href="#" class="btn btn-large btn-inverse" id="login">Log In</a>
+                <a href="#" type="submit" class="btn btn-large btn-inverse" id="login">Log In</a>
+                </div>
                 <br />
                 <p style="padding-top: 12px;">- or -</p>
                 <span id="signinButton">
@@ -30,7 +32,7 @@
                     data-approvalprompt="force">
                   </span>
                 </span>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -210,8 +212,8 @@
     </div>
     
 <script type="text/html" id="user-item-template">
-      <li class="user" data-user="<%= id %>>">
-      <span class="name"><%= name %>></span>
-      <a href="#" class="btn btn-success" data-user="<%= id %>>">Call</a>
+      <li class="user" data-user="gday">
+      <span class="name">gday</span>
+      <a href="#" class="btn btn-success" data-user="gday">Call</a>
       </li>
     </script>

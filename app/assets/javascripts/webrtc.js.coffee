@@ -43,10 +43,11 @@ $(document).ready () ->
 
   # Login
   # ================
+  
   document.querySelector('#login').addEventListener 'click', (event) ->
     uuid = document.querySelector('#userid').value
     login "guest-#{uuid}"
-
+  
   login = (name) ->
     uuid = name
 
@@ -56,8 +57,8 @@ $(document).ready () ->
         # result.items
 
     window.pubnub = PUBNUB.init
-      publish_key: 'pub-c-7070d569-77ab-48d3-97ca-c0c3f7ab6403'
-      subscribe_key: 'sub-c-49a2a468-ced1-11e2-a5be-02ee2ddab7fe'
+      publish_key: 'pub-c-2cc876f4-503e-4767-a852-2cbcf2dd1f96'
+      subscribe_key: 'sub-c-cc9b915e-fc7a-11e3-bafe-02ee2ddab7fe'
       uuid: name
 
     pubnub.onNewConnection (uuid) ->
