@@ -10,7 +10,11 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+  	if params[:id]
+    	@user = User.find(params[:id])
+    else
+    	@user = current_user
+    end
     @userlessons = @user.lessons_to_attend.where("starts_at > ?", Time.now.advance(:hours => -1)).order(starts_at: :asc)
 
     unless @user == current_user

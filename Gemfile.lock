@@ -192,11 +192,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-<<<<<<< HEAD
   angularjs-rails
   better_errors
   binding_of_caller
-
   bootstrap-sass (~> 3.1.1)
   capybara (~> 2.1.0)
   coffee-rails (~> 4.0.0)

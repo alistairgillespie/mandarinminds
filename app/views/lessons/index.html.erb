@@ -112,9 +112,45 @@
   </tbody>
 </table>
 
-<p><%= link_to 'New Lesson (Students wont see this)', new_lesson_path %></p>
+<li><a data-toggle="modal" data-target="#newlesson">New Lesson</a></li>
 
 
-
-
-
+<div class="modal fade" id="newlesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Lesson</h4>
+      </div>
+      <div class="modal-body">
+		<%= form_for(@lesson) do |f| %>
+		  <% if @lesson.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+		
+		      <ul>
+		      <% @lesson.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+		
+		  <div class="form-group">
+		    <%= f.text_field :student_id, :class => "form-control", placeholder: "Student"  %>
+		  </div>
+		  <div class="form-group">
+		    <%= f.text_field :teacher_id, :class => "form-control", placeholder: "Teacher"  %>
+		  </div>
+		  <div class="form-group">
+		    <%= f.label :starts_at %><br>
+		    <%= f.datetime_select :starts_at %>
+		  </div>
+		  <div class="form-group">
+		    <%= f.submit 'Submit', :class => "btn btn-primary btn-lg" %>
+		  </div>
+		<% end %>
+      </div>
+    </div>
+  </div>
+</div>

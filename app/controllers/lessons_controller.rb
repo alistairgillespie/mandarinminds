@@ -8,6 +8,7 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @lessons = Lesson.all
+    @lesson = Lesson.new
   end
 
   # GET /lessons/1

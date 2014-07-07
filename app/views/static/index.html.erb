@@ -14,27 +14,5 @@
 <% end %>
 
 
-<h2>Sign in</h2>
 
-<%= form_for(resource, as: resource_name, :html => {:class => 'form-inline'},url: session_path(resource_name)) do |f| %>
-	<div class="form-group">
-		<%= f.label :email, :class => "sr-only" %>
-		<%= f.email_field :email, :class => "form-control",autofocus: true %>
-	</div>
 
-  	<div class="form-group">
-  		<%= f.label :password, :class => "sr-only" %>
-  		<%= f.password_field :password, :class => "form-control", autocomplete: "off" %>
-    </div>
-
-  <!-- <% if devise_mapping.rememberable? -%>
-   <div class="checkbox">
-    <label>
-	<%= f.check_box :remember_me %> <%= f.label :remember_me %>
-    </label>
-  </div>
-  <% end -%>
-  -->
-<%= f.submit "Sign in", :class => "btn btn-default" %>
-  
-<% end %>

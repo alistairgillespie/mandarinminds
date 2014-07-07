@@ -123,6 +123,7 @@ h1 {
 	border: 0px;
 	min-height: 60px;
 	border-bottom: 3px solid #890f0f;
+	
 	.navbar-nav > li > a {
     	color: white;
     	font-size: 16px;
@@ -131,6 +132,7 @@ h1 {
 		font-weight: 500;
 		padding-bottom: 7px;
 		padding-top: 30px;
+		cursor: pointer;
 	}
 }
 
@@ -185,6 +187,111 @@ h1 {
     color: white;
 }
 
+//Sign in modal
+
+#signin {
+	.modal-dialog {
+		width: 350px;
+		
+		.modal-content {
+			background: white;
+			
+			.modal-header {
+				border: none;
+				padding: 15px 15px 0 15px;
+				
+				h4 {
+					font-size: 24px;
+				}
+			}
+			
+			.modal-body {
+				.form-group {
+					margin-top: 10px;
+					
+					a {
+						color: #93192C;
+						text-decoration: none;
+						
+						&:hover {
+							color: #890f0f;
+						}
+					}
+
+					.form-control {
+						height: 45px;
+						&:focus {
+							border: 2px solid #93192C;
+							box-shadow: none;
+						}
+						
+					}
+					
+					input {
+						background: #c6ccd2;	
+					}
+					
+					input:focus {
+						background: white;
+					}
+				}
+			}
+		}
+	}
+}
+
+//New lesson modal
+#newlesson {
+	.modal-dialog {
+		width: 350px;
+		
+		.modal-content {
+			background: white;
+			
+			.modal-header {
+				border: none;
+				padding: 15px 15px 0 15px;
+				
+				h4 {
+					font-size: 24px;
+				}
+			}
+			
+			.modal-body {
+				.form-group {
+					margin-top: 10px;
+					
+					a {
+						color: #93192C;
+						text-decoration: none;
+						
+						&:hover {
+							color: #890f0f;
+						}
+					}
+
+					.form-control {
+						height: 45px;
+						&:focus {
+							border: 2px solid #93192C;
+							box-shadow: none;
+						}
+						
+					}
+					
+					input {
+						background: #c6ccd2;	
+					}
+					
+					input:focus {
+						background: white;
+					}
+				}
+			}
+		}
+	}
+}
+
 
 //Jumbotron Styling
 .jumbotron {
@@ -225,7 +332,7 @@ h1 {
 
 .btn-primary {
 	color: white !important;
-	background-color: #93192C;
+	background-color: #93192C !important;
 	border-radius: 5px;
 	border: 0px;
 	border-bottom: 3px solid #890f0f;
@@ -243,7 +350,7 @@ h1 {
 
 .btn-grey {
 	color: white !important;
-	background-color: #c6ccd2;
+	background-color: #c6ccd2 !important;
 	border: 0px;
 	border-bottom: 3px solid;
 	border-color: #aab3bb;
