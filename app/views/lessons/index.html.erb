@@ -10,46 +10,55 @@
 <h2> You are a Teacher</h2>
 <p><%= link_to 'New Lesson', new_lesson_path %></p>
 
-<div class="row">
+<div class="row lesson-list">
   <div class="col-md-6">
     <p>Your Confirmed Lessons:</p>
 
-    <strong>Unbooked</strong>
-    <table>
+    <header>Unbooked</header>
+    <table class="lesson-list">
       <thead>
-        <tr>
-          <th>Date</th>
-          <th>Start Time</th>
+        <tr class = "row">
+          <th class="col-md-2">Date</th>
+          <th class="col-md-2">Start</th>
+          <th class="col-md-5"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+
         </tr>
       </thead>
       <% current_user.lessons_to_teach.where(student: nil, confirmed: true).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="row">
+        <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
+        <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+        <td class="col-md-5"></td>
+        <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+        <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+        <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
     </table></br>
-    <strong>Booked</strong>
-    <table>
+    <header>Booked</header>
+    <table class="lesson-list">
       <thead>
-        <tr>
-          <th>Date </th>
-          <th>Start Time </th>
-          <th>Student </th>
+        <tr class = "row">
+          <th class="col-md-2">Date</th>
+          <th class="col-md-2">Start</th>
+          <th class="col-md-5">Student</th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
 
         </tr>
       </thead>
       <% current_user.lessons_to_teach.where.not(student: nil).where(confirmed: true).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= "#{lesson.student.firstname} " + "#{lesson.student.lastname}" %></td>
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="row">
+        <td class="col-md-2"><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
+        <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+        <td class="col-md-5"><%= "#{lesson.student.firstname} " + "#{lesson.student.lastname}" %></td>
+        <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+        <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+        <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
     </table>
@@ -57,110 +66,121 @@
   <div class="col-md-6">
     <p>Lesson Requests:</p>
 
-    <strong>Specific to You:</strong>
-    <table>
+    <header>Specific to You</header>
+    <table class="lesson-list">
       <thead>
-        <tr>
-          <th>Student</th>
-          <th>Date</th>
-          <th>Start Time</th>
+        <tr class="row">
+          <th class="col-md-2">Date</th>
+          <th class="col-md-2">Start</th>
+          <th class="col-md-4">Student</th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
         </tr>
       </thead>
       <% current_user.lessons_to_teach.where(confirmed: false).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%=  lesson.student.nil?  ? "" : "#{lesson.student.firstname} " + "#{lesson.student.lastname}"  %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= link_to "Confirm", confirm_lesson_path(lesson)%></td>
-
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="row">        
+        <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
+        <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+        <td class="col-md-4"><%=  lesson.student.nil?  ? "" : "#{lesson.student.firstname} " + "#{lesson.student.lastname}"  %></td>
+        <td class="col-md-1"><%= link_to "Confirm", confirm_lesson_path(lesson)%></td>
+        <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+        <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+        <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
       <% end %>
     </table></br>
-    <strong>General Requests</strong>
-    <table>
+    <header>General Requests</header>
+    <table class="lesson-list">
       <thead>
-        <tr>
-          <th>Student</th>
-          <th>Date</th>
-          <th>Start Time</th>
+        <tr class="row">
+          <th class="col-md-2">Date</th>
+          <th class="col-md-2">Start</th>
+          <th class="col-md-4">Student</th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+        </tr>      </thead>
+        <% @lessons.where(confirmed: false, teacher: nil).order(starts_at: :asc).each do |lesson| %>
+        <tr class="row">        
+          <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
+          <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+          <td class="col-md-4"><%=  lesson.student.nil?  ? "" : "#{lesson.student.firstname} " + "#{lesson.student.lastname}"  %></td>
+          <td class="col-md-1"><%= link_to "Confirm", confirm_lesson_path(lesson)%></td>
+          <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+          <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+          <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      </thead>
-      <% @lessons.where(confirmed: false, teacher: nil).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%= lesson.student.nil?  ? "-" : "#{lesson.student.firstname} " + "#{lesson.student.lastname}" %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= link_to "Confirm", confirm_lesson_path(lesson)%></td>
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <% end %>
+      </table>
+    </div>
+  </div></br>
 
-      <% end %>
-    </table>
+  <div id="teacher_calendar" class="calendar">
+    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
+  </div></br>
+
+  <% else %>
+  <h2> You are a Student</h2>
+
+  <div class="row lesson-list">
+    <div class="col-md-6">
+      <header>Your Confirmed Lessons:</header>
+
+      <table class="lesson-list">
+        <thead>
+          <tr class = "row">
+            <th class="col-md-2">Date</th>
+            <th class="col-md-2">Start</th>
+            <th class="col-md-5">Teacher</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+
+          </tr>
+        </thead>
+        <% current_user.lessons_to_attend.where(confirmed: true).order(starts_at: :asc).each do |lesson| %>
+        <tr class="row">
+          <td class="col-md-2"><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
+          <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+          <td class="col-md-5"><%= "#{lesson.teacher.firstname} " + "#{lesson.teacher.lastname}" %></td>
+          <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+          <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+          <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <header>Your Requested Lessons:</header>
+      <table class="lesson-list">
+        <thead>
+          <tr class = "row">
+            <th class="col-md-2">Date</th>
+            <th class="col-md-2">Start</th>
+            <th class="col-md-5">Teacher</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+
+          </tr>
+        </thead>
+        <% current_user.lessons_to_attend.where(confirmed: false).order(starts_at: :asc).each do |lesson| %>
+        <tr class="row">
+          <td class="col-md-2"><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
+          <td class="col-md-2"><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
+          <td class="col-md-5"><%= lesson.teacher.nil? ? "-" : "#{lesson.teacher.firstname} " + "#{lesson.teacher.lastname}" %></td>
+          <td class="col-md-1"><%= link_to 'Show ', lesson %></td>
+          <td class="col-md-1"><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
+          <td class="col-md-1"><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
   </div>
-</div></br>
-
-<div id="teacher_calendar" class="calendar">
-  <%= render partial: "teachercalendar", locals: {events: @lessons} %>
-</div></br>
-
-<% else %>
-<h2> You are a Student</h2>
-
-<div class="row">
-  <div class="col-md-6">
-    <p>Your Confirmed Lessons:</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Date </th>
-          <th>Start Time </th>
-          <th>Teacher </th>
-        </tr>
-      </thead>
-      <% current_user.lessons_to_attend.where(confirmed: true).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= "#{lesson.teacher.firstname} " + "#{lesson.teacher.lastname}" %></td>
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="col-md-6">
-    <p>Your Requested Lessons:</p>
-      <table>
-      <thead>
-        <tr>
-          <th>Date </th>
-          <th>Start Time </th>
-          <th>Teacher </th>
-
-        </tr>
-      </thead>
-      <% current_user.lessons_to_attend.where(confirmed: false).order(starts_at: :asc).each do |lesson| %>
-      <tr>
-        <td><%= lesson.starts_at.strftime("%d/%m/%y") %></td>
-        <td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")%></td>
-        <td><%= lesson.teacher.nil? ? "No preference" : "#{lesson.teacher.firstname} " + "#{lesson.teacher.lastname}" %></td>
-        <td><%= link_to 'Show ', lesson %></td>
-        <td><%= link_to 'Edit ', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <% end %>
-    </table>
-
-      </div>
-</div>
 </br>
 
 <div id="student_calendar" class="calendar">
