@@ -21,6 +21,12 @@
 <!--/<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li> -->
 <li>
   <div class="dropdown dropdown-menu-right">
+    <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-calendar"></span>
+</button>
+    <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-bullhorn"></span>
+</button>
   	<button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
   	<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> <span class="caret"></span>
   	</button>
@@ -28,7 +34,7 @@
   		<li role="presentation"><%= link_to 'Dashboard', current_user, :class => 'navbar-link' %></li>
 	    <li role="presentation"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
 	    <li role="presentation"><%= link_to "Sign out", destroy_user_session_path, :class => 'navbar-link', :method => :delete %></li>
-	</ul>
+	   </ul>
   </div>
 </li>
 <li></li> 

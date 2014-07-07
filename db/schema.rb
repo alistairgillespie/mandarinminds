@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704074443) do
+ActiveRecord::Schema.define(version: 20140707012721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,25 @@ ActiveRecord::Schema.define(version: 20140704074443) do
     t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "confirmed",  default: false
   end
 
   add_index "lessons", ["student_id", "starts_at"], name: "index_lessons_on_student_id_and_starts_at", unique: true, using: :btree
   add_index "lessons", ["student_id"], name: "index_lessons_on_student_id", using: :btree
   add_index "lessons", ["teacher_id", "starts_at"], name: "index_lessons_on_teacher_id_and_starts_at", unique: true, using: :btree
   add_index "lessons", ["teacher_id"], name: "index_lessons_on_teacher_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.string   "image"
+    t.string   "string"
+    t.text     "content"
+    t.boolean  "dismissed",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
