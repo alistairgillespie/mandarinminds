@@ -41,6 +41,11 @@ class LessonsController < ApplicationController
 
       if @lesson.save
 
+        unless @lesson.confirmed
+          redirect_to (lessons_path), notice: 'Your lesson request has been received successfully'          
+          return
+        end
+
         format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
@@ -70,6 +75,13 @@ class LessonsController < ApplicationController
     end
   end
 
+  def confirm
+    @lesson = Lesson.find(params[:id])
+    @lesson.confirmed = true
+    @lesson.save!
+    redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
+  end
+
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
@@ -88,6 +100,6 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:student_id, :teacher_id, :starts_at)
+      params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :confirmed)
     end
 end

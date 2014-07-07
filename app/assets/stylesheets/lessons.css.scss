@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.lesson-list{
+	table{
+		background-color: #E3AFAF;
+		width: 100%;
+	}
+
+	tr{
+	width: 100%;
+	}
+
+	header{
+		text-align: center;
+		background-color: #890f0f;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+		}
+}
 
 span.booked {
 	color: crimson;

@@ -15,11 +15,12 @@ Rails.application.routes.draw do
   end
     
   match 'users/:id' => 'users#show', as: :user, via: :get
+  get 'lessons/:id/confirm' => 'lessons#confirm', :as => "confirm_lesson"
 
+  # Add static pages here. 
+  # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
   get "/pricing" => "static#about"
   get "/about" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   
-  
-end
