@@ -15,6 +15,89 @@
  */
  
 @import "bootstrap";
+
+// Calendar Styling
+.calendar{
+
+	table{
+		width: 100%;
+		background-image: url('/assets/table-background.png');
+		background-repeat: repeat;
+		border-spacing: 10px;
+    	border-collapse: separate;
+
+	}	
+
+	.date{font-weight: bold;}
+
+	td.next-month{
+	
+		background-color: #544949;
+
+		.date{color: #7A7373;}
+		.contents{display: none;}
+	}
+
+	td.prev-month{
+	
+		background-color: #544949;
+
+		.date{color: #7A7373;}
+		.contents{display: none;}
+	}
+	
+	
+	tr{
+		width: 100%;
+		}
+
+	tbody{
+		tr{
+			height: 150px
+		}
+		td{
+			border: solid 1px #8C1212;
+			border-radius: 0 0 20px 0;
+			overflow: auto;
+			vertical-align: top;
+			padding: 5px;
+		}
+	}
+
+
+	
+
+	.day {
+		width: 14.29%;
+		background-color: white;
+		border-spacing: 10px;
+    	border-collapse: separate;
+		
+	}
+
+	header{
+		text-align: center;
+		background-color: #890f0f;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+
+		a {
+			color: white;
+		}
+	}
+
+	th {
+		background-color: #f5f5f5;
+		text-align: center;
+		width: 14.29%;
+	}
+
+	.today {
+		background: gold;
+	}
+}
+// End Calendar Styling
  
 body {
  padding-top:50px;
@@ -102,22 +185,6 @@ h1 {
     color: white;
 }
 
-.profile-calendar-div {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.profile-calendar-box {
-	border: 1px solid black;
-	height: 100px;
-	width: 12%;
-	margin-top: 10px;
-
-}
-
-.profile-calendar-box.today {
-		background-color: yellow;
-	}
 
 //Jumbotron Styling
 .jumbotron {
