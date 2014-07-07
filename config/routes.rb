@@ -23,4 +23,4 @@ Rails.application.routes.draw do
   get "/pricing" => "static#about"
   get "/about" => "static#pricing"
   get "/chatroom" => "static#chatroom"
-  
+  end
