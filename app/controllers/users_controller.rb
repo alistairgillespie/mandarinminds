@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     else
     	@user = current_user
     end
-    @userlessons = @user.lessons_to_attend.where("starts_at > ?", Time.now.advance(:hours => -1)).order(starts_at: :asc)
+
+    @userlessons = @user.lessons_to_attend.where("confirmed = true").where("starts_at > ?", Time.now.advance(:hours => -1)).order(starts_at: :asc)
 
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."

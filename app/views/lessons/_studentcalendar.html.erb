@@ -27,5 +27,78 @@
       content_tag(:span, "#{@availablelessons} slot available", :class => "available") :
       content_tag(:span, "#{@availablelessons} slots available", :class => "available") %></br>
     <% end %>
+
+    <div style="padding-bottom: 5px" class="form wrapper">
+<button type="button" style="padding: 0px 5px" class="btn btn-default" onclick="toggle_visibility('<%= @formatteddate.to_s%>');">Request a Lesson</button></br>
+     
+
+<form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post" style="display:none">
+  
+  <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+
+  <div class="field">
+        <label for="lesson_starts_at">Starts at</label><br>
+        <input id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>">
+        <input id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>">
+        <input id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>">
+        <select id="lesson_starts_at_4i" name="lesson[starts_at(4i)]">
+          <option value="00">Midnight</option>
+          <option value="01">1am</option>
+          <option value="02">2am</option>
+          <option value="03">3am</option>
+          <option value="04">4am</option>
+          <option value="05">5am</option>
+          <option value="06">6am</option>
+          <option value="07">7am</option>
+          <option value="08">8am</option>
+          <option selected="selected" value="09">9am</option>
+          <option value="10">10am</option>
+          <option value="11">11am</option>
+          <option value="12">12pm</option>
+          <option value="13">1pm</option>
+          <option value="14">2pm</option>
+          <option value="15">3pm</option>
+          <option value="16">4pm</option>
+          <option value="17">5pm</option>
+          <option value="18">6pm</option>
+          <option value="19">7pm</option>
+          <option value="20">8pm</option>
+          <option value="21">9pm</option>
+          <option value="22">10pm</option>
+          <option value="23">11pm</option>
+        </select></br> (Perth time)
+        <input id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00">
+      </div>
+      <div class="field">
+        <input id="lesson_student_id" name="lesson[student_id]" type="hidden" value="<%=current_user.id%>">
+        <select id="lesson_teacher_id" name="lesson[teacher_id]">
+          <option value=""><%= "No Teacher Preference" %></option>
+          <option disabled="disabled">----</option>
+          <% @teachers = User.all.where("role_id = 2") %>
+          <%= @teachers.each do |teacher| %>
+          <option value="<%= teacher.id %>"><%= "#{teacher.firstname} #{teacher.lastname}" %></option>
+          <% end %>
+          </select>
+      </div>  
+
+      <input id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="false">
+
+      <div class="actions">
+        <input name="commit" type="submit" value="Request Lesson">
+      </div>
+  </form>
+</div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>

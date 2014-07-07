@@ -37,6 +37,7 @@
   		
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
  		<% events.each do |lesson| %>
+ 		
     		<div>
       			<%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %>
     		</div>
