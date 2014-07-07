@@ -112,7 +112,7 @@ a:hover, a:focus {
 //Typography
 
 h1 {
-	font-family: "museo",sans-serif;
+	font-family: "proxima-nova",sans-serif;
 	font-style: normal;
 	font-weight: 400;
 }
@@ -127,9 +127,9 @@ h1 {
 	.navbar-nav > li > a {
     	color: white;
     	font-size: 16px;
-    	font-family: "museo",sans-serif;
+    	font-family: "proxima-nova",sans-serif;
 		font-style: normal;
-		font-weight: 500;
+		font-weight: 400;
 		padding-bottom: 7px;
 		padding-top: 30px;
 		cursor: pointer;
@@ -305,7 +305,7 @@ h1 {
     
     h1 {
 	    color: white;
-	    font-family: "museo",sans-serif;
+	    font-family: "proxima-nova",sans-serif;
 		font-style: normal;
 		font-weight: 400;
 		font-size: 55px;
@@ -316,12 +316,12 @@ h1 {
     }
     
     p {
-	    color: rgba(255, 255, 255, 0.9);
-	    line-height: 1.5;
-	    font-size: 22px;
-	    font-family: "museo",sans-serif;
+		color: rgba(255, 255, 255, 0.9);
+		line-height: 1.5;
+		font-size: 22px;
+		font-family: "proxima-nova",sans-serif;
 		font-style: normal;
-		font-weight: 100;
+		font-weight: 400;
 		width: 400px;
     }
     
