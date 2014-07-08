@@ -19,6 +19,7 @@
 // Calendar Styling
 .calendar{
 
+
 	table{
 		width: 100%;
 		//background-image: url('/assets/table-background.png');
@@ -36,7 +37,7 @@
 
 	td.next-month{
 	
-		background-color: #544949;
+		background-color: #C9B9B9;
 
 		.date{color: #7A7373;}
 		.contents{display: none;}
@@ -44,7 +45,7 @@
 
 	td.prev-month{
 	
-		background-color: #544949;
+		background-color: #C9B9B9;
 
 		.date{color: #7A7373;}
 		.contents{display: none;}
@@ -83,7 +84,6 @@
 	
 
 	.day {
-		width: 14.29%;
 		background-color: white;
 		border-spacing: 10px;
     	border-collapse: separate;
@@ -287,13 +287,13 @@ h2 {
 //New lesson modal
 #newlesson {
 	.modal-dialog {
-		width: 350px;
+		width: 250px;
 		
 		.modal-content {
 			background: white;
 			
 			.modal-header {
-				border: none;
+				border-bottom: 1px solid #890f0f;
 				padding: 15px 15px 0 15px;
 				
 				h4 {
