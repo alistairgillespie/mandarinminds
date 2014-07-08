@@ -2,39 +2,32 @@
 <% @formatteddate = date.strftime('%Y-%m-%d') %>
 <p class="date"><%= date.strftime("#{date.day.ordinalize}") %></p>
 <div class="contents">
-  Current Lessons:</br>
-
+  <% @confirmed = 0 %>
+  <% @unconfirmed = 0 %>
 
   <% events.each do |lesson| %>
-  <div>
-    <% if lesson.teacher == current_user %>
-    <% if lesson.confirmed %>
-    <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> 
-    <%= lesson.student.nil? ? " (Unbooked)" : " (Booked)" %></br>
-    <% else %>
-    <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (Specific Request)
-    <% end %>
-    <% elsif lesson.teacher.nil? %>
-    <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (General Request)
-    <% end %>
-  </div>
+    <% lesson.confirmed ? @confirmed += 1 : @unconfirmed += 1 %>
   <% end %>
+    <div class="row">
+    <div class="col-md-6 confirmed">Conf.</br><strong><%=@confirmed%></strong></div>
+    <div class="col-md-6 unconfirmed">Unconf.</br><strong><%=@unconfirmed%></strong></div>
+    </div>
 
-
-  <button data-toggle="modal" data-target= '#<%=@formatteddate%>'>New Lesson</button>
+  <button data-toggle="modal" data-target= '#addlesson<%=@formatteddate%>'>New Lesson Slot</button></br>
+  <button data-toggle="modal" data-target= '#viewlessons<%=@formatteddate%>'>View Lessons</button>
 
   <div id="newlesson">
-  <div class="modal fade" id= '<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-          </button>
-          <h3 class="modal-title" id="myModalLabel">New Lesson Slot</h3>
-        </div>
-        <div class="modal-body">
-          <p><strong style="text-align:center"> <%=@formatteddate%> </strong></p>
+    <div class="modal fade" id= 'addlesson<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel">New Lesson Slot</h3>
+          </div>
+          <div class="modal-body">
+            <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
             <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='<%= @formatteddate.to_s%>' method="post">
               <div class="form-group" style="display:none">
                 <input class="form-control" name="utf8" type="hidden" value="✓">
@@ -67,21 +60,55 @@
                   <option value="22">10pm</option>
                   <option value="23">11pm</option>
                 </select>
-                </div>
-                <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
-                <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
-                <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
-                                <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
-                <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
-                <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
-              </br>
-                <button class="btn btn-default" name="commit" type="submit">Create Lesson Slot</button>
-            </form>     
-                
+              </div>
+              <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
+              <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
+              <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
+              <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
+              <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
+              <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
+            </br>
+            <button class="btn btn-default" name="commit" type="submit">Create Lesson Slot</button>
+          </form>     
+
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id= 'viewlessons<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel">Current Lessons</h3>
+          </div>
+          <div class="modal-body">
+            <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
+
+            <% events.each do |lesson| %>
+              <div>
+                <% if lesson.teacher == current_user %>
+                <% if lesson.confirmed %>
+                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> 
+                <%= lesson.student.nil? ? " (Unbooked)" : " (Booked)" %></br>
+                <% else %>
+                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (Specific Request)
+                <% end %>
+                <% elsif lesson.teacher.nil? %>
+                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (General Request)
+                <% end %>
+              </div>
+            <% end %>
+                
+          
+          </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 </div>
 <% end %>

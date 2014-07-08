@@ -9,8 +9,11 @@
 <% if current_user.role_id == 2 %>
 <h2> You are a Teacher</h2>
 <p><%= link_to 'New Lesson', new_lesson_path %></p>
+  <div id="teacher_calendar" class="calendar">
+    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
+  </div>
 
-<div class="row lesson-list">
+  <div class="row lesson-list">
   <div class="col-md-6">
     <p>Your Confirmed Lessons:</p>
 
@@ -118,16 +121,15 @@
       </table>
     </div>
   </div>
-</br>
-
-  <div id="teacher_calendar" class="calendar">
-    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
-  </div>
 
   <% else %>
   <h2> You are a Student</h2>
 
-  <div class="row lesson-list">
+<div id="student_calendar" class="calendar">
+  <%= render partial: "studentcalendar", locals: {events: @lessons} %>
+</div>
+
+<div class="row lesson-list">
     <div class="col-md-6">
       <header>Your Confirmed Lessons:</header>
 
@@ -182,12 +184,6 @@
       </table>
     </div>
   </div>
-</br>
-
-<div id="student_calendar" class="calendar">
-  <%= render partial: "studentcalendar", locals: {events: @lessons} %>
-</div>
-</br>
 <% end %>
 
 <table>
