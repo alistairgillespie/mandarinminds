@@ -5,7 +5,8 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script async src="//use.typekit.com/kqu8wnu.js"></script>
+  <script type="text/javascript" src="//use.typekit.net/kqu8wnu.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
@@ -18,21 +19,22 @@
 <% end %>
 
 
-      <!-- Example row of columns -->
-      <%= render  "static/jumbotron"  if controller_name == "static" && action_name == "index"  %>
+<!-- Jumbotron for landing page -->
+<%= render  "static/jumbotron"  if controller_name == "static" && action_name == "index"  %>
 
-
-<!--
-<div class="container">
-<div class="row">
--->
+<!-- Dashboard layout when signed in -->
 <% if user_signed_in? %>
 	<%= render 'layouts/user_sidenav' %>
 <% end %>
+
+
+<!-- Container for static pages -->
+<%= render  "static/container"  if controller_name == "static"%>
 <%= yield %>
-<!--
+<% if controller_name == "static" %>
+	</div>
 </div>
-</div>
--->
+<% end %>
+
 </body>
 </html>
