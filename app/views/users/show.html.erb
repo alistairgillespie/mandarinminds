@@ -1,10 +1,16 @@
 <!-- <p id="notice"><%= notice %></p> -->
 		
-			<div class="row">
-				<div class="col-sm-3"><%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %> </div>
-				<div class="col-sm-9"><h1>Welcome</h1>
-					<h2><%= @user.email %></h2><br>
-					The current time in Perth, Western Australia is <%= Time.now.in_time_zone("Perth").strftime("%I:%M:%S") %></div>
+			<div class="profile-pic row">
+				<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+				<!--<div class="col-sm-9">
+					The current time in Perth, Western Australia is <%= Time.now.in_time_zone("Perth").strftime("%I:%M:%S") %></div>-->
+					
+				<div class="progress">
+				  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+					  <span class="sr-only">80% Complete (danger)</span>
+				  </div>
+				</div>	
+					
 			</div>
 
 
@@ -32,10 +38,11 @@
 	<% end %>
 	
 	<div class="calendar">
-	<header>Your schedule for the next week:</header>
+	<header>Lessons for the week ahead</header>
 	<%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @userlessons do |date, events| %>
-  		
+  		<div class="inner">
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
+  		</div>
  		<% events.each do |lesson| %>
  		
     		<div>
