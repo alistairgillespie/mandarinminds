@@ -21,8 +21,9 @@
   <% end %>
 
 
-  <a data-toggle="modal" data-target= '#<%=@formatteddate%>'>New Lesson</a>
+  <button data-toggle="modal" data-target= '#<%=@formatteddate%>'>New Lesson</button>
 
+  <div id="newlesson">
   <div class="modal fade" id= '<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -30,65 +31,58 @@
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel">New Lesson Slot</h4>
+          <h3 class="modal-title" id="myModalLabel">New Lesson Slot</h3>
         </div>
         <div class="modal-body">
-          <form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post">
-
-            <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
-
-            <div class="field">
-              <label for="lesson_starts_at">Starts at</label><br>
-              <input id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
-              <input id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
-              <input id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
-              <select id="lesson_starts_at_4i" name="lesson[starts_at(4i)]">
-                <option value="00">Midnight</option>
-                <option value="01">1am</option>
-                <option value="02">2am</option>
-                <option value="03">3am</option>
-                <option value="04">4am</option>
-                <option value="05">5am</option>
-                <option value="06">6am</option>
-                <option value="07">7am</option>
-                <option value="08">8am</option>
-                <option selected="selected" value="09">9am</option>
-                <option value="10">10am</option>
-                <option value="11">11am</option>
-                <option value="12">12pm</option>
-                <option value="13">1pm</option>
-                <option value="14">2pm</option>
-                <option value="15">3pm</option>
-                <option value="16">4pm</option>
-                <option value="17">5pm</option>
-                <option value="18">6pm</option>
-                <option value="19">7pm</option>
-                <option value="20">8pm</option>
-                <option value="21">9pm</option>
-                <option value="22">10pm</option>
-                <option value="23">11pm</option>
-              </select></br> (Perth time)
-              <input id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
-            </div>
-            <div class="field">
-              <input id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
-              <input id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
-            </div>      
-            <div class="actions">
-              <input name="commit" type="submit" value="Create Lesson Slot"/>
-            </div>
-          </form>           
+          <p><strong style="text-align:center"> <%=@formatteddate%> </strong></p>
+            <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='<%= @formatteddate.to_s%>' method="post">
+              <div class="form-group" style="display:none">
+                <input class="form-control" name="utf8" type="hidden" value="✓">
+              </div>
+              <div>
+                <label for="lesson_starts_at">Starts at: </label>
+                <select class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]">
+                  <option value="00">Midnight</option>
+                  <option value="01">1am</option>
+                  <option value="02">2am</option>
+                  <option value="03">3am</option>
+                  <option value="04">4am</option>
+                  <option value="05">5am</option>
+                  <option value="06">6am</option>
+                  <option value="07">7am</option>
+                  <option value="08">8am</option>
+                  <option selected="selected" value="09">9am</option>
+                  <option value="10">10am</option>
+                  <option value="11">11am</option>
+                  <option value="12">12pm</option>
+                  <option value="13">1pm</option>
+                  <option value="14">2pm</option>
+                  <option value="15">3pm</option>
+                  <option value="16">4pm</option>
+                  <option value="17">5pm</option>
+                  <option value="18">6pm</option>
+                  <option value="19">7pm</option>
+                  <option value="20">8pm</option>
+                  <option value="21">9pm</option>
+                  <option value="22">10pm</option>
+                  <option value="23">11pm</option>
+                </select>
+                </div>
+                <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
+                <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
+                <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
+                                <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
+                <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
+                <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
+              </br>
+                <button class="btn btn-default" name="commit" type="submit">Create Lesson Slot</button>
+            </form>     
+                
         </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
+</div>
 </div>
 <% end %>
 
