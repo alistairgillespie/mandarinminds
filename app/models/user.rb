@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :lessons_to_attend, :class_name => 'Lesson', :foreign_key => 'student_id'
   has_many :lessons_to_teach, :class_name => 'Lesson', :foreign_key => 'teacher_id'
+  has_many :notifications, :class_name => 'Notification', :foreign_key => 'user_id'
   
   #Roles an default role setup
   belongs_to :role
