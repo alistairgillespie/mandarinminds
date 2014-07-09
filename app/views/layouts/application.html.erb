@@ -22,6 +22,9 @@
 <!-- Jumbotron for landing page -->
 <%= render  "static/jumbotron"  if controller_name == "static" && action_name == "index"  %>
 
+<!-- Jumbotron for about page -->
+<%= render  "static/jumbotronabout"  if controller_name == "static" && action_name == "about"  %>
+
 <!-- Dashboard layout when signed in -->
 <% if user_signed_in? %>
 	<%= render 'layouts/user_sidenav' %>
@@ -29,11 +32,11 @@
 
 
 <!-- Container for static pages -->
-<%= render  "static/container"  if controller_name == "static"%>
+<!--<%= render  "static/container"  if controller_name == "static"%>-->
 <%= yield %>
-<% if controller_name == "static" %>
+<!--<% if controller_name == "static" %>
 	</div>
-</div>
+</div>-->
 <% end %>
 <%= render  "static/footer"  if controller_name == "static"%>
 </body>

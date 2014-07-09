@@ -39,7 +39,7 @@
 </li>
 <li></li> 
 <% else %>
-<li><%= link_to "Sign up", new_user_registration_path %></li>
+<li><a data-toggle="modal" data-target="#signup">Sign up</a></li>
 <li><a data-toggle="modal" data-target="#signin">Sign in</a></li>
 </li>
 
@@ -69,6 +69,33 @@
 		  <div class="form-group">
 			  <%= f.submit 'Sign in', :class => "btn btn-primary btn-lg" %>
 			  <%= link_to "I forgot my password", new_password_path(:user) %>
+		  </div>
+		<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+		  <div class="form-group">
+			  <%= f.email_field :email, :class => "form-control", autofocus: true, placeholder: "Email" %>
+		  </div>
+		  <div class="form-group">
+			  <%= f.password_field :password, :class => "form-control",autocomplete: "off", placeholder: "Password" %>
+		  </div>
+		  <div class="form-group">
+		  	  <%= f.password_field :password_confirmation, :class => "form-control",autocomplete: "off", placeholder: "Confirm Password" %>
+		  </div>
+		  <div class="form-group">
+			  <%= f.submit 'Sign up', :class => "btn btn-primary btn-lg" %>
 		  </div>
 		<% end %>
       </div>

@@ -335,6 +335,57 @@ h2 {
 	}
 }
 
+#signup {
+	.modal-dialog {
+		width: 350px;
+		
+		.modal-content {
+			background: white;
+			
+			.modal-header {
+				border: none;
+				padding: 15px 15px 0 15px;
+				
+				h4 {
+					font-size: 24px;
+				}
+			}
+			
+			.modal-body {
+				.form-group {
+					margin-top: 10px;
+					
+					a {
+						color: #93192C;
+						text-decoration: none;
+						
+						&:hover {
+							color: #890f0f;
+						}
+					}
+
+					.form-control {
+						height: 45px;
+						&:focus {
+							border: 2px solid #93192C;
+							box-shadow: none;
+						}
+						
+					}
+					
+					input {
+						background: #c6ccd2;	
+					}
+					
+					input:focus {
+						background: white;
+					}
+				}
+			}
+		}
+	}
+}
+
 //New lesson modal
 #newlesson {
 	.modal-dialog {
@@ -388,10 +439,11 @@ h2 {
 }
 
 
-//Jumbotron Styling
+//Landing Page Styling
+
 .landing.jumbotron {
 	margin-top: -50px;
-	background-image: url('/assets/front-bg2.jpg');
+	background-image: url('/assets/samplebg.jpg');
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
@@ -407,18 +459,18 @@ h2 {
 		font-size: 55px;
 		line-height: 1.5;
 		width: 480px;
-		margin-bottom: 50px;
+		margin-bottom: 30px;
 		
     }
     
     p {
 		color: rgba(255, 255, 255, 0.9);
 		line-height: 1.5;
-		font-size: 22px;
+		font-size: 27px;
 		font-family: "proxima-nova",sans-serif;
 		font-style: normal;
-		font-weight: 400;
-		width: 400px;
+		font-weight: 100;
+		width: 500px;
     }
     
     
@@ -434,11 +486,122 @@ h2 {
 	}
 }
 
+
+.features.jumbotron {
+	border-radius: none;
+	background: transparent;
+	
+	.service {
+		margin-top: 30px;
+		
+		.icon {
+			.action {
+				width: 260px !important;
+				height: auto;
+			}
+		}
+		
+		.descriptor {
+			.lead {
+				color: #8c989e;
+			}
+		}
+	}
+	
+	.quality {
+		a {
+			color: #214387;
+			
+			&:hover {
+				text-decoration: none;
+				color: #214387;
+			}
+		}
+	}
+	
+	.flexibility {
+		a {
+			color: #dda554;
+			
+			&:hover {
+				text-decoration: none;
+				color: #dda554;
+			}
+		}
+		
+		
+	}
+}
+
 p.lead {
 	line-height: 1.5;
 	font-family: "proxima-nova",sans-serif;
 	font-style: normal;
 	font-weight: 100;
+}
+
+//About Page styling
+
+.about.jumbotron {
+	border-radius: none;
+	background: transparent;
+	text-align: center;
+	
+	.lead {
+		color: #8c989e;
+	}
+}
+
+.features.jumbotron {
+	border-radius: none;
+	background: transparent;
+	
+	.service {
+		margin-top: 30px;
+		
+		.icon {
+			.action {
+				width: 260px !important;
+				height: auto;
+			}
+		}
+		
+		.descriptor {
+			.lead {
+				color: #8c989e;
+			}
+		}
+	}
+	
+	.video {
+		a {
+			color: #214387;
+			
+			&:hover {
+				text-decoration: none;
+				color: #214387;
+			}
+		}
+	}
+	
+	.live-lessons {
+		a {
+			color: #dda554;
+			
+			&:hover {
+				text-decoration: none;
+				color: #dda554;
+			}
+		}
+		
+		
+	}
+}
+
+.asian-century.jumbotron {
+	background-image: url('/assets/asiancentury.jpg');
+	margin-bottom: 0px;
+	height: 450px;
 }
 
 //Buttons
@@ -545,6 +708,13 @@ html, body {
 		    font-weight: 400;
 		    padding: 10px 15px;
 		    position: relative;
+		    
+		    .sidenav-icons {
+			    float: left;
+			    height: 100%;
+			    margin: 0;
+			    width: 40px;
+		    }
 		}
 	}
 	
@@ -608,3 +778,23 @@ html, body {
 
  
  
+//Static Pages
+
+.heading-lead {
+	
+	h2 {
+		font-family: "proxima-nova",sans-serif;
+		font-style: normal;
+		font-weight: 100;
+		line-height: 1;
+		font-size: 27px;
+	}
+	
+	h1 {
+		font-family: "proxima-nova",sans-serif;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 1;
+		margin-top: 8px;
+	}
+}

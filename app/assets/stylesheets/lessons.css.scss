@@ -34,3 +34,51 @@ span.available {
 	border: none;
 }
 
+.day {
+	.contents {
+		text-align: center;
+		
+		button {
+			background: transparent;
+			border:none;
+		}
+		
+		.cal-book {
+			color: #93192c;
+			font-size: 20px;
+		}
+		
+		.cal-lessons {
+			color: #93192c;
+			font-size: 20px;
+		}
+	}
+}
+
+.lesson-heading {
+	text-align: center;
+	
+	.instructions {
+	    border-radius: 10px;
+	    position: absolute;
+	    top: 0;
+	    height: 100px;
+	    padding: 15px;
+	    border: 15px solid #93192c;
+	    left: 50px;
+	    ul {
+	    	list-style: none;
+	    	padding-left: 0;
+	    	
+		    li {
+			    text-align: left;
+			    i {
+				    color: #93192c;
+				    font-size: 20px;
+			    }
+			    
+		    }
+	    }
+	}
+}
+
