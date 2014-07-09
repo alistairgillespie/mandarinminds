@@ -407,6 +407,53 @@ h2 {
 	}
 }
 
+
+.features.jumbotron {
+	border-radius: none;
+	background: transparent;
+	
+	.service {
+		margin-top: 30px;
+		
+		.icon {
+			.action {
+				width: 260px !important;
+				height: auto;
+			}
+		}
+		
+		.descriptor {
+			.lead {
+				color: #8c989e;
+			}
+		}
+	}
+	
+	.quality {
+		a {
+			color: #214387;
+			
+			&:hover {
+				text-decoration: none;
+				color: #214387;
+			}
+		}
+	}
+	
+	.flexibility {
+		a {
+			color: #dda554;
+			
+			&:hover {
+				text-decoration: none;
+				color: #dda554;
+			}
+		}
+		
+		
+	}
+}
+
 p.lead {
 	line-height: 1.5;
 	font-family: "proxima-nova",sans-serif;
