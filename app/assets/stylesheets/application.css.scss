@@ -308,6 +308,57 @@ h2 {
 	}
 }
 
+#signup {
+	.modal-dialog {
+		width: 350px;
+		
+		.modal-content {
+			background: white;
+			
+			.modal-header {
+				border: none;
+				padding: 15px 15px 0 15px;
+				
+				h4 {
+					font-size: 24px;
+				}
+			}
+			
+			.modal-body {
+				.form-group {
+					margin-top: 10px;
+					
+					a {
+						color: #93192C;
+						text-decoration: none;
+						
+						&:hover {
+							color: #890f0f;
+						}
+					}
+
+					.form-control {
+						height: 45px;
+						&:focus {
+							border: 2px solid #93192C;
+							box-shadow: none;
+						}
+						
+					}
+					
+					input {
+						background: #c6ccd2;	
+					}
+					
+					input:focus {
+						background: white;
+					}
+				}
+			}
+		}
+	}
+}
+
 //New lesson modal
 #newlesson {
 	.modal-dialog {
@@ -518,6 +569,12 @@ p.lead {
 		
 		
 	}
+}
+
+.asian-century.jumbotron {
+	background-image: url('/assets/asiancentury.jpg');
+	margin-bottom: 0px;
+	height: 450px;
 }
 
 //Buttons
