@@ -197,6 +197,16 @@ h2 {
 		    border-radius:30px;
 		    box-shadow:1px 1px 1px gray;
 		}
+		.dropdown-menu{
+
+			background: #6B7B8A;
+			width: 500px;
+
+			.notification {
+				background: white;
+				border: solid 1px black;
+			}
+		}
 	}
 	
 	.navbar-nav > li > a {

@@ -10,19 +10,34 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
+
         <% if user_signed_in? %>
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
               <% @newnotifications += 1 unless n.dismissed %>
             <% end %>
+
+        <li class="notify">
+            <i class="fa fa-bell-o" id="notificationmenu" data-toggle="dropdown"></i>
+            <% if @newnotifications > 0 %>     
+              <div class="notification-bubble"> <%= @newnotifications %> </div>       
+            <% end %> 
+            <ul class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
+              <% current_user.notifications.order(appear_at: :asc).limit(4).each do |n| %>
+                <li><div class="notification">
+                  <div class="row">
+                    <div class="col-md-3"><%= n.image %></div>
+                    <div class="col-md-9"><%= n.content %></div>
+                  </div>
+                </div></li>
+              <% end %>
+            
+            </ul>
           
+        </li>
+    
           
-          <li class="notify"><i class="fa fa-bell-o"></i>
-          <% if @newnotifications > 0 %>     
-            <div class="notification-bubble"> <%= @newnotifications %> </div>       
-          <% end %>
-          </li>
-		<li>
+      <li>
 		  <div class="dropdown dropdown-menu-right">
 		  	<button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
 		  	<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> <span class="caret"></span>
