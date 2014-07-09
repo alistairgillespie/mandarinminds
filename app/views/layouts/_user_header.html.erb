@@ -11,7 +11,17 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
         <% if user_signed_in? %>
-        <li class="notify"><i class="fa fa-bell-o"></i></li>
+          <% @newnotifications = 0 %>
+            <% current_user.notifications.each do |n| %>
+              <% @newnotifications += 1 unless n.dismissed %>
+            <% end %>
+          
+          
+          <li class="notify"><i class="fa fa-bell-o"></i>
+          <% if @newnotifications > 0 %>     
+            <div class="notification-bubble"> <%= @newnotifications %> </div>       
+          <% end %>
+          </li>
 		<li>
 		  <div class="dropdown dropdown-menu-right">
 		  	<button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">

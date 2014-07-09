@@ -6,6 +6,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.text :content
       t.boolean :dismissed
       t.datetime :appear_at
+      t.references :lesson, index: true
 
       t.timestamps
     end
