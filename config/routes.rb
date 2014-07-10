@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
   resources :notifications
-
   resources :lessons
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
   devise_for :users, :path_names => {:sign_up => "register", } 
-    
-  unauthenticated do
+   
+  #Redirected to rails default root if signed in 
+  #unauthenticated do
   	get 'welcome/index'
     root to: "static#index"
-  end
+  #end
+
+
     
   match 'users/:id' => 'users#show', as: :user, via: :get
   get 'lessons/:id/confirm' => 'lessons#confirm', :as => "confirm_lesson"
