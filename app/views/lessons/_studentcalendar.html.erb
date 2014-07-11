@@ -32,7 +32,7 @@
 					<h4 class="modal-title" id="myModalLabel">Request Lesson Slot</h4>
 				</div>
 				<div class="modal-body">
-					<form accept-charset="UTF-8" action="/lessons" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post">
+					<form accept-charset="UTF-8" action="/lessons/request" class="new_lesson" id='<%= @formatteddate.to_s%>' method="post">
 						<div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
 						<div class="form-group">
 							<label for="lesson_starts_at">Starts at</label><br>
@@ -102,15 +102,39 @@
           <div class="modal-body">
             <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
 
+            <form>
+			<% @bookedlessonsinmodal = [] %>
             <% events.each do |lesson| %>
+            <table>
 			<div>
 				<% if lesson.student.nil? && lesson.confirmed %>
-				<%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", edit_lesson_path(lesson) %> (Free)
+					<tr>
+						<td>
+							<input type="radio">
+					<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%></input>
+					</td>
+						<td>
+							<%= link_to "Make Booking", book_lesson_slot_path(lesson), :confirm => "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" %>
+						</td>	
+					</tr>
 				<% elsif !lesson.student.nil? && !lesson.confirmed %>
-				<%= "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")} (Booked)" %>
+					<% @bookedlessonsinmodal.push(lesson) %>
 				<% end %>
+				
 			</div>
-			<% end %>        
+			</table>
+			<% end %> 
+
+			<% @bookedlessonsinmodal.each do |lesson| %>
+			<div><%= "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%> (Booked)</br></div>
+			<% end %>
+
+
+
+				<div class="actions">
+				<button class="btn btn-default" name="commit" type="submit">Book Lesson</button>
+				</div>       
+			</form>
           </div>
       </div>
     </div>

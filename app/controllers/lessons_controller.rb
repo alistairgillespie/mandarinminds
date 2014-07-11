@@ -41,15 +41,66 @@ class LessonsController < ApplicationController
 
       if @lesson.save
 
-        unless @lesson.confirmed
-          redirect_to (lessons_path), notice: 'Your lesson request has been received successfully'          
-          return
-        end
-
         format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def requestlesson
+    @lesson = Lesson.new(lesson_params)
+    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+
+    respond_to do |format|
+
+      if @lesson.starts_at < Time.now 
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        return
+      end
+
+      if @lesson.save
+        #Specific request to a teacher, notify them
+        unless @lesson.teacher.nil?
+          @notification_params = {
+            :user_id => @lesson.teacher.id,
+            :image => "image.jpg",
+            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has requested a lesson with you.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => Time.now
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
+        end
+
+        format.html { redirect_to (lessons_path), notice: 'Your request has been successfully created.' }
+        format.json { render :show, status: :created, location: @lesson }
+      else
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a request or booked lesson for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def createlessonslot
+    @lesson = Lesson.new(lesson_params)
+    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+
+    respond_to do |format|
+
+      if @lesson.starts_at < Time.now 
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        return
+      end
+
+      if @lesson.save
+        format.html { redirect_to (lessons_path), notice: 'Your lesson slot has been successfully created.' }
+        format.json { render :show, status: :created, location: @lesson }
+      else
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a slot at #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
@@ -75,13 +126,59 @@ class LessonsController < ApplicationController
     end
   end
 
-  def confirm
+  def confirmlessonrequest
     @lesson = Lesson.find(params[:id])
     @lesson.confirmed = true
+          @notification_params = {
+            :user_id => @lesson.student.id,
+            :image => "image.jpg",
+            :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has confirmed a lesson with you.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => Time.now
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
+          @notification_params = {
+            :user_id => @lesson.student.id,
+            :image => "image.jpg",
+            :content => "You have a lesson starting in 15 minutes.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => (@lesson.starts_at - 15.minutes)
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
     @lesson.save!
     redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
   end
 
+def booklessonslot
+    @lesson = Lesson.find(params[:id])
+    @lesson.student = current_user
+          @notification_params = {
+            :user_id => @lesson.teacher.id,
+            :image => "image.jpg",
+            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => Time.now
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
+          @notification_params = {
+            :user_id => @lesson.student.id,
+            :image => "image.jpg",
+            :content => "You have a lesson starting in 15 minutes.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => (@lesson.starts_at - 15.minutes)
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
+    @lesson.save!
+    redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
+  end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
