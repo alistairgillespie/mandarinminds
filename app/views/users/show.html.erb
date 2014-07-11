@@ -44,10 +44,11 @@
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   		</div>
  		<% events.each do |lesson| %>
- 		
+ 			<% if lesson.confirmed %>
     		<div>
       			<%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %>
     		</div>
+			<% end %>
 		<% end %>
 		
 	<% end %>

@@ -137,6 +137,10 @@
 	.today {
 		border-color: #aab3bb;
 	}
+
+	.current-month:hover, .current-month:focus, .current-month:active {
+		border: 15px solid #93192c;
+	}
 }
 // End Calendar Styling
  
@@ -176,11 +180,13 @@ h2 {
 	border-bottom: 3px solid #890f0f;
 	
 	.notify {
-		i {
+		i, a {
 			color: white;
 		    font-size: 26px;
 		    padding: 20px 20px 10px 15px;
 		}
+
+
 
 		.notification-bubble {
 			position:absolute;

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :notifications
   resources :plans
+
+>>>>>>> cf2f99ccf0171e5798972604db1238733bf38d84
   resources :lessons
   
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
@@ -8,14 +10,21 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   
   devise_for :users, :path_names => {:sign_up => "register", } 
-    
-  unauthenticated do
+   
+  #Redirected to rails default root if signed in 
+  #unauthenticated do
   	get 'welcome/index'
     root to: "static#index"
-  end
+  #end
+
+
     
   match 'users/:id' => 'users#show', as: :user, via: :get
-  get 'lessons/:id/confirm' => 'lessons#confirm', :as => "confirm_lesson"
+
+  match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
+  match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post
+  get 'lessons/:id/booklessonslot' => 'lessons#booklessonslot', :as => "book_lesson_slot"
+  get 'lessons/:id/confirm' => 'lessons#confirmlessonrequest', :as => "confirm_lesson"
 
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"

@@ -4,18 +4,17 @@
 <% if flash[:error] %>
 <div id="error"><%= flash[:error] %></div>
 <% end %>
+
+<% if current_user.role_id == 2 %>
 <div class="lesson-heading row">
-<h1>Listing lessons</h1>
 <div class="instructions">
 <ul>
-  <li><i class="fa fa-pencil-square-o fa-2"></i> - Book a lesson </li>
-  <li><i class="fa fa-clock-o"></i> - Lessons for the day </li>
+  <li><i class="fa fa-pencil-square-o fa-2"></i> - Create a New Lesson Slot </li>
+  <li><i class="fa fa-clock-o"></i> - View Lessons for the Day </li>
   </ul>
 </div>
 </div>
-<% if current_user.role_id == 2 %>
-<h2> You are a Teacher</h2>
-<p><%= link_to 'New Lesson', new_lesson_path %></p>
+</br></br></br>
   <div id="teacher_calendar" class="calendar">
     <%= render partial: "teachercalendar", locals: {events: @lessons} %>
   </div>
@@ -130,6 +129,14 @@
   </div>
 
   <% else %>
+  <div class="lesson-heading row">
+<div class="instructions">
+<ul>
+  <li><i class="fa fa-pencil-square-o fa-2"></i> - Request a New Lesson Slot </li>
+  <li><i class="fa fa-clock-o"></i> - View and Book Existing Lessons</li>
+  </ul>
+</div>
+</div></br></br>
 
 <div id="student_calendar" class="calendar">
   <%= render partial: "studentcalendar", locals: {events: @lessons} %>
