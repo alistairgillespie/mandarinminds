@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :notifications
   resources :plans
+
   resources :lessons
   
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
