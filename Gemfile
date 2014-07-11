@@ -73,7 +73,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'underscore-rails'
 gem 'sprockets'
 
-
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 
 

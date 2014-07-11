@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709070334) do
+ActiveRecord::Schema.define(version: 20140711010503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20140709070334) do
   add_index "notifications", ["lesson_id"], name: "index_notifications_on_lesson_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
+  create_table "plans", force: true do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.integer  "lessons"
+    t.integer  "duration"
+    t.integer  "expiry_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(version: 20140709070334) do
     t.string   "provider"
     t.string   "uid"
     t.integer  "role_id"
+    t.string   "customer_id"
+    t.string   "last_4_digits"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

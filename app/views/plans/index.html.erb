@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<div class="packages jumbotron">
+			<h1>Get started today!</h1>
+			<div class="row">
+				<div class="lead col-md-8 col-md-offset-2">
+					<ul>
+						<li><i class="fa fa-check"></i>Live lessons with any of our talented teachers</li>
+						<li><i class="fa fa-check"></i>Video courses on specialised topics</li>
+						<li><i class="fa fa-check"></i>Around the clock support</li>
+						<li><i class="fa fa-check"></i>Access to exclusive material</li>
+					</ul>
+				</div>
+			</div>
+			<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup">Sign up</a>
+			<p class="comment">for a free complimentary lesson</p>
+		</div>
+		<div id="plans" class="">
+		  <% @plans.each do |plan| %>
+		    <div class="plan col-md-3">
+			    <div class="plan-wrapper">
+			      <div class="name"><%= plan.name %></div>
+			      <div class="details">
+			        <div class="price">
+			          <%= number_to_currency plan.price, :precision => 0 %>
+			        </div>
+			      </div>
+			    </div>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+</div>

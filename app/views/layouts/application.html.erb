@@ -38,6 +38,10 @@
 	</div>
 </div>-->
 <% end %>
-<%= render  "static/footer"  if controller_name == "static"%>
+<% if user_signed_in? %>
+<% else %>
+    <%= render  "static/footer"%>
+<% end %>
+
 </body>
 </html>
