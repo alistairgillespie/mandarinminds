@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :notifications
   resources :plans
 
->>>>>>> cf2f99ccf0171e5798972604db1238733bf38d84
   resources :lessons
   
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
