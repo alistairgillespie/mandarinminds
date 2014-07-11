@@ -1,5 +1,11 @@
 <div class="container">
 	<div class="row">
+		<% if user_signed_in? %>
+			<div class="packages jumbotron">
+				<h1>Purchase some more lessons</h1>
+			</div>
+		<% else %>
+		
 		<div class="packages jumbotron">
 			<h1>Get started today!</h1>
 			<div class="row">
@@ -15,6 +21,7 @@
 			<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup">Sign up</a>
 			<p class="comment">for a free complimentary lesson</p>
 		</div>
+		<% end %>
 		<div id="plans" class="">
 		  <% @plans.each do |plan| %>
 		    <div class="plan col-md-3">
@@ -25,6 +32,9 @@
 			          <%= number_to_currency plan.price, :precision => 0 %>
 			        </div>
 			      </div>
+			      <% if user_signed_in? %>
+			      	<%= link_to "Buy now",  charge_plan_path(plan), :class => 'btn btn-primary btn-lg' %>
+			      <% end %>
 			    </div>
 		    </div>
 		  <% end %>
