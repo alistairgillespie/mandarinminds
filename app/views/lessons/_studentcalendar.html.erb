@@ -110,11 +110,10 @@
 				<% if lesson.student.nil? && lesson.confirmed %>
 					<tr>
 						<td>
-							<input type="radio">
-					<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%></input>
-					</td>
+						<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
+						</td>
 						<td>
-							<%= link_to "Make Booking", book_lesson_slot_path(lesson), :confirm => "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" %>
+						<%= link_to "Make Booking", book_lesson_slot_path(lesson), data: {confirm: "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" }%>
 						</td>	
 					</tr>
 				<% elsif !lesson.student.nil? && !lesson.confirmed %>
