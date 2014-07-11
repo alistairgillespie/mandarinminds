@@ -79,12 +79,7 @@ ActiveRecord::Schema.define(version: 20140711010503) do
     t.string   "provider"
     t.string   "uid"
     t.integer  "role_id"
-<<<<<<< HEAD
-    t.string   "customer_id"
-    t.string   "last_4_digits"
-=======
     t.integer  "lesson_count"
->>>>>>> cf2f99ccf0171e5798972604db1238733bf38d84
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
