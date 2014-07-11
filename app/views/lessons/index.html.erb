@@ -13,9 +13,8 @@
   <li><i class="fa fa-clock-o"></i> - View Lessons for the Day </li>
   </ul>
 </div>
-</div></br></br>
-<h2> You are a Teacher</h2>
-<p><%= link_to 'New Lesson', new_lesson_path %></p>
+</div>
+</br></br></br>
   <div id="teacher_calendar" class="calendar">
     <%= render partial: "teachercalendar", locals: {events: @lessons} %>
   </div>
