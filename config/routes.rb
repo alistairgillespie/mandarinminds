@@ -15,7 +15,11 @@ Rails.application.routes.draw do
 
     
   match 'users/:id' => 'users#show', as: :user, via: :get
-  get 'lessons/:id/confirm' => 'lessons#confirm', :as => "confirm_lesson"
+
+  match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
+  match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post
+  get 'lessons/:id/booklessonslot' => 'lessons#booklessonslot', :as => "book_lesson_slot"
+  get 'lessons/:id/confirm' => 'lessons#confirmlessonrequest', :as => "confirm_lesson"
 
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"

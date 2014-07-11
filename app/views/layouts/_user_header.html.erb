@@ -15,7 +15,7 @@
 
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
-              <% @newnotifications += 1 unless n.dismissed %>
+              <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
             <% end %>
 
         <li class="notify">
@@ -25,7 +25,7 @@
               <div class="notification-bubble"> <%= @newnotifications %> </div>       
             <% end %> 
             <ul class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
-              <% current_user.notifications.order(appear_at: :asc).limit(4).each do |n| %>
+              <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <li><div class="notification">
                   <div class="row">
                     <div class="col-md-3"><%= n.image %></div>
