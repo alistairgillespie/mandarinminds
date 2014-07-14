@@ -22,6 +22,7 @@
         <td><%= notification.appear_at %></td>
         <td><%= link_to 'Show', notification %></td>
         <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
+        <td><%= link_to 'Dismiss', dismiss_notification_path(notification) %></td>
         <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :notifications
   resources :plans
   resources :lessons
   
@@ -18,14 +17,14 @@ Rails.application.routes.draw do
 
     
   match 'users/:id' => 'users#show', as: :user, via: :get
-
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
   match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post
   get 'lessons/:id/booklessonslot' => 'lessons#booklessonslot', :as => "book_lesson_slot"
   get 'lessons/:id/confirm' => 'lessons#confirmlessonrequest', :as => "confirm_lesson"
+  get 'notifications/dismiss_all' => 'notifications#dismiss_all', :as => "dismiss_all_notifications"
+  get 'notifications/dismiss/:id' => 'notifications#dismiss', :as => "dismiss_notification"
 
-  get 'notifications/:id/dismiss' => 'notifications#dismiss', :as => "dismiss_notification"
-
+resources :notifications
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"

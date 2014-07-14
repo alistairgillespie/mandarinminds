@@ -53,7 +53,18 @@ class NotificationsController < ApplicationController
 
   def dismiss
     @notification = Notification.find(params[:id])
-    redirect_to notifications_url, notice: 'Notification was successfully destroyed.'
+    @notification.dismissed = true
+    @notification.save!
+    redirect_to notifications_url, notice: 'Notification was successfully dismissed.'
+  end
+
+  def dismiss_all
+    @allnotifications = current_user.notifications.where("dismissed = false")
+    @allnotifications.each do |n|
+      n.dismissed = true
+      n.save!
+    end
+    redirect_to notifications_url, notice: 'All notifications were successfully dismissed.'
   end
 
   # DELETE /notifications/1
