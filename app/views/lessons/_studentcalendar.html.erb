@@ -155,8 +155,8 @@
 		<% end %>
 		<% if @freeslot %>
 		
-			<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%>"><i class="fa fa-book"></i></button>
-			<div class="modal fade" id= 'booklesson<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%><%= i %>"><i class="fa fa-book"></i></button>
+			<div class="modal fade" id= 'booklesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -173,10 +173,13 @@
             <% events.each do |lesson| %>
             <table>
 			<div>
-				<% if lesson.student.nil? && lesson.confirmed %>
+				<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
 					<tr>
 						<td>
 						<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
+						</td>
+						<td>
+						<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>
 						</td>
 						<td>
 						<%= link_to "Make Booking", book_lesson_slot_path(lesson), data: {confirm: "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" }%>
