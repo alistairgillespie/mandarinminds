@@ -54,30 +54,68 @@ span.available {
 		}
 	}
 
+	
+}
+
+#teacher_calendar {
 	.hour{
-		height: 30px;
-		vertical-align: center;
-		font-family: "proxima-nova",sans-serif;
-		border-top: solid 1px lightgrey;
-		border-bottom: solid 1px lightgrey;
+			height: 40px;
+			font-family: "proxima-nova",sans-serif;
+			border-top: solid 1px lightgrey;
+			border-bottom: solid 1px lightgrey;
 
-		button {
-			float: right;
-			border: none;
-			background: none;
-		}
-
-		i {
-			color: #93192c;
-			font-size: 18px;
-
-		}
-
-		i.disabled {
-			color: grey;
-			font-size: 18px;		
+			input {
+				display: none;
 			}
 
+			button {
+				border: none;
+				background: none;
+				padding: 0px;
+				float: right;
+			}
+		}
+
+	i.free-slot {
+				color: #93192c;
+				font-size: 20px;
+	}
+
+	i.no-slot {
+				color: grey;
+				font-size: 20px;		
+	}
+
+	i.slot-booked {
+				color: black;
+				font-size: 20px;		
+	}
+}
+
+#student_calendar {
+	.hour{
+			height: 35px;
+			vertical-align: center;
+			font-family: "proxima-nova",sans-serif;
+			border-top: solid 1px lightgrey;
+			border-bottom: solid 1px lightgrey;
+
+			button {
+				border: none;
+				background: none;
+				padding: 5px;
+				float: right;
+			}
+		}
+
+	i.free-slot {
+			color: #93192c;
+			font-size: 20px;
+	}
+
+	i.disabled {
+			color: grey;
+			font-size: 20px;		
 	}
 }
 

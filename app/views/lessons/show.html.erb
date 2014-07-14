@@ -2,7 +2,8 @@
 
 <p>
   <strong>Student:</strong>
-  <%= "#{@lesson.student.firstname} #{@lesson.student.lastname}" %>
+  <%= @lesson.student.nil? ? "No Booked Student" : "#{@lesson.student.firstname} #{@lesson.student.lastname}" %>
+  
 </p>
 
 <p>

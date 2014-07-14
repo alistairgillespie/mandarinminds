@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140714055104) do
     t.integer  "user_id"
     t.string   "image"
     t.text     "content"
-    t.boolean  "dismissed",  default: false
+    t.boolean  "dismissed"
     t.datetime "appear_at"
     t.integer  "lesson_id"
     t.datetime "created_at"
