@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711010503) do
+ActiveRecord::Schema.define(version: 20140714055104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140711010503) do
     t.integer  "user_id"
     t.string   "image"
     t.text     "content"
-    t.boolean  "dismissed"
+    t.boolean  "dismissed",  default: false
     t.datetime "appear_at"
     t.integer  "lesson_id"
     t.datetime "created_at"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20140711010503) do
     t.string   "uid"
     t.integer  "role_id"
     t.integer  "lesson_count"
-
+    t.string   "skypeid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

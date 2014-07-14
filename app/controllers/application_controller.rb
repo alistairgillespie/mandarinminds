@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
   	user_path(@user)
   end
   
+  before_filter :update_sanitized_params, if: :devise_controller?
+  
+  def update_sanitized_params
+	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :email, :password)}
+  end
+  
 end
