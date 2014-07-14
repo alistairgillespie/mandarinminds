@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+  	
+  	
+  	  	
   	if params[:id]
     	@user = User.find(params[:id])
     else
@@ -21,6 +24,14 @@ class UsersController < ApplicationController
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."
     end
+    
+    if @userlessons.size == 0 && @user.lesson_count == 0
+  		@count = 0
+  	else
+  		@count = @userlessons.size.to_f
+  		@total = @user.lesson_count  
+  	end
+
   end
 
   # GET /users/new

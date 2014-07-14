@@ -6,7 +6,7 @@ end
 
 def create
   @plan = Plan.find(params[:id])
-  
+ 
   # Amount in cents
   @amount = @plan.price
 
