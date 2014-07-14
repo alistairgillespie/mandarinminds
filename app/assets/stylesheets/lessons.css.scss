@@ -53,6 +53,18 @@ span.available {
 			font-size: 20px;
 		}
 	}
+
+	.hour{
+		height: 30px;
+		font-family: "proxima-nova",sans-serif;
+		border-top: solid 1px lightgrey;
+		border-bottom: solid 1px lightgrey;
+
+		i {
+			color: #93192c;
+			font-size: 20px;
+		}
+	}
 }
 
 .lesson-heading {
