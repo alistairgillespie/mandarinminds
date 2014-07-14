@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get 'lessons/:id/booklessonslot' => 'lessons#booklessonslot', :as => "book_lesson_slot"
   get 'lessons/:id/confirm' => 'lessons#confirmlessonrequest', :as => "confirm_lesson"
 
+  get 'notifications/:id/dismiss' => 'notifications#dismiss', :as => "dismiss_notification"
+
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"

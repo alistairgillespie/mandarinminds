@@ -51,6 +51,11 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def dismiss
+    @notification = Notification.find(params[:id])
+    redirect_to notifications_url, notice: 'Notification was successfully destroyed.'
+  end
+
   # DELETE /notifications/1
   # DELETE /notifications/1.json
   def destroy
