@@ -16,6 +16,7 @@
  
 @import "bootstrap";
 
+
 // Calendar Styling
 .calendar{
 
@@ -186,8 +187,6 @@ h2 {
 		    padding: 20px 20px 10px 15px;
 		}
 
-
-
 		.notification-bubble {
 			position:absolute;
    	 		top: 10px;
@@ -207,11 +206,24 @@ h2 {
 		.dropdown-menu{
 
 			background: #6B7B8A;
-			width: 500px;
+			width: 750px;
+
+			i {
+				font-size: 10px;
+				color: #93192c;
+			}
+			
+			a {
+				font-size: 10px;
+			}
 
 			.notification {
 				background: white;
 				border: solid 1px black;
+			}
+
+			.notification.not-dismissed{
+				background: gold;
 			}
 		}
 	}

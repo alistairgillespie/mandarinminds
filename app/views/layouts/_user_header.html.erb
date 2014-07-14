@@ -26,13 +26,24 @@
             <% end %> 
             <ul class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
-                <li><div class="notification">
-                  <div class="row">
-                    <div class="col-md-3"><%= n.image %></div>
-                    <div class="col-md-9"><%= n.content %></div>
-                  </div>
-                </div></li>
+                <li>
+                  <% if n.dismissed %>
+                    <div class="notification">
+                      <div class="col-md-3"><%= n.image %></div>
+                      <div class="col-md-8"><%= n.content %></div>
+                      <div class="col-md-1"><i class='fa fa-circle-o'></i></div>
+                    </div>
+                  <% else %>
+                    <div class="notification not-dismissed">
+                      <div class="col-md-3"><%= n.image %></div>
+                      <div class="col-md-8"><%= n.content %></div>
+                      <div class="col-md-1"><%= link_to "Dismiss", dismiss_notification_path(n) %><i class='fa fa-check-circle-o'></i></div>
+                    </div>
+                  <% end %>                    
+                </li>
               <% end %>
+
+              <%= link_to "View All Notifications", notifications_path %> | <%= link_to "Dismiss All New Notifications", dismiss_all_notifications_path %>
             
             </ul>
           

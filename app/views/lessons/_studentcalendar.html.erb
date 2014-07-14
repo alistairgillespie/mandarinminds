@@ -140,3 +140,78 @@
   </div>	
 </div>
 <% end %>
+
+<%= week_calendar number_of_weeks: 1, events: @lessons do |date, events| %>
+  <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
+  	<% for i in 9..23 %>
+  		<% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
+		
+  	<%= content_tag :div, class: "hour" do %>
+  	<% @formatteddate = date.strftime('%Y-%m-%d') %>
+  		<%= @time.strftime('%l:%M%P') %>
+  		<% @freeslot = false %>
+  		<% events.each do |lesson| %>
+  			<% @freeslot = true if lesson.starts_at === @time && lesson.student.nil? %>
+		<% end %>
+		<% if @freeslot %>
+		
+			<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%><%= i %>"><i class="fa fa-book"></i></button>
+			<div class="modal fade" id= 'booklesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel">Today's Lesson Slots</h3>
+          </div>
+          <div class="modal-body">
+            <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
+
+            <form>
+			<% @bookedlessonsinmodal = [] %>
+            <% events.each do |lesson| %>
+            <table>
+			<div>
+				<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
+					<tr>
+						<td>
+						<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
+						</td>
+						<td>
+						<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>
+						</td>
+						<td>
+						<%= link_to "Make Booking", book_lesson_slot_path(lesson), data: {confirm: "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" }%>
+						</td>	
+					</tr>
+				<% elsif !lesson.student.nil? && !lesson.confirmed %>
+					<% @bookedlessonsinmodal.push(lesson) %>
+				<% end %>
+				
+			</div>
+			</table>
+			<% end %> 
+
+			<% @bookedlessonsinmodal.each do |lesson| %>
+			<div><%= "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%> (Booked)</br></div>
+			<% end %>
+
+
+
+				<div class="actions">
+				<button class="btn btn-default" name="commit" type="submit">Book Lesson</button>
+				</div>       
+			</form>
+          </div>
+      </div>
+    </div>
+  </div>
+		<% else %>
+
+			<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled><i class="fa fa-book disabled"></i></button>
+			<% end %>
+  	<% end %>
+  <% end %>
+
+<% end %>
