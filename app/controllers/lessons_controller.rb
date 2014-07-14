@@ -181,11 +181,52 @@ def booklessonslot
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
+
+
   def destroy
+    
     @lesson.destroy
-    respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if @lesson.confirmed
+
+      @lesson.notifications.where("appear_at > ?", Time.now).each do |n|
+        n.destroy
+      end
+
+      if current_user.role_id == 1
+        @notification_params = {
+                :user_id => @lesson.teacher.id,
+                :image => "image.jpg",
+                :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you.",
+                :lesson_id => @lesson.id,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save
+
+        respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.json { head :no_content }
+        end
+      else
+
+        @notification_params = {
+                :user_id => @lesson.student.id,
+                :image => "image.jpg",
+                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you. You have been credited the lesson you spent",
+                :lesson_id => @lesson.id,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save
+
+        respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.json { head :no_content }
+        end
+      end
     end
   end
 
