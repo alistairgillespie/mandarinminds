@@ -60,10 +60,23 @@ span.available {
 		border-top: solid 1px lightgrey;
 		border-bottom: solid 1px lightgrey;
 
+		button {
+			float: right;
+			border: none;
+			background: none;
+		}
+
 		i {
 			color: #93192c;
-			font-size: 20px;
+			font-size: 18px;
+
 		}
+
+		i.disabled {
+			color: grey;
+			font-size: 18px;		
+			}
+
 	}
 }
 
