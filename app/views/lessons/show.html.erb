@@ -1,14 +1,12 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Student:</strong>
-  <%= @lesson.student.nil? ? "No Booked Student" : "#{@lesson.student.firstname} #{@lesson.student.lastname}" %>
-  
+  <%= @lesson.student.nil? ? "No Booked Student" : "#{@lesson.student.firstname} #{@lesson.student.lastname}" %> 
 </p>
 
 <p>
   <strong>Teacher:</strong>
-  <%= @lesson.teacher.nil? ? "No Preference" : "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname}" %>
+  <%= @lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname}" %>
 </p>
 
 <p>

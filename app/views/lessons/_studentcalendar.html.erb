@@ -4,7 +4,7 @@
 <i class="fa fa-book slot-booked"></i> - You have booked this slot</br>
 
 
-<%= week_calendar number_of_weeks: 1, events: @lessons do |date, events| %>
+<%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @lessons do |date, events| %>
 <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
 <% for i in 9..23 %>
 <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
@@ -32,15 +32,7 @@
 				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
 			</div>
 			<div class="modal-body">
-				<p>
-					<strong>Teacher:</strong>
-					<%= @bookedlesson.teacher.nil? ? "None Listed" : "#{@bookedlesson.teacher.firstname} #{@bookedlesson.teacher.lastname}" %>
-				</p>
-
-				<p>
-					<strong>Starts at:</strong>
-					<%= "#{@bookedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@bookedlesson.starts_at.in_time_zone('Perth').strftime("#{@bookedlesson.starts_at.day.ordinalize} %B %Y")}" %>
-				</p>
+				<iframe src="<%= lesson_path(@bookedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe
 			</div>
 		</div>
 	</div>

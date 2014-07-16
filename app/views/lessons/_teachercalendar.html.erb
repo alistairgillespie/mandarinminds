@@ -3,23 +3,24 @@
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
 <i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
 
-<%= week_calendar number_of_weeks: 1, events: @lessons do |date, events| %>
+<%= calendar number_of_days: 7, events: @lessons do |date, events| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   <% for i in 9..23 %>
     <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
     <%= content_tag :div, class: "hour" do %>
       <span class="time"><%= @time.strftime('%l:%M%P') %></span>
-      <% @hasslot = false %>
-      <% @isbooked = false %>
+      <% @plannedlesson = nil %>
       <% events.each do |lesson| %>
-        <% if lesson.starts_at == @time %>
-          <% @hasslot = true %>
-          <% @isbooked = true unless lesson.student.nil? %>
+        <% if lesson.starts_at == @time && lesson.teacher == current_user %>
+          <% @plannedlesson = lesson %>
         <% end %>
       <% end %>
-      <span>
+      <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
       <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='<%= @formatteddate.to_s%>' method="post">
+        <button class="btn btn-default" name="commit" type="submit">
+          <i class="fa fa-book no-slot"></i>
+        </button> 
         <input class="form-control" name="utf8" type="hidden" value="✓">             
         <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
         <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
@@ -29,22 +30,40 @@
         <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
         <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
         
-          <% if @isbooked %>
-          <button class="btn btn-default" name="commit" type="submit">
-          <i class="fa fa-book slot-booked"></i>
-          </button>
-          <% elsif @hasslot %>
-          <button class="btn btn-default" name="commit" type="submit">
-          <i class="fa fa-book free-slot"></i>
-          </button>
-          <% else %>
-          <button class="btn btn-default" name="commit" type="submit">
-          <i class="fa fa-book no-slot"></i>
-          </button>
-          <% end %>
-        
+               
       </form>
-    </span>
+      <% else %> <!-- There IS a lesson in this slot -->
+
+      <% if @plannedlesson.student.nil? %>
+      <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+      <i class="fa fa-book free-slot"></i>
+      </button>
+        <% else %>
+        <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+      <i class="fa fa-book slot-booked"></i>
+      </button>
+        <% end %>
+      
+
+
+<div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
+      </div>
+      <div class="modal-body">
+        <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <% end %>
+
 
     <% end %>
   <% end %>
