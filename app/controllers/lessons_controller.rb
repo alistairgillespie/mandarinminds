@@ -149,6 +149,16 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
+          @notification_params = {
+            :user_id => @lesson.student.id,
+            :image => "image.jpg",
+            :content => "Your lesson is ready.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => (@lesson.starts_at - 5.minutes)
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
     @lesson.save!
     redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
   end
