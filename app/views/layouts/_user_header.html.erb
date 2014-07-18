@@ -24,7 +24,7 @@
             <% if @newnotifications > 0 %>     
               <div class="notification-bubble"> <%= @newnotifications %> </div>       
             <% end %> 
-            <ul class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
+            <ul id="notification-list" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <li>
                   <% if n.dismissed %>
