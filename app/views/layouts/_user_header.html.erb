@@ -12,15 +12,13 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if user_signed_in? %>
-
+        <div id="popup"></div>
+        <li class="notify">
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
               <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
             <% end %>
-
-        <li class="notify">
-            <i class="fa fa-calendar-o"></i>
-            <i class="fa fa-bell-o" id="notificationmenu" data-toggle="dropdown"></i>
+          <i class="fa fa-bell-o" id="notificationmenu" data-toggle="dropdown"></i>
             <% if @newnotifications > 0 %>     
               <div class="notification-bubble"> <%= @newnotifications %> </div>       
             <% end %> 
