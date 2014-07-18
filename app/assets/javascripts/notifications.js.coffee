@@ -2,9 +2,4 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-source = new EventSource('/plans')
-
-source.addEventListener 'notification', (e) ->
-  notification = $.parseJSON(e.data).notification
-  $('#notification-list').append($('<li>').text("#{notification.image} #{notification.content}"))
 

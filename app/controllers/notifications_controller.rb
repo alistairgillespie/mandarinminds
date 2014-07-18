@@ -1,24 +1,5 @@
 class NotificationsController < ApplicationController
-  include ActionController::Live
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
-
-  def events
-    response.headers["Content-Type"] = "text/event-stream"
-    start = Time.zone.now
-    10.times do
-    Notification.uncached do
-      Notification.where('created_at > ?', start).each do |notification|
-        response.stream.write "data: #{notification.to_json}\n\n"
-        start = Time.zone.now
-     end 
-   end
-  sleep 2
-  end 
-  rescue IOError
-    logger.info "Stream closed"
-  ensure
-    response.stream.close
-  end
 
   # GET /notifications
   # GET /notifications.json
