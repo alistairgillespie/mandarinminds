@@ -75,5 +75,9 @@ gem 'sprockets'
 
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+#Webserver required for Live notifications
+gem 'puma'
+gem 'rb-fsevent'
+
 
 

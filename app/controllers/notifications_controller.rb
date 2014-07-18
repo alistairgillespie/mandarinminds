@@ -1,6 +1,15 @@
 class NotificationsController < ApplicationController
+  include ActionController::Live
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
 
+  def events
+    3.times do |n|
+      response.stream.write "#{n}...\n\n"
+      sleep 2
+    end
+    ensure
+      response.stream.close
+    end
   # GET /notifications
   # GET /notifications.json
   def index
