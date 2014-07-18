@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   resources :plans
   resources :lessons
-  
+
+  post 'pusher/auth'
+
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   
   devise_for :users, :path_names => {:sign_up => "register", } 
