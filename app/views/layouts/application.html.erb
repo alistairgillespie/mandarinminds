@@ -11,7 +11,16 @@
         var pusher = new Pusher('<%= Pusher.key %>');
         var channel = pusher.subscribe('private-<%= current_user.id %>');
         channel.bind('notification', function(data) {
-          alert(data.message);
+        dom_notify(data.message);
+
+          function dom_notify(msg) {
+            $('#notification-window').text(msg);
+            $('#notification-window').fadeIn();
+            setTimeout(function() {
+              $('#notification-window').fadeOut
+              ();
+            }, 4000);
+          }
         });
   </script>
   <% end %>
@@ -22,7 +31,6 @@
   <script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>
 </head>
 <body>
-  <div id="popup"></div>
 
 <% if user_signed_in? %>
     <%= render 'layouts/user_header' %>
