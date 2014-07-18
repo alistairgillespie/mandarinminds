@@ -16,6 +16,12 @@
  
 @import "bootstrap";
 
+#nolayout{
+	.navbar-header { display: none;}
+	.sidebar {display: none;}
+
+}
+
 
 // Calendar Styling
 .calendar{

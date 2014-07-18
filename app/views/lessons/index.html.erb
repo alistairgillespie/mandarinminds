@@ -7,6 +7,7 @@
 
 <% if current_user.role_id == 2 %>
 <div class="lesson-heading row">
+<!--
 <div class="instructions">
 <ul>
   <li><i class="fa fa-pencil-square-o fa-2"></i> - Create a New Lesson Slot </li>
@@ -15,7 +16,8 @@
 </div>
 </div>
 </br></br></br>
-  <div id="teacher_calendar" class="calendar">
+-->
+  <div id="teacher_calendar">
     <%= render partial: "teachercalendar", locals: {events: @lessons} %>
   </div>
 
@@ -130,15 +132,8 @@
 
   <% else %>
   <div class="lesson-heading row">
-<div class="instructions">
-<ul>
-  <li><i class="fa fa-pencil-square-o fa-2"></i> - Request a New Lesson Slot </li>
-  <li><i class="fa fa-clock-o"></i> - View and Book Existing Lessons</li>
-  </ul>
-</div>
-</div></br></br>
 
-<div id="student_calendar" class="calendar">
+<div id="student_calendar">
   <%= render partial: "studentcalendar", locals: {events: @lessons} %>
 </div>
 
