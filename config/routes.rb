@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  resources :plans
-
-  resources :lessons
-  
-  get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  resources :plans
+  resources :lessons
+
+  post 'pusher/auth'
+
+  get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   
   devise_for :users, :path_names => {:sign_up => "register", } 
    

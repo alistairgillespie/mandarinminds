@@ -75,6 +75,10 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
+          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
+
         end
 
         format.html { redirect_to (lessons_path), notice: 'Your request has been successfully created.' }
@@ -177,6 +181,9 @@ def booklessonslot
             }
           @n = Notification.new(@notification_params)
           @n.save
+          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => "image.jpg",
@@ -215,6 +222,9 @@ def booklessonslot
                 }
               @n = Notification.new(@notification_params)
               @n.save
+              Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
 
         respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
@@ -232,6 +242,7 @@ def booklessonslot
                 }
               @n = Notification.new(@notification_params)
               @n.save
+              pushtopusher
 
         respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
@@ -239,6 +250,12 @@ def booklessonslot
         end
       end
     end
+  end
+
+  def pushtopusher
+    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
   end
 
   private
