@@ -14,6 +14,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    render :layout => "nolayout"
   end
 
   # GET /lessons/new
@@ -74,6 +75,10 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
+          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
+
         end
 
         format.html { redirect_to (lessons_path), notice: 'Your request has been successfully created.' }
@@ -149,6 +154,16 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
+          @notification_params = {
+            :user_id => @lesson.student.id,
+            :image => "image.jpg",
+            :content => "Your lesson is ready.",
+            :lesson_id => @lesson.id,
+            :dismissed => false,
+            :appear_at => (@lesson.starts_at - 5.minutes)
+            }
+          @n = Notification.new(@notification_params)
+          @n.save
     @lesson.save!
     redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
   end
@@ -166,6 +181,9 @@ def booklessonslot
             }
           @n = Notification.new(@notification_params)
           @n.save
+          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => "image.jpg",
@@ -181,12 +199,63 @@ def booklessonslot
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
+
+
   def destroy
+    
     @lesson.destroy
-    respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if @lesson.confirmed
+
+      @lesson.notifications.where("appear_at > ?", Time.now).each do |n|
+        n.destroy
+      end
+
+      if current_user.role_id == 1
+        @notification_params = {
+                :user_id => @lesson.teacher.id,
+                :image => "image.jpg",
+                :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you.",
+                :lesson_id => @lesson.id,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save
+              Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
+
+        respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.json { head :no_content }
+        end
+      else
+
+        @notification_params = {
+                :user_id => @lesson.student.id,
+                :image => "image.jpg",
+                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you. You have been credited the lesson you spent",
+                :lesson_id => @lesson.id,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save
+              pushtopusher
+
+        respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.json { head :no_content }
+        end
+      end
     end
+  end
+
+  def pushtopusher
+    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
   end
 
   private

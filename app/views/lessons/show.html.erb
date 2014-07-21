@@ -1,18 +1,17 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Student:</strong>
-  <%= @lesson.student %>
+  <%= @lesson.student.nil? ? "No Booked Student" : "#{@lesson.student.firstname} #{@lesson.student.lastname}" %> 
 </p>
 
 <p>
   <strong>Teacher:</strong>
-  <%= @lesson.teacher %>
+  <%= @lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname}" %>
 </p>
 
 <p>
   <strong>Starts at:</strong>
-  <%= @lesson.starts_at %>
+  <%= "#{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@lesson.starts_at.in_time_zone('Perth').strftime("#{@lesson.starts_at.day.ordinalize} %B %Y")}" %>
 </p>
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |

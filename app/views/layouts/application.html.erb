@@ -5,10 +5,31 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="//use.typekit.net/kqu8wnu.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+  <% if user_signed_in? %>
+  <script type="text/javascript" charset="utf-8">
 
+        var pusher = new Pusher('<%= Pusher.key %>');
+        var channel = pusher.subscribe('private-<%= current_user.id %>');
+        channel.bind('notification', function(data) {
+          dom_notify(data.message);             
+        });
+        
+          function dom_notify(msg) {
+            $('#notification-window').text(msg);
+            $('#notification-window').fadeIn();
+            setTimeout(function() {
+              $('#notification-window').fadeOut();
+            }, 4000);
+          }
+
+  </script>
+  <% end %>
+  
+  <script type="text/javascript" src="//use.typekit.net/kqu8wnu.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>
 </head>
 <body>
 
