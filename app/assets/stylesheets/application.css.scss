@@ -16,16 +16,6 @@
  
 @import "bootstrap";
 
-#notification-window {
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
-	height: 60px;
-	width: 300px;
-	background-color: rgba(0,0,0,0.8);
-	z-index: 1;
-}
-
 #nolayout{
 	.navbar-header { display: none;}
 	.sidebar {display: none;}

@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -23,14 +23,14 @@
             color: white;
             display: none;
             padding: 5px;
-            font-size: 17px
+            font-size: 14px
         "></div>
-        <li class="notify">
+        <li class="notify" id="notification-menu"> 
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
               <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
             <% end %>
-          <i class="fa fa-bell-o" id="notificationmenu" data-toggle="dropdown"></i>
+          <i class="fa fa-bell-o" data-toggle="dropdown"></i>
             <% if @newnotifications > 0 %>     
               <div class="notification-bubble"> <%= @newnotifications %> </div>       
             <% end %> 

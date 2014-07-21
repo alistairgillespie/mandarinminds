@@ -16,6 +16,5 @@ class ApplicationController < ActionController::Base
   
   def update_sanitized_params
 	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :email, :password)}
-  end
-  
+  end  
 end

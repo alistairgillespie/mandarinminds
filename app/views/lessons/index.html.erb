@@ -8,16 +8,7 @@
 <% if current_user.role_id == 2 %>
 <div class="lesson-heading row">
   <div id="notification-window"></div>
-<!--
-<div class="instructions">
-<ul>
-  <li><i class="fa fa-pencil-square-o fa-2"></i> - Create a New Lesson Slot </li>
-  <li><i class="fa fa-clock-o"></i> - View Lessons for the Day </li>
-  </ul>
-</div>
-</div>
-</br></br></br>
--->
+
   <div id="teacher_calendar">
     <%= render partial: "teachercalendar", locals: {events: @lessons} %>
   </div>
