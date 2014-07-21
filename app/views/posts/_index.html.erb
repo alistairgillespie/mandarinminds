@@ -1,0 +1,11 @@
+<% @posts.each do |post| %>
+  <div id="post">
+    <h3><%= post.title %></h3>
+    <%= post.body %>
+    <%= post.author %>
+    <small>
+      <%= link_to 'Edit', edit_post_path(post), remote: true %> |
+      <%= link_to 'Destroy', post, remote: true ,method: :delete, data: { confirm: 'Are you sure?' } %>
+    </small>
+  </div>
+<% end %>

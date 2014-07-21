@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @post.errors.any? %>
+  <% @post.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $(".post-index").html("<%= escape_javascript(render 'index') %>")
+  $("#post-modal").modal("hide")
+<% end %>

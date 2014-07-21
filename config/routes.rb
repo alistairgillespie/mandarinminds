@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :posts
+
   resources :notifications
   resources :plans
 
@@ -16,7 +18,9 @@ Rails.application.routes.draw do
     root to: "static#index"
   #end
 
-
+  resources :products do
+    get "delete"
+  end
     
   match 'users/:id' => 'users#show', as: :user, via: :get
 
