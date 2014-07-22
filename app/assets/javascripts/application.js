@@ -17,11 +17,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require_tree .
-<<<<<<< HEAD
 // Loads all Bootstrap javascripts
-=======
-
->>>>>>> 037b18c5022a4c434894f2233f51d1abd9b30fd0
 
 
 
