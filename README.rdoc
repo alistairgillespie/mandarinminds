@@ -26,5 +26,8 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0675b82e1d0d31809b1e7551b799bd1261ba09f6
 [ ![Codeship Status for WilsonAus/mandarinminds](https://codeship.io/projects/710df2c0-f37b-0131-3615-56988ec1ac2e/status)](https://codeship.io/projects/27896)
