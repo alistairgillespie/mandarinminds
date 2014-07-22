@@ -185,6 +185,8 @@ h2 {
 }
 
 //Navigation Styling
+
+
 .navbar {
 	background: #2c3e50;
 	border: 0px;
@@ -214,29 +216,6 @@ h2 {
 		    border-radius:30px;
 		    box-shadow:1px 1px 1px gray;
 		}
-		.dropdown-menu{
-
-			background: #6B7B8A;
-			width: 750px;
-
-			i {
-				font-size: 10px;
-				color: #93192c;
-			}
-			
-			a {
-				font-size: 10px;
-			}
-
-			.notification {
-				background: white;
-				border: solid 1px black;
-			}
-
-			.notification.not-dismissed{
-				background: gold;
-			}
-		}
 	}
 	
 	.navbar-nav > li > a {
@@ -248,7 +227,7 @@ h2 {
 		padding-bottom: 7px;
 		padding-top: 30px;
 		cursor: pointer;
-	}
+	}	
 }
 
 .dropdown.dropdown-menu-right {
@@ -283,6 +262,39 @@ h2 {
 		    }
 	    }
 	}
+}
+
+#notification-dropdown {
+	background: #6B7B8A;
+	width: 600px;
+	font-size: 10px;
+
+	ul { 
+		padding: 5px;
+
+		li { padding: 5px;}
+		.row { margin: 0px;}
+
+
+		i {
+			font-size: 10px;
+			color: #93192c;
+		}
+		
+		a {
+			font-size: 10px;
+		}
+
+		.notification {
+			background: white;
+			border: solid 1px black;
+			width: 100%;
+		}
+
+		.notification.not-dismissed{
+			background: gold;
+		}
+	}	
 }
 
 .profile-pic {

@@ -32,11 +32,12 @@
 				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
 			</div>
 			<div class="modal-body">
-				<iframe src="<%= lesson_path(@bookedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe
+				<iframe src="<%= lesson_path(@bookedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>
 			</div>
 		</div>
 	</div>
 </div>
+
 
 <% elsif @hasfreeslot %> <!-- There are free lesson slots and the student is unbooked-->
 
