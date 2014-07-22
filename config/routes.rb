@@ -17,8 +17,9 @@ Rails.application.routes.draw do
     root to: "static#index"
   #end
 
+  get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
+  get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
 
-    
   match 'users/:id' => 'users#show', as: :user, via: :get
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
   match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post

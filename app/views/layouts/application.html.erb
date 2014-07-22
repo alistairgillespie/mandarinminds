@@ -8,23 +8,48 @@
   <script src="//js.pusher.com/2.2/pusher.min.js"></script>
   <% if user_signed_in? %>
   <script type="text/javascript" charset="utf-8">
+  var pusher = new Pusher('<%= Pusher.key %>');
+  var channel = pusher.subscribe('private-<%= current_user.id %>');
+  channel.bind('notification', function(data) {
+    dom_notify(data.message);
+    $.ajax({
+      type: 'GET',
+      url: '/notifications/get_notifications_for_bubble',
+      dataType: 'json',
+      success:  function(bubble){ 
+        $('.notification-bubble').remove();
+        if (bubble.length > 0) {
+          $('#notification-bell').after("<div class='notification-bubble'>" + bubble.length + "</div>");
+        } 
+      }
+    });
 
-        var pusher = new Pusher('<%= Pusher.key %>');
-        var channel = pusher.subscribe('private-<%= current_user.id %>');
-        channel.bind('notification', function(data) {
-          dom_notify(data.message);             
+    $.ajax({
+      type: 'GET',
+      url: '/notifications/get_notifications_for_header',
+      dataType: 'json',
+      success:  function(data){ 
+        $.each( data, function( key, array ) {
+          if (array["dismissed"]) {
+            $('#notification-dropdown').append('<li class="notification row"><div class="col-md-3">' + array["image"] + '</div><div class="col-md-8">' + array["content"] + '</div><div class="col-md-1"><i class="fa fa-circle-o"></i></div></li>');
+          } else {
+            $('#notification-dropdown').append('<li class="notification row not-dismissed"><div class="col-md-3">' + array["image"] + '</div><div class="col-md-8">' + array["content"] + '</div><div class="col-md-1"><i class="fa fa-circle"></i></div></li>');
+          }               
         });
-        
-          function dom_notify(msg) {
-            $('#notification-window').text(msg);
-            $('#notification-window').fadeIn();
-            setTimeout(function() {
-              $('#notification-window').fadeOut();
-            }, 4000);
-          }
+        $('#notification-dropdown').append('<a href="/notifications">View All Notifications</a> | <a href="/notifications/dismiss_all">Dismiss All New Notifications</a>');        
+      }
+    });          
+  });
 
-  </script>
-  <% end %>
+function dom_notify(msg) {
+  $('#notification-window').text(msg);
+  $('#notification-window').fadeIn();
+  setTimeout(function() {
+    $('#notification-window').fadeOut();
+  }, 4000);
+}
+</script>
+<% end %>
   
   <script type="text/javascript" src="//use.typekit.net/kqu8wnu.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
