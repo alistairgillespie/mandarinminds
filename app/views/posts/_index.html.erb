@@ -1,11 +1,15 @@
 <% @posts.each do |post| %>
   <div id="post">
-    <h3><%= post.title %></h3>
-    <%= post.body %>
-    <%= post.author %>
-    <small>
-      <%= link_to 'Edit', edit_post_path(post), remote: true %> |
-      <%= link_to 'Destroy', post, remote: true ,method: :delete, data: { confirm: 'Are you sure?' } %>
-    </small>
+    <div class="post-title"><h1><%= link_to post.title, post_path(post) %></h1><small><%= post.created_at.to_s.to_date %></small></div>
+    <div class="post-author"><%= image_tag User.find(Post.find(59).author).gravatar_url, :class => 'img-circle' %></div>
+    <div class="post-body">
+    	<%= post.body %>
+    </div>
+    <% if current_user.role_id > 2 %>
+	    <small>
+	      <%= link_to 'Edit', edit_post_path(post), remote: true %> |
+	      <%= link_to 'Destroy', post, remote: true ,method: :delete, data: { confirm: 'Are you sure?' } %>
+	    </small>
+    <% end %>
   </div>
 <% end %>

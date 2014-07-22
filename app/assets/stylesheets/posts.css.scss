@@ -5,4 +5,17 @@
 
 #post {
 	text-align: center;
+	
+	.img-circle {
+	    position: relative;
+	    top: 40px;
+	}
+	
+	.post-body {
+	    background: none repeat scroll 0 0 #f5f5f5;
+	    border-radius: 15px;
+	    font-size: 16px;
+	    padding: 70px 30px 30px 30px;
+	    text-align: left;
+	}
 }
