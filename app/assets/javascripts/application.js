@@ -10,13 +10,12 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// Loads all Bootstrap javascripts
-//= require bootstrap
 //= require jquery
-//= require bootstrap
 //= require jquery_ujs
 //= require underscore
 //= require_tree .
+//=require application.js
+//= require bootstrap
 
 
 
