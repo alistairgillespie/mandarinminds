@@ -1,9 +1,14 @@
 
+
+
 <i class="fa fa-book no-slot"></i> - No lesson slot available</br>
 <i class="fa fa-book free-slot"></i> - Lesson slot available for booking</br>
 <i class="fa fa-book slot-booked"></i> - You have booked this slot</br>
 
-
+<!--<button id="next-week-button">Next Week >></button>
+<button id="previous-week-button" style="display: none"><< Previous Week</button>
+<br></br>-->
+<div id="current-week-calendar">
 <%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @lessons do |date, events| %>
 <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
 <% for i in 9..23 %>
@@ -83,7 +88,92 @@
 		<% end %>
 	<% end %>
 <% end %>
+</div>
 
+<div id="next-week-calendar" style="display: none">
+<%= calendar start_date: Time.now + 7.days, number_of_days: 7, previous_link: false, next_link: false, events: @lessons do |date, events| %>
+<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
+<% for i in 9..23 %>
+<% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
 
+<%= content_tag :div, class: "hour" do %>
+<% @formatteddate = date.strftime('%Y-%m-%d') %>
+<%= @time.strftime('%l:%M%P') %>
+<% @hasfreeslot = false %>
+<% @bookedlesson = nil %>
+<% events.each do |lesson| %>
+<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time %>
+<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time %>
+<% end %>
+
+<% if !@bookedlesson.nil? %> <!-- If not nil it refers to the lesson they booked -->
+
+<button class="cal-book" data-toggle="modal" data-target="#viewbookedlesson<%=@formatteddate%><%= i %>"><i class="fa fa-book slot-booked"></i></button>
+<div class="modal fade" id= 'viewbookedlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
+			</div>
+			<div class="modal-body">
+				<iframe src="<%= lesson_path(@bookedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% elsif @hasfreeslot %> <!-- There are free lesson slots and the student is unbooked-->
+
+<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%><%= i %>"><i class="fa fa-book free-slot"></i></button>
+<div class="modal fade" id= 'booklesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h3 class="modal-title" id="myModalLabel">Today's Lesson Slots</h3>
+			</div>
+			<div class="modal-body">
+				<p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
+				<form>
+					<% events.each do |lesson| %>
+					<table>
+						<div>
+							<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
+							<tr>
+								<td>
+									<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
+								</td>
+								<td>
+									<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>
+								</td>
+								<td>
+									<%= link_to "Make Booking", book_lesson_slot_path(lesson), data: {confirm: "Are you sure you'd like to book the #{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} lesson slot?" }%>
+								</td>	
+							</tr>
+							<% end %>				
+						</div>
+					</table>
+					<% end %>       
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<% else %> <!-- There are no slots and the student hasn't booked a slot here -->
+<button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled><i class="fa fa-book no-slot"></i></button>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+</div>
+
+<script type="text/javascript">
+
+</script>
 
 
