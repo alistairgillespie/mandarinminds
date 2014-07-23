@@ -12,13 +12,6 @@
 //= require jquery
 //= require_tree .
 
-
-
-
-
-
-
-
 $(function() {
   try {
     Typekit.load();

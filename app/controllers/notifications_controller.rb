@@ -37,6 +37,22 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def get_notifications_for_header
+    @data = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4)
+
+    respond_to do |format|
+      format.js { render :json => @data.to_json}
+    end
+  end
+
+  def get_notifications_for_bubble
+    @newnotifications = current_user.notifications.where("appear_at < ? AND dismissed = false", Time.now)
+    
+    respond_to do |format|
+      format.js { render :json => @newnotifications.to_json}
+    end
+  end
+
   # PATCH/PUT /notifications/1
   # PATCH/PUT /notifications/1.json
   def update
