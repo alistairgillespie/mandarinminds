@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -12,27 +12,47 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if user_signed_in? %>
-
+        <div id="notification-window" style="
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            background-color: rgba(0,0,0,0.8);
+            height: 60px;
+            width: 400px;
+            z-index: 1;
+            color: white;
+            display: none;
+            padding: 5px;
+            font-size: 14px
+        "></div>
+        <li class="notify" id="notification-menu"> 
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
               <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
             <% end %>
-
-        <li class="notify">
-            <i class="fa fa-calendar-o"></i>
-            <i class="fa fa-bell-o" id="notificationmenu" data-toggle="dropdown"></i>
+          <i id="notification-bell" class="fa fa-bell-o" data-toggle="dropdown"></i>
             <% if @newnotifications > 0 %>     
               <div class="notification-bubble"> <%= @newnotifications %> </div>       
             <% end %> 
-            <ul class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
+            <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
-                <li><div class="notification">
-                  <div class="row">
-                    <div class="col-md-3"><%= n.image %></div>
-                    <div class="col-md-9"><%= n.content %></div>
-                  </div>
-                </div></li>
+                <% if n.dismissed %>
+                    <li class="notification row">
+                      <div class="col-md-3"><%= n.image %></div>
+                      <div class="col-md-8"><%= n.content %></div>
+                      <div class="col-md-1"><i class='fa fa-circle-o'></i></div>
+                    </li>
+                  <% else %>
+                    <li class="notification row not-dismissed">
+                      <div class="col-md-3"><%= n.image %></div>
+                      <div class="col-md-8"><%= n.content %></div>
+                      <div class="col-md-1"><i class='fa fa-circle'></i></div>
+                    </li>                    
+                  <% end %>  
               <% end %>
+
+              <%= link_to "View All Notifications", notifications_path %> | 
+              <%= link_to "Dismiss All New Notifications", dismiss_all_notifications_path %>
             
             </ul>
           

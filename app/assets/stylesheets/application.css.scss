@@ -16,8 +16,20 @@
  
 @import "bootstrap";
 
+#nolayout{
+	.navbar-header { display: none;}
+	.sidebar {display: none;}
+
+}
+
+
 // Calendar Styling
 .calendar{
+
+	button.view-lesson {
+			background: transparent;
+			border: none;
+		}
 
 
 	table{
@@ -173,6 +185,8 @@ h2 {
 }
 
 //Navigation Styling
+
+
 .navbar {
 	background: #2c3e50;
 	border: 0px;
@@ -185,8 +199,6 @@ h2 {
 		    font-size: 26px;
 		    padding: 20px 20px 10px 15px;
 		}
-
-
 
 		.notification-bubble {
 			position:absolute;
@@ -204,16 +216,6 @@ h2 {
 		    border-radius:30px;
 		    box-shadow:1px 1px 1px gray;
 		}
-		.dropdown-menu{
-
-			background: #6B7B8A;
-			width: 500px;
-
-			.notification {
-				background: white;
-				border: solid 1px black;
-			}
-		}
 	}
 	
 	.navbar-nav > li > a {
@@ -225,7 +227,7 @@ h2 {
 		padding-bottom: 7px;
 		padding-top: 30px;
 		cursor: pointer;
-	}
+	}	
 }
 
 .dropdown.dropdown-menu-right {
@@ -260,6 +262,39 @@ h2 {
 		    }
 	    }
 	}
+}
+
+#notification-dropdown {
+	background: #6B7B8A;
+	width: 600px;
+	font-size: 10px;
+
+	ul { 
+		padding: 5px;
+
+		li { padding: 5px;}
+		.row { margin: 0px;}
+
+
+		i {
+			font-size: 10px;
+			color: #93192c;
+		}
+		
+		a {
+			font-size: 10px;
+		}
+
+		.notification {
+			background: white;
+			border: solid 1px black;
+			width: 100%;
+		}
+
+		.notification.not-dismissed{
+			background: gold;
+		}
+	}	
 }
 
 .profile-pic {
@@ -735,6 +770,10 @@ html, body {
 			    height: 100%;
 			    margin: 0;
 			    width: 40px;
+		    }
+		    
+		    &:active {
+			    background: #890f0f;
 		    }
 		}
 	}

@@ -6,11 +6,15 @@
 					The current time in Perth, Western Australia is <%= Time.now.in_time_zone("Perth").strftime("%I:%M:%S") %></div>-->
 					
 				<div class="progress">
-				  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width:  <%= @count / @total * 100%>%">
+				  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width: 80%">
 					  <span class="sr-only">80% Complete (danger)</span>
 				  </div>
 				</div>	
 					
+					   <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.skypeid %>?call">
+					     <%= image_tag "callbutton_32px.png" %>
+					   </a>
+
 			</div>
 
 
@@ -27,11 +31,10 @@
 		<% if @timetolesson[:day] > 2 %>
 			Your next lesson is on 
 			<%= @userlessons.first.starts_at.strftime("#{@userlessons.first.starts_at.day.ordinalize} %b %Y") %>
-		<% elsif @timetolesson[:hour] > 0 || @timetolesson[:minute] > 0 %>
+		<% elsif Time.now < @userlessons.first.starts_at - 5.minutes %>
 			Counting down to your next lesson: <%=  @timetolesson[:diff]%>
 		<% else %> 
-			You have a scheduled lesson currently running!
-		
+			You have a scheduled lesson ready. Click on it in the calendar below to contact your tutor.		
 		<% end %>
 		</p>
 		
@@ -46,7 +49,22 @@
  		<% events.each do |lesson| %>
  			<% if lesson.confirmed %>
     		<div>
-      			<%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %>
+    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>"><i class="fa fa-search"><%=" #{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}" %></i></button>
+<div class="modal fade" id= 'viewbookedlesson<%= lesson.id %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
+			</div>
+			<div class="modal-body">
+				<iframe src="<%= lesson_path(lesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe
+			</div>
+		</div>
+	</div>
+</div>
     		</div>
 			<% end %>
 		<% end %>

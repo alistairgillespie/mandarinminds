@@ -1,115 +1,73 @@
-<%= month_calendar events: @lessons do |date, events| %>
-<% @formatteddate = date.strftime('%Y-%m-%d') %>
-<p class="date"><%= date.strftime("#{date.day.ordinalize}") %></p>
-<div class="contents">
-  <% @confirmed = 0 %>
-  <% @unconfirmed = 0 %>
 
-  <% events.each do |lesson| %>
-    <% lesson.confirmed ? @confirmed += 1 : @unconfirmed += 1 %>
+  <i class="fa fa-book no-slot"></i> - There is no slot available</br>
+<i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
+<i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
+
+<%= calendar number_of_days: 7, events: @lessons do |date, events| %>
+  <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
+  <% for i in 9..23 %>
+    <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
+    <% @formatteddate = date.strftime('%Y-%m-%d') %>
+    <%= content_tag :div, class: "hour" do %>
+      <span class="time"><%= @time.strftime('%l:%M%P') %></span>
+      <% @plannedlesson = nil %>
+      <% events.each do |lesson| %>
+        <% if lesson.starts_at == @time && lesson.teacher == current_user %>
+          <% @plannedlesson = lesson %>
+        <% end %>
+      <% end %>
+      <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
+      <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='<%= @formatteddate.to_s%>' method="post">
+        <button class="btn btn-default" name="commit" type="submit">
+          <i class="fa fa-book no-slot"></i>
+        </button> 
+        <input class="form-control" name="utf8" type="hidden" value="✓">             
+        <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
+        <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
+        <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
+        <input class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]" type="hidden" value="<%=@time.hour%>"/>
+        <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
+        <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
+        <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
+        
+               
+      </form>
+      <% else %> <!-- There IS a lesson in this slot -->
+
+      <% if @plannedlesson.student.nil? %>
+      <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+      <i class="fa fa-book free-slot"></i>
+      </button>
+        <% else %>
+        <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+      <i class="fa fa-book slot-booked"></i>
+      </button>
+        <% end %>
+      
+
+
+<div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
+      </div>
+      <div class="modal-body">
+        <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <% end %>
+
+
+    <% end %>
   <% end %>
-    <div class="row">
-    <div class="col-md-6 confirmed">Conf.</br><strong><%=@confirmed%></strong></div>
-    <div class="col-md-6 unconfirmed">Unconf.</br><strong><%=@unconfirmed%></strong></div>
-    </div>
-
-  <button class="cal-book" data-toggle="modal" data-target= '#addlesson<%=@formatteddate%>'><i class="fa fa-pencil-square-o fa-2"></i></button>
-  <button class="cal-lessons" data-toggle="modal" data-target= '#viewlessons<%=@formatteddate%>'><i class="fa fa-clock-o"></button>
-
-  <div id="newlesson">
-    <div class="modal fade" id= 'addlesson<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-            </button>
-            <h3 class="modal-title" id="myModalLabel">New Lesson Slot</h3>
-          </div>
-          <div class="modal-body">
-            <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
-            <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='<%= @formatteddate.to_s%>' method="post">
-              <div class="form-group" style="display:none">
-                <input class="form-control" name="utf8" type="hidden" value="✓">
-              </div>
-              <div>
-                <label for="lesson_starts_at">Starts at: </label>
-                <select class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]">
-                  <option value="00">Midnight</option>
-                  <option value="01">1am</option>
-                  <option value="02">2am</option>
-                  <option value="03">3am</option>
-                  <option value="04">4am</option>
-                  <option value="05">5am</option>
-                  <option value="06">6am</option>
-                  <option value="07">7am</option>
-                  <option value="08">8am</option>
-                  <option selected="selected" value="09">9am</option>
-                  <option value="10">10am</option>
-                  <option value="11">11am</option>
-                  <option value="12">12pm</option>
-                  <option value="13">1pm</option>
-                  <option value="14">2pm</option>
-                  <option value="15">3pm</option>
-                  <option value="16">4pm</option>
-                  <option value="17">5pm</option>
-                  <option value="18">6pm</option>
-                  <option value="19">7pm</option>
-                  <option value="20">8pm</option>
-                  <option value="21">9pm</option>
-                  <option value="22">10pm</option>
-                  <option value="23">11pm</option>
-                </select>
-              </div>
-              <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
-              <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
-              <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
-              <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
-              <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
-              <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
-            </br>
-            <button class="btn btn-default" name="commit" type="submit">Create Lesson Slot</button>
-          </form>     
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id= 'viewlessons<%=@formatteddate%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-            </button>
-            <h3 class="modal-title" id="myModalLabel">Current Lessons</h3>
-          </div>
-          <div class="modal-body">
-            <p><strong> <%=date.strftime("#{date.day.ordinalize} %B %Y")%> </strong></p>
-
-            <% events.each do |lesson| %>
-              <div>
-                <% if lesson.teacher == current_user %>
-                <% if lesson.confirmed %>
-                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> 
-                <%= lesson.student.nil? ? " (Unbooked)" : " (Booked)" %></br>
-                <% else %>
-                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (Specific Request)
-                <% end %>
-                <% elsif lesson.teacher.nil? %>
-                <%= link_to "#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}", lesson %> (General Request)
-                <% end %>
-              </div>
-            <% end %>
-                
-          
-          </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
 <% end %>
+
+
 

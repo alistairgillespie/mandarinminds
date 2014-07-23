@@ -13,8 +13,7 @@
       <ul class="nav navbar-nav pull-right">
 <li><%= link_to 'About', "/about", :class => 'navbar-link' %></li>
 <li><%= link_to 'Pricing', "/plans", :class => 'navbar-link' %></li>
-<li><%= link_to 'Asian Century', "/asian-century", :class => 'navbar-link' %></li>
-<li><%= link_to 'Chatroom', "/chatroom", :class => 'navbar-link' %></li>
+<li><%= link_to 'Blog', "/posts", :class => 'navbar-link' %></li>
         <% if user_signed_in? %>
 
 
@@ -85,8 +84,15 @@
       </div>
       <div class="modal-body">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <div class="form-group">
+			  <%= f.text_field :firstname, :class => "form-control", autofocus: true, placeholder: "First Name" %>
+		  </div>
 		  <div class="form-group">
-			  <%= f.email_field :email, :class => "form-control", autofocus: true, placeholder: "Email" %>
+			  <%= f.text_field :skypeid, :class => "form-control", placeholder: "Skype ID" %>
+		  </div>
+
+		  <div class="form-group">
+			  <%= f.email_field :email, :class => "form-control", placeholder: "Email" %>
 		  </div>
 		  <div class="form-group">
 			  <%= f.password_field :password, :class => "form-control",autocomplete: "off", placeholder: "Password" %>

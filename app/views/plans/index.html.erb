@@ -1,4 +1,8 @@
+<% if user_signed_in? %>
+<div class="container-fluid">
+<% else %>
 <div class="container">
+<% end %>
 	<div class="row">
 		<% if user_signed_in? %>
 			<div class="packages jumbotron">
@@ -27,7 +31,7 @@
 		  <% @plans.each do |plan| %>
 		    <div class="plan col-md-3">
 			    <div class="plan-wrapper">
-			      <div class="name"><%= plan.name %></div>
+			      <div class="name">&nbsp;<%= plan.name %></div>
 			      <div class="details">
 			        <div class="price">
 			          <%= number_to_currency plan.price, :precision => 0 %>
@@ -35,7 +39,6 @@
 			      </div>
 			      <% if user_signed_in? %>
 			      	<%= link_to "Buy now",  charge_plan_path(plan), :class => 'btn btn-primary btn-lg' %>
-			      	
 			      <% end %>
 			    </div>
 		    </div>

@@ -37,6 +37,22 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def get_notifications_for_header
+    @data = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4)
+
+    respond_to do |format|
+      format.js { render :json => @data.to_json}
+    end
+  end
+
+  def get_notifications_for_bubble
+    @newnotifications = current_user.notifications.where("appear_at < ? AND dismissed = false", Time.now)
+    
+    respond_to do |format|
+      format.js { render :json => @newnotifications.to_json}
+    end
+  end
+
   # PATCH/PUT /notifications/1
   # PATCH/PUT /notifications/1.json
   def update
@@ -49,6 +65,22 @@ class NotificationsController < ApplicationController
         format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def dismiss
+    @notification = Notification.find(params[:id])
+    @notification.dismissed = true
+    @notification.save!
+    redirect_to notifications_url, notice: 'Notification was successfully dismissed.'
+  end
+
+  def dismiss_all
+    @allnotifications = current_user.notifications.where("dismissed = false")
+    @allnotifications.each do |n|
+      n.dismissed = true
+      n.save!
+    end
+    redirect_to notifications_url, notice: 'All notifications were successfully dismissed.'
   end
 
   # DELETE /notifications/1

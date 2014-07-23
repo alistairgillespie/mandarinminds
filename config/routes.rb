@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
+
+  resources :posts
+
   resources :notifications
   resources :plans
 
   resources :lessons
-  
+
+  post 'pusher/auth'
+
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
   
   devise_for :users, :path_names => {:sign_up => "register", } 
    
@@ -16,15 +19,21 @@ Rails.application.routes.draw do
     root to: "static#index"
   #end
 
+  resources :posts do
+    get "delete"
 
-    
+  get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
+  get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
+  
   match 'users/:id' => 'users#show', as: :user, via: :get
-
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
   match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post
   get 'lessons/:id/booklessonslot' => 'lessons#booklessonslot', :as => "book_lesson_slot"
   get 'lessons/:id/confirm' => 'lessons#confirmlessonrequest', :as => "confirm_lesson"
+  get 'notifications/dismiss_all' => 'notifications#dismiss_all', :as => "dismiss_all_notifications"
+  get 'notifications/dismiss/:id' => 'notifications#dismiss', :as => "dismiss_notification"
 
+resources :notifications
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
