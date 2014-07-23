@@ -754,6 +754,10 @@ html, body {
 			    margin: 0;
 			    width: 40px;
 		    }
+		    
+		    &:active {
+			    background: #890f0f;
+		    }
 		}
 	}
 	

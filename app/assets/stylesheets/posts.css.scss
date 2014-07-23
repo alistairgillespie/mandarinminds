@@ -4,11 +4,21 @@
 
 
 #post {
+	margin-top: 100px;
 	text-align: center;
+	
+	&:first-child {
+		margin-top: 0px;
+	}
 	
 	.img-circle {
 	    position: relative;
 	    top: 40px;
+	}
+	
+	.post-author {
+	    position: relative;
+	    z-index: 5;
 	}
 	
 	.post-body {
@@ -17,5 +27,51 @@
 	    font-size: 16px;
 	    padding: 70px 30px 30px 30px;
 	    text-align: left;
+	    position: relative;
+	    font-size: 19px;
+	    font-weight: 200;
+	    .date {
+		    position: absolute;
+		    top: 18px;
+		}
+		
+		.read-more {
+			a {
+				color: #890f0f;
+				padding-right: 5px;
+				padding-left: 8px;
+				
+				&:hover {
+					text-decoration: none;
+				}
+			}
+			
+			i {
+				color: #890f0f;
+			}
+		}
 	}
+	
+	h1 {
+		font-weight: bold;
+		font-size: 28px;
+		a {
+			transition: color 0.2s ease;
+			color: black;
+			
+			&:hover , &:focus {
+				color: #890f0f;
+				text-decoration: none;
+			}
+			
+		}
+	}
+}
+
+.blog-crud .btn.btn-primary {
+	margin-top: 25px;
+}
+
+.full {
+	margin-top: 20px !important;
 }

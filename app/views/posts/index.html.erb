@@ -1,12 +1,15 @@
+<% if user_signed_in? %>
 <div class="container-fluid">
+<% else %>
+<div class="container">
+<% end %>
   <div class="row">
-
 	<div id="posts" class="post-index">
 	  <%= render "index" %>
 	</div>
-
-<%= link_to 'New Post', new_post_path, remote: true, class: "btn btn-primary" %>
-  
+	<% if user_signed_in? && current_user.role_id > 2 %>
+		<%= link_to 'New Post', new_post_path, remote: true, class: "blog-crud btn btn-primary" %>
+	<% end %>
   </div>
 </div>
 <div id="post-modal" class="modal fade">

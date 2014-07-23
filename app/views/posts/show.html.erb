@@ -1,17 +1,22 @@
+<% if user_signed_in? %>
+<div class="container-fluid">
+<% else %>
+<div class="container">
+<% end %>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<div id="post" class="full">
+    <div class="post-title"><h1><%= @post.title %></h1></div>
+    <div class="post-author"><%= image_tag User.find(@post.author).gravatar_url, :class => 'img-circle' %></div>
+    <div class="post-body">
+    	<span class="date">
+    		<strong><%= @post.created_at.strftime("%d/%m/%Y") %></strong>
+    	</span>
+    	<%= @post.body %>
+    </div>
+</div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<p> <%= @post.author %></p>
-
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<% if user_signed_in? && current_user.role_id > 2 %>
+	<%= link_to 'Edit', edit_post_path(@post), class: "blog-crud btn btn-primary" %>
+<% end %>
+</div>
