@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :posts do
     get "delete"
-
+  end
+  
   get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
   
