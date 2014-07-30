@@ -1,14 +1,1 @@
 $("#teacher_calendar").html("<%= escape_javascript render(partial: 'teachercalendar', locals: {events: @lessons}) %>");
-$("#next-week-button").click(function(){
-	$("#next-week-button").hide();
-	$("#previous-week-button").show();
-	$("#current-week-calendar").hide();
-	$("#next-week-calendar").show();
-});
-
-$("#previous-week-button").click(function(){
-	$("#previous-week-button").hide();
-	$("#next-week-button").show();
-	$("#next-week-calendar").hide();
-	$("#current-week-calendar").show();
-});

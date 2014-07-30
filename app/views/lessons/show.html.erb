@@ -13,9 +13,11 @@
   <strong>Starts at:</strong>
   <%= "#{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@lesson.starts_at.in_time_zone('Perth').strftime("#{@lesson.starts_at.day.ordinalize} %B %Y")}" %>
 </p>
-
+<% unless @lesson.student.nil? || @lesson.teacher.nil? %>
 <% if (Time.now < (@lesson.starts_at + 50.minutes) && Time.now > (@lesson.starts_at - 5.minutes)) || current_user.role_id == 2 %>
+	<p>Begin Your Lesson:</p>
 	<a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @lesson.student.skypeid : @lesson.teacher.skypeid %>?call">
 					     <%= image_tag "callbutton_32px.png" %>
 					   </a>
+<% end %>
 <% end %>

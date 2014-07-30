@@ -2,7 +2,7 @@
 
 <p>Times with no free slots are marked with a grey book - clicking them will no nothing. If there is a free slot available however then the book is red and clicking it will open a window to let you select a teacher and book your lesson with them. Only teachers who are available will be shown. Lessons you have booked wil be shown in black and you can begin you lesson by clicking on it here or from your personal calendar on your Dashboard</p>
 
-<p>Please be aware that you can only book up to two weeks in advance. You can use the buttons above to navigate from week to week.</p></div>
+<p>Please be aware that you can only book up to two weeks in advance. You can use the buttons above to navigate from week to week. You cannot book a lesson slot for a time that has already passes so books will not appear in those slots.</p></div>
 
 <i class="fa fa-book no-slot"></i> - No lesson slot available</br>
 <i class="fa fa-book free-slot"></i> - Lesson slot available for booking</br>
@@ -20,6 +20,7 @@
 <%= content_tag :div, class: "hour" do %>
 <% @formatteddate = date.strftime('%Y-%m-%d') %>
 <%= @time.strftime('%l:%M%P') %>
+<% unless Time.now + 30.minutes > @time %>
 <% @hasfreeslot = false %>
 <% @bookedlesson = nil %>
 <% events.each do |lesson| %>
@@ -170,6 +171,7 @@
 </div>
 <% else %> <!-- There are no slots and the student hasn't booked a slot here -->
 <button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled><i class="fa fa-book no-slot"></i></button>
+			<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
