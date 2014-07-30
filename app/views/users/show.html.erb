@@ -42,7 +42,7 @@
 	
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
-	<%= calendar number_of_days: 7, previous_link: false, next_link: false, events: @userlessons do |date, events| %>
+	<%= calendar number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
   		<div class="inner">
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   		</div>

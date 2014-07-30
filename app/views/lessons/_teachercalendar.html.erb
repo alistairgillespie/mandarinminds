@@ -1,9 +1,13 @@
 
-  <i class="fa fa-book no-slot"></i> - There is no slot available</br>
+<i class="fa fa-book no-slot"></i> - There is no slot available</br>
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
-<i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
+<i class="fa fa-book slot-booked"></i> - Lesson has been booked</br></br>
 
-<%= calendar number_of_days: 7, events: @lessons do |date, events| %>
+<div class="introduction"><p>Slots that you have not made available for booking are marked with a grey book. If you wish to make it available then all you need to do is click on it. This should be done for each hour of your standard working day unless you require a certain time off. These free slots will be red until a student books it, at which point it will turn black and you will be send a notification that it has occured.</p>
+
+<p>While students can only book up to two weeks in advance you can, and should, make your availability known beyond that timeframe.</p></div>
+
+<%= calendar number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link, events: @lessons do |date, events| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   <% for i in 9..23 %>
     <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
