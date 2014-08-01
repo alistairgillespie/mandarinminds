@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
 
   resources :posts
-
   resources :notifications
   resources :plans
-
   resources :lessons
 
   post 'pusher/auth'
 
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
+  #get 'users' => 'users#show'
   
   devise_for :users, :path_names => {:sign_up => "register", } 
    
@@ -26,6 +25,8 @@ Rails.application.routes.draw do
   get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
   
+  #get 'lessons/get_lesson_details' => 'lessons#get_lesson_details'
+
   match 'users/:id' => 'users#show', as: :user, via: :get
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
   match 'lessons/createlessonslot' => 'lessons#createlessonslot', as: "create_lesson_slot", via: :post

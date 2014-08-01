@@ -14,7 +14,6 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    render :layout => "nolayout"
   end
 
   # GET /lessons/new
@@ -25,6 +24,20 @@ class LessonsController < ApplicationController
   # GET /lessons/1/edit
   def edit
   end
+
+  #def get_lesson_details
+  #  @lesson = Lesson.find(params[:id])
+  #  @student = User.find(@lesson.student_id)
+  #  @teacher = User.find(@lesson.teacher_id)  
+  #  @data = {
+  #    "lesson" => @lesson,
+  #    "student" => @student,
+  #    "teacher" => @teacher
+  #  }  
+  #  respond_to do |format|
+  #    format.js { render :json => @data.to_json}
+  #  end
+  #end
 
   # POST /lessons
   # POST /lessons.json

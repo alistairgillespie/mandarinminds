@@ -5,14 +5,12 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @user = User.new
   end
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  	
-  	
-  	  	
+  def show  	  	
   	if params[:id]
     	@user = User.find(params[:id])
     else

@@ -7,8 +7,6 @@
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
 <i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
 
-
-
 <%= calendar number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link, events: @lessons do |date, events| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   <% for i in 9..23 %>
@@ -57,11 +55,11 @@
       <% else %> <!-- There IS a lesson in this slot -->
 
         <% if @plannedlesson.student.nil? %>
-          <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+          <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
             <i class="fa fa-book free-slot"></i>
           </button>
         <% else %>
-          <button data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+          <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
             <i class="fa fa-book slot-booked"></i>
           </button>
         <% end %>
@@ -75,7 +73,8 @@
               <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
             </div>
             <div class="modal-body">
-              <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>
+              Loading data from server failed</br>
+              <!--<iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>-->
             </div>
           </div>
         </div>
@@ -87,6 +86,60 @@
   <% end %>
 <% end %>
 
+<!--<script type="text/javascript">
+$('.viewlesson').click(function(){
+  var body = $(this).next().find(".modal-body");
+  $.ajax({
+    type: 'GET',
+    url: '/users',
+    data: "id=4",
+    dataType: 'json',
+    cache: false,
+    success:  function(data){ 
+      console.log(data);
+    }
+  });
+  /*$.ajax({
+      type: 'GET',
+      url: '/lessons/get_lesson_details',
+      data: 'id='+ $(this).attr('data-lesson'),
+      dataType: 'json',
+      async: false,
+      success:  function(data){ 
+        console.log(data); 
+        body.html("");
+        if (data[0].student_id == null){
+          body.append("<b>Student: </b> None booked yet</br>");
+        } else {
+          updateUserData(data[0].student_id, body, "s"); 
+        }
+        if (data[0].teacher_id == null){
+          body.append("<b>Teacher: </b> None assigned yet</br>");
+        } else {
+          updateUserData(data[0].student_id, body, "t"); 
+        }
+      }
+  });*/
+});
+
+function updateUserData(uid, body, role){
+  $.ajax({
+    type: 'GET',
+    url: '/users/'+uid+".json",
+    dataType: 'json',
+    async: false,
+    success:  function(user){ 
+      console.log(user[0]);
+      if (role == "s"){
+        body.append("<b>Student: </b>" + user[0].firstname + " " + user[0].lastname + "</br>");
+      } else if (role == "t") {
+        body.append("<b>Teacher: </b>" + user[0].firstname + " " + user[0].lastname + "</br>");
+      }
+    }
+  });
+  
+}
+</script>-->
 
 
 
