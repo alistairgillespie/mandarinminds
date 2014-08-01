@@ -1,7 +1,9 @@
 
-<div class="introduction"><p>Slots that you have not made available for booking are marked with a grey book. If you wish to make it available then all you need to do is click on it. This should be done for each hour of your standard working day unless you require a certain time off. These free slots will be red until a student books it, at which point it will turn black and you will be send a notification that it has occured.</p>
+<div class="introduction">
+  <p>Slots that you have not made available for booking are marked with a grey book. If you wish to make it available then all you need to do is click on it. This should be done for each hour of your standard working day unless you require a certain time off. These free slots will be red until a student books it, at which point it will turn black and you will be send a notification that it has occured.</p>
 
-<p>While students can only book up to two weeks in advance you can, and should, make your availability known beyond that timeframe. You cannot book lessons for timeslots that have already passed so no book will appear for those slots.</p></div>
+  <p>While students can only book up to two weeks in advance you can, and should, make your availability known beyond that timeframe. You cannot book lessons for timeslots that have already passed so no book will appear for those slots.</p>
+</div>
 
 <i class="fa fa-book no-slot"></i> - There is no slot available</br>
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
@@ -12,76 +14,77 @@
   <% for i in 9..23 %>
     <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
-    
     <%= content_tag :div, class: "hour" do %>
       <span class="time"><%= @time.strftime('%l:%M%P') %></span>
       <% if Time.now - 1.hour < @time %>
-      <% @plannedlesson = nil %>
-      <% events.each do |lesson| %>
-        <% if lesson.starts_at == @time && lesson.teacher == current_user %>
-          <% @plannedlesson = lesson %>
+        <% @plannedlesson = nil %>
+        <% events.each do |lesson| %>
+          <% if lesson.starts_at == @time && lesson.teacher == current_user %>
+            <% @plannedlesson = lesson %>
+          <% end %>
+        <% end %>
+        <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
+          <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson" id='newlesson-<%= @formatteddate.to_s%>' method="post" style="display: inline">
+            <button class="btn btn-default" name="commit" type="submit">
+              <i class="fa fa-book no-slot"></i>
+            </button>
+            <input class="form-control" name="utf8" type="hidden" value="✓">             
+            <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
+            <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
+            <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
+            <input class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]" type="hidden" value="<%=@time.hour%>"/>
+            <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
+            <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
+            <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
+          </form>
+          <!--<script type="text/javascript">
+            $('#newlesson-<%= @formatteddate.to_s%>').submit(function() {  
+              var valuesToSubmit = $(this).serialize();
+              var button = $(this).find('button');
+              $.ajax({
+                type: "POST",
+                url: $(this).attr('action'), 
+                data: valuesToSubmit,
+                dataType: "JSON",
+                success: function(){
+                  button.html('<i class="fa fa-book free-slot"></i>');
+                }
+              });
+              return false;
+            });
+          </script>-->
+        <% else %> <!-- There IS a lesson in this slot -->
+
+          <% if @plannedlesson.student.nil? %>
+            <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+              <i class="fa fa-book free-slot"></i>
+            </button>
+          <% else %>
+            <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
+              <i class="fa fa-book slot-booked"></i>
+            </button>
+          <% end %>
+          <div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                  </button>
+                  <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
+                </div>
+                <div class="modal-body">
+                  <!--Loading data from server failed</br>-->
+                  <p>
+                    <%= link_to 'Cancel Lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+                  </p>
+                  <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none; width: 90%"></iframe>
+                </div>
+              </div>
+            </div>
+          </div> 
         <% end %>
       <% end %>
-      <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
-      <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson form-inline" id='newlesson-<%= @formatteddate.to_s%>' method="post">
-        <button class="btn btn-default" name="commit" type="submit">
-          <i class="fa fa-book no-slot"></i>
-        </button> 
-        <input class="form-control" name="utf8" type="hidden" value="✓">             
-        <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
-        <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
-        <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
-        <input class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]" type="hidden" value="<%=@time.hour%>"/>
-        <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
-        <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
-        <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
-      </form>
-      <script type="text/javascript">
-        $('#newlesson-<%= @formatteddate.to_s%>').submit(function() {  
-          var valuesToSubmit = $(this).serialize();
-          var button = $(this).find('button');
-          $.ajax({
-            type: "POST",
-            url: $(this).attr('action'), 
-            data: valuesToSubmit,
-            dataType: "JSON",
-            success: function(){
-              button.html('<i class="fa fa-book free-slot"></i>');
-            }
-          });
-          return false;
-        });
-      </script>
-      <% else %> <!-- There IS a lesson in this slot -->
-
-        <% if @plannedlesson.student.nil? %>
-          <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
-            <i class="fa fa-book free-slot"></i>
-          </button>
-        <% else %>
-          <button class="viewlesson" data-lesson=<%= @plannedlesson.id%> data-toggle="modal" data-target="#viewlesson<%=@formatteddate%><%= i %>">
-            <i class="fa fa-book slot-booked"></i>
-          </button>
-        <% end %>
-        <div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-              </button>
-              <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
-            </div>
-            <div class="modal-body">
-              Loading data from server failed</br>
-              <!--<iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe>-->
-            </div>
-          </div>
-        </div>
-        </div> 
-      <% end %>
-
-    <% end %>
     <% end %>
   <% end %>
 <% end %>
