@@ -4,7 +4,11 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    if user_signed_in?
+      @notifications = current_user.notifications.order(appear_at: :desc)
+    else
+      @notifications = {}
+    end
   end
 
   # GET /notifications/1

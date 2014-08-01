@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_user!  
+  #before_action :authenticate_user! 
+
   # GET /users
   # GET /users.json
   def index
@@ -9,10 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  	
-  	
-  	  	
+  def show  	  	
   	if params[:id]
     	@user = User.find(params[:id])
     else

@@ -1,34 +1,43 @@
-<h1>Listing notifications</h1>
+<% unless user_signed_in? %>
+Redirect - user not signed in
+<% else %>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Image</th>
-      <th>Content</th>
-      <th>Dismissed</th>
-      <th>Appear at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h1>Listing Notifications</h1>
 
-  <tbody>
-    <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= notification.user %></td>
-        <td><%= notification.image %></td>
-        <td><%= notification.content %></td>
-        <td><%= notification.dismissed %></td>
-        <td><%= notification.appear_at %></td>
-        <td><%= link_to 'Show', notification %></td>
-        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-        <td><%= link_to 'Dismiss', dismiss_notification_path(notification) %></td>
-        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table style="border-spacing: 10px;border-collapse: separate;">
+    <tbody>
+      <% if @notifications.length > 0 %>
+        <% @day = @notifications.first.appear_at.day %>
+        <% @month = @notifications.first.appear_at.month %>
+        <% @year = @notifications.first.appear_at.year %>
+        <tr>
+          <td>
+            <strong><%= "#{@notifications.first.appear_at.day.ordinalize} #{@notifications.first.appear_at.strftime('%B')}"%></strong>
+          </td>
+        </tr>
 
-<br>
+        <% @notifications.each do |n| %>
+          <% unless n.appear_at.day == @day && n.appear_at.month == @month && n.appear_at.year == @year %>
+            <tr>
+              <td>
+                </br><strong><%= "#{n.appear_at.day.ordinalize} #{n.appear_at.strftime('%B')}"%></strong>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td>
+            <td><%= n.content %></td>
+            
+            
+          </tr>
+        <% end %>
 
-<%= link_to 'New Notification', new_notification_path %>
+
+      <% else %>
+        No Notifications
+      <% end %>
+
+
+    </tbody>
+  </table>
+<% end %>
