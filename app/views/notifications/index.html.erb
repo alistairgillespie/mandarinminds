@@ -4,7 +4,7 @@ Redirect - user not signed in
 
 <h1>Listing Notifications</h1>
 
-  <table style="border-spacing: 10px;border-collapse: separate;">
+  <table>
     <tbody>
       <% if @notifications.length > 0 %>
         <% @day = @notifications.first.appear_at.day %>
@@ -25,8 +25,9 @@ Redirect - user not signed in
             </tr>
           <% end %>
           <tr>
-            <td><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td>
             <td><%= n.content %></td>
+            <td class="time"><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td>
+            
             
             
           </tr>
@@ -41,3 +42,11 @@ Redirect - user not signed in
     </tbody>
   </table>
 <% end %>
+
+<style type="text/css">
+.time {
+  text-align: right;
+  min-width: 100px;
+  font-size: 10px;
+}
+</style>
