@@ -4,7 +4,11 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    if user_signed_in?
+      @notifications = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc)
+    else
+      @notifications = {}
+    end
   end
 
   # GET /notifications/1
@@ -75,7 +79,7 @@ class NotificationsController < ApplicationController
   end
 
   def dismiss_all
-    @allnotifications = current_user.notifications.where("dismissed = false")
+    @allnotifications = current_user.notifications.where("dismissed = false AND appear_at < ?", Time.now)
     @allnotifications.each do |n|
       n.dismissed = true
       n.save!
