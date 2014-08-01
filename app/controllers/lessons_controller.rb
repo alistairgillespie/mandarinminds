@@ -81,7 +81,7 @@ class LessonsController < ApplicationController
         unless @lesson.teacher.nil?
           @notification_params = {
             :user_id => @lesson.teacher.id,
-            :image => "image.jpg",
+            :image => @lesson.student.id,
             :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has requested a lesson with you.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -89,9 +89,7 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
-          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
-            "message" => @notification_params[:content],
-            })
+          pushtopusher
 
         end
 
@@ -150,7 +148,7 @@ class LessonsController < ApplicationController
     @lesson.confirmed = true
           @notification_params = {
             :user_id => @lesson.student.id,
-            :image => "image.jpg",
+            :image => @lesson.teacher.id,
             :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has confirmed a lesson with you.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -160,7 +158,7 @@ class LessonsController < ApplicationController
           @n.save
           @notification_params = {
             :user_id => @lesson.student.id,
-            :image => "image.jpg",
+            :image => @lesson.teacher.id,
             :content => "You have a lesson starting in 15 minutes.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -170,7 +168,7 @@ class LessonsController < ApplicationController
           @n.save
           @notification_params = {
             :user_id => @lesson.student.id,
-            :image => "image.jpg",
+            :image => @lesson.teacher.id,
             :content => "Your lesson is ready.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -183,11 +181,19 @@ class LessonsController < ApplicationController
   end
 
 def booklessonslot
+    if current_user.lesson_count < 1
+      respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'You do not have any lessons to spend. Visit the Plans page to purchase more.' }
+          format.json { head :no_content }
+      end
+      return
+    end
     @lesson = Lesson.find(params[:id])
     @lesson.student = current_user
+    current_user.lesson_count = current_user.lesson_count - 1
           @notification_params = {
             :user_id => @lesson.teacher.id,
-            :image => "image.jpg",
+            :image => @lesson.student.id,
             :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -195,12 +201,10 @@ def booklessonslot
             }
           @n = Notification.new(@notification_params)
           @n.save
-          Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
-            "message" => @notification_params[:content],
-            })
+          pushtopusher
           @notification_params = {
             :user_id => @lesson.student.id,
-            :image => "image.jpg",
+            :image => @lesson.teacher.id,
             :content => "You have a lesson starting in 15 minutes.",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -208,8 +212,9 @@ def booklessonslot
             }
           @n = Notification.new(@notification_params)
           @n.save
+          #Need a way to push to pusher 15min before lesson. Timed event
     @lesson.save!
-    redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
+    redirect_to lessons_path, notice: 'Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}'
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
@@ -225,10 +230,12 @@ def booklessonslot
         n.destroy
       end
 
+      @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+
       if current_user.role_id == 1
         @notification_params = {
                 :user_id => @lesson.teacher.id,
-                :image => "image.jpg",
+                :image => @lesson.student.id,
                 :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you.",
                 :lesson_id => @lesson.id,
                 :dismissed => false,
@@ -236,9 +243,7 @@ def booklessonslot
                 }
               @n = Notification.new(@notification_params)
               @n.save
-              Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
-            "message" => @notification_params[:content],
-            })
+              pushtopusher
 
         respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
@@ -248,7 +253,7 @@ def booklessonslot
 
         @notification_params = {
                 :user_id => @lesson.student.id,
-                :image => "image.jpg",
+                :image => @lesson.teacher.id,
                 :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you. You have been credited the lesson you spent",
                 :lesson_id => @lesson.id,
                 :dismissed => false,
