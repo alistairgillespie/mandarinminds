@@ -37,7 +37,10 @@
             <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <% if n.dismissed %>
-                    <li class="notification">
+                    <li class="notification" data-lesson=<%= n.lesson_id %>>
+                      <% unless n.lesson_id.nil? %>
+                        <a src=<%= lesson_path(n.lesson_id) %>>
+                      <% end %>
 	                    <div class="notify-block">
 	                    		<div class="notify-img">
 	                    			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
@@ -46,9 +49,15 @@
 	                    			<%= n.content %>
 	                    		</p>
 	                    </div>
+                      <% unless n.lesson_id.nil? %>
+                        </a>
+                      <% end %>
                     </li>
                   <% else %>
-                    <li class="notification row not-dismissed">
+                    <li class="notification not-dismissed" data-lesson=<%= n.lesson_id %>>
+                      <% unless n.lesson_id.nil? %>
+                        <a src=<%= lesson_path(n.lesson_id) %>>
+                      <% end %>
                     	<div class="notify-block">
                     		<div class="notify-img">
                     			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
@@ -57,8 +66,11 @@
                     			<%= n.content %>
                     		</p>
                     	</div>
+                      <% unless n.lesson_id.nil? %>
+                        </a>
+                      <% end %>
                     </li>                    
-                  <% end %>  
+                  <% end %>
               <% end %>
 
               <%= link_to "See all", notifications_path, :class => 'see-all' %>

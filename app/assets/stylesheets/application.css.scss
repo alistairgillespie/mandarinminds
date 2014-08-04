@@ -287,6 +287,7 @@ h2 {
 		}
 
 		.notification {
+
 			background: white;
 			border-radius: 3px;
 			margin-top: 3px;
@@ -337,10 +338,8 @@ h2 {
 			.notify-block:hover {
 				background: transparent !important;
 			}	
-		}
 
-		.notification.not-dismissed{
-			background: gold;
+			
 		}
 		
 		.see-all {

@@ -6,6 +6,10 @@ class NotificationsController < ApplicationController
   def index
     if user_signed_in?
       @notifications = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc)
+      @notifications.each do |n|
+        n.dismissed = true
+        n.save
+      end
     else
       @notifications = {}
     end
