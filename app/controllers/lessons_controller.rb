@@ -45,8 +45,6 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
-
-
     respond_to do |format|
 
       if @lesson.starts_at < Time.now 
@@ -105,7 +103,6 @@ class LessonsController < ApplicationController
   def createlessonslot
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
-    @lesson.status_id = 1
 
     respond_to do |format|
 
@@ -147,7 +144,6 @@ class LessonsController < ApplicationController
   def confirmlessonrequest
     @lesson = Lesson.find(params[:id])
     @lesson.confirmed = true
-    @lesson.status_id = 2
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => @lesson.teacher.id,
@@ -192,9 +188,9 @@ def booklessonslot
     end
     @lesson = Lesson.find(params[:id])
     @lesson.student = current_user
-    @lesson.status_id = 2
 
     current_user.lesson_count = current_user.lesson_count - 1
+    current_user.save!
           @notification_params = {
             :user_id => @lesson.teacher.id,
             :image => @lesson.student.id,
@@ -226,9 +222,7 @@ def booklessonslot
 
   def destroy
     
-    #@lesson.destroy
-    @lesson.status_id = 4
-    @lesson.save!
+    @lesson.destroy
 
     if @lesson.confirmed
 
@@ -237,6 +231,7 @@ def booklessonslot
       end
 
       @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+      @lesson.student.save!
 
       if current_user.role_id == 1
         @notification_params = {

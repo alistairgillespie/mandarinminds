@@ -10,10 +10,6 @@
   Role.where(name: role).first_or_create
 end
 
-['Awaiting Booking', 'Booked', 'Complete', 'Cancelled'].each do |status|
-  LessonStatus.where(name: status).first_or_create
-end
-
 teachers = [
 	["Esther", "Ma", "esther@mm.com", "12345678", 2],
 	["Joan", "Zhou", "joan@mm.com", "12345678", 2],

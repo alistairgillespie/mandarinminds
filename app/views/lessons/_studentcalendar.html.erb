@@ -24,8 +24,8 @@
 					<% @hasfreeslot = false %>
 					<% @bookedlesson = nil %>
 					<% events.each do |lesson| %>
-						<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time && lesson.status_id != 4 %>
-						<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time && lesson.status_id != 4 %>
+						<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time %>
+						<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
 					<% end %>
 
 					<% if !@bookedlesson.nil? %> <!-- If not nil it refers to the lesson they booked -->

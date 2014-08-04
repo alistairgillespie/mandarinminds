@@ -1,3 +1,4 @@
+
 <div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,19 +13,6 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if user_signed_in? %>
-        <div id="notification-window" style="
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            background-color: rgba(0,0,0,0.8);
-            height: 60px;
-            width: 400px;
-            z-index: 1;
-            color: white;
-            display: none;
-            padding: 5px;
-            font-size: 14px
-        "></div>
         <li class="notify" id="notification-menu"> 
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
@@ -37,7 +25,7 @@
             <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <% if n.dismissed %>
-                    <li class="notification" data-lesson=<%= n.lesson_id %>>
+                    <li class="notification">
                       <% unless n.lesson_id.nil? %>
                         <a href=<%= lesson_path(n.lesson_id) %>>
                       <% end %>
@@ -54,7 +42,7 @@
                       <% end %>
                     </li>
                   <% else %>
-                    <li class="notification not-dismissed" data-lesson=<%= n.lesson_id %>>
+                    <li class="notification not-dismissed">
                       <% unless n.lesson_id.nil? %>
                         <a href="/notifications/<%= n.id %>/dismiss_and_view">
                       <% end %>
@@ -96,4 +84,16 @@
 
       </ul>
     </div><!--/.nav-collapse -->
+</div>
+<div id="notification-window" style="position: fixed;
+            right: 10px;
+            bottom: 10px;
+            background-color: rgba(0,0,0,0.8);
+            height: 60px;
+            width: 400px;
+            z-index: 1;
+            color: white;
+            display: none;
+            padding: 5px;
+            font-size: 14px">
 </div>

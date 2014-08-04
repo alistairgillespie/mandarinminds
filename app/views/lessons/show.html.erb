@@ -12,15 +12,7 @@
   <strong>Starts at:</strong>
   <%= "#{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@lesson.starts_at.in_time_zone('Perth').strftime("#{@lesson.starts_at.day.ordinalize} %B %Y")}" %>
 </p>
-<p>
-<p>
-  <strong>Status: </strong>
-  <% if @lesson.status.nil? %>
-    -
-  <% else %>
-    <%= @lesson.status.name %>
-  <% end %>
-</p>
+
 <p>
 <button><%= link_to 'Cancel Lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %></button>
 </p>
