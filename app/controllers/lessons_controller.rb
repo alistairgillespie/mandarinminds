@@ -46,6 +46,7 @@ class LessonsController < ApplicationController
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
 
+
     respond_to do |format|
 
       if @lesson.starts_at < Time.now 
@@ -104,6 +105,7 @@ class LessonsController < ApplicationController
   def createlessonslot
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+    @lesson.status_id = 1
 
     respond_to do |format|
 
@@ -145,6 +147,7 @@ class LessonsController < ApplicationController
   def confirmlessonrequest
     @lesson = Lesson.find(params[:id])
     @lesson.confirmed = true
+    @lesson.status_id = 2
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => @lesson.teacher.id,
@@ -189,6 +192,8 @@ def booklessonslot
     end
     @lesson = Lesson.find(params[:id])
     @lesson.student = current_user
+    @lesson.status_id = 2
+
     current_user.lesson_count = current_user.lesson_count - 1
           @notification_params = {
             :user_id => @lesson.teacher.id,
@@ -213,7 +218,7 @@ def booklessonslot
           @n.save
           #Need a way to push to pusher 15min before lesson. Timed event
     @lesson.save!
-    redirect_to lessons_path, notice: 'Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}'
+    redirect_to lessons_path, notice: "Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}"
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
@@ -221,7 +226,9 @@ def booklessonslot
 
   def destroy
     
-    @lesson.destroy
+    #@lesson.destroy
+    @lesson.status_id = 4
+    @lesson.save!
 
     if @lesson.confirmed
 

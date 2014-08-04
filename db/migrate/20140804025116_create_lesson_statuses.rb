@@ -5,7 +5,5 @@ class CreateLessonStatuses < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_column :lessons, :status, :integer
   end
 end

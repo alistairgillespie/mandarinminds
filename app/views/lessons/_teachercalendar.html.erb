@@ -19,7 +19,7 @@
       <% if Time.now - 1.hour < @time %>
         <% @plannedlesson = nil %>
         <% events.each do |lesson| %>
-          <% if lesson.starts_at == @time && lesson.teacher == current_user %>
+          <% if lesson.starts_at == @time && lesson.teacher == current_user && lesson.status_id != 4 %>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>

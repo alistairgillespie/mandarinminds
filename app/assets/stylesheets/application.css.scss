@@ -295,6 +295,11 @@ h2 {
 			&:first-child {
 				margin-top:0px;
 			}
+
+			.not-dismissed{
+				background: lightgray;
+				p {color: #444;}
+			}
 			
 			.notify-block {
 				display: block;

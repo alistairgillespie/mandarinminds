@@ -3,7 +3,7 @@ class Lesson < ActiveRecord::Base
   	has_calendar
 	belongs_to :student, :class_name => 'User', inverse_of: :lessons_to_attend
 	belongs_to :teacher, :class_name => 'User', inverse_of: :lessons_to_teach
-	belongs_to :lessonstatus
+	belongs_to :status, :class_name => 'LessonStatus'
 	has_many :notifications
 
 	validates :starts_at, :uniqueness => {:scope => :teacher_id, :message => 'You cannot teach two lessons at the same time'}
