@@ -2,8 +2,6 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
-  
-
   # GET /lessons
   # GET /lessons.json
   def index
@@ -14,6 +12,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    
     #render :layout => "nolayout"
   end
 
@@ -285,6 +284,8 @@ def booklessonslot
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :confirmed)
+      params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :confirmed)
     end
+
+    
 end

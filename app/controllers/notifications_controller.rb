@@ -1,6 +1,8 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
 
+   around_filter :catch_not_found
+
   # GET /notifications
   # GET /notifications.json
   def index
@@ -19,6 +21,14 @@ class NotificationsController < ApplicationController
   # GET /notifications/1.json
   def show
   end
+
+  def dismiss_and_view
+    @notification = Notification.find(params[:id])
+    @notification.dismissed = true
+    @notification.save
+    redirect_to lessons_path(@notification.lesson_id)
+  end
+
 
   # GET /notifications/new
   def new
@@ -110,5 +120,11 @@ class NotificationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
       params.require(:notification).permit(:user_id, :image, :content, :dismissed, :appear_at, :lesson)
+    end
+
+    def catch_not_found
+      yield
+    rescue ActiveRecord::RecordNotFound
+      redirect_to lessons, :flash => { :error => "Record not found." }
     end
 end

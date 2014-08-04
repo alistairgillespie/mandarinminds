@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
+  get 'notifications/:id/dismiss_and_view' => 'notifications#dismiss_and_view'
   
   #get 'lessons/get_lesson_details' => 'lessons#get_lesson_details'
 

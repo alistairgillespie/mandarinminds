@@ -56,7 +56,7 @@
                   <% else %>
                     <li class="notification not-dismissed" data-lesson=<%= n.lesson_id %>>
                       <% unless n.lesson_id.nil? %>
-                        <a href=<%= lesson_path(n.lesson_id) %>>
+                        <a href="/notifications/<%= n.id %>/dismiss_and_view">
                       <% end %>
                     	<div class="notify-block">
                     		<div class="notify-img">
