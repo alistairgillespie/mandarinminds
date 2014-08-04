@@ -14,7 +14,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    render :layout => "nolayout"
+    #render :layout => "nolayout"
   end
 
   # GET /lessons/new
