@@ -26,8 +26,10 @@
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <% if n.dismissed %>
                     <li class="notification">
-                      <% unless n.lesson_id.nil? %>
-                        <a href=<%= lesson_path(n.lesson_id) %>>
+                      <% if n.lesson_id == 0 %>
+                        <a href="">
+                      <% else %>
+                        <a href="/lessons/<%=n.lesson_id%>">
                       <% end %>
 	                    <div class="notify-block">
 	                    		<div class="notify-img">
@@ -37,14 +39,14 @@
 	                    			<%= n.content %>
 	                    		</p>
 	                    </div>
-                      <% unless n.lesson_id.nil? %>
                         </a>
-                      <% end %>
                     </li>
                   <% else %>
                     <li class="notification not-dismissed">
-                      <% unless n.lesson_id.nil? %>
-                        <a href="/notifications/<%= n.id %>/dismiss_and_view">
+                      <% if n.lesson_id == 0 %>
+                        <a href="">
+                      <% else %>
+                        <a href="/lessons/<%=n.lesson_id%>">
                       <% end %>
                     	<div class="notify-block">
                     		<div class="notify-img">
@@ -53,10 +55,8 @@
                     		<p>
                     			<%= n.content %>
                     		</p>
-                    	</div>
-                      <% unless n.lesson_id.nil? %>
-                        </a>
-                      <% end %>
+                    	</div>                        
+                    </a>
                     </li>                    
                   <% end %>
               <% end %>
