@@ -26,10 +26,10 @@ Redirect - user not signed in
           <% end %>
           <tr>
             <td>
-              <% unless n.lesson_id.nil? %>
-              <a href=<%= lesson_path(n.lesson_id) %>><%= n.content %></a>
+              <% unless n.lesson_id == 0 %>
+              <a href=<%= lesson_path(n.lesson_id) %>>- <%= n.content %></a>
               <% else %>
-              <%= n.content %>
+              - <%= n.content %>
               <% end %>
             </td>
             <td class="time"><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td>
