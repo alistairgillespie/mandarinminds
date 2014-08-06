@@ -234,7 +234,7 @@ class LessonsController < ApplicationController
 
   def destroy
     
-    @lesson.destroy
+    @lesson.destroy!
 
     unless @lesson.student_id.nil?
 

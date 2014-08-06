@@ -97,3 +97,20 @@
             padding: 5px;
             font-size: 14px">
 </div>
+<script type="text/javascript">
+
+  $('#notification-bell').click(function(){
+    if ((parseInt($('.notification-bubble').contents().text(),10)) > 0) {
+      $.ajax({
+        type: 'GET',
+        url: '/notifications#dismiss_all',
+        dataType: 'json',
+        success:  function(bubble){ 
+          $('.notification-bubble').html(0);
+          $('.notification-bubble').remove();
+        }
+      });
+    }
+  });
+
+</script>
