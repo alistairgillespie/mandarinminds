@@ -284,90 +284,90 @@ h2 {
 	//width: 600px;
 	font-size: 10px;
 	top: 65px;
-		padding: 5px;
+	padding: 5px;
 
-		li {  padding: 5px 5px 5px 0;}
-		.row { margin: 0px;}
+	li {  padding: 5px 5px 5px 0;}
+	.row { margin: 0px;}
 
 
-		i {
-			font-size: 10px;
-			color: #93192c;
+	i {
+		font-size: 10px;
+		color: #93192c;
+	}
+	
+	a {
+		font-size: 14px;
+		font-weight: bold;
+		color: #2c3e50;
+		
+	}
+
+	.notification {
+
+		background: white;
+		border-radius: 3px;
+		margin-top: 3px;
+		
+		&:first-child {
+			margin-top:0px;
 		}
 		
-		a {
-			font-size: 14px;
-			font-weight: bold;
-			color: #2c3e50;
-			
-		}
-
-		.notification {
-
-			background: white;
-			border-radius: 3px;
-			margin-top: 3px;
-			
-			&:first-child {
-				margin-top:0px;
-			}
-			
-			.notify-block {
-				display: block;
-				border-radius: 3px;
-				color: white;
-				font-size: 26px;
-				margin: 5px;
-				padding: 20px 20px 10px 15px;
-				white-space: nowrap;
-				cursor: default;
-				
-				&:hover , &:focus {
-					background: transparent !important;
-				}				
-				.notify-img {
-					width: 80px;
-					padding: 0 10px;
-					position: absolute;
-					top: 7px;
-					bottom: 0;
-					right: 0;
-					text-align: center;
-					overflow: hidden;
-					font-size: 0;
-					
-					img {
-						vertical-align: middle;
-						position: relative;
-						z-index: 2;
-					}
-				}
-				
-				p {
-					font-size: 12px;
-					margin-bottom: 5px;
-					color: #b2bac2;
-					font-weight: bold;
-				}
-			}
-			
-			.notify-block:hover {
-				background: transparent !important;
-			}	
-		}
-		
-		.see-all {
+		.notify-block {
 			display: block;
-			padding: 15px 20px;
-			font-size: 14px;
-			line-height: 18px;
-			font-weight: bold;
-			color: #93192C;
+			border-radius: 3px;
+			color: white;
+			font-size: 26px;
+			margin: 5px;
+			padding: 20px 20px 10px 15px;
+			white-space: nowrap;
+			cursor: default;
 			
-			&:hover {
-				text-decoration: none;
+			&:hover , &:focus {
+				background: transparent !important;
+			}				
+			.notify-img {
+				width: 80px;
+				padding: 0 10px;
+				position: absolute;
+				top: 7px;
+				bottom: 0;
+				right: 0;
+				text-align: center;
+				overflow: hidden;
+				font-size: 0;
+				
+				img {
+					vertical-align: middle;
+					position: relative;
+					z-index: 2;
+				}
 			}
+			
+			p {
+				font-size: 12px;
+				margin-bottom: 5px;
+				color: #b2bac2;
+				font-weight: bold;
+			}
+		}
+		
+		.notify-block:hover {
+			background: transparent !important;
 		}	
+	}
+	
+	.see-all {
+		display: block;
+		padding: 15px 20px;
+		font-size: 14px;
+		line-height: 18px;
+		font-weight: bold;
+		color: #93192C;
+		
+		&:hover {
+			text-decoration: none;
+		}
+	}	
 }
 
 .profile-pic {

@@ -24,46 +24,31 @@
             <% end %> 
             <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
-                <% if n.dismissed %>
+                
                     <li class="notification">
-                      <% if n.lesson_id == 0 %>
-                        <a href="">
-                      <% else %>
-                        <a href="/lessons/<%=n.lesson_id%>">
-                      <% end %>
-	                    <div class="notify-block">
-	                    		<div class="notify-img">
-	                    			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
-	                    		</div>
-	                    		<p>
-	                    			<%= n.content %>
-	                    		</p>
-	                    </div>
-                        </a>
-                    </li>
-                  <% else %>
-                    <li class="notification not-dismissed">
-                      <% if n.lesson_id == 0 %>
-                        <a href="">
-                      <% else %>
+                      <% unless n.lesson_id == 0 %>
                         <a href="/lessons/<%=n.lesson_id%>">
                       <% end %>
                     	<div class="notify-block">
-                    		<div class="notify-img">
-                    			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
-                    		</div>
+                    		<!--<div class="notify-img">-->
+                            <% if n.image[0,1] == "<" %>
+                              <%= n.image.html_safe %>
+                            <% else %>
+                               <%= image_tag n.image, :class => 'gravatar-nav img-circle' %>
+                            <% end %>                    		
+                          <!--</div>-->
                     		<p>
                     			<%= n.content %>
                     		</p>
                     	</div>                        
-                    </a>
+                    <% unless n.lesson_id == 0 %>
+                        </a>
+                    <% end %>
                     </li>                    
-                  <% end %>
+                  
               <% end %>
 
-              <%= link_to "See all", notifications_path, :class => 'see-all' %>
-              <!-- <%= link_to "Dismiss All New Notifications", dismiss_all_notifications_path %> -->
-            
+              <%= link_to "See all", notifications_path, :class => 'see-all' %>            
             </ul>
           
         </li>
@@ -85,7 +70,8 @@
       </ul>
     </div><!--/.nav-collapse -->
 </div>
-<div id="notification-window" style="position: fixed;
+<div id="notification-window" style="
+            position: fixed;
             right: 10px;
             bottom: 10px;
             background-color: rgba(0,0,0,0.8);
