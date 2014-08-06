@@ -76,7 +76,7 @@
                 <div class="modal-body">
                   <!--Loading data from server failed</br>-->
                   <p>
-                    <%= link_to 'Cancel Lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+                    <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
                   </p>
                   <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none; width: 90%"></iframe>
                 </div>
