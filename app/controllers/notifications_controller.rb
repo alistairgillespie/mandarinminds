@@ -1,11 +1,16 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
 
+
   # GET /notifications
   # GET /notifications.json
   def index
     if user_signed_in?
       @notifications = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc)
+      @notifications.each do |n|
+        n.dismissed = true
+        n.save
+      end
     else
       @notifications = {}
     end
@@ -15,6 +20,14 @@ class NotificationsController < ApplicationController
   # GET /notifications/1.json
   def show
   end
+
+  def dismiss_and_view
+    @notification = Notification.find(params[:id])
+    @notification.dismissed = true
+    @notification.save!
+    redirect_to lesson_path(@notification.lesson)
+  end
+
 
   # GET /notifications/new
   def new

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
+
   resources :posts
-  resources :notifications
   resources :plans
   resources :lessons
 
@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   #get 'users' => 'users#show'
   
-  devise_for :users, :path_names => {:sign_up => "register", } 
-   
+  devise_for :users, :path_names => {:sign_up => "register", }
+     
   #Redirected to rails default root if signed in 
   #unauthenticated do
   	get 'welcome/index'
@@ -24,7 +24,8 @@ Rails.application.routes.draw do
 
   get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
-  
+  get 'notifications/:id/dismiss_and_view' => 'notifications#dismiss_and_view'
+  resources :notifications
   #get 'lessons/get_lesson_details' => 'lessons#get_lesson_details'
 
   match 'users/:id' => 'users#show', as: :user, via: :get

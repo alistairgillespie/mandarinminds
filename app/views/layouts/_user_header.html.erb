@@ -1,3 +1,4 @@
+
 <div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,19 +13,6 @@
       <ul class="nav navbar-nav pull-right">
 
         <% if user_signed_in? %>
-        <div id="notification-window" style="
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            background-color: rgba(0,0,0,0.8);
-            height: 60px;
-            width: 400px;
-            z-index: 1;
-            color: white;
-            display: none;
-            padding: 5px;
-            font-size: 14px
-        "></div>
         <li class="notify" id="notification-menu"> 
           <% @newnotifications = 0 %>
             <% current_user.notifications.each do |n| %>
@@ -38,6 +26,11 @@
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 <% if n.dismissed %>
                     <li class="notification">
+                      <% if n.lesson_id == 0 %>
+                        <a href="">
+                      <% else %>
+                        <a href="/lessons/<%=n.lesson_id%>">
+                      <% end %>
 	                    <div class="notify-block">
 	                    		<div class="notify-img">
 	                    			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
@@ -46,9 +39,15 @@
 	                    			<%= n.content %>
 	                    		</p>
 	                    </div>
+                        </a>
                     </li>
                   <% else %>
-                    <li class="notification row not-dismissed">
+                    <li class="notification not-dismissed">
+                      <% if n.lesson_id == 0 %>
+                        <a href="">
+                      <% else %>
+                        <a href="/lessons/<%=n.lesson_id%>">
+                      <% end %>
                     	<div class="notify-block">
                     		<div class="notify-img">
                     			<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %>
@@ -56,9 +55,10 @@
                     		<p>
                     			<%= n.content %>
                     		</p>
-                    	</div>
+                    	</div>                        
+                    </a>
                     </li>                    
-                  <% end %>  
+                  <% end %>
               <% end %>
 
               <%= link_to "See all", notifications_path, :class => 'see-all' %>
@@ -84,4 +84,16 @@
 
       </ul>
     </div><!--/.nav-collapse -->
+</div>
+<div id="notification-window" style="position: fixed;
+            right: 10px;
+            bottom: 10px;
+            background-color: rgba(0,0,0,0.8);
+            height: 60px;
+            width: 400px;
+            z-index: 1;
+            color: white;
+            display: none;
+            padding: 5px;
+            font-size: 14px">
 </div>

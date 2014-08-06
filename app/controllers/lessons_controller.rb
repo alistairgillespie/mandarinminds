@@ -2,8 +2,6 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
-  
-
   # GET /lessons
   # GET /lessons.json
   def index
@@ -14,7 +12,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    render :layout => "nolayout"
+    
+    #render :layout => "nolayout"
   end
 
   # GET /lessons/new
@@ -46,16 +45,13 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
+    if @lesson.starts_at < Time.now 
+      redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+      return
+    end
 
     respond_to do |format|
-
-      if @lesson.starts_at < Time.now 
-        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
-        return
-      end
-
       if @lesson.save
-
         format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
@@ -65,6 +61,7 @@ class LessonsController < ApplicationController
     end
   end
 
+=begin
   def requestlesson
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
@@ -101,18 +98,18 @@ class LessonsController < ApplicationController
       end
     end
   end
+=end
 
   def createlessonslot
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
-    respond_to do |format|
-
-      if @lesson.starts_at < Time.now 
+    if @lesson.starts_at < Time.now 
         redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
-      end
+    end
 
+    respond_to do |format|
       if @lesson.save
         format.html { redirect_to (lessons_path), notice: 'Your lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
@@ -125,6 +122,7 @@ class LessonsController < ApplicationController
 
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
+=begin
   def update
     respond_to do |format|
 
@@ -142,7 +140,9 @@ class LessonsController < ApplicationController
       end
     end
   end
+=end
 
+=begin
   def confirmlessonrequest
     @lesson = Lesson.find(params[:id])
     @lesson.confirmed = true
@@ -179,8 +179,10 @@ class LessonsController < ApplicationController
     @lesson.save!
     redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
   end
+=end
 
-def booklessonslot
+  def booklessonslot
+
     if current_user.lesson_count < 1
       respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'You do not have any lessons to spend. Visit the Plans page to purchase more.' }
@@ -198,11 +200,13 @@ def booklessonslot
       end
     end
     @lesson.student = current_user
+    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
     current_user.lesson_count = current_user.lesson_count - 1
+    current_user.save!
           @notification_params = {
             :user_id => @lesson.teacher.id,
             :image => @lesson.student.id,
-            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you.",
+            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@starttime}",
             :lesson_id => @lesson.id,
             :dismissed => false,
             :appear_at => Time.now
@@ -222,7 +226,7 @@ def booklessonslot
           @n.save
           #Need a way to push to pusher 15min before lesson. Timed event
     @lesson.save!
-    redirect_to lessons_path, notice: 'Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}'
+    redirect_to lessons_path, notice: "Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}"
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
@@ -232,43 +236,78 @@ def booklessonslot
     
     @lesson.destroy
 
-    if @lesson.confirmed
+    unless @lesson.student_id.nil?
 
-      @lesson.notifications.where("appear_at > ?", Time.now).each do |n|
-        n.destroy
+      @lesson.notifications.each do |n|
+        if n.appear_at > Time.now
+          n.destroy
+        else
+          n.lesson_id = 0
+          n.save!
+        end
       end
 
       @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+      @lesson.student.save!
+      @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
       if current_user.role_id == 1
         @notification_params = {
-                :user_id => @lesson.teacher.id,
-                :image => @lesson.student.id,
-                :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you.",
-                :lesson_id => @lesson.id,
+                :user_id => @lesson.student.id,
+                :image => @lesson.teacher.id,
+                :content => "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson.",
+                :lesson_id => 0,
                 :dismissed => false,
                 :appear_at => Time.now
                 }
               @n = Notification.new(@notification_params)
-              @n.save
+              @n.save!
+              pushtopusher
+        @notification_params = {
+                :user_id => @lesson.teacher.id,
+                :image => @lesson.student.id,
+                :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
+                :lesson_id => 0,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save!
               pushtopusher
 
+        #Create replacement lesson because student cancelled
+        @newLesson = Lesson.new
+        @newLesson.starts_at = @lesson.starts_at
+        @newLesson.teacher_id = @lesson.teacher_id
+        @newLesson.confirmed = true
+        @newLesson.save!
+
         respond_to do |format|
-          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled and you have been credited the lesson spent. Current lessons to spend: #{current_user.lesson_count}' }
           format.json { head :no_content }
         end
       else
-
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => @lesson.teacher.id,
-                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you. You have been credited the lesson you spent",
-                :lesson_id => @lesson.id,
+                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@starttime}. You have been credited the lesson you spent.",
+                :lesson_id => 0,
                 :dismissed => false,
                 :appear_at => Time.now
                 }
               @n = Notification.new(@notification_params)
-              @n.save
+              @n.save!
+              pushtopusher
+        @notification_params = {
+                :user_id => @lesson.teacher.id,
+                :image => @lesson.student.id,
+                :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@starttime}. The student has been notified.",
+                :lesson_id => 0,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save!
               pushtopusher
 
         respond_to do |format|
@@ -286,13 +325,14 @@ def booklessonslot
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lesson
-      @lesson = Lesson.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def lesson_params
-      params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :confirmed)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def lesson_params
+    params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :confirmed)
+  end  
+    
 end

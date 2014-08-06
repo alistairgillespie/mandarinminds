@@ -29,17 +29,19 @@
       url: '/notifications/get_notifications_for_header',
       dataType: 'json',
       success:  function(data){ 
+        $('#notification-dropdown').html("");
         $.each( data, function( key, array ) {
+          $('#notification-dropdown').append('<li class="notification"><a href="/notifications/' + array["id"] + '/dismiss_and_view"><div class="notify-block"><div class="notify-img">img' + array["image"] + '</div><p>'+ array["content"] +'</p></div></a></li>');
+
+          
           if (array["dismissed"]) {
-            $('#notification-dropdown').append('<li class="notification row"><div class="col-md-3">' + array["image"] + '</div><div class="col-md-8">' + array["content"] + '</div><div class="col-md-1"><i class="fa fa-circle-o"></i></div></li>');
-          } else {
-            $('#notification-dropdown').append('<li class="notification row not-dismissed"><div class="col-md-3">' + array["image"] + '</div><div class="col-md-8">' + array["content"] + '</div><div class="col-md-1"><i class="fa fa-circle"></i></div></li>');
-          }               
+            $('#notification-dropdown:last-child').addClass("not-dismissed");
+          }                        
         });
-        $('#notification-dropdown').append('<a href="/notifications">View All Notifications</a> | <a href="/notifications/dismiss_all">Dismiss All New Notifications</a>');        
+        $('#notification-dropdown').append('<a class="see-all" href="/notifications">See All</a>');        
       }
     });          
-  });
+  });                    
 
 function dom_notify(msg) {
   $('#notification-window').text(msg);
