@@ -188,7 +188,15 @@ def booklessonslot
       end
       return
     end
+
     @lesson = Lesson.find(params[:id])
+
+    unless @lesson.student_id.nil?
+      respond_to do |format|
+          format.html { redirect_to lessons_url, notice: 'Sorry, that lesson has already been booked by another student. Please try another' }
+          format.json { head :no_content }
+      end
+    end
     @lesson.student = current_user
     current_user.lesson_count = current_user.lesson_count - 1
           @notification_params = {
