@@ -251,6 +251,7 @@ class LessonsController < ApplicationController
       @lesson.student.save!
       @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
+      #IF the student cancels their lesson
       if current_user.role_id == 1
         @notification_params = {
                 :user_id => @lesson.student.id,
@@ -283,9 +284,11 @@ class LessonsController < ApplicationController
         @newLesson.save!
 
         respond_to do |format|
-          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled and you have been credited the lesson spent. Current lessons to spend: #{current_user.lesson_count}' }
+          format.html { redirect_to lessons_url, notice: "Lesson was successfully cancelled and you have been credited the lesson spent. Current lessons to spend: #{current_user.lesson_count}" }
           format.json { head :no_content }
         end
+
+      #ELSE if the teacher cancels the lesson  
       else
         @notification_params = {
                 :user_id => @lesson.student.id,
