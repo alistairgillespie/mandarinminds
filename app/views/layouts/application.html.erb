@@ -31,12 +31,14 @@
       success:  function(data){ 
         $('#notification-dropdown').html("");
         $.each( data, function( key, array ) {
-          $('#notification-dropdown').append('<li class="notification"><a href="/notifications/' + array["id"] + '/dismiss_and_view"><div class="notify-block"><div class="notify-img">img' + array["image"] + '</div><p>'+ array["content"] +'</p></div></a></li>');
+          console.log(array);
+          $('#notification-dropdown').append('<li class="notification"><div class="notify-block"><div class="notify-img">img' + array["image"] + '</div><p>'+ array["content"] +'</p></div></li>');
+          if (array["lesson_id"] != 0)  {
 
-          
-          if (array["dismissed"]) {
-            $('#notification-dropdown:last-child').addClass("not-dismissed");
-          }                        
+          }      
+          if (array["content"].charAt(0) == '<'){
+            
+          }              
         });
         $('#notification-dropdown').append('<a class="see-all" href="/notifications">See All</a>');        
       }
