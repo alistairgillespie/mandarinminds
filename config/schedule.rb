@@ -19,14 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :environment, "production"
-
 every :hour, at: 45 do
 	runner "Notification.check45"
 end
 
-every :hour, at: 0 do
-	runner "Notification.check00"
+every :hour, at: 55 do
+	runner "Notification.check55"
 end
 
 
