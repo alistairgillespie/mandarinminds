@@ -281,7 +281,7 @@ h2 {
 
 #notification-dropdown {
 	background: #f5f5f5;
-	//width: 600px;
+	width: 600px;
 	font-size: 10px;
 	top: 65px;
 	padding: 5px;
@@ -318,28 +318,42 @@ h2 {
 			color: white;
 			font-size: 26px;
 			margin: 5px;
-			padding: 20px 20px 10px 15px;
-			white-space: nowrap;
+			//padding: 20px 20px 10px 15px;
+			//white-space: nowrap;
 			cursor: default;
 			
 			&:hover , &:focus {
 				background: transparent !important;
 			}				
 			.notify-img {
-				width: 80px;
-				padding: 0 10px;
-				position: absolute;
-				top: 7px;
-				bottom: 0;
-				right: 0;
+				float: left;
+				width: 40px;
+				height: 40px;
+				//padding: 0 10px;
+				margin: 5px 20px 5px 10px;
+				//position: absolute;
+				//top: 7px;
+				//bottom: 0;
+				//right: 0;
 				text-align: center;
 				overflow: hidden;
 				font-size: 0;
+				display: inline-block;
+
+				.gravatar-nav{margin-top: 0px;}
 				
 				img {
 					vertical-align: middle;
 					position: relative;
 					z-index: 2;
+				}
+
+				i {
+					width: 40px;
+					height: 40px;
+					verical-align: middle;
+					font-size: 27px;
+					padding: 0px;
 				}
 			}
 			
@@ -348,6 +362,9 @@ h2 {
 				margin-bottom: 5px;
 				color: #b2bac2;
 				font-weight: bold;
+				word-wrap: break-word;
+				display: inline-block;
+				width: 500px;
 			}
 		}
 		
