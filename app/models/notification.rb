@@ -13,7 +13,7 @@ class Notification < ActiveRecord::Base
 		        :image => '<i class="fa fa-clock-o"></i>',
 		        :content => "You have a lesson beginning in 15min with #{h.teacher.firstname} #{h.teacher.lastname}. Check your Dashboard for more information"
 		    }
-		    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson alert', {"image" => @notification_params[:image],
             "message" => @notification_params[:content],
             })
 
@@ -22,7 +22,7 @@ class Notification < ActiveRecord::Base
 		        :image => '<i class="fa fa-clock-o"></i>',
 		        :content => "You have a lesson beginning in 15min with #{h.student.firstname} #{h.student.lastname}. Check your Dashboard for more information"
 		    }
-		    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson alert', {"image" => @notification_params[:image],
             "message" => @notification_params[:content],
             })
 		end
@@ -41,9 +41,10 @@ class Notification < ActiveRecord::Base
 		        :user_id => h.student.id,
 		        :image => '<i class="fa fa-clock-o"></i>',
 		        :content => "Your lesson with #{h.teacher.firstname} #{h.teacher.lastname} is ready to begin. Check your Dashboard for more information"
+		        :type => 'Lesson Alert'
 		    }
-		    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
-	            "message" => @notification_params[:content],
+		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson alert', {"image" => @notification_params[:image],
+	            "message" => @notification_params[:content], 
 	            })
 			end	
 		end
