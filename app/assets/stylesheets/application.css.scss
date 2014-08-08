@@ -289,20 +289,14 @@ h2 {
 	li {  padding: 5px 5px 5px 0;}
 	.row { margin: 0px;}
 
-
-	i {
-		font-size: 10px;
-		color: #93192c;
-	}
-	
-	a {
-		font-size: 14px;
-		font-weight: bold;
-		color: #2c3e50;
-		
-	}
-
 	.notification {
+
+		a {
+			padding: 0px;
+			margin: 0px;
+			height: auto;
+			width: auto;
+		}
 
 		background: white;
 		border-radius: 3px;
@@ -354,6 +348,7 @@ h2 {
 					verical-align: middle;
 					font-size: 27px;
 					padding: 0px;
+					color: #93192C;
 				}
 			}
 			

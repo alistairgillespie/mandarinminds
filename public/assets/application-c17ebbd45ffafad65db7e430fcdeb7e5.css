@@ -17031,94 +17031,109 @@ h2 {
 }
 
 /* line 269, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+#notification-window {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 60px;
+  width: 400px;
+  z-index: 1;
+  color: white;
+  display: none;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* line 283, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown {
   background: #f5f5f5;
+  width: 600px;
   font-size: 10px;
   top: 65px;
   padding: 5px;
 }
-/* line 276, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 290, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown li {
   padding: 5px 5px 5px 0;
 }
-/* line 277, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 291, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .row {
   margin: 0px;
 }
-/* line 280, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
-#notification-dropdown i {
-  font-size: 10px;
-  color: #93192c;
-}
-/* line 285, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
-#notification-dropdown a {
-  font-size: 14px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-/* line 292, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 293, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification {
   background: white;
   border-radius: 3px;
   margin-top: 3px;
 }
-/* line 297, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 295, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+#notification-dropdown .notification a {
+  padding: 0px;
+  margin: 0px;
+  display: inline-block;
+}
+/* line 305, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification:first-child {
   margin-top: 0px;
 }
-/* line 301, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 309, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block {
   display: block;
   border-radius: 3px;
   color: white;
   font-size: 26px;
   margin: 5px;
-  padding: 20px 20px 10px 15px;
-  white-space: nowrap;
   cursor: default;
 }
-/* line 311, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 319, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block:hover, #notification-dropdown .notification .notify-block:focus {
   background: transparent !important;
 }
-/* line 314, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 322, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block .notify-img {
-  width: 80px;
-  padding: 0 10px;
-  position: absolute;
-  top: 7px;
-  bottom: 0;
-  right: 0;
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 5px 20px 5px 10px;
   text-align: center;
   overflow: hidden;
   font-size: 0;
+  display: inline-block;
 }
-/* line 325, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 337, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+#notification-dropdown .notification .notify-block .notify-img .gravatar-nav {
+  margin-top: 0px;
+}
+/* line 339, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block .notify-img img {
   vertical-align: middle;
   position: relative;
   z-index: 2;
 }
-/* line 332, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 345, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+#notification-dropdown .notification .notify-block .notify-img i {
+  width: 40px;
+  height: 40px;
+  verical-align: middle;
+  font-size: 27px;
+  padding: 0px;
+}
+/* line 354, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block p {
   font-size: 12px;
   margin-bottom: 5px;
   color: #b2bac2;
   font-weight: bold;
+  word-wrap: break-word;
+  display: inline-block;
+  width: 500px;
 }
-/* line 340, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 365, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block:hover {
   background: transparent !important;
 }
-/* line 345, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
-#notification-dropdown .notification.not-dismissed {
-  background: lightgray;
-}
-/* line 347, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
-#notification-dropdown .notification.not-dismissed p {
-  color: #444;
-}
-/* line 350, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 370, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .see-all {
   display: block;
   padding: 15px 20px;
@@ -17127,32 +17142,32 @@ h2 {
   font-weight: bold;
   color: #93192C;
 }
-/* line 358, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 378, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .see-all:hover {
   text-decoration: none;
 }
 
-/* line 364, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 384, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic {
   text-align: center;
 }
-/* line 367, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 387, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic .img-circle {
   border: 15px solid #f5f5f5;
 }
-/* line 371, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 391, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic .progress {
   margin-top: 35px;
 }
 
-/* line 376, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 396, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .gravatar-nav {
   height: 40px;
   width: 40px;
   margin-top: 15px;
 }
 
-/* line 382, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 402, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-lessons-remaining {
   width: 90%;
   margin: auto;
@@ -17164,153 +17179,153 @@ h2 {
 
 /* Modals
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 399, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 419, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog {
   width: 350px;
 }
-/* line 402, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 422, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content {
   background: white;
 }
-/* line 405, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 425, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-header {
   border: none;
   padding: 15px 15px 0 15px;
 }
-/* line 409, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 429, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 415, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 435, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 418, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 438, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 422, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 442, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 427, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 447, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 429, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 449, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 436, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 456, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 440, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 460, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
-/* line 452, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 472, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog {
   width: 350px;
 }
-/* line 455, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 475, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content {
   background: white;
 }
-/* line 458, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 478, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-header {
   border: none;
   padding: 15px 15px 0 15px;
 }
-/* line 462, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 482, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 468, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 488, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 471, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 491, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 475, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 495, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 480, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 500, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 482, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 502, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 489, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 509, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 493, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 513, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
-/* line 505, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 525, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog {
   width: 250px;
 }
-/* line 508, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 528, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content {
   background: white;
 }
-/* line 511, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 531, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-header {
   border-bottom: 1px solid #890f0f;
   padding: 15px 15px 0 15px;
 }
-/* line 515, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 535, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 521, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 541, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 524, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 544, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 528, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 548, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 533, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 553, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 535, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 555, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 542, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 562, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 546, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 566, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
 /* Static pages
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 560, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 580, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron {
   margin-top: -50px;
   background-image: url("/assets/samplebg.jpg");
@@ -17321,7 +17336,7 @@ h2 {
   height: 600px;
   padding-top: 120px;
 }
-/* line 570, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 590, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron h1 {
   color: white;
   font-family: "proxima-nova",sans-serif;
@@ -17332,7 +17347,7 @@ h2 {
   width: 480px;
   margin-bottom: 30px;
 }
-/* line 582, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 602, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron p {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
@@ -17343,55 +17358,55 @@ h2 {
   width: 500px;
 }
 
-/* line 595, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 615, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .welcome.jumbotron {
   border-radius: none;
   background: transparent;
   text-align: center;
 }
-/* line 600, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 620, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .welcome.jumbotron .lead {
   color: #8c989e;
 }
 
-/* line 606, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 626, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron {
   border-radius: none;
   background: transparent;
 }
-/* line 610, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 630, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service {
   margin-top: 30px;
 }
-/* line 614, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 634, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .icon .action {
   width: 260px !important;
   height: auto;
 }
-/* line 621, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 641, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .descriptor .lead {
   color: #8c989e;
 }
-/* line 628, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 648, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .quality a {
   color: #214387;
 }
-/* line 631, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 651, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .quality a:hover {
   text-decoration: none;
   color: #214387;
 }
-/* line 639, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 659, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .flexibility a {
   color: #dda554;
 }
-/* line 642, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 662, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .flexibility a:hover {
   text-decoration: none;
   color: #dda554;
 }
 
-/* line 652, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 672, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 p.lead {
   line-height: 1.5;
   font-family: "proxima-nova",sans-serif;
@@ -17399,7 +17414,7 @@ p.lead {
   font-weight: 100;
 }
 
-/* line 661, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 681, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .heading-lead h2 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
@@ -17407,7 +17422,7 @@ p.lead {
   line-height: 1;
   font-size: 27px;
 }
-/* line 669, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 689, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .heading-lead h1 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
@@ -17416,55 +17431,55 @@ p.lead {
   margin-top: 8px;
 }
 
-/* line 680, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 700, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .about.jumbotron {
   border-radius: none;
   background: transparent;
   text-align: center;
 }
-/* line 685, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 705, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .about.jumbotron .lead {
   color: #8c989e;
 }
 
-/* line 690, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 710, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron {
   border-radius: none;
   background: transparent;
 }
-/* line 694, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 714, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service {
   margin-top: 30px;
 }
-/* line 698, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 718, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .icon .action {
   width: 260px !important;
   height: auto;
 }
-/* line 705, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 725, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .descriptor .lead {
   color: #8c989e;
 }
-/* line 712, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 732, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .video a {
   color: #214387;
 }
-/* line 715, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 735, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .video a:hover {
   text-decoration: none;
   color: #214387;
 }
-/* line 723, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 743, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .live-lessons a {
   color: #dda554;
 }
-/* line 726, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 746, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .live-lessons a:hover {
   text-decoration: none;
   color: #dda554;
 }
 
-/* line 736, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 756, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .asian-century.jumbotron {
   background-image: url("/assets/asiancentury.jpg");
   margin-bottom: 0px;
@@ -17473,7 +17488,7 @@ p.lead {
 
 /* Components
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 747, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 767, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary {
   color: white !important;
   background-color: #93192C !important;
@@ -17483,7 +17498,7 @@ p.lead {
   transition: background-color 0.5s ease;
   margin-right: 10px;
 }
-/* line 756, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 776, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary:hover {
   color: white;
   background-color: #890f0f;
@@ -17491,7 +17506,7 @@ p.lead {
   border-bottom: 3px solid #890f0f;
 }
 
-/* line 765, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 785, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-grey {
   color: white !important;
   background-color: #c6ccd2 !important;
@@ -17508,7 +17523,7 @@ p.lead {
   border-width: 0 0 3px;
   transition: background-color 0.5s ease;
 }
-/* line 781, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 801, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-grey:hover {
   color: white;
   background-color: #aab3bb;
@@ -17516,7 +17531,7 @@ p.lead {
   border-bottom: 3px solid #aab3bb;
 }
 
-/* line 789, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 809, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   background-color: #890f0f;
   border-color: #890f0f;
@@ -17525,43 +17540,43 @@ p.lead {
 
 /* User interface
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 800, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 820, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 html, body {
   padding-top: 50px;
   background: white;
 }
 
-/* line 806, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 826, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .edit-form h2 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
   font-weight: 400;
 }
-/* line 812, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 832, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .edit-form .wrapper {
   padding: 15px;
   background: #f5f5f5;
   border-radius: 10px;
 }
 
-/* line 819, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 839, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .sub-header {
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
 
-/* line 824, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 844, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .navbar-fixed-top {
   border: 0 none;
 }
 
-/* line 829, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 849, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .sidebar {
   display: none;
 }
 
 @media (min-width: 768px) {
-  /* line 834, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+  /* line 854, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
   .sidebar {
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
@@ -17576,13 +17591,13 @@ html, body {
     z-index: 1000;
   }
 }
-/* line 849, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 869, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar {
   margin-bottom: 20px;
   margin-left: -20px;
   margin-right: -21px;
 }
-/* line 856, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 876, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a {
   padding-left: 20px;
   padding-right: 20px;
@@ -17594,34 +17609,34 @@ html, body {
   padding: 10px 15px;
   position: relative;
 }
-/* line 867, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 887, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a .sidenav-icons {
   float: left;
   height: 100%;
   margin: 0;
   width: 40px;
 }
-/* line 874, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 894, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a:active {
   background: #890f0f;
 }
-/* line 880, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 900, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
   background-color: #93192C;
   color: #fff;
 }
 
-/* line 887, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 907, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .main {
   padding: 20px;
 }
-/* line 890, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 910, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .main .page-header {
   margin-top: 0;
 }
 
 @media (min-width: 768px) {
-  /* line 896, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+  /* line 916, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
   .main {
     padding-left: 40px;
     padding-right: 40px;
@@ -17629,39 +17644,39 @@ html, body {
 }
 /* Footer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 905, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 925, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer {
   background-color: #f5f5f5;
   bottom: 0;
   height: 230px;
   width: 100%;
 }
-/* line 911, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 931, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 30px;
   text-align: center;
 }
-/* line 917, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 937, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p {
   font-size: 13px;
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
   font-weight: 400;
 }
-/* line 924, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 944, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p > a {
   padding: 12px;
 }
-/* line 927, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 947, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p > a > i {
   padding: 5px;
   border-radius: 11px;
   background: #93192c;
   color: white;
 }
-/* line 935, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 955, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container .fa.fa-facebook {
   padding: 5px 8px !important;
 }
