@@ -18,7 +18,7 @@
       <% if Time.now - 1.hour < @time %>
         <% @plannedlesson = nil %>
         <% events.each do |lesson| %>
-          <% if lesson.starts_at == @time && lesson.teacher == current_user %>
+          <% if lesson.starts_at == @time && lesson.teacher == current_user%>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
@@ -74,10 +74,29 @@
                 </div>
                 <div class="modal-body">
                   <!--Loading data from server failed</br>-->
+                  <button style = "float: right">
+                    <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+                  </button>
                   <p>
-                    <%= link_to 'Cancel Lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+                    <strong>Student:</strong>
+                    <%= @plannedlesson.student.nil? ? "No Booked Student" : "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}" %></br>
+                    <strong>Teacher:</strong>
+                    <%= @plannedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@plannedlesson.teacher.firstname} #{@plannedlesson.teacher.lastname}" %></br>
+                    <strong>Starts at:</strong>
+                    <%= "#{@plannedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@plannedlesson.starts_at.in_time_zone('Perth').strftime("#{@plannedlesson.starts_at.day.ordinalize} %B %Y")}" %>
                   </p>
-                  <iframe src="<%= lesson_path(@plannedlesson) %>" frameborder="0" scrolling="no" style="overflow:none; width: 90%"></iframe>
+
+                  <% unless @plannedlesson.student.nil? || @plannedlesson.teacher.nil? %>
+                    <% if (Time.now < (@plannedlesson.starts_at + 50.minutes) && Time.now > (@plannedlesson.starts_at - 10.minutes)) %>
+                      Begin Your Lesson:</br>
+                      <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @plannedlesson.student.skypeid : @plannedlesson.teacher.skypeid %>?call">
+                        <%= image_tag "callbutton_32px.png" %>
+                      </a>
+                    <% else %>
+                    <i> Your call button will be activated 10min before your scheduled lesson starts. </i></br>
+                    <%= image_tag "callbutton_32pxGS.png" %>
+                    <% end %>                    
+                  <% end %>
                 </div>
               </div>
             </div>

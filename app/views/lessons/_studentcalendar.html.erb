@@ -25,7 +25,7 @@
 					<% @bookedlesson = nil %>
 					<% events.each do |lesson| %>
 						<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time %>
-						<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time %>
+						<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
 					<% end %>
 
 					<% if !@bookedlesson.nil? %> <!-- If not nil it refers to the lesson they booked -->
@@ -43,8 +43,29 @@
 										<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
 									</div>
 									<div class="modal-body">
-										<p><%= link_to 'Cancel Lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %></p>
-										<iframe src="<%= lesson_path(@bookedlesson) %>" frameborder="0" scrolling="no" style="overflow:none; width: 90%"></iframe>
+					                  <button style = "float: right">
+					                  	<%= link_to 'Cancel Lesson', @bookedlesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+					                  </button>
+					                  <p>
+					                    <strong>Student:</strong>
+					                    <%= @bookedlesson.student.nil? ? "No Booked Student" : "#{@bookedlesson.student.firstname} #{@bookedlesson.student.lastname}" %></br>
+					                    <strong>Teacher:</strong>
+					                    <%= @bookedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@bookedlesson.teacher.firstname} #{@bookedlesson.teacher.lastname}" %></br>
+					                    <strong>Starts at:</strong>
+					                    <%= "#{@bookedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@bookedlesson.starts_at.in_time_zone('Perth').strftime("#{@bookedlesson.starts_at.day.ordinalize} %B %Y")}" %>
+					                  </p>
+
+					                  <% unless @bookedlesson.student.nil? || @bookedlesson.teacher.nil? %>
+					                    <% if (Time.now < (@bookedlesson.starts_at + 50.minutes) && Time.now > (@bookedlesson.starts_at - 10.minutes)) %>
+					                      Begin Your Lesson:</br>
+					                      <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @bookedlesson.student.skypeid : @bookedlesson.teacher.skypeid %>?call">
+					                        <%= image_tag "callbutton_32px.png" %>
+					                      </a>
+					                    <% else %>
+					                    <i> Your call button will be activated 10min before your scheduled lesson starts. </i></br>
+					                    <%= image_tag "callbutton_32pxGS.png" %>
+					                    <% end %>                    
+					                  <% end %>
 									</div>
 								</div>
 							</div>
@@ -100,7 +121,7 @@
 	<% end %>
 </div>
 
-<div id="next-week-calendar">
+<div id="next-week-calendar" style="display: none">
 	<%= calendar start_date: (Time.now + 7.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons do |date, events| %>
 		<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
 		<% for i in 9..23 %>
