@@ -13,8 +13,21 @@ class ApplicationController < ActionController::Base
   end
   
   before_filter :update_sanitized_params, if: :devise_controller?
+  before_filter :get_next_lesson
   
   def update_sanitized_params
 	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :email, :password)}
   end  
+
+  def get_next_lesson
+    @nextlesson = nil
+    if user_signed_in?
+      if current_user.role_id == 1 #student
+        @nextlesson = Lesson.where("student_id = ? AND starts_at > ?", current_user.id, Time.now - 30.minutes).order(starts_at: :asc).first
+      elsif current_user.role_id == 2 #teacher
+        @nextlesson = Lesson.where("teacher_id = ? AND starts_at > ?", current_user.id, Time.now - 30.minutes).order(starts_at: :asc).first
+      end
+    end
+  end
+
 end

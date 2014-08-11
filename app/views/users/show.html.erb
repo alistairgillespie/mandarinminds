@@ -10,36 +10,10 @@
 					  <span class="sr-only">80% Complete (danger)</span>
 				  </div>
 				</div>	
-					
-					   <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.skypeid %>?call">
-					     <%= image_tag "callbutton_32px.png" %>
-					   </a>
-
 			</div>
 
-
+<p>Number of lessons to spend: <%= current_user.lesson_count</p>
 <div id="week-schedule">
-	<% @numberoflessons = @userlessons.size %> 
-	<p>Lessons Booked: <%= @numberoflessons %></br>
-		<%= link_to "Go to Lesson Bookings", lessons_path%></p>
-
-	
-	<% if @numberoflessons > 0 %>
-		<% @timetolesson = Time.diff(@userlessons.first.starts_at, Time.now, "%H %N")%>
-
-		<p>
-		<% if @timetolesson[:day] > 2 %>
-			Your next lesson is on 
-			<%= @userlessons.first.starts_at.strftime("#{@userlessons.first.starts_at.day.ordinalize} %b %Y") %>
-		<% elsif Time.now < @userlessons.first.starts_at - 5.minutes %>
-			Counting down to your next lesson: <%=  @timetolesson[:diff]%>
-		<% else %> 
-			You have a scheduled lesson ready. Click on it in the calendar below to contact your tutor.		
-		<% end %>
-		</p>
-		
-	<% end %>
-	
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
 	<%= calendar number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
