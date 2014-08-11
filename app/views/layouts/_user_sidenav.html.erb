@@ -13,11 +13,8 @@
 		          
 
 					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now, "%H %N")%>
-					<div class="next-lesson" onload="startTime()">
-						<% if @timetolesson[:day] > 2 %>
-							Your next lesson is on 
-							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
-						<% elsif Time.now < @nextlesson.starts_at - 5.minutes %>
+					<div class="next-lesson">
+						<% if Time.now < @nextlesson.starts_at - 5.minutes %>
 							Your next lesson is on 
 							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
 							</br></br>
@@ -26,21 +23,19 @@
 							Your next lesson is on 
 							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
 							</br></br>
-							<%= link_to "The lesson is ready to begin. Click here to view it", @nextlesson %>		
+							<div id="countdown">
+								<%= link_to "The lesson is ready to begin. Click here to view it", @nextlesson %>
+							</div>		
 						<% end %>
 					</div>
 					
 					<div id="next-lesson-start-time" data-lesson=<%=@nextlesson.id%> style="display:none"><%= @nextlesson.starts_at.strftime("%B %e, %Y %T") %></div>
-
-					
-					
 				<% end %>
-		          
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 			<script type="text/javascript">
-
+			startTime();
 			function startTime() {
 				if ($('#next-lesson-start-time').contents().text() != 0){
 					var now = new Date();
@@ -51,12 +46,14 @@
 				    var s = Math.floor((difference- h*60*60*1000 - m*60*1000) / 1000);
 				    m = checkTime(m);
 				    s = checkTime(s);
-				    $('#countdown').html("Lesson starts in "+ h+":"+m+":"+s);
-				    if (difference < 300000) { // 5min before lesson starts
+				    if (difference >= 259200000) { // >72h
+				    	$('#countdown').html("");
+				    } else if (difference >= 300000 && difference < 259200000) { // 72h to 5min before
+				    	$('#countdown').html("Lesson starts in "+ h+":"+m+":"+s);
+				    } else if (difference < 300000 && difference > -1200000) { // 5min before lesson starts
 				    	$('#countdown').html("<a href='/lessons/"+ $('#next-lesson-start-time').attr("data-lesson") +"'>The lesson is ready to begin. Click here to view it</a>");
-				    }
-				    if (difference < -1200000){ // 20min past start time
-				    	getNextLessonDate();
+				    } else { // 20min past start time
+				    	getNextLesson();
 				    }
 			    }
     			var t = setTimeout(function(){startTime()},1000);
@@ -73,7 +70,7 @@
 				      url: '/get_users_next_lesson',
 				      dataType: 'json',
 				      success:  function(data){
-				      	if (data.length == 0) {
+				      	if (data == null) {
 				      		$('#next-lesson-start-time').html(0);
 				      		$('.next-lesson').html("");
 				      		console.log("No next lesson. Return 0, clear next-lesson window")
@@ -93,8 +90,8 @@
 				      	$('#next-lesson-start-time').attr("data-lesson", data["id"]);
 				      	console.log("new data-lesson: " + data["id"]);
 				      	var dateString = ordinal_suffix_of(d.getDate()) + " " + monthNames[d.getMonth()] + " " + d.getFullYear() + " at " + h;
-				      	$('#countdown').html("Your next lesson is on " + dateString);	
-				      	console.log("new datestring: "+dateString);			      			      	
+				      	$('.next-lesson').html("Your next lesson is on " + dateString);	
+				      	console.log("new datestring: "+dateString);
 				      }
 				    }); 
 			}
