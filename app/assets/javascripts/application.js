@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= jquery_ujs
 //= require bootstrap
+//= jquery_ujs
 //= require_tree .
 
 $(function() {

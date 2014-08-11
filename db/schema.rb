@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 20140804124622) do
     t.integer  "role_id"
     t.integer  "lesson_count"
     t.string   "skypeid"
-    t.integer  "lessons_to_spend"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
