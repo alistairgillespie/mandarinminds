@@ -74,7 +74,10 @@ gem 'underscore-rails'
 gem 'sprockets'
 
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
+#Push noitifications and cron jobs
 gem 'pusher'
+gem 'whenever', :require => false
 
 
 

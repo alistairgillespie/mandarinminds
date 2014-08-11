@@ -265,7 +265,7 @@ class LessonsController < ApplicationController
       if current_user.role_id == 1
         @notification_params = {
                 :user_id => @lesson.student.id,
-                :image => "<span class='fa-stack fa-lg'><i class='fa fa-book fa-stack-1x'></i><i class='fa fa-ban fa-stack-2x text-danger'></i></span>",
+                :image => '<i class="fa fa-book"></i>',                
                 :content => "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson.",
                 :lesson_id => 0,
                 :dismissed => true,
@@ -312,7 +312,7 @@ class LessonsController < ApplicationController
               pushtopusher
         @notification_params = {
                 :user_id => @lesson.teacher.id,
-                :image => "<span class='fa-stack fa-lg'><i class='fa fa-book fa-stack-1x'></i><i class='fa fa-ban fa-stack-2x'></i></span>",
+                :image => '<i class="fa fa-book"></i>',
                 :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@starttime}. The student has been notified.",
                 :lesson_id => 0,
                 :dismissed => true,

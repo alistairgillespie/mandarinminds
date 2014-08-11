@@ -26,24 +26,26 @@
               <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
                 
                     <li class="notification">
-                      <% unless n.lesson_id == 0 %>
+                      
+                    	<div class="notify-block">
+                        <% unless n.lesson_id == 0 %>
                         <a href="/lessons/<%=n.lesson_id%>">
                       <% end %>
-                    	<div class="notify-block">
-                    		<!--<div class="notify-img">-->
+                    	 <div class="notify-img">
                             <% if n.image[0,1] == "<" %>
                               <%= n.image.html_safe %>
                             <% else %>
                                <%= image_tag n.image, :class => 'gravatar-nav img-circle' %>
                             <% end %>                    		
-                          <!--</div>-->
+                      </div>
                     		<p>
                     			<%= n.content %>
                     		</p>
-                    	</div>                        
-                    <% unless n.lesson_id == 0 %>
+                        <% unless n.lesson_id == 0 %>
                         </a>
                     <% end %>
+                    	</div>                        
+                    
                     </li>                    
                   
               <% end %>
@@ -83,6 +85,15 @@
             padding: 5px;
             font-size: 14px">
 </div>
+<div id="lesson-alert" style="
+  position: fixed;
+  right: 0px;
+  top: 65px;
+  font-size: 12px;
+  padding-right: 10px;
+  
+">
+<%= link_to "You have a lesson starting soon. Check your Dashboard for more details", current_user %></div>
 <script type="text/javascript">
 
   $('#notification-bell').click(function(){

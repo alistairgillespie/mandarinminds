@@ -29,7 +29,24 @@ class PostsController < ApplicationController
     @posts = Post.all
     @post = Post.create(post_params)
     @post.author = current_user.id
-	@post.save
+	  @post.save
+    User.all.each do |u|
+      unless u.id == current_user.id
+        @notification_params = {
+                :user_id => u.id,
+                :image => '<i class="fa fa-paper-plane"></i>',
+                :content => "#{@post.author.firstname} #{@post.author.lastname} has posted a new blog entry: #{@post.title}.",
+                :post_id => @post.id,
+                :dismissed => false,
+                :appear_at => Time.now
+                }
+              @n = Notification.new(@notification_params)
+              @n.save!
+              Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
+      end
+    end
     #respond_to do |format|
     #  if @post.save
     #    format.html { redirect_to @post, notice: 'Post was successfully created.' }

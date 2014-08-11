@@ -9,5 +9,30 @@
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Invoicing"><a href="/plans"><span class="sidenav-icons"><i class="fa fa-credit-card"></i></span>Buy Lessons</a></li>
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Invoicing"><a href="/users/edit"><span class="sidenav-icons"><i class="fa fa-cogs"></i></span>Settings</a></li>    
 		          </ul>
+		          <% unless @nextlesson.nil? %>
+		          
+
+					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now, "%H %N")%>
+					<div class="next-lesson">
+						<% if @timetolesson[:day] > 2 %>
+							Your next lesson is on 
+							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
+						<% elsif Time.now < @nextlesson.starts_at - 5.minutes %>
+							Your next lesson is on 
+							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
+							</br></br>
+							Counting down:</br> <%= @timetolesson[:diff] %>
+						<% else %> 
+							Your next lesson is on 
+							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
+							</br></br>
+							<%= link_to "The lesson is ready to begin. Click here to view it", @nextlesson %>		
+						<% end %>
+					</div>
+
+					
+					
+				<% end %>
+		          
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
