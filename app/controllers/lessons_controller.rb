@@ -9,6 +9,20 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
   end
 
+  def get_users_next_lesson
+    #respond_to do |format|    
+      @data = nil
+      if user_signed_in?
+        if current_user.role_id == 1 #student
+          @data = Lesson.where("student_id = ? AND starts_at > ?", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        elsif current_user.role_id == 2 #teacher
+          @data = Lesson.where("teacher_id = ? AND starts_at > ?", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        end
+      end
+      render :json => @data.to_json
+    #end
+  end
+
   # GET /lessons/1
   # GET /lessons/1.json
   def show

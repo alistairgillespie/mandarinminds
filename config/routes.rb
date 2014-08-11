@@ -25,8 +25,10 @@ Rails.application.routes.draw do
   get 'notifications/get_notifications_for_header' => 'notifications#get_notifications_for_header'
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
   get 'notifications/:id/dismiss_and_view' => 'notifications#dismiss_and_view'
+  get 'get_users_next_lesson' => 'lessons#get_users_next_lesson'
   resources :notifications
-  #get 'lessons/get_lesson_details' => 'lessons#get_lesson_details'
+
+  
 
   match 'users/:id' => 'users#show', as: :user, via: :get
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
