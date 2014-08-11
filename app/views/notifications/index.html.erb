@@ -21,6 +21,9 @@ Redirect - user not signed in
             <tr>
               <td>
                 </br><strong><%= "#{n.appear_at.day.ordinalize} #{n.appear_at.strftime('%B')}"%></strong>
+                <% @day = n.appear_at.day %>
+                <% @month = n.appear_at.month %>
+                <% @year = n.appear_at.year %>
               </td>
             </tr>
           <% end %>
@@ -32,19 +35,12 @@ Redirect - user not signed in
               - <%= n.content %>
               <% end %>
             </td>
-            <td class="time"><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td>
-            
-            
-            
+            <td class="time"><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td> 
           </tr>
         <% end %>
-
-
       <% else %>
         No Notifications
       <% end %>
-
-
     </tbody>
   </table>
 <% end %>
