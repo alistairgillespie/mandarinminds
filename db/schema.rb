@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140721074133) do
     t.string   "provider"
     t.string   "uid"
     t.integer  "role_id"
-    t.integer  "lesson_count",           default: 0
+    t.integer  "lesson_count"
     t.string   "skypeid"
   end
 
