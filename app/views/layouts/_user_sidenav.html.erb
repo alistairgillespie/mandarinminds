@@ -13,7 +13,7 @@
 		          
 
 					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now, "%H %N")%>
-					<div class="next-lesson">
+					<div class="next-lesson" onload="startTime()">
 						<% if @timetolesson[:day] > 2 %>
 							Your next lesson is on 
 							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
@@ -21,7 +21,7 @@
 							Your next lesson is on 
 							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
 							</br></br>
-							Counting down:</br> <%= @timetolesson[:diff] %>
+							<div id="countdown"></div>	
 						<% else %> 
 							Your next lesson is on 
 							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
@@ -29,6 +29,8 @@
 							<%= link_to "The lesson is ready to begin. Click here to view it", @nextlesson %>		
 						<% end %>
 					</div>
+					
+					<div id="next-lesson-start-time" data-lesson=<%=@nextlesson.id%> style="display:none"><%= @nextlesson.starts_at.strftime("%B %e, %Y %T") %></div>
 
 					
 					
@@ -36,3 +38,30 @@
 		          
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+			<script type="text/javascript">
+			startTime();
+			
+			function startTime() {
+				var now = new Date();
+			    var date = new Date($('#next-lesson-start-time').contents().text());
+			    var difference = date-now;
+			    var h = Math.floor(difference/(1000*60*60));
+			    var m = Math.floor((difference - h*60*60*1000)/(1000*60));
+			    var s = Math.floor((difference- h*60*60*1000 - m*60*1000) / 1000);
+			    m = checkTime(m);
+			    s = checkTime(s);
+			    $('#countdown').html("Lesson starts in "+ h+":"+m+":"+s);
+			    if (difference < 900000) {
+			    	$('#countdown').html("<a href='/lessons/"+ $('#next-lesson-start-time').attr("data-lesson") +"'>The lesson is ready to begin. Click here to view it</a>");
+			    }
+			    
+    			var t = setTimeout(function(){startTime()},1000);
+			}
+
+			function checkTime(i) {
+    			if (i<10) {i = "0" + i}; 
+   				return i;
+			}
+
+			</script>
