@@ -205,7 +205,7 @@ class LessonsController < ApplicationController
     current_user.save!
           @notification_params = {
             :user_id => @lesson.teacher.id,
-            :image => @lesson.student.gravatar_url,
+            :image => '<i class="fa fa-book"></i>',
             :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@starttime}",
             :lesson_id => @lesson.id,
             :dismissed => false,
@@ -224,17 +224,6 @@ class LessonsController < ApplicationController
             }
           @n = Notification.new(@notification_params)
           @n.save
-          @notification_params = {
-            :user_id => @lesson.student.id,
-            :image => @lesson.teacher.id,
-            :content => "You have a lesson starting in 15 minutes.",
-            :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => (@lesson.starts_at - 15.minutes)
-            }
-          @n = Notification.new(@notification_params)
-          @n.save
-          #Need a way to push to pusher 15min before lesson. Timed event
     @lesson.save!
     redirect_to lessons_path, notice: "Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}"
   end
@@ -265,7 +254,7 @@ class LessonsController < ApplicationController
       if current_user.role_id == 1
         @notification_params = {
                 :user_id => @lesson.student.id,
-                :image => '<i class="fa fa-book"></i>',                
+                :image => '<i class="fa fa-ban"></i>',                
                 :content => "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson.",
                 :lesson_id => 0,
                 :dismissed => true,
@@ -275,7 +264,7 @@ class LessonsController < ApplicationController
               @n.save!
         @notification_params = {
                 :user_id => @lesson.teacher.id,
-                :image => @lesson.student.gravatar_url,
+                :image => '<i class="fa fa-ban"></i>',
                 :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
                 :lesson_id => 0,
                 :dismissed => false,
@@ -301,7 +290,7 @@ class LessonsController < ApplicationController
       else
         @notification_params = {
                 :user_id => @lesson.student.id,
-                :image => @lesson.teacher.gravatar_url,
+                :image => '<i class="fa fa-ban"></i>',
                 :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@starttime}. You have been credited the lesson you spent.",
                 :lesson_id => 0,
                 :dismissed => false,
@@ -312,7 +301,7 @@ class LessonsController < ApplicationController
               pushtopusher
         @notification_params = {
                 :user_id => @lesson.teacher.id,
-                :image => '<i class="fa fa-book"></i>',
+                :image => '<i class="fa fa-ban"></i>',
                 :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@starttime}. The student has been notified.",
                 :lesson_id => 0,
                 :dismissed => true,
