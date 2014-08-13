@@ -183,7 +183,7 @@ class LessonsController < ApplicationController
 
   def booklessonslot
 
-    if (current_user.lesson_count < 1)
+    if ( current_user.lesson_count.nil? || current_user.lesson_count < 1)
       respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'You do not have any lessons to spend. Visit the Plans page to purchase more.' }
           format.json { head :no_content }
