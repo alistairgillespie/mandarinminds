@@ -13,9 +13,4 @@ class StaticController < ApplicationController
   def pricing
   end
   
-  def chatroom
-  end
-  
-  def chatroom
-  end
 end
