@@ -79,5 +79,8 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'pusher'
 gem 'whenever', :require => false
 
+gem 'mail_view', :git => 'https://github.com/basecamp/mail_view.git'
+
+
 
 
