@@ -1,7 +1,12 @@
 class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
-
+  
+  def sendemail
+  	UserMailer.welcome(current_user).deliver
+  	redirect_to root_path
+  end
+  
   # GET /lessons
   # GET /lessons.json
   def index
@@ -200,6 +205,7 @@ class LessonsController < ApplicationController
       end
     end
     @lesson.student = current_user
+    
     @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
     current_user.lesson_count = current_user.lesson_count - 1
     current_user.save!

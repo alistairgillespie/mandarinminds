@@ -1,8 +1,8 @@
 class UserMailer < ActionMailer::Base
-  default from: "hello@mandarinminds.com"
+  #default from: "itsupport@mandarinminds.com"
   
   def welcome(user)
-    @user = user
-    mail(to: @user.email, subject: 'Welcome to Mandarin Minds')
+  	@user = user
+    mail(to: user.email, subject: 'Welcome to Mandarin Minds')
   end
 end

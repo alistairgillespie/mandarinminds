@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-
-
+  
+  get 'test' => 'lessons#sendemail'
+  
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+  devise_for :users, :path_names => {:sign_up => "register"}, :controllers => {:registrations => "registrations"}
+  
   resources :posts
   resources :plans
   resources :lessons
@@ -10,7 +16,7 @@ Rails.application.routes.draw do
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   #get 'users' => 'users#show'
   
-  devise_for :users, :path_names => {:sign_up => "register", }
+  
      
   #Redirected to rails default root if signed in 
   #unauthenticated do
@@ -48,5 +54,7 @@ resources :notifications
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
+  
+  
   
 end
