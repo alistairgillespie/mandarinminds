@@ -20,57 +20,58 @@
 			<%= content_tag :div, class: "hour" do %>
 				<% @formatteddate = date.strftime('%Y-%m-%d') %>
 				<%= @time.strftime('%l:%M%P') %>
-				<% unless Time.now + 30.minutes > @time %>
-					<% @hasfreeslot = false %>
-					<% @bookedlesson = nil %>
-					<% events.each do |lesson| %>
-						<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time %>
-						<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
-					<% end %>
 
-					<% if !@bookedlesson.nil? %> <!-- If not nil it refers to the lesson they booked -->
+				<% @hasfreeslot = false %>
+				<% @bookedlesson = nil %>
+				<% events.each do |lesson| %>
+					<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && lesson.starts_at == @time %>
+					<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
+				<% end %>
 
-						<button class="cal-book" data-toggle="modal" data-target="#viewbookedlesson<%=@formatteddate%><%= i %>">
-							<i class="fa fa-book slot-booked"></i>
-						</button>
-						<div class="modal fade" id= 'viewbookedlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">
-											<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-										</button>
-										<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
-									</div>
-									<div class="modal-body">
-					                  <button style = "float: right">
-					                  	<%= link_to 'Cancel Lesson', @bookedlesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
-					                  </button>
-					                  <p>
-					                    <strong>Student:</strong>
-					                    <%= @bookedlesson.student.nil? ? "No Booked Student" : "#{@bookedlesson.student.firstname} #{@bookedlesson.student.lastname}" %></br>
-					                    <strong>Teacher:</strong>
-					                    <%= @bookedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@bookedlesson.teacher.firstname} #{@bookedlesson.teacher.lastname}" %></br>
-					                    <strong>Starts at:</strong>
-					                    <%= "#{@bookedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@bookedlesson.starts_at.in_time_zone('Perth').strftime("#{@bookedlesson.starts_at.day.ordinalize} %B %Y")}" %>
-					                  </p>
+				<% if !@bookedlesson.nil? %> <!-- If not nil it refers to the lesson they booked -->
 
-					                  <% unless @bookedlesson.student.nil? || @bookedlesson.teacher.nil? %>
-					                    <% if (Time.now < (@bookedlesson.starts_at + 50.minutes) && Time.now > (@bookedlesson.starts_at - 10.minutes)) %>
-					                      Begin Your Lesson:</br>
-					                      <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @bookedlesson.student.skypeid : @bookedlesson.teacher.skypeid %>?call">
-					                        <%= image_tag "callbutton_32px.png" %>
-					                      </a>
-					                    <% else %>
-					                    <i> Your call button will be activated 10min before your scheduled lesson starts. </i></br>
-					                    <%= image_tag "callbutton_32pxGS.png" %>
-					                    <% end %>                    
-					                  <% end %>
-									</div>
+					<button class="cal-book" data-toggle="modal" data-target="#viewbookedlesson<%=@formatteddate%><%= i %>">
+						<i class="fa fa-book slot-booked"></i>
+					</button>
+					<div class="modal fade" id= 'viewbookedlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+									</button>
+									<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
+								</div>
+								<div class="modal-body">
+				                  <button style = "float: right">
+				                  	<%= link_to 'Cancel Lesson', @bookedlesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' } %>
+				                  </button>
+				                  <p>
+				                    <strong>Student:</strong>
+				                    <%= @bookedlesson.student.nil? ? "No Booked Student" : "#{@bookedlesson.student.firstname} #{@bookedlesson.student.lastname}" %></br>
+				                    <strong>Teacher:</strong>
+				                    <%= @bookedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@bookedlesson.teacher.firstname} #{@bookedlesson.teacher.lastname}" %></br>
+				                    <strong>Starts at:</strong>
+				                    <%= "#{@bookedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@bookedlesson.starts_at.in_time_zone('Perth').strftime("#{@bookedlesson.starts_at.day.ordinalize} %B %Y")}" %>
+				                  </p>
+
+				                  <% unless @bookedlesson.student.nil? || @bookedlesson.teacher.nil? %>
+				                    <% if (Time.now < (@bookedlesson.starts_at + 50.minutes) && Time.now > (@bookedlesson.starts_at - 10.minutes)) %>
+				                      Begin Your Lesson:</br>
+				                      <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @bookedlesson.student.skypeid : @bookedlesson.teacher.skypeid %>?call">
+				                        <%= image_tag "callbutton_32px.png" %>
+				                      </a>
+				                    <% else %>
+				                    <i> Your call button will be activated 10min before your scheduled lesson starts. </i></br>
+				                    <%= image_tag "callbutton_32pxGS.png" %>
+				                    <% end %>                    
+				                  <% end %>
 								</div>
 							</div>
 						</div>
-					<% elsif @hasfreeslot %> <!-- There are free lesson slots and the student is unbooked-->
+					</div>
+				<% elsif @hasfreeslot %> <!-- There are free lesson slots and the student is unbooked-->
+					<% if Time.now + 30.minutes < @time %>
 						<button class="cal-book" data-toggle="modal" data-target="#booklesson<%=@formatteddate%><%= i %>">
 							<i class="fa fa-book free-slot"></i>
 						</button>
@@ -110,12 +111,15 @@
 								</div>
 							</div>
 						</div>
-					<% else %> <!-- There are no slots and the student hasn't booked a slot here -->
+					<% end %>
+				<% else %> <!-- There are no slots and the student hasn't booked a slot here -->
+					<% if Time.now + 30.minutes < @time %>
 						<button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled>
 							<i class="fa fa-book no-slot"></i>
 						</button>
 					<% end %>
 				<% end %>
+				
 			<% end %>
 		<% end %>
 	<% end %>

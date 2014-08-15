@@ -12,6 +12,7 @@
   var channel = pusher.subscribe('private-<%= current_user.id %>');
   channel.bind('notification', function(data) {
     notification_alert(data.message);
+    getNextLesson();
     $.ajax({
       type: 'GET',
       url: '/notifications/get_notifications_for_bubble',
@@ -31,7 +32,6 @@
       success:  function(data){ 
         $('#notification-dropdown').html("");
         $.each( data, function( key, array ) {
-          console.log(array);
           $('#notification-dropdown').append('<li class="notification"><div class="notify-block"><div class="notify-img">img' + array["image"] + '</div><p>'+ array["content"] +'</p></div></li>');
           if (array["lesson_id"] != 0)  {
 
@@ -45,7 +45,6 @@
     });          
   });   
 
-channel.bind('lesson alert', function(data) {});              
 
 function notification_alert(msg) {
   $('#notification-window').text(msg);
