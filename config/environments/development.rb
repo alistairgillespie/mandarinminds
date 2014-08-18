@@ -28,10 +28,10 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address              => 'smtp.gmail.com',
       :port                 => 587,
-      :domain               => 'mandarinminds.com',
+      :domain               => 'mail.google.com',
       :user_name            => 'itsupport@mandarinminds.com',
       :password             => 'WCEagles',
-      :authentication       => 'plain',
+      :authentication       => :plain,
       :enable_starttls_auto => true }
   
 
