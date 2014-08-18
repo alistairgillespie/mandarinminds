@@ -1,0 +1,98 @@
+<style type="text/css">
+	body{
+		width: 700px;
+	}
+	.header{
+		background: #2c3e50;
+		width: 100%;
+		height: 75px;
+		border-radius: 10px;
+	}
+	
+	.logo{
+		padding-left: 15px;
+		vertical-align: middle;
+	}
+	
+	.body-wrap{
+		width: 100%;
+		border: #e5eaee solid 2px;
+		border-radius: 10px;
+		margin-top:	10px;
+		padding: 5px;
+		font-size: 16px;
+		font-family: "proxima-nova",sans-serif;
+		font-style: normal;
+		font-weight: 100;
+	}
+	
+	.in-line-img{
+		height: 140px;
+		width: 650px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 10px;	
+	}
+	
+	h1 {
+		color: #93192C;
+		font-size: 22px;
+	}
+</style>
+
+<!-- HEADER -->
+<table class="header">
+	<td><%= image_tag("logo.png", :class => "logo") %></td>	
+</table>
+<!-- /HEADER -->
+
+
+<!-- BODY -->
+<table class="body-wrap">
+	<tr>
+		<td>						
+			<h1>Welcome, <%= @user.firstname %> <%= @user.lastname %></h1>
+			<p>Let me be the first to welcome you to Mandarin Minds and thank you for deciding to trial our system. Here you'll be able to have live video lessons with our teachers in China as you develop you skills from scratch or build upon a prior learning foundation</p>
+						
+			<p><img class="in-line-img" src="http://touristicattractions.com/wp-content/uploads/2011/09/temple-of-heaven-panorama3.jpg" /></p>
+						
+			<p>In order to help showcase what Mandarin Minds has to offer a new user such as yourself you have been gifted a free lesson which allows you to book a lesson with one of our Chinese tutors. We invite you to book in one of our free lesson slots to see for yourself what our site has to offer. Afterwards we have a variety of lesson bundles available for purchase that will allow you to continue your Mandarin adventure with us.</p>
+						
+			<p>Visit your <%= link_to "User Dashboard", @user %> to get started and feel free to contact itsupport@mandarinminds.com with any questions you may have, and good luck!</p>
+						
+			<p>Daniel Lim</br> --Owner, Mandarin Minds</p>
+						
+																	
+			
+		</tr>
+		</td>
+					
+		
+<!-- /BODY -->
+
+<!-- FOOTER -->
+<table class="footer-wrap">
+	<tr>
+		<td></td>
+		<td class="container">
+			
+				<!-- content -->
+				<div class="content">
+				<table>
+				<tr>
+					<td align="center">
+						<p>
+							<a href="#">Terms</a> |
+							<a href="#">Privacy</a> |
+							<a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
+						</p>
+					</td>
+				</tr>
+			</table>
+				</div><!-- /content -->
+				
+		</td>
+	</tr>
+</table>
+<!-- /FOOTER -->
