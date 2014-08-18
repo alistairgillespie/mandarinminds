@@ -46,6 +46,7 @@
 				    var s = Math.floor((difference- h*60*60*1000 - m*60*1000) / 1000);
 				    m = checkTime(m);
 				    s = checkTime(s);
+				    console.log("Difference:" + difference + " " + h +":"+m+":"+s);
 				    if (difference >= 259200000) { // >72h
 				    	$('#countdown').html("");
 				    } else if (difference >= 300000 && difference < 259200000) { // 72h to 5min before
@@ -63,7 +64,7 @@
     			if (i<10) {i = "0" + i}; 
    				return i;
 			}
-
+			
 			function getNextLesson(){
 				$.ajax({
 				      type: 'GET',

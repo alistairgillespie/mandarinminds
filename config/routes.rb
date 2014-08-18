@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'test' => 'application#welcome'
-  get 'test2' => 'application#lessonalert'
+  #get 'test' => 'application#welcome'
+  #get 'test2' => 'application#lessonalert'
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

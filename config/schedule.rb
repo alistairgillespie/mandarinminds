@@ -27,5 +27,9 @@ every :hour, at: 55 do
 	runner "Notification.check55"
 end
 
+every 1.day, :at => '7:00 am' do
+  runner "Lesson.lessonalert"
+end
+
 
 

@@ -7,11 +7,10 @@ class Notifier < ActionMailer::Base
     	subject: 'Welcome to Mandarin Minds')
   end
   
-  def lessonalert(user)
+  def lessonalert(user, lessons)
   	@user = user
-  	@lessonstoday = user.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
-  	if (@lessonstoday.size > 0)
-  		mail(to: user.email, subject: "Lesson Alert for #{Time.now.strftime('%B %-d')}")
-	end
+  	@lessonstoday = lessons
+  	@date = Time.now.strftime("#{Time.now.day.ordinalize} %B")
+    mail(to: user.email, subject: "Lesson Alert for #{@date}")
   end
 end
