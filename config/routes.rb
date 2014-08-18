@@ -52,9 +52,9 @@ resources :notifications
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers"
   
-  if Rails.env.development?
-    mount MailPreview => 'mail_view'
-  end
+  #if Rails.env.development?
+  #  mount MailPreview => 'mail_view'
+  #end
   
   
   
