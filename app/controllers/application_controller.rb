@@ -23,6 +23,11 @@ class ApplicationController < ActionController::Base
   	Notifier.welcome(current_user).deliver
   	redirect_to "/"
   end
+  
+  def lessonalert
+  	Notifier.lessonalert(current_user).deliver
+  	redirect_to "/"
+  end
 
   def get_next_lesson
     @nextlesson = nil

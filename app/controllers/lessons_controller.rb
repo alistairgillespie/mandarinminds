@@ -2,11 +2,6 @@ class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
   
-  def sendemail
-  	UserMailer.welcome(current_user).deliver
-  	redirect_to root_path
-  end
-  
   # GET /lessons
   # GET /lessons.json
   def index

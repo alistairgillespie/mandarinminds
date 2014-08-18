@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'test' => 'application#welcome'
+  get 'test2' => 'application#lessonalert'
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -51,11 +52,4 @@ resources :notifications
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers"
-  
-  if Rails.env.development?
-    mount MailPreview => 'mail_view'
-  end
-  
-  
-  
 end
