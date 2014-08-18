@@ -52,4 +52,14 @@ resources :notifications
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers"
+<<<<<<< HEAD
+=======
+  
+  #if Rails.env.development?
+  #  mount MailPreview => 'mail_view'
+  #end
+  
+  
+  
+>>>>>>> integration
 end
