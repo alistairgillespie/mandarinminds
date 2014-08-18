@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
   def update_sanitized_params
 	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :email, :password)}
   end  
+  
+  def welcome
+  	Notifier.welcome(current_user).deliver
+  	redirect_to "/"
+  end
 
   def get_next_lesson
     @nextlesson = nil

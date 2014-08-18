@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-
+  get 'test' => 'application#welcome'
+  
   resources :posts
   resources :plans
   resources :lessons
