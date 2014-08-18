@@ -10,7 +10,7 @@ task :lesson_alert => :environment do
   
 end
 
-task :notification_check_55 => :environment do
+task :notification_check_50 => :environment do
 	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.beginning_of_hour + 1.hour)
 
   	@lessonsthishour.each do |h|
@@ -29,7 +29,7 @@ task :notification_check_55 => :environment do
   
 end
 
-task :notification_check_45 => :environment do
+task :notification_check_40 => :environment do
   	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.beginning_of_hour + 1.hour)
 
   	@lessonsthishour.each do |h|
@@ -38,7 +38,7 @@ task :notification_check_45 => :environment do
 		  	@notification_params = {
 		        :user_id => h.student.id,
 		        :image => '<i class="fa fa-clock-o"></i>',
-		        :content => "You have a lesson beginning in 15min with #{h.teacher.firstname} #{h.teacher.lastname}. Check your Dashboard for more information"
+		        :content => "You have a lesson beginning in 20min with #{h.teacher.firstname} #{h.teacher.lastname}. Check your Dashboard for more information"
 		    }
 		    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
             "message" => @notification_params[:content],
