@@ -2,7 +2,7 @@ desc "These tasks are called by the Heroku scheduler add-on"
 
 task :lesson_alert => :environment do
 	User.where("role_id = 1").each do |u|
-  		@lessonalerttoday = u.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.in_time_zone("Perth").beginning_of_day, DateTime.now.in_time_zone("Perth").end_of_day)
+  		@lessonalerttoday = u.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.beginning_of_day + 24.hours, DateTime.now.end_of_day + 24.hours)
   		if (@lessonalerttoday.size > 0)
   			Notifier.lessonalert(u, @lessonalerttoday).deliver
   		end
