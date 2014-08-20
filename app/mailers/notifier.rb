@@ -10,7 +10,7 @@ class Notifier < ActionMailer::Base
   def lessonalert(user, lessons)
   	@user = user
   	@lessonstoday = lessons
-  	@date = Time.now.strftime("#{Time.now.day.ordinalize} %B")
+  	@date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
     mail(to: user.email, subject: "Lesson Alert for #{@date}")
   end
 end
