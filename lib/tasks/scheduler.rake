@@ -24,6 +24,15 @@ task :notification_check_50 => :environment do
 		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson_alert', {"image" => @notification_params[:image],
 	            "message" => @notification_params[:content], 
 	            })
+
+		    @notification_params = {
+		        :user_id => h.teacher.id,
+		        :image => '<i class="fa fa-clock-o"></i>',
+		        :content => "Your lesson with #{h.student.firstname} #{h.student.lastname} is ready to begin. Check your Dashboard for more information"
+		    }
+		    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
 		end	
 	end
   
