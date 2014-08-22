@@ -11,9 +11,11 @@ class Lesson < ActiveRecord::Base
 	
 	def self.lessonalert
   		User.where("role_id = 1").each do |u|
-  			@lessonalerttoday = u.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
-  			if (@lessonalerttoday.size > 0)
-  				Notifier.lessonalert(u, @lessonalerttoday).deliver
+  			if u.settings.receive_morning_emails
+  				@lessonalerttoday = u.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.in_time_zone("Perth").beginning_of_day, DateTime.now.in_time_zone("Perth").end_of_day)
+	  			if (@lessonalerttoday.size > 0)
+	  				Notifier.lessonalert(u, @lessonalerttoday).deliver
+	  			end
   			end
   		end  	
   	end

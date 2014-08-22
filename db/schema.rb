@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804124622) do
+ActiveRecord::Schema.define(version: 20140822061812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140804124622) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "confirmed",  default: false
+    t.integer  "status"
   end
 
   add_index "lessons", ["student_id", "starts_at"], name: "index_lessons_on_student_id_and_starts_at", unique: true, using: :btree
@@ -68,6 +69,14 @@ ActiveRecord::Schema.define(version: 20140804124622) do
     t.datetime "updated_at"
   end
 
+  create_table "user_settings", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "purchased_dudu"
+    t.boolean  "receive_morning_emails"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -88,6 +97,7 @@ ActiveRecord::Schema.define(version: 20140804124622) do
     t.integer  "role_id"
     t.integer  "lesson_count"
     t.string   "skypeid"
+    t.integer  "lessons_to_spend"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
