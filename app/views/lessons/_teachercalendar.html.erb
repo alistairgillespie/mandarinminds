@@ -73,31 +73,35 @@
                   <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
                 </div>
                 <div class="modal-body">
-                  <!--Loading data from server failed</br>-->
-                  <div style="float:right">           
-                              <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, :class => "confirm-required" %>  </br>
-                              <input type="checkbox"> Confirm<br>
-                          </div>
-                  <p>
-                    <strong>Student:</strong>
-                    <%= @plannedlesson.student.nil? ? "No Booked Student" : "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}" %></br>
-                    <strong>Teacher:</strong>
-                    <%= @plannedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@plannedlesson.teacher.firstname} #{@plannedlesson.teacher.lastname}" %></br>
-                    <strong>Starts at:</strong>
-                    <%= "#{@plannedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@plannedlesson.starts_at.in_time_zone('Perth').strftime("#{@plannedlesson.starts_at.day.ordinalize} %B %Y")}" %>
-                  </p>
-
-                  <% unless @plannedlesson.student.nil? || @plannedlesson.teacher.nil? %>
-                    <% if (Time.now < (@plannedlesson.starts_at + 50.minutes) && Time.now > (@plannedlesson.starts_at - 10.minutes)) %>
-                      Begin Your Lesson:</br>
-                      <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @plannedlesson.student.skypeid : @plannedlesson.teacher.skypeid %>?call">
-                        <%= image_tag "callbutton_32px.png" %>
-                      </a>
-                    <% else %>
-                    <i> Your call button will be activated 10min before your scheduled lesson starts. </i></br>
-                    <%= image_tag "callbutton_32pxGS.png" %>
-                    <% end %>                    
-                  <% end %>
+                  <i> Your call button will be activated 10min before your scheduled lesson starts. </i>
+                            <div class = "row">
+                              <div class="col-xs-8">
+                              <ul class="list-group">
+                          <li class="list-group-item"> <strong>Student:</strong>
+                                <%= @plannedlesson.student.nil? ? "No Booked Student" : "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}" %></li>
+                          <li class="list-group-item"><strong>Teacher:</strong>
+                                <%= @plannedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@plannedlesson.teacher.firstname} #{@plannedlesson.teacher.lastname}" %></li>        
+                          <li class="list-group-item"><strong>Starts at:</strong>
+                                <%= "#{@plannedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@plannedlesson.starts_at.in_time_zone('Perth').strftime("#{@plannedlesson.starts_at.day.ordinalize} %B %Y")}" %></li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-4">                                  
+                              <div class="well">
+                                <% unless @plannedlesson.student.nil? || @plannedlesson.teacher.nil? %>
+                                    <% if (Time.now < (@plannedlesson.starts_at + 50.minutes) && Time.now > (@plannedlesson.starts_at - 10.minutes)) %>
+                                        <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @plannedlesson.student.skypeid : @plannedlesson.teacher.skypeid %>?call">
+                                        <%= image_tag "callbutton_32px.png" %>
+                                      </a>
+                                    <% else %>
+                                      <%= image_tag "callbutton_32pxGS.png" %>
+                                    <% end %>                    
+                                  <% else %>
+                                  <%= image_tag "callbutton_32pxGS.png" %>
+                                  <% end %>
+                                </div>
+                                <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
+                            </div>
+                  </div>
                 </div>
               </div>
             </div>

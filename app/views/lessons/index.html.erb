@@ -21,13 +21,17 @@
 </div>
 
 <script type="text/javascript">
-$(".confirm-required").click(function(){
-	var link = $(this);
-	var checkbox = $(this).next().next();
-	if (checkbox.prop("checked")) {
-		
+$(".lock").click(function(){
+	var lock = $(this);
+	var button = lock.prev();
+	if (lock.hasClass("fa-lock")) {
+		lock.removeClass("fa-lock");
+		lock.addClass("fa-unlock-alt");
+		button.removeAttr('disabled');	
 	} else {
-		return false;
+		lock.removeClass("fa-unlock-alt");
+		lock.addClass("fa-lock");
+		button.attr('disabled','disabled');		
 	}
 });
 </script>
