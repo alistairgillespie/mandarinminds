@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'notifications/get_notifications_for_bubble' => 'notifications#get_notifications_for_bubble'
   get 'notifications/:id/dismiss_and_view' => 'notifications#dismiss_and_view'
   get 'get_users_next_lesson' => 'lessons#get_users_next_lesson'
+  get 'user_settings/toggle_config_morning_email' => 'user_settings#toggle_config_morning_email'
   resources :notifications
 
   

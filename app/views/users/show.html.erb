@@ -13,6 +13,11 @@
 			</div>
 
 <p>Number of lessons to spend: <%= current_user.lesson_count %></p>
+<% if current_user.settings.receive_morning_emails %>
+<p>You will receive a reminder email on mornings that you have booked a lesson. Disable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
+<% else %>
+<p>You will not receive a reminder email on mornings that you have booked a lesson. Enable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
+<% end %>
 <div id="week-schedule">
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
@@ -34,7 +39,34 @@
 				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
 			</div>
 			<div class="modal-body">
-				<iframe src="<%= lesson_path(lesson) %>" frameborder="0" scrolling="no" style="overflow:none"></iframe
+				
+				                  	<div class = "row">
+				                  		<div class="col-xs-8">
+						              		<ul class="list-group">
+											    <li class="list-group-item"> <strong>Student:</strong>
+						                    <%= lesson.student.nil? ? "No Booked Student" : "#{lesson.student.firstname} #{lesson.student.lastname}" %></li>
+											    <li class="list-group-item"><strong>Teacher:</strong>
+						                    <%= lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{lesson.teacher.firstname} #{lesson.teacher.lastname}" %></li>        
+											    <li class="list-group-item"><strong>Starts at:</strong>
+						                    <%= "#{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{lesson.starts_at.in_time_zone('Perth').strftime("#{lesson.starts_at.day.ordinalize} %B %Y")}" %></li>
+											</ul>
+										</div>
+										<div class="col-xs-4">							                  	
+							                <div class="well">
+							                	<% unless lesson.student.nil? || lesson.teacher.nil? %>
+							                    	<% if (Time.now < (lesson.starts_at + 50.minutes) && Time.now > (lesson.starts_at - 10.minutes)) %>
+							                      		<a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? lesson.student.skypeid : lesson.teacher.skypeid %>?call">
+							                        	<%= image_tag "callbutton_32px.png" %>
+							                     		</a>
+							                    	<% else %>
+							                    		<%= image_tag "callbutton_32pxGS.png" %>
+							                    	<% end %>                    
+					                  			<% end %>
+					                  		</div>
+				                  			<%= link_to 'Cancel Lesson', lesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
+					              		</div>
+									</div>
+									<i> Your call button will be activated 10min before your scheduled lesson starts. </i>
 			</div>
 		</div>
 	</div>
@@ -52,6 +84,22 @@
 		</div>
 	</div>	
 </div>
+
+<script type="text/javascript">
+$(".lock").click(function(){
+	var lock = $(this);
+	var button = lock.prev();
+	if (lock.hasClass("fa-lock")) {
+		lock.removeClass("fa-lock");
+		lock.addClass("fa-unlock-alt");
+		button.removeAttr('disabled');	
+	} else {
+		lock.removeClass("fa-unlock-alt");
+		lock.addClass("fa-lock");
+		button.attr('disabled','disabled');		
+	}
+});
+</script>
 
 
 
