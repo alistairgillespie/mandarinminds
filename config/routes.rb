@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/sign_out' => 'devise/sessions#destroy'
+    get '/sign_in' => "devise/sessions#new"
   end
   devise_for :users, :path_names => {:sign_up => "register"}, :controllers => {:registrations => "registrations"}
   
@@ -13,9 +15,8 @@ Rails.application.routes.draw do
 
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
   post'/buy/:id', to: 'charges#create', as: :buy
+  get 'charges' => 'charges#index', :as => 'charges'
   #get 'users' => 'users#show'
-  
-  
      
   #Redirected to rails default root if signed in 
   #unauthenticated do
@@ -44,7 +45,6 @@ Rails.application.routes.draw do
   get 'notifications/dismiss_all' => 'notifications#dismiss_all', :as => "dismiss_all_notifications"
   get 'notifications/dismiss/:id' => 'notifications#dismiss', :as => "dismiss_notification"
 
-resources :notifications
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"

@@ -4,6 +4,15 @@ def new
 	@plan = Plan.find(params[:id])
 end
 
+def index
+  if user_signed_in?
+    @mycharges = Charge.where("user_id = ?", current_user.id).order("created_at")
+  else
+    redirect_to "/sign_in", notice: "You must be signed in to see that page"
+  end
+end
+
+
 def create
   @plan = Plan.find(params[:id])
   @user = current_user

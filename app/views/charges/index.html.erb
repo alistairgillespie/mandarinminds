@@ -1,29 +1,26 @@
-<h1>Listing charges</h1>
+<h1>List of Charges</h1>
+
+<% if @mycharges.length > 0 %>
 
 <table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Sale</th>
-      <th>Plan</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @charges.each do |charge| %>
-      <tr>
-        <td><%= charge.user_id %></td>
-        <td><%= charge.sale_id %></td>
-        <td><%= charge.plan_id %></td>
-        <td><%= link_to 'Show', charge %></td>
-        <td><%= link_to 'Edit', edit_charge_path(charge) %></td>
-        <td><%= link_to 'Destroy', charge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<thead><tr>
+	<td>Paid On</td>
+	<td>Item</td>
+	<td>Amount</td>
+	<td>Transaction ID</td>
+</tr></thead>
+<tbody>
+<% @mycharges.each do |c| %>
+	<tr>
+		<td><%= c.created_at.in_time_zone("Perth").strftime('%D') %></td>
+		<td><%= c.plan.name %></td>
+		<td><%= number_to_currency (c.amount/100.00), :precision => 2 %></td>
+		<td><%= c.sale_id %></td>
+	</tr>
+<% end %>
+</tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Charge', new_charge_path %>
+<% else %>
+<p>You have not made any purchases yet. Visit the <a href="/plans">Plans</a> page to view what's on offer.</p>
+<% end %>
