@@ -15,12 +15,7 @@
 //= require bootstrap
 //= require_tree .
 
-$(function() {
-  try {
-    Typekit.load();
-  }
-  catch(e) {}
-});
+
 
 
 

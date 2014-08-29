@@ -62,10 +62,7 @@ function notification_alert(msg) {
   <script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>
 </head>
 <body>
- <!-- Flash message for all pages. Remove from individual pages --> 
-<% flash.each do |type, msg| %>
-<%= content_tag :p, msg, class: type %>
-<% end %>
+
 
 <% if user_signed_in? %>
     <%= render 'layouts/user_header' %>
@@ -83,6 +80,11 @@ function notification_alert(msg) {
 <!-- Dashboard layout when signed in -->
 <% if user_signed_in? %>
 	<%= render 'layouts/user_sidenav' %>
+<% end %>
+
+ <!-- Flash message for all pages. Remove from individual pages --> 
+<% flash.each do |type, msg| %>
+<%= content_tag :p, msg, class: type %>
 <% end %>
 
 

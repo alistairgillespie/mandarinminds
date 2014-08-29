@@ -26,7 +26,8 @@ teachers.each do |firstname, lastname, email, password, role_id|
 	user.role_id = role_id
 	user.save!
 end
-
+Plan.create!(:name => "1 Lesson", :price => 30, :duration => 2, :lessons => 1)
+Plan.create!(:name => "5 Lessons", :price => 140, :duration => 2, :lessons => 5)
 Plan.create!(:name => "10 Lessons", :price => 230, :duration => 2, :lessons => 10)
 Plan.create!(:name => "20 Lessons", :price => 440, :duration => 3, :lessons => 20)
 Plan.create!(:name => "50 Lessons", :price => 1000, :duration => 6, :lessons => 50)

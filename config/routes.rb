@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :charges
-
-  #get 'test' => 'application#welcome'
-  #get 'test2' => 'application#lessonalert'
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -16,6 +12,7 @@ Rails.application.routes.draw do
   post 'pusher/auth'
 
   get 'charges/:id' => 'charges#new', :as => 'charge_plan'
+  post'/buy/:id', to: 'charges#create', as: :buy
   #get 'users' => 'users#show'
   
   

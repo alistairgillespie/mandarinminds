@@ -1,25 +1,23 @@
-<% if flash[:notice] %>
-<div id="notice"><%= flash[:notice] %></div>
-<% end %>
-<% if flash[:error] %>
-<div id="error"><%= flash[:error] %></div>
-<% end %>
-		
-			<div class="profile-pic row">
-				<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
-				<!--<div class="col-sm-9">
-					The current time in Perth, Western Australia is <%= Time.now.in_time_zone("Perth").strftime("%I:%M:%S") %></div>-->
-					
-				<div class="progress">
-				  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width: 80%">
-					  <span class="sr-only">80% Complete (danger)</span>
-				  </div>
-				</div>	
-			</div>
+
+<div class="profile-pic row">
+	<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+	
+	<div class="progress">
+	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width: 80%">
+		  <span class="sr-only">80% Complete (danger)</span>
+	  </div>
+	</div>	
+</div>
 
 <% if current_user.role_id == 1 %>
 <p>Number of lessons to spend: <%= current_user.lesson_count %></p>
 <% end %>
+
+<% if current_user.settings.purchased_dudu %>
+<p>You have purchased Dudu - access it <a href="#">here</a></p>
+<% end %>
+
+
 
 <div id="week-schedule">
 	<div class="calendar">

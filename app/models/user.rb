@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :lessons_to_attend, :class_name => 'Lesson', :foreign_key => 'student_id'
   has_many :lessons_to_teach, :class_name => 'Lesson', :foreign_key => 'teacher_id'
+  has_many :charges, :class_name => 'Charge', :foreign_key => 'user_id'
   has_one :settings, :class_name => 'UserSettings', :foreign_key => 'user_id'
   has_many :notifications, :class_name => 'Notification', :foreign_key => 'user_id'
   has_many :posts, :class_name => 'Post', :foreign_key => 'author'
