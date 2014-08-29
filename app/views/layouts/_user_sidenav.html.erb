@@ -54,7 +54,7 @@
 				    } else if (difference < 300000 && difference > -1200000) { // 5min before lesson starts
 				    	$('#countdown').html("<a href='/lessons/"+ $('#next-lesson-start-time').attr("data-lesson") +"'>The lesson is ready to begin. Click here to view it</a>");
 				    } else { // 20min past start time
-				    	//getNextLesson();
+				    	getNextLesson();
 				    }
 			    }
     			var t = setTimeout(function(){startTime()},1000);
@@ -74,10 +74,10 @@
 				      	if (data == null) {
 				      		$('#next-lesson-start-time').html(0);
 				      		$('.next-lesson').html("");
-				      		console.log("No next lesson. Return 0, clear next-lesson window")
+				      		console.log("No next lesson. Return 0, clear next-lesson window");
 				      		return;
 				      	}
-				      	console.log(data);
+				      	//console.log(data);
 				      	var d = new Date(data["starts_at"]);
 				      	var h = d.getHours();
 					      	if (h > 11) {
@@ -87,12 +87,12 @@
 					      	}
 				      	var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 				      	$('#next-lesson-start-time').html(ordinal_suffix_of(d.getDate()) + " " + monthNames[d.getMonth()] + ", " + d.getFullYear() + " at " + d.getHours()+ ":00:00");
-				      	console.log("new start time: " + ordinal_suffix_of(d.getDate()) + " " + monthNames[d.getMonth()] + ", " + d.getFullYear() + " at " + d.getHours()+ ":00:00");
+				      	//console.log("new start time: " + ordinal_suffix_of(d.getDate()) + " " + monthNames[d.getMonth()] + ", " + d.getFullYear() + " at " + d.getHours()+ ":00:00");
 				      	$('#next-lesson-start-time').attr("data-lesson", data["id"]);
-				      	console.log("new data-lesson: " + data["id"]);
+				      	//console.log("new data-lesson: " + data["id"]);
 				      	var dateString = ordinal_suffix_of(d.getDate()) + " " + monthNames[d.getMonth()] + " " + d.getFullYear() + " at " + h;
 				      	$('.next-lesson').html("Your next lesson is on " + dateString);	
-				      	console.log("new datestring: "+dateString);
+				      	//console.log("new datestring: "+dateString);
 				      }
 				    }); 
 			}

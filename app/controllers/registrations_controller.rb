@@ -19,7 +19,9 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
     def after_update_path_for(resource)
-      user_path(resource)
+        flash[:notice] = 'Your settings have been updated.'
+        user_path(resource)
+
     end
 
 end

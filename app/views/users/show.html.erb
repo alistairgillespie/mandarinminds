@@ -1,4 +1,9 @@
-<!-- <p id="notice"><%= notice %></p> -->
+<% if flash[:notice] %>
+<div id="notice"><%= flash[:notice] %></div>
+<% end %>
+<% if flash[:error] %>
+<div id="error"><%= flash[:error] %></div>
+<% end %>
 		
 			<div class="profile-pic row">
 				<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
@@ -12,12 +17,10 @@
 				</div>	
 			</div>
 
+<% if current_user.role_id == 1 %>
 <p>Number of lessons to spend: <%= current_user.lesson_count %></p>
-<% if current_user.settings.receive_morning_emails %>
-<p>You will receive a reminder email on mornings that you have booked a lesson. Disable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
-<% else %>
-<p>You will not receive a reminder email on mornings that you have booked a lesson. Enable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
 <% end %>
+
 <div id="week-schedule">
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
@@ -77,6 +80,12 @@
 		
 	<% end %>
 </div>
+
+<% if current_user.settings.receive_morning_emails %>
+<p>You will receive a reminder email on mornings that you have booked a lesson. Disable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
+<% else %>
+<p>You will not receive a reminder email on mornings that you have booked a lesson. Enable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
+<% end %>
 				
 </div>
 		

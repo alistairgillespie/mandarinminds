@@ -1,105 +1,106 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><%= image_tag("logo.png", :alt => "rss feed") %></a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav pull-right">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/"><%= image_tag("logo.png", :alt => "rss feed") %></a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav pull-right">
+      <% if user_signed_in? %>
+      <li class="notify" id="notification-menu"> 
+        <% @newnotifications = 0 %>
+        <% current_user.notifications.each do |n| %>
+        <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
+        <% end %>
+        <i id="notification-bell" class="fa fa-bell-o" data-toggle="dropdown"></i>
+        <% if @newnotifications > 0 %>     
+        <div class="notification-bubble"> <%= @newnotifications %> </div>       
+        <% end %> 
+        <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
+          <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
 
-        <% if user_signed_in? %>
-        <li class="notify" id="notification-menu"> 
-          <% @newnotifications = 0 %>
-            <% current_user.notifications.each do |n| %>
-              <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
-            <% end %>
-          <i id="notification-bell" class="fa fa-bell-o" data-toggle="dropdown"></i>
-            <% if @newnotifications > 0 %>     
-              <div class="notification-bubble"> <%= @newnotifications %> </div>       
-            <% end %> 
-            <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
-              <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
-                
-                    <li class="notification">
-                      
-                    	<div class="notify-block">
-                        <% unless n.lesson_id == 0 %>
-                        <a href="/lessons/<%=n.lesson_id%>">
-                      <% end %>
-                    	 <div class="notify-img">
-                            <% if n.image[0,1] == "<" %>
-                              <%= n.image.html_safe %>
-                            <% else %>
-                               <%= image_tag n.image, :class => 'gravatar-nav img-circle' %>
-                            <% end %>                    		
-                      </div>
-                    		<p>
-                    			<%= n.content %>
-                    		</p>
-                        <% unless n.lesson_id == 0 %>
-                        </a>
-                    <% end %>
-                    	</div>                        
-                    
-                    </li>                    
-                  
+          <li class="notification">
+
+           <div class="notify-block row">
+            <% unless n.lesson_id == 0 %>
+            <a href="/lessons/<%=n.lesson_id%>">
               <% end %>
+              <div class="notify-img col-xs-2">
+                <% if n.image[0,1] == "<" %>
+                <%= n.image.html_safe %>
+                <% else %>
+                <%= image_tag n.image, :class => 'gravatar-nav img-circle' %>
+                <% end %>                    		
+              </div>
+              <div class="col-xs-10">
+              <p>
+               <%= n.content %>
+             </p>
+           </div>
+             <% unless n.lesson_id == 0 %>
+           </a>
+           <% end %>
+         </div>                        
 
-              <%= link_to "See all", notifications_path, :class => 'see-all' %>            
-            </ul>
-          
-        </li>
-      <li>
-		  <div class="dropdown dropdown-menu-right">
-		  	<button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
-		  	<%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> <span class="caret"></span>
-		  	</button>
-		  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-		  		<li role="presentation"><%= link_to 'Dashboard', current_user, :class => 'navbar-link' %></li>
-			    <li role="presentation"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-			    <li role="presentation"><%= link_to "Sign out", destroy_user_session_path, :class => 'navbar-link', :method => :delete %></li>
-			</ul>
-		  </div>
-		</li>
- 
-		<% end %>
+       </li>                    
 
-      </ul>
-    </div><!--/.nav-collapse -->
+       <% end %>
+
+       <%= link_to "See all", notifications_path, :class => 'see-all' %>            
+     </ul>
+
+   </li>
+   <li>
+    <div class="dropdown dropdown-menu-right">
+     <button class="dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown">
+       <%= image_tag current_user.gravatar_url, :class => 'gravatar-nav img-circle' %> <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation"><%= link_to 'Dashboard', current_user, :class => 'navbar-link' %></li>
+      <li role="presentation"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+      <li role="presentation"><%= link_to "Sign out", destroy_user_session_path, :class => 'navbar-link', :method => :delete %></li>
+    </ul>
+  </div>
+</li>
+
+<% end %>
+
+</ul>
+</div><!--/.nav-collapse -->
 </div>
 <div id="notification-window" style="
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            background-color: rgba(0,0,0,0.8);
-            height: 60px;
-            width: 400px;
-            z-index: 1;
-            color: white;
-            display: none;
-            padding: 5px;
-            font-size: 14px">
+position: fixed;
+right: 10px;
+bottom: 10px;
+background-color: rgba(0,0,0,0.8);
+height: 60px;
+width: 400px;
+z-index: 1;
+color: white;
+display: none;
+padding: 5px;
+font-size: 14px">
 </div>
 
 <script type="text/javascript">
 
-  $('#notification-bell').click(function(){
-    if ((parseInt($('.notification-bubble').contents().text(),10)) > 0) {
-      $.ajax({
-        type: 'GET',
-        url: '/notifications#dismiss_all',
-        dataType: 'json',
-        success:  function(bubble){ 
-          $('.notification-bubble').html(0);
-          $('.notification-bubble').remove();
-        }
-      });
-    }
-  });
+$('#notification-bell').click(function(){
+  if ((parseInt($('.notification-bubble').contents().text(),10)) > 0) {
+    $.ajax({
+      type: 'GET',
+      url: '/notifications#dismiss_all',
+      dataType: 'json',
+      success:  function(bubble){ 
+        $('.notification-bubble').html(0);
+        $('.notification-bubble').remove();
+      }
+    });
+  }
+});
 
 </script>

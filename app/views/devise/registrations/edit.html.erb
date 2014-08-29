@@ -1,3 +1,10 @@
+<% if flash[:notice] %>
+<div id="notice"><%= flash[:notice] %></div>
+<% end %>
+<% if flash[:error] %>
+<div id="error"><%= flash[:error] %></div>
+<% end %>
+
 <div class="edit-form col-md-6 col-md-offset-3">
 <div class="wrapper">
 <h2>Edit your profile</h2>
@@ -17,14 +24,10 @@
 
   <div class="form-group"><%= f.password_field :password_confirmation, :class => "form-control", autocomplete: "off", placeholder: "Confirm New Password" %></div>
 
-
-   <div class="form-group"><%= f.label :name, "Confirm Your Changes" %><%= f.password_field :current_password, :class => "form-control", autocomplete: "off", placeholder: "Current Password" %></div>
+  <div class="form-group"><%= f.label :name, "Confirm Your Changes" %><%= f.password_field :current_password, :class => "form-control", autocomplete: "off", placeholder: "Current Password" %></div>
 
   <div class="form-group"><%= f.submit "Update", :class => "btn btn-primary btn-lg" %></div>
 <% end %>
 </div>
-
-
-<!-- <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %> -->
 
 

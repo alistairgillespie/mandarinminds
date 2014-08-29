@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
     @nextlesson = nil
     if user_signed_in?
       if current_user.role_id == 1 #student
-        @nextlesson = Lesson.where("student_id = ? AND starts_at > ?", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        @nextlesson = Lesson.where("student_id = ? AND starts_at > ? AND teacher_id IS NOT NULL", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
       elsif current_user.role_id == 2 #teacher
-        @nextlesson = Lesson.where("teacher_id = ? AND starts_at > ?", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        @nextlesson = Lesson.where("teacher_id = ? AND starts_at > ? AND student_id IS NOT NULL", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
       end
     end
   end

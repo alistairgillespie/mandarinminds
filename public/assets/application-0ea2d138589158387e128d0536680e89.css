@@ -425,21 +425,45 @@ ul.sidebar li a h1, ul.sidebar li a h2, ul.sidebar li a h3, ul.sidebar li a h4, 
     width: auto !important;
   }
 }
-/* line 6, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 5, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+table {
+  vertical-align: middle;
+}
+
+/* line 9, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+#next-week-button, #previous-week-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 16, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .introduction p {
   text-align: left;
 }
 
-/* line 10, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 19, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+.well {
+  margin-bottom: 14px;
+  height: 69px;
+  width: 111px;
+}
+
+/* line 27, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+.modal i {
+  font-size: 18px;
+}
+
+/* line 33, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-list table {
   background-color: #E3AFAF;
   width: 100%;
 }
-/* line 15, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 38, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-list tr {
   width: 100%;
 }
-/* line 19, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 42, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-list header {
   text-align: center;
   background-color: #890f0f;
@@ -448,57 +472,47 @@ ul.sidebar li a h1, ul.sidebar li a h2, ul.sidebar li a h3, ul.sidebar li a h4, 
   font-size: 20px;
 }
 
-/* line 28, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
-span.booked {
-  color: crimson;
-}
-
-/* line 32, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
-span.available {
-  color: green;
-}
-
-/* line 36, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 51, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-submit {
   display: none;
   border: none;
 }
 
-/* line 42, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 57, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .day .contents {
   text-align: center;
 }
-/* line 45, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 60, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .day .contents button {
   background: transparent;
   border: none;
 }
-/* line 50, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 65, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .day .contents .cal-book {
   color: #93192c;
   font-size: 20px;
 }
-/* line 55, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 70, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .day .contents .cal-lessons {
   color: #93192c;
   font-size: 20px;
 }
 
-/* line 66, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 81, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar table {
   width: 100%;
   border-spacing: 10px;
   border-collapse: separate;
 }
-/* line 70, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 85, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar table thead {
   font-size: 17px;
 }
-/* line 75, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 90, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar tr {
   width: 100%;
 }
-/* line 79, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 94, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar header {
   color: #8c989e;
   font-size: 27px;
@@ -508,22 +522,22 @@ span.available {
   font-weight: 100;
   padding-bottom: 15px;
 }
-/* line 88, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 103, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar header a {
   color: #8c989e;
   font-weight: 100;
 }
-/* line 94, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 109, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar .date {
   font-weight: bold;
 }
-/* line 96, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 111, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar th {
   background-color: #f5f5f5;
   text-align: center;
   width: 14.29%;
 }
-/* line 102, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 117, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar tbody {
   border: 15px solid #f5f5f5;
   border-radius: 15px;
@@ -531,63 +545,63 @@ span.available {
   vertical-align: top;
   padding: 5px;
 }
-/* line 109, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 124, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar .day {
   border: none;
 }
-/* line 113, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 128, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar .hour {
   height: 40px;
   font-family: "proxima-nova",sans-serif;
   border-top: solid 1px lightgrey;
   border-bottom: solid 1px lightgrey;
 }
-/* line 119, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 134, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar .hour input {
   display: none;
 }
-/* line 123, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 138, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar .hour button {
   border: none;
   background: none;
   padding: 0px;
   float: right;
 }
-/* line 131, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 146, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar i.free-slot {
   color: #93192c;
   font-size: 20px;
 }
-/* line 136, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 151, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar i.no-slot {
   color: grey;
   font-size: 20px;
 }
-/* line 141, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 156, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #teacher_calendar i.slot-booked {
   color: black;
   font-size: 20px;
 }
 
-/* line 149, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 164, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar table {
   width: 100%;
   border-spacing: 10px;
   border-collapse: separate;
 }
-/* line 153, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 168, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar table thead {
   font-size: 17px;
 }
-/* line 158, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 173, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar .date {
   font-weight: bold;
 }
-/* line 160, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 175, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar tr {
   width: 100%;
 }
-/* line 164, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 179, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar header {
   color: #8c989e;
   font-size: 27px;
@@ -597,18 +611,18 @@ span.available {
   font-weight: 100;
   padding-bottom: 15px;
 }
-/* line 173, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 188, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar header a {
   color: #8c989e;
   font-weight: 100;
 }
-/* line 179, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 194, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar th {
   background-color: #f5f5f5;
   text-align: center;
   width: 14.29%;
 }
-/* line 185, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 200, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar tbody {
   border: 15px solid #f5f5f5;
   border-radius: 15px;
@@ -616,11 +630,11 @@ span.available {
   vertical-align: top;
   padding: 5px;
 }
-/* line 193, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 208, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar .day {
   border: none;
 }
-/* line 197, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 212, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar .hour {
   height: 35px;
   vertical-align: center;
@@ -628,34 +642,34 @@ span.available {
   border-top: solid 1px lightgrey;
   border-bottom: solid 1px lightgrey;
 }
-/* line 204, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 219, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar .hour button {
   border: none;
   background: none;
   padding: 5px;
   float: right;
 }
-/* line 212, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 227, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar i.free-slot {
   color: #93192c;
   font-size: 20px;
 }
-/* line 217, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 232, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar i.no-slot {
   color: grey;
   font-size: 20px;
 }
-/* line 222, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 237, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 #student_calendar i.slot-booked {
   color: black;
   font-size: 20px;
 }
 
-/* line 228, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 243, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-heading {
   text-align: center;
 }
-/* line 231, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 246, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-heading .instructions {
   border-radius: 10px;
   position: absolute;
@@ -666,16 +680,16 @@ span.available {
   left: 50px;
   vertical-align: middle;
 }
-/* line 240, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 255, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-heading .instructions ul {
   list-style: none;
   padding-left: 0;
 }
-/* line 244, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 259, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-heading .instructions ul li {
   text-align: left;
 }
-/* line 246, /Users/scottlyle/Documents/Howling/mandarinminds/app/assets/stylesheets/lessons.css.scss */
+/* line 261, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/lessons.css.scss */
 .lesson-heading .instructions ul li i {
   color: #93192c;
   font-size: 20px;
@@ -17473,26 +17487,22 @@ h2 {
 }
 /* line 328, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block .notify-img {
-  float: left;
   width: 40px;
   height: 40px;
-  margin: 5px 20px 5px 10px;
+  padding: 0px;
+  margin: 0px;
   text-align: center;
   overflow: hidden;
   font-size: 0;
   display: inline-block;
 }
 /* line 343, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
-#notification-dropdown .notification .notify-block .notify-img .gravatar-nav {
-  margin-top: 0px;
-}
-/* line 345, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block .notify-img img {
   vertical-align: middle;
   position: relative;
   z-index: 2;
 }
-/* line 351, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 349, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block .notify-img i {
   width: 40px;
   height: 40px;
@@ -17501,7 +17511,7 @@ h2 {
   padding: 0px;
   color: #93192C;
 }
-/* line 361, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 359, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block p {
   font-size: 12px;
   margin-bottom: 5px;
@@ -17511,11 +17521,11 @@ h2 {
   display: inline-block;
   width: 500px;
 }
-/* line 372, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 370, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .notification .notify-block:hover {
   background: transparent !important;
 }
-/* line 377, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 375, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .see-all {
   display: block;
   padding: 15px 20px;
@@ -17524,32 +17534,32 @@ h2 {
   font-weight: bold;
   color: #93192C;
 }
-/* line 385, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 383, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #notification-dropdown .see-all:hover {
   text-decoration: none;
 }
 
-/* line 391, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 389, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic {
   text-align: center;
 }
-/* line 394, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 392, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic .img-circle {
   border: 15px solid #f5f5f5;
 }
-/* line 398, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 396, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-pic .progress {
   margin-top: 35px;
 }
 
-/* line 403, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 401, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .gravatar-nav {
   height: 40px;
   width: 40px;
   margin-top: 15px;
 }
 
-/* line 409, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 407, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .profile-lessons-remaining {
   width: 90%;
   margin: auto;
@@ -17561,153 +17571,153 @@ h2 {
 
 /* Modals
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 426, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 424, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog {
   width: 350px;
 }
-/* line 429, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 427, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content {
   background: white;
 }
-/* line 432, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 430, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-header {
   border: none;
   padding: 15px 15px 0 15px;
 }
-/* line 436, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 434, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 442, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 440, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 445, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 443, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 449, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 447, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 454, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 452, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 456, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 454, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 463, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 461, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 467, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 465, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signin .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
-/* line 479, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 477, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog {
   width: 350px;
 }
-/* line 482, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 480, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content {
   background: white;
 }
-/* line 485, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 483, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-header {
   border: none;
   padding: 15px 15px 0 15px;
 }
-/* line 489, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 487, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 495, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 493, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 498, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 496, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 502, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 500, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 507, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 505, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 509, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 507, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 516, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 514, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 520, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 518, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #signup .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
-/* line 532, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 530, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog {
   width: 250px;
 }
-/* line 535, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 533, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content {
   background: white;
 }
-/* line 538, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 536, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-header {
   border-bottom: 1px solid #890f0f;
   padding: 15px 15px 0 15px;
 }
-/* line 542, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 540, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-header h4 {
   font-size: 24px;
 }
-/* line 548, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 546, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group {
   margin-top: 10px;
 }
-/* line 551, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 549, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group a {
   color: #93192C;
   text-decoration: none;
 }
-/* line 555, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 553, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group a:hover {
   color: #890f0f;
 }
-/* line 560, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 558, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group .form-control {
   height: 45px;
 }
-/* line 562, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 560, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group .form-control:focus {
   border: 2px solid #93192C;
   box-shadow: none;
 }
-/* line 569, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 567, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group input {
   background: #c6ccd2;
 }
-/* line 573, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 571, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 #newlesson .modal-dialog .modal-content .modal-body .form-group input:focus {
   background: white;
 }
 
 /* Static pages
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 587, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 585, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron {
   margin-top: -50px;
   background-image: url("/assets/samplebg.jpg");
@@ -17718,7 +17728,7 @@ h2 {
   height: 600px;
   padding-top: 120px;
 }
-/* line 597, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 595, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron h1 {
   color: white;
   font-family: "proxima-nova",sans-serif;
@@ -17729,7 +17739,7 @@ h2 {
   width: 480px;
   margin-bottom: 30px;
 }
-/* line 609, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 607, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .landing.jumbotron p {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
@@ -17740,55 +17750,55 @@ h2 {
   width: 500px;
 }
 
-/* line 622, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 620, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .welcome.jumbotron {
   border-radius: none;
   background: transparent;
   text-align: center;
 }
-/* line 627, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 625, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .welcome.jumbotron .lead {
   color: #8c989e;
 }
 
-/* line 633, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 631, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron {
   border-radius: none;
   background: transparent;
 }
-/* line 637, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 635, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service {
   margin-top: 30px;
 }
-/* line 641, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 639, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .icon .action {
   width: 260px !important;
   height: auto;
 }
-/* line 648, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 646, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .descriptor .lead {
   color: #8c989e;
 }
-/* line 655, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 653, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .quality a {
   color: #214387;
 }
-/* line 658, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 656, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .quality a:hover {
   text-decoration: none;
   color: #214387;
 }
-/* line 666, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 664, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .flexibility a {
   color: #dda554;
 }
-/* line 669, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 667, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .flexibility a:hover {
   text-decoration: none;
   color: #dda554;
 }
 
-/* line 679, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 677, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 p.lead {
   line-height: 1.5;
   font-family: "proxima-nova",sans-serif;
@@ -17796,7 +17806,7 @@ p.lead {
   font-weight: 100;
 }
 
-/* line 688, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 686, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .heading-lead h2 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
@@ -17804,7 +17814,7 @@ p.lead {
   line-height: 1;
   font-size: 27px;
 }
-/* line 696, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 694, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .heading-lead h1 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
@@ -17813,55 +17823,55 @@ p.lead {
   margin-top: 8px;
 }
 
-/* line 707, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 705, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .about.jumbotron {
   border-radius: none;
   background: transparent;
   text-align: center;
 }
-/* line 712, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 710, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .about.jumbotron .lead {
   color: #8c989e;
 }
 
-/* line 717, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 715, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron {
   border-radius: none;
   background: transparent;
 }
-/* line 721, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 719, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service {
   margin-top: 30px;
 }
-/* line 725, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 723, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .icon .action {
   width: 260px !important;
   height: auto;
 }
-/* line 732, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 730, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .service .descriptor .lead {
   color: #8c989e;
 }
-/* line 739, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 737, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .video a {
   color: #214387;
 }
-/* line 742, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 740, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .video a:hover {
   text-decoration: none;
   color: #214387;
 }
-/* line 750, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 748, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .live-lessons a {
   color: #dda554;
 }
-/* line 753, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 751, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .features.jumbotron .live-lessons a:hover {
   text-decoration: none;
   color: #dda554;
 }
 
-/* line 763, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 761, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .asian-century.jumbotron {
   background-image: url("/assets/asiancentury.jpg");
   margin-bottom: 0px;
@@ -17870,7 +17880,7 @@ p.lead {
 
 /* Components
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 774, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 772, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary {
   color: white !important;
   background-color: #93192C !important;
@@ -17880,7 +17890,7 @@ p.lead {
   transition: background-color 0.5s ease;
   margin-right: 10px;
 }
-/* line 783, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 781, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary:hover {
   color: white;
   background-color: #890f0f;
@@ -17888,7 +17898,7 @@ p.lead {
   border-bottom: 3px solid #890f0f;
 }
 
-/* line 792, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 790, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-grey {
   color: white !important;
   background-color: #c6ccd2 !important;
@@ -17905,7 +17915,7 @@ p.lead {
   border-width: 0 0 3px;
   transition: background-color 0.5s ease;
 }
-/* line 808, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 806, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-grey:hover {
   color: white;
   background-color: #aab3bb;
@@ -17913,7 +17923,7 @@ p.lead {
   border-bottom: 3px solid #aab3bb;
 }
 
-/* line 816, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 814, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   background-color: #890f0f;
   border-color: #890f0f;
@@ -17922,43 +17932,43 @@ p.lead {
 
 /* User interface
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 827, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 825, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 html, body {
   padding-top: 50px;
   background: white;
 }
 
-/* line 833, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 831, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .edit-form h2 {
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
   font-weight: 400;
 }
-/* line 839, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 837, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .edit-form .wrapper {
   padding: 15px;
   background: #f5f5f5;
   border-radius: 10px;
 }
 
-/* line 846, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 844, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .sub-header {
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
 
-/* line 851, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 849, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .navbar-fixed-top {
   border: 0 none;
 }
 
-/* line 856, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 854, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .sidebar {
   display: none;
 }
 
 @media (min-width: 768px) {
-  /* line 861, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+  /* line 859, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
   .sidebar {
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
@@ -17973,13 +17983,13 @@ html, body {
     z-index: 1000;
   }
 }
-/* line 876, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 874, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar {
   margin-bottom: 20px;
   margin-left: -20px;
   margin-right: -21px;
 }
-/* line 883, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 881, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a {
   padding-left: 20px;
   padding-right: 20px;
@@ -17991,34 +18001,34 @@ html, body {
   padding: 10px 15px;
   position: relative;
 }
-/* line 894, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 892, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a .sidenav-icons {
   float: left;
   height: 100%;
   margin: 0;
   width: 40px;
 }
-/* line 901, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 899, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > li > a:active {
   background: #890f0f;
 }
-/* line 907, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 905, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
   background-color: #93192C;
   color: #fff;
 }
 
-/* line 914, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 912, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .main {
   padding: 20px;
 }
-/* line 917, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 915, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .main .page-header {
   margin-top: 0;
 }
 
 @media (min-width: 768px) {
-  /* line 923, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+  /* line 921, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
   .main {
     padding-left: 40px;
     padding-right: 40px;
@@ -18026,39 +18036,39 @@ html, body {
 }
 /* Footer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* line 932, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 930, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer {
   background-color: #f5f5f5;
   bottom: 0;
   height: 230px;
   width: 100%;
 }
-/* line 938, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 936, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 30px;
   text-align: center;
 }
-/* line 944, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 942, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p {
   font-size: 13px;
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
   font-weight: 400;
 }
-/* line 951, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 949, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p > a {
   padding: 12px;
 }
-/* line 954, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 952, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container p > a > i {
   padding: 5px;
   border-radius: 11px;
   background: #93192c;
   color: white;
 }
-/* line 962, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
+/* line 960, /Users/scottlyle/Sites/mandarinminds/app/assets/stylesheets/application.css.scss */
 .footer > .container .fa.fa-facebook {
   padding: 5px 8px !important;
 }
