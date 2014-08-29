@@ -31,4 +31,5 @@ Plan.create!(:name => "10 Lessons", :price => 230, :duration => 2, :lessons => 1
 Plan.create!(:name => "20 Lessons", :price => 440, :duration => 3, :lessons => 20)
 Plan.create!(:name => "50 Lessons", :price => 1000, :duration => 6, :lessons => 50)
 Plan.create!(:name => "100 Lessons", :price => 1800, :duration => 12, :lessons => 100)
+Plan.create!(:name => "Dudu Package", :price => 80, :duration => 0, :lessons => 0)
 

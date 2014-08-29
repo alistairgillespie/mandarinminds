@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :charges
+
   #get 'test' => 'application#welcome'
   #get 'test2' => 'application#lessonalert'
   

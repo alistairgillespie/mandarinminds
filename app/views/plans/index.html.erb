@@ -27,8 +27,14 @@
 			<p class="comment">for a free complimentary lesson</p>
 		</div>
 		<% end %>
+
 		<div id="plans" class="">
+			<p>Try one of our cost-effective lesson packages to continue your learning experience past your initial free introduction. To purchase larger quantities for an even cheaper per-lesson price please contact itsupport@mandarinminds.com and voice your interest.</p>
+		<% duduPlan = nil %>
 		  <% @plans.each do |plan| %>
+		  <% if plan.name == "Dudu Package" %>
+		  <% duduPlan = plan %>
+		  <% else %>
 		    <div class="plan col-md-3">
 			    <div class="plan-wrapper">
 			      <div class="name">&nbsp;<%= plan.name %></div>
@@ -42,7 +48,40 @@
 			      <% end %>
 			    </div>
 		    </div>
+		    <% end %>
 		  <% end %>
+
+		  <% if user_signed_in? && current_user.settings.purchased_dudu %>
+		  <p> Visit your Dashboard to access your Dudu Package </p>
+		  <% else %>
+			
+		  <p>Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online plan. This one-off purchase provides you with a wealth of features including:<ul>
+		  	<li>A range of eBooks to further your education in Mandarin</li>
+		  	<li>Quality customer service for all Dudu products</li>
+		  	<li>Incredible feature three</li>
+		  	<li>A link to the Dudu site and features should be included somewhere</li>
+		  	</ul></p>
+
+		  	<p>Once purchased you can access the wealth of Dudu resources from your Mandarin Minds dashboard.</p>
+
+		  	<div class="plan col-md-offset-4 col-md-4">
+			    <div class="plan-wrapper">
+			      <div class="name">&nbsp;<%= duduPlan.name %></div>
+			      <div class="details">
+			        <div class="price">
+			          <%= number_to_currency duduPlan.price, :precision => 0 %>
+			        </div>
+			      </div>
+			      <% if user_signed_in? %>
+			      	<%= link_to "Buy now",  charge_plan_path(duduPlan), :class => 'btn btn-primary btn-lg' %>
+			      <% end %>
+			    </div>
+		    </div>
+
+		    <% end %>
+		    
+
+		    
 		</div>
 	</div>
 </div>
