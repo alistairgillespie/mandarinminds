@@ -17,21 +17,26 @@ def create
   @plan = Plan.find(params[:id])
   @user = current_user
 
-  customer = Stripe::Customer.create(
-    :email => @user.email,
-    :card  => params[:stripeToken]
-  )
+  begin
+    customer = Stripe::Customer.create(
+      :email => @user.email,
+      :card  => params[:stripeToken]
+    )
 
-  charge = Stripe::Charge.create(
-    :customer    => customer.id,
-    :amount      => @plan.price * 100, #amount in cents
-    :description => 'Rails Stripe customer',
-    :currency    => 'aud'
-  )
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => @plan.price * 100, #amount in cents
+      :description => 'Rails Stripe customer',
+      :currency    => 'aud'
+    )
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to '/plans'  
+  end
 
   @charge_params = {
             :user_id => @user.id,
-            :plan_id => @plan.id,
+            :description => @plan.name,
             :amount => @plan.price * 100 #amount in cents
             }
   @c = Charge.new(@charge_params)
@@ -50,10 +55,6 @@ def create
   end
 
   redirect_to current_user
-
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to '/plans'  
-  end
-
 end
+end
+

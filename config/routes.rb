@@ -8,16 +8,16 @@ Rails.application.routes.draw do
   devise_for :users, :path_names => {:sign_up => "register"}, :controllers => {:registrations => "registrations"}
   
   resources :posts
-  resources :plans
+  
   resources :lessons
 
   post 'pusher/auth'
 
-  get 'charges/:id' => 'charges#new', :as => 'charge_plan'
+  get 'plans/:id' => 'charges#new', :as => 'charge_plan'
   post'/buy/:id', to: 'charges#create', as: :buy
   get 'charges' => 'charges#index', :as => 'charges'
   #get 'users' => 'users#show'
-     
+  resources :plans 
   #Redirected to rails default root if signed in 
   #unauthenticated do
   	get 'welcome/index'
