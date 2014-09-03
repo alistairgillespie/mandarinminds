@@ -32,6 +32,7 @@ def create
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to '/plans'  
+    return
   end
 
   @charge_params = {
@@ -47,11 +48,29 @@ def create
   if @plan.name == "Dudu Package"
     current_user.settings.purchased_dudu = true
     current_user.settings.save
-    flash[:notice] = "Your Dudu purchase has been successful. You can now access your Dudu resources from the Dashboard."
+    @notification_params = {
+            :user_id => @user.id,
+            :image => '<i class="fa fa-plus"></i>',
+            :content => "Your Dudu purchase has been successful. You can now access your Dudu resources from the Dashboard.",
+            :lesson_id => nil,
+            :dismissed => false,
+            :appear_at => Time.now
+            }
+    @n = Notification.new(@notification_params)
+    @n.save
   else
     current_user.lesson_count = current_user.lesson_count + @plan.lessons
     current_user.save
-    flash[:notice] = "Your purchased has been processed successfully and your number of lessons to spend has increased by #{@plan.lessons}. Current lesson total: #{current_user.lesson_count}."
+    @notification_params = {
+            :user_id => @user.id,
+            :image => '<i class="fa fa-plus"></i>',
+            :content => "Your purchased has been processed successfully and your number of lessons to spend has increased by #{@plan.lessons}",
+            :lesson_id => nil,
+            :dismissed => false,
+            :appear_at => Time.now
+            }
+    @n = Notification.new(@notification_params)
+    @n.save
   end
 
   redirect_to current_user

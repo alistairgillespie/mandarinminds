@@ -21,7 +21,7 @@ class UserSettingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params[:user_settings]
-      params.require(:user_settings).permit(:purchased_dudu, :receive_morning_emails)
+      params.require(:user_settings).permit(:purchased_dudu, :receive_morning_emails, :view_large_plans)
 
     end
 end

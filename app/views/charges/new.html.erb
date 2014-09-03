@@ -11,8 +11,16 @@
     </label>
   </article>
 
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="Mandarin Minds Package: <%= @plan.name %>"
-          data-amount="<%= @plan.price * 100 %>"></script>
+  <form action="/charge" method="POST">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-image="/images/footerlogo.png"
+            data-name="Mandarin Minds"
+            data-description="<%= @plan.name %>"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-email="<%= current_user.email %>"          
+            data-amount="<%= @plan.price * 100 %>"
+            data-allow-remember-me="false"
+            data-label="Open Checkout">
+    </script>
+  </form>
 <% end %>

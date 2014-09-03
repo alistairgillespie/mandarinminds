@@ -35,22 +35,23 @@
 		  <% if plan.name == "Dudu Package" %>
 		  <% duduPlan = plan %>
 		  <% else %>
-		    <div class="plan col-md-3">
-			    <div class="plan-wrapper">
-			      <div class="name">&nbsp;<%= plan.name %></div>
-			      <div class="details">
-			        <div class="price">
-			          <%= number_to_currency plan.price, :precision => 0 %>
-			        </div>
-			      </div>
-			      <% if user_signed_in? %>
-			      	<%= link_to "Buy now",  charge_plan_path(plan), :class => 'btn btn-primary btn-lg' %>
-			      <% end %>
+		  	<% if plan.lessons < 20 || (user_signed_in? && current_user.settings.view_large_plans) %>
+			    <div class="plan col-md-3">
+				    <div class="plan-wrapper">
+				      <div class="name">&nbsp;<%= plan.name %></div>
+				      <div class="details">
+				        <div class="price">
+				          <%= number_to_currency plan.price, :precision => 0 %>
+				        </div>
+				      </div>
+				      <% if user_signed_in? %>
+				      	<%= link_to "Buy now",  charge_plan_path(plan), :class => 'btn btn-primary btn-lg' %>
+				      <% end %>
+				    </div>
 			    </div>
-		    </div>
-		    <% end %>
+			<% end %>
+		  	<% end %>
 		  <% end %>
-
 		  <% if user_signed_in? && current_user.settings.purchased_dudu %>
 		  <p> Visit your Dashboard to access your Dudu Package </p>
 		  <% else %>
