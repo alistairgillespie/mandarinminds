@@ -24,7 +24,11 @@
 		<%= image_tag "mmsample.jpg", class:"img-circle" %> 
         <h2>Take live classes with our teachers in China</h2>
         <p class="lead">Join the 1% of Australians studying Mandarin today and lead Australia into the Asian Century tomorrow. We believe Australia should develop closer ties with China and benefit from its astronomical rise in global stature.</p>
-        <p><a role="button" href="#" class="btn btn-lg btn-primary">Get started today</a></p>
+        
+        <% if user_signed_in? %>
+		<% else %>
+			<p><a role="button" href="#" class="btn btn-lg btn-primary">Get started today</a></p>
+		<% end %>
 </div>
 
 <div class="features jumbotron">
@@ -36,7 +40,10 @@
 		<div class="col-md-7 descriptor flexibility">
 			<h3 class="title">Fit learning Mandarin into your weekly schedule</h3>
 			<p class="lead">Learn Mandarin from the comfort of your home. Simply select a teacher and schedule lessons using our online calendar and lesson system.</p>
-        <p><a href="#" class="">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
+        <% if user_signed_in? %>
+		<% else %>
+			<p><a href="#" class="">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
+		<% end %>
 		</div>
 	</div>
 	<div class="row service">
@@ -47,7 +54,10 @@
 		<div class="col-md-7 descriptor quality">
 			<h3 class="title">Mandarin Minds will help you reach your goals</h3>
 			<p class="lead">Our teachers are certified graduates from Chinese Universities. They are selected by our team and have a passion to teach.Our syllabus is derived from prestigious Chinese Universities</p>
-        <p><a href="#" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+			<% if user_signed_in? %>
+			<% else %>
+				<p><a href="#" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+			<% end %>
 		</div>
 	</div>
 </div>
