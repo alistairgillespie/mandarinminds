@@ -1,2 +1,6 @@
 $("#inner-post-modal").html("<%= escape_javascript(render 'new') %>")
 $("#post-modal").modal("show")
+
+$('#new_post').on('submit', function() {
+	$('#post-modal').modal('hide');
+}

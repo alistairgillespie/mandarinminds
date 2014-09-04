@@ -34,7 +34,7 @@
                 <% if n.image[0,1] == "<" %>
                 <%= n.image.html_safe %>
                 <% else %>
-                <%= image_tag n.image, :class => 'gravatar-nav img-circle' %>
+                <%= image_tag n.image, :class => 'gravatar-nav img-circle', :id => 'header-avatar' %>
                 <% end %>                    		
               </div>
               <div class="col-xs-10">
