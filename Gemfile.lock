@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/basecamp/mail_view.git
+  revision: bc6ab46866a1544cb2c40877142087b0898485eb
+  specs:
+    mail_view (2.0.4)
+      tilt
+
+GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: 8bb6acfca9b20cc028410bc66e2ba0491fba3c7e
   specs:
@@ -268,6 +275,7 @@ DEPENDENCIES
   gravtastic
   jbuilder (~> 2.0)
   jquery-rails
+  mail_view!
   omniauth
   omniauth-google-oauth2
   pg

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  if Rails.env.development?
+    mount MailPreview => 'mail_view'
+  end
+
+  get 'dashboard', :controller => 'users', :action => 'dashboard'
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

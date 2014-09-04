@@ -6,7 +6,7 @@ end
 
 def index
   if user_signed_in?
-    @mycharges = Charge.where("user_id = ?", current_user.id).order("created_at")
+    @mycharges = Charge.where("user_id = ? AND status = ?", current_user.id, "Completed").order("created_at")
   else
     redirect_to "/sign_in", notice: "You must be signed in to see that page"
   end
@@ -18,30 +18,39 @@ def create
   @user = current_user
 
   begin
-    customer = Stripe::Customer.create(
-      :email => @user.email,
-      :card  => params[:stripeToken]
-    )
+    @charge_params = {
+            :user_id => @user.id,
+            :description => @plan.name,
+            :amount => @plan.price * 100, #amount in cents
+            :status => "Pending"
+            }
+    @c = Charge.new(@charge_params)
+    @c.save!
+
+    #customer = Stripe::Customer.create(
+    #  :email => @user.email,
+    #  :card  => params[:stripeToken]
+    #)
 
     charge = Stripe::Charge.create(
-      :customer    => customer.id,
+      #:customer    => customer.id,
+      :card  => params[:stripeToken],
       :amount      => @plan.price * 100, #amount in cents
-      :description => 'Rails Stripe customer',
+      :description => "MM Customer: #{@plan.name}",
       :currency    => 'aud'
     )
+
+    @c.status = "Processing"
+    @c.stripe_id = charge.id
+    @c.save!
+
   rescue Stripe::CardError => e
+    @c.status = "Error"
+    @c.save!
     flash[:error] = e.message
     redirect_to '/plans'  
     return
   end
-
-  @charge_params = {
-            :user_id => @user.id,
-            :description => @plan.name,
-            :amount => @plan.price * 100 #amount in cents
-            }
-  @c = Charge.new(@charge_params)
-  @c.save
 
   ######Send email invoice to user
 
@@ -72,6 +81,9 @@ def create
     @n = Notification.new(@notification_params)
     @n.save
   end
+
+  @c.status = "Completed"
+  @c.save!
 
   redirect_to current_user
 end

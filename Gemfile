@@ -79,7 +79,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'pusher'
 gem 'whenever', :require => false
 
-#gem 'mail_view', :git => 'https://github.com/basecamp/mail_view.git'
+gem 'mail_view', :git => 'https://github.com/basecamp/mail_view.git'
 
 group :development do
   gem 'rails_best_practices'

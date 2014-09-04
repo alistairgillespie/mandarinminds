@@ -12,11 +12,13 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show  	  	
-  	if params[:id]
-    	@user = User.find(params[:id])
+
+  def dashboard
+    if user_signed_in?
+      @user = current_user
     else
-    	@user = current_user
+      redirect_to '/'
+      return
     end
 
     if @user.role_id == 1 
@@ -24,9 +26,33 @@ class UsersController < ApplicationController
     elsif @user.role_id == 2
       @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
     end
-      
+    
+    
+    if @userlessons.size == 0 && @user.lesson_count == 0
+      @count = 0
+    else
+      @count = @userlessons.size.to_f
+      @total = @user.lesson_count  
+    end
+
+    render "show"
+  end
+
+  def show  	  	
+  	if params[:id]
+    	@user = User.find(params[:id])
+    else
+    	@user = current_user
+    end
+
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."
+    end
+
+    if @user.role_id == 1 
+      @userlessons = @user.lessons_to_attend.where("starts_at > ? AND teacher_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
+    elsif @user.role_id == 2
+      @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
     end
     
     if @userlessons.size == 0 && @user.lesson_count == 0
@@ -51,7 +77,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    UserMailer.welcome(@user).deliver
 
     respond_to do |format|
       if @user.save
