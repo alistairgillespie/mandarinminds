@@ -1,14 +1,17 @@
 <% @posts.each do |post| %>
   <div id="post" class="teaser">
     <div class="post-title"><h1><%= link_to post.title, post_path(post) %></h1></div>
+
     <div class="post-author"><%= image_tag User.find(post.author).gravatar_url, :class => 'img-circle' %></div>
-    <div class="post-body">
-    	<span class="date">
-    		<strong><%= post.created_at.strftime("%d/%m/%Y") %></strong>
-    	</span>
-    	<%= truncate(post.body, length: 300) %>
-    	<span class="read-more"><%= link_to 'Read More', post_path(post) %><i class="fa fa-arrow-right"></i></span>
-    </div>
-    
+        <div class="post-body">
+        	<span class="date">
+        		<strong><%= post.created_at.strftime("%d/%m/%Y") %></strong>
+        	</span>
+        	<%= truncate(post.body, length: 300) %>
+        	<span class="read-more"><%= link_to 'Read More', post_path(post) %><i class="fa fa-arrow-right"></i></span>
+            <div>
+            <span style="float:right"><small><%= "#{post.author.firstname } #{post.author.lastname}" %></small></span>
+            </div>
+        </div>    
   </div>
 <% end %>
