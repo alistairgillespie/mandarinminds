@@ -3,9 +3,8 @@
 <% else %>
 <div class="container">
 <% end %>
-<p id="notice"><%= notice %></p>
 
-<div id="post" class="full">
+<div id="post" class="full original">
     <div class="post-title"><h1><%= @post.title %></h1></div>
     <div class="post-author"><%= image_tag User.find(@post.author).gravatar_url, :class => 'img-circle' %></div>
     <div class="post-body">
@@ -17,6 +16,59 @@
 </div>
 
 <% if user_signed_in? && current_user.role_id > 2 %>
-	<%= link_to 'Edit', edit_post_path(@post), class: "blog-crud btn btn-primary" %>
+	<span id="edit-buttons"><button class="blog-crud btn btn-primary" id="edit-post">Edit Post</button>
+	<%= link_to 'Delete', @post, method: :delete, :class => "btn btn-primary", :id => "delete-post", :disabled => "disabled" %><i class="fa fa-lock lock"></i></span>
+
+	<div id="post" class="full edit-preview" style="display:none">
+		<b>Preview</b>
+	    <div class="post-title"><h1 id="preview-title"><%= @post.title %></h1></div>
+	    <div class="post-author"><%= image_tag User.find(@post.author).gravatar_url, :class => 'img-circle' %></div>
+	    <div class="post-body">
+	    	<span class="date">
+	    		<strong><%= @post.created_at.strftime("%d/%m/%Y") %></strong>
+	    	</span>
+	    	<div id="preview-body"><%= @post.body %></div>
+	    </div>
+	</div>
+	<%= render "form" %>
 <% end %>
 </div>
+
+<script type="text/javascript">
+	$('#edit-post').click(function() {
+		$('#edit-buttons').hide();
+		$('.original').hide();
+		$('#new-post-form').show();
+		$('.edit-preview').show();
+		
+	});
+
+	$('#cancel-post').click(function() {
+		$('.edit-preview').hide();
+		$('#new-post-form').hide();	
+		$('#edit-buttons').show();
+		$('.original').show();	
+	});
+
+	$('#title-input').keyup(function(){
+		$('#preview-title').html($('#title-input').val())
+	});
+
+	$('#body-input').keyup(function(){
+		$('#preview-body').html($('#body-input').val())
+	});
+
+	$(".lock").click(function(){
+        var lock = $(this);
+        var button = lock.prev();
+        if (lock.hasClass("fa-lock")) {
+          lock.removeClass("fa-lock");
+          lock.addClass("fa-unlock-alt");
+          button.removeAttr('disabled');  
+        } else {
+          lock.removeClass("fa-unlock-alt");
+          lock.addClass("fa-lock");
+          button.attr('disabled','disabled');   
+        }
+      });
+</script>

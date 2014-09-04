@@ -9,11 +9,6 @@
     	<%= truncate(post.body, length: 300) %>
     	<span class="read-more"><%= link_to 'Read More', post_path(post) %><i class="fa fa-arrow-right"></i></span>
     </div>
-    <% if user_signed_in? && current_user.role_id > 2 %>
-	    <small>
-	      <%= link_to 'Edit', edit_post_path(post), remote: true %> |
-	      <%= link_to 'Destroy', post, remote: true ,method: :delete, data: { confirm: 'Are you sure?' } %>
-	    </small>
-    <% end %>
+    
   </div>
 <% end %>

@@ -1,21 +1,75 @@
-<% if user_signed_in? %>
-<div class="container-fluid">
-<% else %>
-<div class="container">
+<% if user_signed_in? && current_user.role_id > 2 %>
+		<button class= "blog-crud btn btn-primary" id="new-post">New Post</button>
+		<%= render "form" %>
 <% end %>
-  <div class="row">
-	<div id="posts" class="post-index">
-	  <%= render "index" %>
+
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
+
+	  <div class="row">
+		<div id="posts" class="post-index">
+			<% if user_signed_in? && current_user.role_id > 2 %>
+				<div id="post" class="preview-new-post teaser" style="display: none"></div>
+			<% end %>
+		  	<%= render "index" %>
+		</div>
+	  </div>
 	</div>
-	<% if user_signed_in? && current_user.role_id > 2 %>
-		<%= link_to 'New Post', new_post_path, remote: true, class: "blog-crud btn btn-primary" %>
-	<% end %>
-  </div>
-</div>
-<div id="post-modal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body" id="inner-post-modal"></div>
+
+	<div id="post-modal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" id="inner-post-modal">
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+
+<script type="text/javascript">
+	
+	var avatar = $('#dropdownmenu1 img').attr('src');
+	var date = gettodaysdate();
+	$('.preview-new-post').html('<div class="post-title"><h1 id="new-title">Post Title</h1></div><div class="post-author"><img alt="Author" class="img-circle" src="' + avatar + '"></div><div class="post-body"><span class="date"><strong>' + date + '</strong></span><div id="new-body">A new post...</div></div>');
+
+	$('#cancel-post').click(function() {
+		$('#new-post-form').hide();
+		$('.preview-new-post').hide();
+		$('#new-post').show();
+	});
+
+	$('#new-post').click(function() {
+		$('#new-post').hide();
+		$('.preview-new-post').show();
+		$('#new-post-form').show();		
+	});
+
+	$('#title-input').keyup(function(){
+		$('#new-title').html($('#title-input').val())
+	});
+
+	$('#body-input').keyup(function(){
+		$('#new-body').html($('#body-input').val())
+	});
+
+	
+
+	function gettodaysdate() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		return dd+'/'+mm+'/'+yyyy;
+	}
+</script>
