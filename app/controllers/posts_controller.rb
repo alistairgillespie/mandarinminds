@@ -58,6 +58,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     
     @post.update_attributes(post_params)
+    redirect_to @post, notice: "Update successful!"
     
     #respond_to do |format|
      # if @post.update(post_params)
@@ -77,11 +78,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
   	
-    #@post.destroy
-    #respond_to do |format|
-     # format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-    #  format.json { head :no_content }
-    #end
+    
+    respond_to do |format|
+     format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
+     format.json { head :no_content }
+    end
   end
 
   private
