@@ -268,3 +268,115 @@ table {
 	}
 }
 
+@media(max-width:1060px) {
+	#student_calendar {
+	
+		table {
+				width: 100%;			
+				border-spacing: 10px;
+		    	border-collapse: separate;
+		    	thead {
+			    	font-size: 14px;
+		    	}
+		}
+	
+		.date{font-weight: bold;}
+	
+		tr {
+			width: 100%;
+		}
+	
+		header{
+			color: #8c989e;
+		    font-size: 22px;
+		    text-align: center;
+		    font-family: "proxima-nova",sans-serif;
+			font-style: normal;
+			font-weight: 100;
+			padding-bottom: 15px;
+	
+			a {
+				color: #8c989e;
+				font-weight: 100;
+			}
+		}
+	
+		th {
+			background-color: #f5f5f5;
+			text-align: center;
+			width: 14.29%;
+		}
+	
+		tbody {
+			border: 15px solid #f5f5f5;
+			border-radius: 15px;
+			overflow: auto;
+			vertical-align: top;
+			padding: 5px;
+		}
+	
+		.day{
+			border: none;
+		}
+	
+		.hour{
+				height: 70px;
+				vertical-align: center;
+				font-family: "proxima-nova",sans-serif;
+				border-top: solid 1px lightgrey;
+				border-bottom: solid 1px lightgrey;
+				font-size: 12px;
+				
+				button {
+					border: none;
+					background: none;
+					padding: 5px;
+					float: right;
+				}
+			}
+	
+		i.free-slot {
+					color: #93192c;
+					font-size: 15px;
+		}
+	
+		i.no-slot {
+					color: grey;
+					font-size: 15px;		
+		}
+	
+		i.slot-booked {
+					color: black;
+					font-size: 15px;		
+		}
+	}
+	
+	.lesson-heading {
+		text-align: center;
+		
+		.instructions {
+		    border-radius: 10px;
+		    position: absolute;
+		    top: 0;
+		    height: 150px;
+		    padding: 15px;
+		    border: 15px solid #93192c;
+		    left: 50px;
+		    vertical-align: middle;
+		    ul {
+		    	list-style: none;
+		    	padding-left: 0;
+		    	
+			    li {
+				    text-align: left;
+				    i {
+					    color: #93192c;
+					    font-size: 20px;
+				    }
+				    
+			    }
+		    }
+		}
+	}
+
+}

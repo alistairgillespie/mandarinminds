@@ -12,8 +12,12 @@
  <%end%>
 
 <% end %>
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
 
-<div class="container">
   <div class="row">
 
 <div class="welcome jumbotron">

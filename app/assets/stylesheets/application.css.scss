@@ -153,6 +153,9 @@
 		border: 15px solid #93192c;
 	}
 }
+
+
+
 // End Calendar Styling
  
 body {
@@ -196,6 +199,8 @@ h2 {
 	border-bottom: 3px solid #890f0f;
 	
 	.notify {
+    	cursor: pointer;
+		
 		i, a {
 			color: white;
 		    font-size: 26px;
@@ -410,6 +415,31 @@ h2 {
     display: block;
     background: navy;
     color: white;
+}
+
+//Media 320px - 1024px
+@media (max-width: 1024px) {
+	.navbar-header {
+		a.navbar-brand {
+			img {
+				width: 225px !important;
+			}
+		}
+	}
+	
+	.navbar-toggle {
+	    margin-top: 15px;
+	}
+}
+
+//Media 320px - 960px
+@media(min-width 320px max-width 960px) {
+
+}
+
+//Media 320px - 760px
+@media(min-width 320px max-width 760px) {
+
 }
 
 
@@ -763,6 +793,56 @@ p.lead {
 	height: 450px;
 }
 
+//Teacher Page styling
+
+.packages.jumbotron, .packages.jumbotron {
+    h1, .h1 {
+    	font-size: 38px;
+	}
+}
+
+.teacher.showcase.row {
+	margin: 35px 0;
+}
+
+
+
+
+//Media 320px - 1024px
+@media (max-width: 1024px) {
+	.welcome.jumbotron {
+		> img {
+			width: 200px;
+		}
+	}
+	
+	.action {
+	    display: block;
+	    margin: 20px auto;
+	}
+}
+
+//Media 320px - 620px
+@media (max-width: 620px) {
+	.asian-century.jumbotron {
+		background: white;
+		background-size: cover;
+	}
+	
+	.landing.jumbotron {
+		display: none;
+	}
+	
+	
+}
+
+.private {
+	.landing.jumbotron {
+		display: none;
+	}
+}
+
+
 /* Components
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -922,6 +1002,108 @@ html, body {
 	    padding-right: 40px;
 	}
 }
+
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+#menu-toggle {
+    background: none repeat scroll 0 0 #93192c;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    height: 40px;
+    left: -21px;
+    line-height: 1.8;
+    position: absolute;
+    top: -60px;
+    width: 40px;
+    z-index: 1200;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding: 10px 0 0 0;
+}
+
+@media(min-width:720px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
 
 /* Footer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/ 

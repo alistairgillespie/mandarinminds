@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20140903070932) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "confirmed",  default: false
-    t.integer  "status"
   end
 
   add_index "lessons", ["student_id", "starts_at"], name: "index_lessons_on_student_id_and_starts_at", unique: true, using: :btree
@@ -109,7 +108,6 @@ ActiveRecord::Schema.define(version: 20140903070932) do
     t.integer  "role_id"
     t.integer  "lesson_count"
     t.string   "skypeid"
-    t.integer  "lessons_to_spend"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -25,6 +25,8 @@ class UsersController < ApplicationController
       @userlessons = @user.lessons_to_attend.where("starts_at > ? AND teacher_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
     elsif @user.role_id == 2
       @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
+    else 
+    	@userlessons = []
     end
     
     
@@ -53,6 +55,8 @@ class UsersController < ApplicationController
       @userlessons = @user.lessons_to_attend.where("starts_at > ? AND teacher_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
     elsif @user.role_id == 2
       @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", Time.now.advance(:hours => -1)).order(starts_at: :asc)
+    else 
+    	@userlessons = []
     end
     
     if @userlessons.size == 0 && @user.lesson_count == 0

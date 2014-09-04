@@ -61,12 +61,14 @@ function notification_alert(msg) {
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>
 </head>
-<body>
+
 
 
 <% if user_signed_in? %>
+	<body class="private">
     <%= render 'layouts/user_header' %>
 <% else %>
+	<body class="public">
     <%= render 'layouts/home_header' %>
 <% end %>
 
@@ -96,9 +98,10 @@ function notification_alert(msg) {
 </div>-->
 <% end %>
 <% if user_signed_in? %>
+	</div>
+	</div>
 <% else %>
     <%= render  "static/footer" %>
 <% end %>
-
 </body>
 </html>
