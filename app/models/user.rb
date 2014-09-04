@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :charges, :class_name => 'Charge', :foreign_key => 'user_id'
   has_one :settings, :class_name => 'UserSettings', :foreign_key => 'user_id'
   has_many :notifications, :class_name => 'Notification', :foreign_key => 'user_id'
-  has_many :posts, :class_name => 'Post', :foreign_key => 'author'
+  has_many :posts, :class_name => 'Post', :foreign_key => 'author_id'
   
   #Roles an default role setup
   belongs_to :role

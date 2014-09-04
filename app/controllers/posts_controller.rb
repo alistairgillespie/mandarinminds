@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def create
     @posts = Post.all.order(created_at: :asc)
     @post = Post.create(post_params)
-    @post.author = current_user.id
+    @post.author_id = current_user.id
 	  @post.save
 
     #    User.all.each do |u|
@@ -93,6 +93,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :author)
+      params.require(:post).permit(:title, :body, :author_id)
     end
 end
