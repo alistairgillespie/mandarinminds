@@ -1,3 +1,43 @@
+<% @years_to_show = Time.now.year - @posts.last.created_at.year + 1 %>
+<%= @posts.last.created_at %>
+<% @month_to_end = @posts.last.created_at.month %>
+
+<% @year = Time.now.year %>
+<% @month = Time.now.month %>
+
+<% (@years_to_show - 1).times do %>
+	<%= @year %>
+	<% @year = @year - 1 %>
+	<% while (@month > 0) do %>
+	<%= @month %>
+	<% @month = @month - 1 %>
+	<% end %>
+	<% @month = 12 %>
+<% end %>
+
+<%= @year %>
+<% while (@month >= @month_to_end) do %>
+	<%= @month %>
+	<% @month = @month - 1 %>
+<% end %>
+</br>
+<% @pagenumber ||= 1 %>
+<% @num_posts = @posts.size %>
+<% if @num_posts > Post.POSTS_PER_PAGE %>
+	<% @num_pages = 1 + @num_posts / Post.POSTS_PER_PAGE %>
+ 	<%= "Posts: #{@num_posts}, Per page: #{Post.POSTS_PER_PAGE}, Pages: #{@num_pages}, Page Number = #{@pagenumber}" %>
+ 	</br>
+ 	Page:
+ 	<% for i in 1..@num_pages %>
+ 		<% unless i == @pagenumber.to_i %>
+ 			<a href="/posts/page/<%= i %>"><%= " #{i}  " %></a>
+ 		<% else %>
+ 			<b><%= " #{i}  " %></b>
+ 		<% end %>
+ 	<% end %>
+<% end %>
+</br>
+
 <% if user_signed_in? && current_user.role_id > 2 %>
 		<button class= "blog-crud btn btn-primary" id="new-post">New Post</button>
 		<%= render "form" %>

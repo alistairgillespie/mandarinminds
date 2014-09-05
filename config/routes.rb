@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
-
   get 'dashboard', :controller => 'users', :action => 'dashboard'
+
+  get 'posts/page/:pagenumber', :controller => 'posts', :action => 'index'
+  get 'posts/archive/:year/:month', :controller => 'posts', :action => 'view_archive'
+  get 'posts/archive/:year', :controller => 'posts', :action => 'view_archive'
+  
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
