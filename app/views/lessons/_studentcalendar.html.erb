@@ -13,8 +13,8 @@
 <button class="btn btn-primary" id="next-week-button"> Next Week >> </button>
 <button class="btn btn-primary" id="previous-week-button" style="display: none"> << Previous Week </button></br></br>
 
-<div id="current-week-calendar">
-	<%= calendar number_of_days: 7, previous_link: "", next_link: "", events: @lessons do |date, events| %>
+<div class="table-responsive" id="current-week-calendar">
+	<%= calendar table: {class: "table"}, number_of_days: 7, previous_link: "", next_link: "", events: @lessons do |date, events| %>
 		<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
 		<% for i in 9..23 %>
 			<% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
@@ -134,8 +134,8 @@
 	<% end %>
 </div>
 
-<div id="next-week-calendar" style="display: none">
-	<%= calendar start_date: (Time.now + 7.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons do |date, events| %>
+<div class="table-responsive" id="next-week-calendar" style="display: none">
+	<%= calendar table: {class: "table"}, start_date: (Time.now + 7.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons do |date, events| %>
 		<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
 		<% for i in 9..23 %>
 			<% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>

@@ -7,8 +7,8 @@
 <i class="fa fa-book no-slot"></i> - There is no slot available</br>
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
 <i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
-
-<%= calendar number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link, events: @lessons do |date, events| %>
+<div class="table-responsive">
+<%= calendar table: {class: "table"}, number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link, events: @lessons do |date, events| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   <% for i in 9..23 %>
     <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
@@ -111,7 +111,7 @@
     <% end %>
   <% end %>
 <% end %>
-
+</div>
 <!--<script type="text/javascript">
 $('.viewlesson').click(function(){
   var body = $(this).next().find(".modal-body");
