@@ -1,32 +1,11 @@
-<% @years_to_show = Time.now.year - @posts.last.created_at.year + 1 %>
-<%= @posts.last.created_at %>
-<% @month_to_end = @posts.last.created_at.month %>
-
-<% @year = Time.now.year %>
-<% @month = Time.now.month %>
-
-<% (@years_to_show - 1).times do %>
-	<%= @year %>
-	<% @year = @year - 1 %>
-	<% while (@month > 0) do %>
-	<%= @month %>
-	<% @month = @month - 1 %>
-	<% end %>
-	<% @month = 12 %>
+<% if user_signed_in? && current_user.role_id > 2 %>
+		<button class= "blog-crud btn btn-primary" id="new-post">New Post</button>
+		<%= render "form" %>
 <% end %>
-
-<%= @year %>
-<% while (@month >= @month_to_end) do %>
-	<%= @month %>
-	<% @month = @month - 1 %>
-<% end %>
-</br>
-<% @pagenumber ||= 1 %>
+</br><% @pagenumber ||= 1 %>
 <% @num_posts = @posts.size %>
 <% if @num_posts > Post.POSTS_PER_PAGE %>
 	<% @num_pages = 1 + @num_posts / Post.POSTS_PER_PAGE %>
- 	<%= "Posts: #{@num_posts}, Per page: #{Post.POSTS_PER_PAGE}, Pages: #{@num_pages}, Page Number = #{@pagenumber}" %>
- 	</br>
  	Page:
  	<% for i in 1..@num_pages %>
  		<% unless i == @pagenumber.to_i %>
@@ -37,11 +16,6 @@
  	<% end %>
 <% end %>
 </br>
-
-<% if user_signed_in? && current_user.role_id > 2 %>
-		<button class= "blog-crud btn btn-primary" id="new-post">New Post</button>
-		<%= render "form" %>
-<% end %>
 
 <% if user_signed_in? %>
 	<div class="container-fluid">
@@ -72,7 +46,7 @@
 	
 	var avatar = $('#dropdownmenu1 img').attr('src');
 	var date = gettodaysdate();
-	$('.preview-new-post').html('<div class="post-title"><h1 id="new-title">Post Title</h1></div><div class="post-author"><img alt="Author" class="img-circle" src="' + avatar + '"></div><div class="post-body"><span class="date"><strong>' + date + '</strong></span><div id="new-body">A new post...</div></div>');
+	$('.preview-new-post').html('Preview:<div class="post-title"><h1 id="new-title">Post Title</h1></div><div class="post-author"><img alt="Author" class="img-circle" src="' + avatar + '"></div><div class="post-body"><span class="date"><strong>' + date + '</strong></span><div id="new-body">A new post...</div></div>');
 
 	$('#cancel-post').click(function() {
 		$('#new-post-form').hide();
