@@ -1,8 +1,8 @@
-<% @posts.each do |post| %>
+<% @posts.offset(Post.POSTS_PER_PAGE.to_i * (@pagenumber.to_i - 1)).take(Post.POSTS_PER_PAGE).each do |post| %>
   <div id="post" class="teaser">
     <div class="post-title"><h1><%= link_to post.title, post_path(post) %></h1></div>
 
-    <div class="post-author"><%= image_tag User.find(post.author).gravatar_url, :class => 'img-circle' %></div>
+    <div class="post-author"><%= image_tag post.author.gravatar_url, :class => 'img-circle' %></div>
         <div class="post-body">
         	<span class="date">
         		<strong><%= post.created_at.strftime("%d/%m/%Y") %></strong>

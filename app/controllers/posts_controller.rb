@@ -1,9 +1,28 @@
 class PostsController < ApplicationController
   #before_action :set_post, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
+
+  def view_archive
+    year = params[:year]
+    month = params[:month]
+
+    if (year && month) # 2010/02
+      requested_month = Date.new(year.to_i, Date.parse(month).month.to_i - 1)
+      @posts = Post.where("created_at BETWEEN ? AND ?", requested_month, requested_month.end_of_month)
+    elsif (year)
+      requested_year = Date.new(year.to_i)
+      @posts = Post.where("created_at BETWEEN ? AND ?", requested_year, requested_year.end_of_year)
+    else
+      @posts = []
+    end
+
+    render "archive"
+  end
+
   # GET /posts
   # GET /posts.json
   def index
+    @pagenumber = params[:pagenumber]
     @posts = Post.all.order(created_at: :desc)
     @post = Post.new
   end
