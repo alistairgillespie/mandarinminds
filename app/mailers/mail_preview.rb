@@ -14,6 +14,11 @@ end
 def receipt
 end
 
+def purchase_summary
+	@purchases = Charge.limit(5)
+	Notifier.purchase_summary(@purchases).deliver
+end
+
 
 
 

@@ -16,6 +16,15 @@ class StaticController < ApplicationController
   def chatroom
   end
   
-  def chatroom
+  def terms
+  end
+
+  def privacy
+  end
+
+  def contact
+  end
+
+  def faq
   end
 end

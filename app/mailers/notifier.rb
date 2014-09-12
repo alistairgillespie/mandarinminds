@@ -6,6 +6,12 @@ class Notifier < ActionMailer::Base
     mail(to: user.email, 
     	subject: 'Welcome to Mandarin Minds')
   end
+
+  def purchase_summary(purchases)
+    @purchases = purchases
+    @date = (Time.now.in_time_zone("Perth") - 24.hours).strftime("#{(Time.now.in_time_zone("Perth") - 24.hours).day.ordinalize} %B")
+    mail(to: "itsupport@mandarinminds.com", subject: "Purchase Summary for #{@date}") 
+  end
   
   def lessonalert(user, lessons)
   	@user = user

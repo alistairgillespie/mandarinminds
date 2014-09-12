@@ -47,8 +47,12 @@ class UsersController < ApplicationController
     	@user = current_user
     end
 
-    unless @user == current_user
+    if @user != current_user
+      if current_user.role_id > 1
+      render "admin_show"
+      else
       redirect_to :back, :alert => "Access denied."
+      end
     end
 
     if @user.role_id == 1 

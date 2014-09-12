@@ -31,5 +31,9 @@ every 1.day, :at => '7:00 am' do
   runner "Lesson.lessonalert"
 end
 
+every 1.day, :at => '6:00 am' do
+  runner "Charge.purchase_summary"
+end
+
 
 

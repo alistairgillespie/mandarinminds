@@ -78,7 +78,12 @@
                               <div class="col-xs-8">
                               <ul class="list-group">
                           <li class="list-group-item"> <strong>Student:</strong>
-                                <%= @plannedlesson.student.nil? ? "No Booked Student" : "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}" %></li>
+                                <% if @plannedlesson.student.nil? %>
+                                No Booked Student
+                                <% else %>
+                                <%= link_to "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}", @plannedlesson.student %>
+                                <% end %>
+                              </li>
                           <li class="list-group-item"><strong>Teacher:</strong>
                                 <%= @plannedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@plannedlesson.teacher.firstname} #{@plannedlesson.teacher.lastname}" %></li>        
                           <li class="list-group-item"><strong>Starts at:</strong>
@@ -100,7 +105,7 @@
                                   <% end %>
                                 </div>
                                 <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
-                            </div>
+                    </div>
                   </div>
                 </div>
               </div>

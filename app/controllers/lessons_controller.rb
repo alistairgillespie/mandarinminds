@@ -26,8 +26,11 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    
-    #render :layout => "nolayout"
+
+    if current_user.id != @lesson.student_id && current_user.id != @lesson.teacher_id
+            redirect_to (lessons_path), :flash => { :error => "You do not have permission to view that lesson."}
+    end
+
   end
 
   # GET /lessons/new

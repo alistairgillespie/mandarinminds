@@ -1,17 +1,4 @@
 
-<!-- <p>
-  The time is now: <%= Time.now %>
-</p>
--->
-
-
-<% flash.each do |name, msg| %>
- <%= content_tag(:div, class: "alert alert-success") do%>
-    <%=msg%>
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
- <%end%>
-
-<% end %>
 <% if user_signed_in? %>
 	<div class="container-fluid">
 <% else %>
