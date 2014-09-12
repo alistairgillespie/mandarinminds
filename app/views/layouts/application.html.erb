@@ -91,14 +91,8 @@ function notification_alert(msg) {
   </div>
 <% end %>
 
-
-<!-- Container for static pages -->
-<!--<%= render  "static/container"  if controller_name == "static"%>-->
 <%= yield %>
-<!--<% if controller_name == "static" %>
-	</div>
-</div>-->
-<% end %>
+
 <% if user_signed_in? %>
 	</div>
 	</div>
