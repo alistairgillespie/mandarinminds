@@ -29,8 +29,8 @@ Redirect - user not signed in
           <% end %>
           <tr>
             <td>
-              <% unless n.lesson_id == 0 %>
-              <a href=<%= lesson_path(n.lesson) %>>- <%= n.content %></a>
+              <% if n.lesson_id  && n.lesson_id > 0 %>
+              <a href="/lessons/<%= n.lesson_id %>">- <%= n.content %></a>
               <% else %>
               - <%= n.content %>
               <% end %>

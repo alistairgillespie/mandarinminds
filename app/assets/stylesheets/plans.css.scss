@@ -37,8 +37,11 @@
 }
 
 #plans {
-
-	> p {
+	h1 {
+		text-align: center;
+	}
+	
+	p {
 		font-family: "proxima-nova",sans-serif;
 	    font-size: 24px;
 	    font-style: normal;
@@ -51,6 +54,31 @@
 		color: #93192C;
 	}
 	
+	ul {
+		list-style: none;
+		text-align: left;
+		
+		li {
+			line-height: 2.2;
+			font-size: 24px;
+			font-family: "proxima-nova",sans-serif;
+			font-style: normal;
+			font-weight: 100;
+
+			i {
+				background: none repeat scroll 0 0 #93192c;
+				border-radius: 15px;
+				margin-right: 10px;
+				color: white;
+				padding: 3px;
+			}
+		}
+	}
+	
+	* {
+		transition: all 0.4s ease;     
+    }
+	
 	.plan-wrapper {
 	    background: none repeat scroll 0 0 #f5f5f5;
 	    border-radius: 10px;
@@ -59,12 +87,11 @@
 	    text-align: center;
 	    margin: 30px 0;
 	    
-	    * {
-			transition: all 0.2s ease;     
-	    }
+	    
 	    
 	    &:hover {
 		    transform: scale(1.1);
+		    background-color:#93192C;
 		    
 		    .name {
 			    color: white;
@@ -73,30 +100,11 @@
 		    .price {
 			    transform: scale(1.1);
 			    color: white;
-			    background-color:#93192C;
+			    
 		    }
 	    }
 	    
-	    > ul {
-			list-style: none;
-			text-align: left;
-			
-			li {
-				line-height: 2.2;
-				font-size: 24px;
-				font-family: "proxima-nova",sans-serif;
-				font-style: normal;
-				font-weight: 100;
-	
-				i {
-					background: none repeat scroll 0 0 #93192c;
-					border-radius: 15px;
-					margin-right: 10px;
-					color: white;
-					padding: 3px;
-				}
-			}
-		}
+	    
 	    
 	    .name {
 		    font-size: 32px;

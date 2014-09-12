@@ -84,10 +84,10 @@
 				      url: '/get_users_next_lesson',
 				      dataType: 'json',
 				      success:  function(data){
-				      	if (data == null) {
+				      	if (!data) {
 				      		$('#next-lesson-start-time').html(0);
 				      		$('.next-lesson').html("");
-				      		console.log("No next lesson. Return 0, clear next-lesson window");
+				      		//console.log("No next lesson. Return 0, clear next-lesson window");
 				      		return;
 				      	}
 				      	//console.log(data);

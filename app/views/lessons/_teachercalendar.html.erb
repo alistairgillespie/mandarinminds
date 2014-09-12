@@ -15,14 +15,16 @@
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
     <%= content_tag :div, class: "hour" do %>
       <span class="time"><%= @time.strftime('%l:%M%P') %></span>
-      <% if Time.now - 1.hour < @time %>
+      
         <% @plannedlesson = nil %>
         <% events.each do |lesson| %>
           <% if lesson.starts_at == @time && lesson.teacher == current_user%>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
+
         <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
+          <% if @time > Time.now + 48.hours %>
           <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson" id='newlesson-<%= @formatteddate.to_s%>' method="post" style="display: inline">
             <button class="btn btn-default" name="commit" type="submit">
               <i class="fa fa-book no-slot"></i>
@@ -52,6 +54,7 @@
               return false;
             });
           </script>-->
+          <% end %>
         <% else %> <!-- There IS a lesson in this slot -->
 
           <% if @plannedlesson.student.nil? %>
@@ -114,7 +117,7 @@
             </div>
           </div> 
         <% end %>
-      <% end %>
+      
     <% end %>
   <% end %>
 <% end %>
