@@ -1,11 +1,15 @@
-<p id="notice"><%= notice %></p>
-
 <div>
   <div class = "row">
     <div class="col-xs-8">
       <ul class="list-group">
         <li class="list-group-item"> <strong>Student:</strong>
+            <% if current_user.role_id > 1 && @lesson.student %>
+            <a href="/users/<%= @lesson.student_id %>">
+            <% end %>
           <%= @lesson.student.nil? ? "No Booked Student" : "#{@lesson.student.firstname} #{@lesson.student.lastname}" %></li>
+            <% if current_user.role_id > 1 && @lesson.student %>
+            </a>
+            <% end %>
           <li class="list-group-item"><strong>Teacher:</strong>
             <%= @lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname}" %></li>        
             <li class="list-group-item"><strong>Starts at:</strong>
@@ -30,6 +34,7 @@
           </div>
         </div>
         <i> Your call button will be activated 10min before your scheduled lesson starts. </i>
+
       </div>
 
       <script type="text/javascript">

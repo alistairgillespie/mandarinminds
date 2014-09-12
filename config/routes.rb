@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
+
   get 'dashboard', :controller => 'users', :action => 'dashboard'
 
   get 'posts/page/:pagenumber', :controller => 'posts', :action => 'index'
@@ -62,5 +63,9 @@ Rails.application.routes.draw do
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers"
+  get "/privacy" => "static#privacy"
+  get "/terms" => "static#terms"
+  get "/contact" => "static#contact"
+  get "/faq" => "static#faq"
 
 end

@@ -1,0 +1,81 @@
+
+<div class="profile-pic row">
+	<%= image_tag @user.gravatar_url(:size => 175), :class => 'img-circle' %>
+	
+	<div class="progress">
+	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width: 80%">
+		  <span class="sr-only">80% Complete (danger)</span>
+	  </div>
+	</div>	
+</div>
+<p>Name: <%= "#{@user.firstname} #{@user.lastname}" %></br>
+Email: <%= @user.email %></br>
+<% if @user.role_id == 1 %>
+Is a Student
+<% elsif @user.role_id == 2 %>
+Is a Teacher
+<% elsif @user.role_id == 3 %>
+Is an Administrator 
+<% end %></p>
+
+<p>Number of lessons to spend: <%= @user.lesson_count %></p>
+
+<b>Upcoming Lessons</b>
+
+<% @upcominglessons = Lesson.where("student_id = ?", @user.id).order(starts_at: :desc) %>
+<table>
+	<thead>
+		<tr>
+			<td>Date</td>
+			<td>Starts At</td>
+			<td>Teacher</td>
+			<td>Completed</td>
+		</tr>
+	</thead>
+<% @upcominglessons.each do |lesson| %>
+	<tr>
+		<td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%Y") %></td>
+		<td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:00%P") %></td>
+		<td><%= "#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%></td>
+		<% if lesson.starts_at < Time.now + 30.minutes %>
+			<td>Yes</td>
+		<% else %>
+			<td>No</td>
+		<% end %>
+
+
+	</tr>
+
+<% end %>
+</table>
+				
+</div>
+		
+<!-- Close of user inner -->
+		</div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+$(".lock").click(function(){
+	var lock = $(this);
+	var button = lock.prev();
+	if (lock.hasClass("fa-lock")) {
+		lock.removeClass("fa-lock");
+		lock.addClass("fa-unlock-alt");
+		button.removeAttr('disabled');	
+	} else {
+		lock.removeClass("fa-unlock-alt");
+		lock.addClass("fa-lock");
+		button.attr('disabled','disabled');		
+	}
+});
+</script>
+
+
+
+
+
+
+
+

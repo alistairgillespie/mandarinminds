@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mandarin Minds Purchase Summary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css" media="screen">
+	body{
+		width: 700px;
+	}
+	.header{
+		background: #2c3e50;
+		width: 100%;
+		height: 75px;
+		border-radius: 10px;
+	}
+	
+	.logo{
+		padding-left: 15px;
+		vertical-align: middle;
+	}
+	
+	.body-wrap{
+		width: 100%;
+		border: #e5eaee solid 2px;
+		border-radius: 10px;
+		margin-top:	10px;
+		padding: 5px;
+		font-size: 16px;
+		font-family: "proxima-nova",sans-serif;
+		font-style: normal;
+		font-weight: 100;
+	}
+	
+	.in-line-img{
+		height: 140px;
+		width: 650px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 10px;	
+	}
+	
+	h1 {
+		color: #93192C;
+		font-size: 22px;
+	}
+</style>
+</head>
+<body style="width: 700px;">
+<!-- HEADER -->
+<table class="header" style="background: #2c3e50;width: 100%;height: 50px;border-radius: 10px;">
+	<td><img class="logo" alt="Logo" src="http://mandarinminds.com/templates/siegeengine2/images/white_logo.png" style="padding-left: 15px;vertical-align: middle;"></td>	
+</table>
+<!-- /HEADER -->
+
+
+<!-- BODY -->
+<table class="body-wrap" style="width: 100%;border: #e5eaee solid 2px;border-radius: 10px;margin-top: 10px;padding: 5px;font-size: 16px;font-family: &quot;proxima-nova&quot;,sans-serif;font-style: normal;font-weight: 100;">
+	<tr>
+		<td>						
+			<h1 style="color: #93192C;font-size: 22px;">Your Lesson Alert for <%= (Time.now.in_time_zone("Perth") - 24.hours).strftime("#{(Time.now.in_time_zone("Perth")- 24.hours).day.ordinalize} %b %Y")%></h1>
+			
+			<p>This is an automated email to summarise the purchase made by customers yesterday</p>
+
+			<table>
+			<tr>
+				<td>Time</td>
+				<td>Customer</td>
+				<td>Plan</td>
+				<td>Status</td>
+				<td>Amount</td>
+				
+			</tr>
+			<% total = 0 %>
+			<% @purchases.each do |p| %>
+			<% total += (p.amount / 100.0) %>
+			<tr>
+				<td><%= p.created_at.in_time_zone("Perth").strftime('%l:%M%P') %></td>
+				<td><%= link_to "#{p.user.firstname} #{p.user.lastname}", p.user, host:'localhost:3000' %></td>
+				<td><%= p.description %></td>
+				<td><%= p.status %></td>
+				<td><%= number_to_currency (p.amount / 100.0), :precision => 2 %></td>
+				
+			</tr>
+			<% end %>
+			<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b><%= number_to_currency total, :precision => 2 %></b></td>						
+			</tr>	
+			</table>													
+			
+		</td>
+	</tr>
+</table>
+		
+					
+		
+<!-- /BODY -->
+
+<!-- FOOTER -->
+<table class="footer-wrap">
+	<tr>
+		<td></td>
+		<td class="wrapping">
+			
+				<!-- content -->
+				<div class="content">
+				<table>
+				<tr>
+					<td align="center">
+						<p>
+							<a href="http://mandarinminds.com/index.php/component/content/article?id=%2016">Terms</a> |
+							<a href="http://mandarinminds.com/index.php/component/content/article?id=%2015">Privacy</a> |
+							<a href="https://www.facebook.com/MandarinMinds">Facebook</a> |
+							<a href="https://plus.google.com/112068283749340185255">Google+</a>
+						</p>
+					</td>
+				</tr>
+			</table>
+				</div><!-- /content -->
+				
+		</td>
+	</tr>
+</table>
+<!-- /FOOTER -->
+</table></body>
+</html>
