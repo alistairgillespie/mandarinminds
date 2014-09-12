@@ -43,7 +43,12 @@
 	    font-size: 24px;
 	    font-style: normal;
 	    font-weight: 100;
-	    line-height: 2.2;	
+	    line-height: 1.5;	
+	    text-align: center;
+	}
+	
+	a {
+		color: #93192C;
 	}
 	
 	.plan-wrapper {
@@ -68,8 +73,30 @@
 		    .price {
 			    transform: scale(1.1);
 			    color: white;
+			    background-color:#93192C;
 		    }
 	    }
+	    
+	    > ul {
+			list-style: none;
+			text-align: left;
+			
+			li {
+				line-height: 2.2;
+				font-size: 24px;
+				font-family: "proxima-nova",sans-serif;
+				font-style: normal;
+				font-weight: 100;
+	
+				i {
+					background: none repeat scroll 0 0 #93192c;
+					border-radius: 15px;
+					margin-right: 10px;
+					color: white;
+					padding: 3px;
+				}
+			}
+		}
 	    
 	    .name {
 		    font-size: 32px;
