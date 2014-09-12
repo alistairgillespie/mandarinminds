@@ -623,7 +623,7 @@ h2 {
     
     h1 {
 	    color: white;
-	    font-family: "proxima-nova",sans-serif;
+	    font-family: "clavo",sans-serif;
 		font-style: normal;
 		font-weight: 400;
 		font-size: 55px;
@@ -664,7 +664,24 @@ h2 {
 	.service {
 		margin-top: 30px;
 		
-		.icon {
+		* {
+			transition: all ease 0.2s;
+		}
+		
+		&:hover {
+			.icon {
+				opacity: 1;
+			}
+			.descriptor {
+				.lead {
+					color: black;
+				}				
+			}
+		}
+		
+		.icon {	
+			opacity: 0.6;
+			
 			.action {
 				width: 260px !important;
 				height: auto;
@@ -674,6 +691,10 @@ h2 {
 		.descriptor {
 			.lead {
 				color: #8c989e;
+			}
+			
+			a {
+				cursor: pointer !important;
 			}
 		}
 	}
@@ -791,6 +812,72 @@ p.lead {
 	background-image: url('/assets/asiancentury.jpg');
 	margin-bottom: 0px;
 	height: 450px;
+}
+
+.asian-century-points.jumbotron {
+	background: white;
+	
+	.container {
+		.point {
+			text-align: center;
+			* {
+				transition: all 0.2s ease;
+			}
+			.icon {
+				opacity: 0.6;
+			}
+			
+			&:hover {
+				.icon {
+					opacity: 1;
+				}
+				
+				p {
+					opacity: 1;
+				}
+				
+				quote {
+					transform: scale(1.1);
+				}
+			}
+			
+			quote {
+				display: block;
+				color: #93192C;
+				text-align: center !important;
+				font-family: "proxima-nova",sans-serif;
+			    font-style: normal;
+			    font-weight: 100;
+			    line-height: 1.5;
+			    font-size: 21px;
+			    min-height: 150px;
+			    padding: 20px 0;
+			}
+			
+			span {
+			    width: 100%;
+			    display:block;
+			    font-size: 14px;
+			    font-weight: bold;
+			    text-transform: uppercase;
+			    color: #96989E;
+			    //padding: 10px 0;
+			}
+			
+			p {
+				background: none repeat scroll 0 0 #f5f5f5;
+			    border-radius: 5px;
+			    font-family: "proxima-nova",sans-serif;
+			    font-size: 14px;
+			    font-weight: 400;
+			    margin: 20px 0;
+			    padding: 20px;
+			    text-align: left;
+			    min-height: 180px;
+			    opacity: 0.5;
+			}
+		}
+	}
 }
 
 //Teacher Page styling
