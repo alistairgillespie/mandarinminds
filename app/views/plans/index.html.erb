@@ -29,7 +29,13 @@
 		<% end %>
 
 		<div id="plans" class="">
-			<p>Try one of our cost-effective lesson packages to continue your learning experience past your initial free introduction. Interested in purchasing a larger number of lessons for a bulk-buy discount? Contact <a>itsupport@mandarinminds.com</a> to voice your interest.</p>
+			<div class="row">
+			<p class="col-md-4">Take a free trial with one of our passionate Chinese teachers. Why not, it’s free? Choose from one of our packages?</p>
+			<p class="col-md-4">Take a short quiz so we can assess your Mandarin level. It’s best we get this right now so we don’t waste your time!</p>
+			<p class="col-md-4">You may not be aware but your journey has already begun so go ahead, it’s time to start your learning adventure
+Practice and retain what you have learned through periodic quizzes. Monitor your improvement with continued teacher feedback.</p>
+			</div>
+		<div class="row">
 		<% duduPlan = nil %>
 		  <% @plans.each do |plan| %>
 		  <% if plan.name == "Dudu Package" %>
@@ -52,18 +58,20 @@
 			<% end %>
 		  	<% end %>
 		  <% end %>
+		  </div>
 		  <% if user_signed_in? && current_user.settings.purchased_dudu %>
 		  <p> Visit your Dashboard to access your Dudu Package </p>
 		  <% else %>
 			
 		  <p>Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online plan. This one-off purchase provides you with a wealth of features including:</p>
-		  <ul>
-			<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
-			<li><i class="fa fa-check"></i>Quality customer service for all Dudu products</li>
-			<li><i class="fa fa-check"></i>Incredible feature three</li>
-			<li><i class="fa fa-check"></i>A link to the Dudu site and features should be included somewhere</li>
-		  	</ul>
-
+		  <div class="row">
+			  <ul class="col-md-8 col-md-offset-2">
+				<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
+				<li><i class="fa fa-check"></i>Quality customer service for all Dudu products</li>
+				<li><i class="fa fa-check"></i>Incredible feature three</li>
+				<li><i class="fa fa-check"></i>A link to the Dudu site and features should be included somewhere</li>
+			  	</ul>
+		  </div>
 		  	<p>Once purchased you can access the wealth of Dudu resources from your Mandarin Minds dashboard.</p>
 
 		  	<div class="plan col-md-offset-4 col-md-4">
