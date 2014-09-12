@@ -37,8 +37,11 @@
 }
 
 #plans {
-
-	> p {
+	h1 {
+		text-align: center;
+	}
+	
+	p {
 		font-family: "proxima-nova",sans-serif;
 	    font-size: 24px;
 	    font-style: normal;
