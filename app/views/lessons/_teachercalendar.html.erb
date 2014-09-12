@@ -90,7 +90,8 @@
                                 <%= "#{@plannedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@plannedlesson.starts_at.in_time_zone('Perth').strftime("#{@plannedlesson.starts_at.day.ordinalize} %B %Y")}" %></li>
                       </ul>
                     </div>
-                    <div class="col-xs-4">                                  
+                    <div class="col-xs-4">
+                    <% if @plannedlesson.starts_at > Time.now - 50.minutes %>                                  
                               <div class="well">
                                 <% unless @plannedlesson.student.nil? || @plannedlesson.teacher.nil? %>
                                     <% if (Time.now < (@plannedlesson.starts_at + 50.minutes) && Time.now > (@plannedlesson.starts_at - 10.minutes)) %>
@@ -105,6 +106,7 @@
                                   <% end %>
                                 </div>
                                 <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
+                    <% end %>
                     </div>
                   </div>
                 </div>

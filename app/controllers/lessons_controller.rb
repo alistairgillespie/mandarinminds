@@ -264,16 +264,24 @@ class LessonsController < ApplicationController
         end
       end
 
-      @lesson.student.lesson_count = @lesson.student.lesson_count + 1
-      @lesson.student.save!
+      
       @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
       #IF the student cancels their lesson
       if current_user.role_id == 1
+        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson."
+
+        if @lesson.starts_at < Time.now + 24.hours #student will not be refunded a lesson
+          @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
+        else
+          @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+          @lesson.student.save!
+        end
+
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => '<i class="fa fa-ban"></i>',                
-                :content => "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson.",
+                :content => @studentmessage,
                 :lesson_id => 0,
                 :dismissed => true,
                 :appear_at => Time.now
@@ -300,7 +308,7 @@ class LessonsController < ApplicationController
         @newLesson.save!
 
         respond_to do |format|
-          format.html { redirect_to lessons_url, notice: "Lesson was successfully cancelled and you have been credited the lesson spent. Current lessons to spend: #{current_user.lesson_count}"}
+          format.html { redirect_to lessons_url, notice: "Lesson was successfully cancelled. Current lessons to spend: #{current_user.lesson_count}"}
           format.json { head :no_content }
         end
 
