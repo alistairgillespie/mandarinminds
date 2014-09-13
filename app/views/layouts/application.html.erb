@@ -12,7 +12,7 @@
   var channel = pusher.subscribe('private-<%= current_user.id %>');
   channel.bind('notification', function(data) {
     notification_alert(data.message);
-    getNextLesson();
+    //getNextLesson();      //FIX THIS
     $.ajax({
       type: 'GET',
       url: '/notifications/get_notifications_for_bubble',

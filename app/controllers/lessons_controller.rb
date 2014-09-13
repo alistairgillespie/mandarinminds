@@ -8,10 +8,31 @@ class LessonsController < ApplicationController
     if current_user.role_id == 2
       @lessons = Lesson.all.order(starts_at: :asc)
     else current_user.role_id == 1
-      @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).order(starts_at: :asc)
-      @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).order(starts_at: :asc)
-      @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).order(starts_at: :asc)
-      @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)
+      case params[:teacher]
+      when "minnie"
+        minnie = User.find_by firstname: "Minnie", lastname: "Dong", role_id: 2
+        @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
+        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
+        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
+      when "esther"
+        esther = User.find_by firstname: "Esther", lastname: "Ma", role_id: 2
+         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
+        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
+        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
+      when "joan"
+        joan = User.find_by firstname: "Joan", lastname: "Zhou", role_id: 2
+         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
+        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
+        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
+      else
+        @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).order(starts_at: :asc)
+        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).order(starts_at: :asc)
+        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).order(starts_at: :asc)
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)
+      end 
     end
     @lesson = Lesson.new
   end
@@ -250,7 +271,7 @@ class LessonsController < ApplicationController
           @n = Notification.new(@notification_params)
           @n.save
     @lesson.save!
-    redirect_to lessons_path, notice: "Lesson was successfully confirmed. Lessons left to spend: #{current_user.lesson_count}"
+    redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully confirmed."
   end
   # DELETE /lessons/1
   # DELETE /lessons/1.json
@@ -315,7 +336,7 @@ class LessonsController < ApplicationController
         @newLesson.save!
 
         respond_to do |format|
-          format.html { redirect_to lessons_url, notice: "Lesson was successfully cancelled. Current lessons to spend: #{current_user.lesson_count}"}
+          format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully cancelled."}
           format.json { head :no_content }
         end
 
@@ -344,7 +365,7 @@ class LessonsController < ApplicationController
               @n.save!
 
         respond_to do |format|
-          format.html { redirect_to lessons_url, notice: 'Lesson was successfully cancelled.' }
+          format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: 'Lesson was successfully cancelled.' }
           format.json { head :no_content }
         end
       end

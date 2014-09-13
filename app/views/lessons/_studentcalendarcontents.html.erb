@@ -58,7 +58,7 @@
 													<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>
 												</td>
 												<td>
-													<%= link_to "Make Booking", book_lesson_slot_path(lesson), :class => "btn btn-primary", :disabled => "disabled" %>
+													<%= link_to "Make Booking", book_lesson_slot_path(lesson, :teacher => params[:teacher]), :class => "btn btn-primary", :disabled => "disabled" %>
 													<i class="fa fa-lock lock"></i>
 												</td>	
 											</tr>

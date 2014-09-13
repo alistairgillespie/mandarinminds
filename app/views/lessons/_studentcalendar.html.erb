@@ -12,14 +12,39 @@
 <i class="fa fa-book slot-booked"></i> - You have booked this slot</br></br>
 
 
-<div id="calendar-nagivation">
+<div class="calendar-navigation" id="calendar-buttons">
 	<button class="btn btn-primary" id="previous-week-button" disabled="disabled"> << Previous Week </button> 
 	<button class="btn btn-primary" id="next-week-button"> Next Week >> </button></br>
-	<i id="circle1" class="fa fa-circle"></i>
-	<i id="circle2" class="fa fa-circle-o"></i>
-	<i id="circle3" class="fa fa-circle-o"></i>
-	<i id="circle4" class="fa fa-circle-o"></i>
+	<span id="calendar-pagination">
+		<i id="circle1" class="fa fa-circle"></i>
+		<i id="circle2" class="fa fa-circle-o"></i>
+		<i id="circle3" class="fa fa-circle-o"></i>
+		<i id="circle4" class="fa fa-circle-o"></i>
+	</span>
 </div>
+Current lessons to spend: <%= current_user.lesson_count %></br>
+<span id="calendar-select-teacher">Showing lessons taught by: 
+	<select id="calendar-select-teacher-dropdown">
+		<option value="all" <% if params[:teacher].nil? %> selected <% end %>>All Teachers</option>
+		<option value="esther" <% if params[:teacher] == "esther" %> selected <% end %>>Esther Ma</option>
+		<option value="joan" <% if params[:teacher] == "joan" %> selected <% end %>>Joan Zhou</option>
+		<option value="minnie" <% if params[:teacher] == "minnie" %> selected <% end %>>Minnie Dong</option>
+	</select>
+</span>
+
+<script type="text/javascript">
+$('#calendar-select-teacher-dropdown').change(function(){
+	var t = $( "#calendar-select-teacher-dropdown option:selected" ).attr("value");
+	if (t == "all") {
+		window.location.href = 'lessons';
+	} else {
+		window.location.href = 'lessons?teacher=' + t;
+	}
+	
+
+});
+
+</script>
 
 <div class="table-responsive" id="week1">
 	<%= calendar table: {class: "table"}, number_of_days: 7, previous_link: "", next_link: "", events: @lessons_week1 do |date, events| %>
