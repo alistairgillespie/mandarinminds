@@ -5,7 +5,14 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    if current_user.role_id == 2
+      @lessons = Lesson.all.order(starts_at: :asc)
+    else current_user.role_id == 1
+      @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).order(starts_at: :asc)
+      @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).order(starts_at: :asc)
+      @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).order(starts_at: :asc)
+      @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)
+    end
     @lesson = Lesson.new
   end
 

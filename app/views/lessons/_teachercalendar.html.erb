@@ -1,7 +1,7 @@
 <div class="introduction">
   <p>Slots that you have not made available for booking are marked with a grey book. If you wish to make it available then all you need to do is click on it. This should be done for each hour of your standard working day unless you require a certain time off. These free slots will be red until a student books it, at which point it will turn black and you will be send a notification that it has occured.</p>
 
-  <p>While students can only book up to two weeks in advance you can, and should, make your availability known beyond that timeframe. You cannot book lessons for timeslots that have already passed so no book will appear for those slots.</p>
+  <p>While students can only book up to four weeks in advance you can, and should, make your availability known beyond that timeframe. You cannot book lessons for timeslots that have already passed so no book will appear for those slots.</p>
 </div>
 
 <i class="fa fa-book no-slot"></i> - There is no slot available</br>
@@ -67,54 +67,7 @@
             </button>
           <% end %>
           <div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                  </button>
-                  <h3 class="modal-title" id="myModalLabel">Reviewing Planned Lesson</h3>
-                </div>
-                <div class="modal-body">
-                  <i> Your call button will be activated 10min before your scheduled lesson starts. </i>
-                            <div class = "row">
-                              <div class="col-xs-8">
-                              <ul class="list-group">
-                          <li class="list-group-item"> <strong>Student:</strong>
-                                <% if @plannedlesson.student.nil? %>
-                                No Booked Student
-                                <% else %>
-                                <%= link_to "#{@plannedlesson.student.firstname} #{@plannedlesson.student.lastname}", @plannedlesson.student %>
-                                <% end %>
-                              </li>
-                          <li class="list-group-item"><strong>Teacher:</strong>
-                                <%= @plannedlesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{@plannedlesson.teacher.firstname} #{@plannedlesson.teacher.lastname}" %></li>        
-                          <li class="list-group-item"><strong>Starts at:</strong>
-                                <%= "#{@plannedlesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{@plannedlesson.starts_at.in_time_zone('Perth').strftime("#{@plannedlesson.starts_at.day.ordinalize} %B %Y")}" %></li>
-                      </ul>
-                    </div>
-                    <div class="col-xs-4">
-                    <% if @plannedlesson.starts_at > Time.now - 50.minutes %>                                  
-                              <div class="well">
-                                <% unless @plannedlesson.student.nil? || @plannedlesson.teacher.nil? %>
-                                    <% if (Time.now < (@plannedlesson.starts_at + 50.minutes) && Time.now > (@plannedlesson.starts_at - 10.minutes)) %>
-                                        <a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? @plannedlesson.student.skypeid : @plannedlesson.teacher.skypeid %>?call">
-                                        <%= image_tag "callbutton_32px.png" %>
-                                      </a>
-                                    <% else %>
-                                      <%= image_tag "callbutton_32pxGS.png" %>
-                                    <% end %>                    
-                                  <% else %>
-                                  <%= image_tag "callbutton_32pxGS.png" %>
-                                  <% end %>
-                                </div>
-                                <%= link_to 'Cancel Lesson', @plannedlesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
-                    <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render "lessons/lessonmodal", lesson: @plannedlesson %>
           </div> 
         <% end %>
       
