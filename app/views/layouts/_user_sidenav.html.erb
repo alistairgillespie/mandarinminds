@@ -67,7 +67,8 @@
 				    } else if (difference < 300000 && difference > -1200000) { // 5min before lesson starts
 				    	$('#countdown').html("<a href='/lessons/"+ $('#next-lesson-start-time').attr("data-lesson") +"'>The lesson is ready to begin. Click here to view it</a>");
 				    } else { // 20min past start time
-				    	getNextLesson();
+				    	$('#countdown').html("");
+				    	//getNextLesson();
 				    }
 			    }
     			var t = setTimeout(function(){startTime()},1000);

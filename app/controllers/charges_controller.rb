@@ -85,7 +85,7 @@ def create
   @c.status = "Completed"
   @c.save!
 
-  redirect_to current_user
-end
+  redirect_to current_user, notice: "Purchase successful!"
+  end
 end
 
