@@ -21,6 +21,10 @@
 	.sidebar {display: none;}
 }
 
+a {
+	color: #93192C;
+}
+
 
 // Calendar Styling
 .calendar{
@@ -175,7 +179,7 @@ a:hover, a:focus {
 //Typography
 
 h1 {
-	font-family: "proxima-nova",sans-serif;
+	font-family: "Clavo",sans-serif;
 	font-style: normal;
 	font-weight: 400;
 }
@@ -683,7 +687,7 @@ h2 {
 			opacity: 0.6;
 			
 			.action {
-				width: 260px !important;
+				width: 200px !important;
 				height: auto;
 			}
 		}
@@ -771,7 +775,7 @@ p.lead {
 		
 		.icon {
 			.action {
-				width: 260px !important;
+				width: 200px !important;
 				height: auto;
 			}
 		}
@@ -983,6 +987,9 @@ p.lead {
     color: white;
 }
 
+#sidetips > a:active {
+	background: #f5f5f5 !important;
+}
 /* User interface
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
 

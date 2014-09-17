@@ -21,7 +21,7 @@
 <div class="features jumbotron">
 	<div class="row service">
 		<div class="col-md-5 icon">
-        	<%= image_tag "sampleicon1.png", class:"action" %>
+        	<%= image_tag "teachers.png", class:"action" %>
 		</div>
 		
 		<div class="col-md-7 descriptor flexibility">
@@ -35,7 +35,7 @@
 	</div>
 	<div class="row service">
 		<div class="col-md-5 icon">
-        	<%= image_tag "sampleicon1.png", class:"action" %>
+        	<%= image_tag "laptop.png", class:"action" %>
 		</div>
 		
 		<div class="col-md-7 descriptor quality">
@@ -43,36 +43,28 @@
 			<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request</p>
 			<% if user_signed_in? %>
 			<% else %>
-				<p class="arrow-link"><a href="/about" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+				<p class="arrow-link"><a href="/what-we-offer" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
 			<% end %>
 		</div>
 	</div>
 	<div class="row service">
 		<div class="col-md-5 icon">
-        	<%= image_tag "sampleicon1.png", class:"action" %>
+        	<%= image_tag "onthego.png", class:"action" %>
 		</div>
 		
 		<div class="col-md-7 descriptor quality">
 			<h3 class="title">On-the-go learning</h3>
 			<p class="lead">Take live classes and read e-books from the comfort of your own home, using your <b>computer</b>, <b>tablet</b>, or <b>mobile device</b>. Switch back and forth as you choose.</p>
-			<% if user_signed_in? %>
-			<% else %>
-				<p><a data-toggle="modal" data-target="#signup">Sign Up <i class="fa fa-arrow-right"></i></a></p>
-			<% end %>
 		</div>
 	</div>
 	<div class="row service">
 		<div class="col-md-5 icon">
-        	<%= image_tag "sampleicon1.png", class:"action" %>
+        	<%= image_tag "certified.png", class:"action" %>
 		</div>
 		
 		<div class="col-md-7 descriptor quality">
 			<h3 class="title">Periodic Quizzes</h3>
 			<p class="lead"><b>Practice</b> what you have learned with your teacher through quizzes </p>
-			<% if user_signed_in? %>
-			<% else %>
-				<p><a data-toggle="modal" data-target="#signup">Sign Up <i class="fa fa-arrow-right"></i></a></p>
-			<% end %>
 		</div>
 	</div>
 </div>
