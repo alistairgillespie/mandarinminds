@@ -11,21 +11,23 @@
 	-->	
 </div>
 
-<% if current_user.role_id == 1 %>
-<p>Number of lessons to spend: <%= current_user.lesson_count %></p>
+<% if current_user.role_id == 4 %>
+<div class="lesson-board">
+	<p>
+	<span><%= current_user.lesson_count %></span>
+	lessons left
+	</p>
+</div>
 <% end %>
 
 <% if current_user.settings.purchased_dudu %>
 <p>You have purchased Dudu - access it <a href="#">here</a></p>
 <% end %>
 
-<p>View your invoice history <a href="/charges">here</a>.</p>
-
-
-
 <div id="week-schedule">
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
+	<div class="table-responsive">
 	<%= calendar number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
   		<div class="inner">
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
@@ -79,6 +81,7 @@
 									<i> Your call button will be activated 10min before your scheduled lesson starts. </i>
 			</div>
 		</div>
+		</div>
 	</div>
 </div>
     		</div>
@@ -87,12 +90,6 @@
 		
 	<% end %>
 </div>
-
-<% if current_user.settings.receive_morning_emails %>
-<p>You will receive a reminder email on mornings that you have booked a lesson. Disable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
-<% else %>
-<p>You will not receive a reminder email on mornings that you have booked a lesson. Enable them <a href="/user_settings/toggle_config_morning_email">here</a></p>
-<% end %>
 				
 </div>
 		

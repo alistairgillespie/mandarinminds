@@ -993,7 +993,7 @@ p.lead {
 }
 
 #sidetips > a:active {
-	background: #f5f5f5 !important;
+	background: transparent !important;
 }
 
 .alert {
@@ -1036,6 +1036,65 @@ html, body {
 		border-radius: 10px;
 	}
 }
+
+
+.lesson-board {
+    border: 15px solid #2C3E50;
+    background: #E3AA4C;
+    border-radius: 150px;
+    height: 150px;
+    line-height: 25px;
+    position: absolute;
+    top: 0;
+    width: 150px;
+    
+    p {
+	    font-family: "Clavo";
+	    font-size: 13px;
+	    text-align: center;
+	    display: block;
+		margin: 35px auto;
+		text-align: center;
+		width: 90px;
+		line-height: 25px;
+		
+	    span {
+		    font-size: 42px;
+		    padding: 15px 0;
+		    color: #890F0F;
+	    }
+    }
+}
+
+@media (max-width: 768px) {
+	.lesson-board {
+	    border: 7px solid #f5f5f5;
+	    border-radius: 100px;
+	    height: 100px;
+	    line-height: 15px;
+	    position: absolute;
+	    top: 0;
+	    width: 100px;
+	    
+	    p {
+		    font-family: "Clavo";
+		    font-size: 12px;
+		    text-align: center;
+		    display: block;
+			margin: 20px auto;
+			text-align: center;
+			width: 60px;
+			line-height: 15px;
+			
+		    span {
+			    font-size: 25px;
+			    padding: 10px 0;
+		    }
+	    }
+	}
+
+}
+
 
 .sub-header {
     border-bottom: 1px solid #eee;
@@ -1145,6 +1204,7 @@ html, body {
     position: fixed;
     left: 250px;
     width: 0;
+    padding: 0;
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
