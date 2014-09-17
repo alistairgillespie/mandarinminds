@@ -11,6 +11,19 @@
 	-->	
 </div>
 
+
+<% if current_user.skypeid.nil? || current_user.skypeid == "" %>
+<div class="bs-callout bs-callout-danger">
+
+	<h4>Skype Id Required</h4>
+
+	<p>We use <a href="http://www.skype.com">Skype</a> for our live video lessons with teachers in China. In order to join in you'll need to sign up and provide us with your Skype ID. You'll also need Skype installed on your computer or your mobile device - whichever you prefer to video call on.</p>
+
+	<p>Visit the <a href="/users/edit">Settings Menu</a> to let us know your Skype ID once you've signed up.</p></div>
+<% end %>
+
+
+
 <% if current_user.role_id == 1 %>
 <p>Number of lessons to spend: <%= current_user.lesson_count %></p>
 <% end %>
