@@ -41,6 +41,13 @@
               <p>
                <%= n.content %>
              </p>
+             <span style="font-size: 10px; color: black; float: right">
+             <% if n.appear_at > Time.now - 24.hours %>
+             <%= n.appear_at.in_time_zone("Perth").strftime('%l:%M%P') %>
+             <% else %>
+             <%= n.appear_at.in_time_zone("Perth").strftime('%-d %B %Y') %>
+             <% end %>
+            </span>
            </div>
              <% unless n.lesson_id == 0 %>
            </a>
