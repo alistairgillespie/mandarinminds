@@ -1089,15 +1089,18 @@ html, body {
 	    font-size: 13px;
 	    text-align: center;
 	    display: block;
-		margin: 35px auto;
+		margin: 15px auto;
 		text-align: center;
 		width: 90px;
 		line-height: 25px;
 		
 	    span {
-		    font-size: 42px;
-		    padding: 15px 0;
-		    color: #890F0F;
+		    color: #890f0f;
+			display: block;
+			font-size: 42px;
+			margin: 0 auto;
+			padding: 15px 0;
+			width: 80px;
 	    }
     }
 }
@@ -1125,6 +1128,7 @@ html, body {
 		    span {
 			    font-size: 25px;
 			    padding: 10px 0;
+			    width: 40px
 		    }
 	    }
 	}
