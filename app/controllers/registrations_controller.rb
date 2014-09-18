@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     unless @user.invalid?
     	Notifier.welcome(@user).deliver 
     	@user.lesson_count = 1
+        @user.save!
     	@settings = UserSettings.new
     	   @settings.user_id = @user.id
     	   @settings.purchased_dudu = false
