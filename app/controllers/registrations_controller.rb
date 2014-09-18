@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
     	Notifier.welcome(@user).deliver 
     	@user.lesson_count = 1
     	@settings = UserSettings.new
-    	   @settings.user_id = @user.user_id
+    	   @settings.user_id = @user.id
     	   @settings.purchased_dudu = false
     	   @settings.receive_morning_emails = true
     	@settings.save!

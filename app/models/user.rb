@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :skypeid, length: { minimum: 1 },  :allow_blank => true
+
 
 
   has_many :lessons_to_attend, :class_name => 'Lesson', :foreign_key => 'student_id'

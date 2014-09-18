@@ -11,7 +11,18 @@
 	-->	
 </div>
 
-<% if current_user.role_id == 4 %>
+<% if current_user.skypeid.nil? || current_user.skypeid == "" %>
+<div class="bs-callout bs-callout-danger">
+
+	<h4>Skype Id Required</h4>
+
+	<p>We use <a href="http://www.skype.com">Skype</a> for our live video lessons with teachers in China. In order to join in you'll need to sign up and provide us with your Skype ID. You'll also need Skype installed on your computer or your mobile device - whichever you prefer to video call on.</p>
+
+	<p>Visit the <a href="/users/edit">Settings Menu</a> to let us know your Skype ID once you've signed up.</p></div>
+<% end %>
+
+
+<% if current_user.role_id == 1 %>
 <div class="lesson-board">
 	<p>
 	<span><%= current_user.lesson_count %></span>
@@ -34,60 +45,18 @@
   		</div>
  		<% events.each do |lesson| %>
  			<% if lesson.confirmed %>
-    		<div>
-    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>"><i class="fa fa-search"><%=" #{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}" %></i></button>
-<div class="modal fade" id= 'viewbookedlesson<%= lesson.id %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-				</button>
-				<h3 class="modal-title" id="myModalLabel">Viewing Your Booked Lesson</h3>
-			</div>
-			<div class="modal-body">
-				
-				                  	<div class = "row">
-				                  		<div class="col-xs-8">
-						              		<ul class="list-group">
-											    <li class="list-group-item"> <strong>Student:</strong>
-						                     <% if lesson.student.nil? %>
-                                No Booked Student
-                                <% else %>
-                                <%= link_to "#{lesson.student.firstname} #{lesson.student.lastname}", lesson.student %>
-                                <% end %>
-						                    </li>
-											    <li class="list-group-item"><strong>Teacher:</strong>
-						                    <%= lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{lesson.teacher.firstname} #{lesson.teacher.lastname}" %></li>        
-											    <li class="list-group-item"><strong>Starts at:</strong>
-						                    <%= "#{lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')} on #{lesson.starts_at.in_time_zone('Perth').strftime("#{lesson.starts_at.day.ordinalize} %B %Y")}" %></li>
-											</ul>
-										</div>
-										<div class="col-xs-4">							                  	
-							                <div class="well">
-							                	<% unless lesson.student.nil? || lesson.teacher.nil? %>
-							                    	<% if (Time.now < (lesson.starts_at + 50.minutes) && Time.now > (lesson.starts_at - 10.minutes)) %>
-							                      		<a id="SkypeButton_Call_#echo123_01" onclick="Skype.tryAnalyzeSkypeUri('call', '0');" href="skype:<%= current_user.role_id == 2 ? lesson.student.skypeid : lesson.teacher.skypeid %>?call">
-							                        	<%= image_tag "callbutton_32px.png" %>
-							                     		</a>
-							                    	<% else %>
-							                    		<%= image_tag "callbutton_32pxGS.png" %>
-							                    	<% end %>                    
-					                  			<% end %>
-					                  		</div>
-				                  			<%= link_to 'Cancel Lesson', lesson, method: :delete, :class => "btn btn-primary", :disabled => "disabled" %><i class="fa fa-lock lock"></i>
-					              		</div>
-									</div>
-									<i> Your call button will be activated 10min before your scheduled lesson starts. </i>
-			</div>
-		</div>
-		</div>
-	</div>
-</div>
-    		</div>
+
+	    		<div>
+	    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>">
+	    				<i class="fa fa-search"><%=" #{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}" %></i>
+	    			</button>
+					<div class="modal fade" id= 'viewbookedlesson<%= lesson.id %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<%= render 'lessons/lessonmodal', lesson: lesson %>
+					</div>
+	    		</div>
+
 			<% end %>
-		<% end %>
-		
+		<% end %>		
 	<% end %>
 </div>
 				
