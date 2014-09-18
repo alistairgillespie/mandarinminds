@@ -26,7 +26,7 @@
 <div class="lesson-board">
 	<p>
 	<span><%= current_user.lesson_count %></span>
-	lessons left
+	lesson<% if current_user.lesson_count != 1 %>s<% end %> left
 	</p>
 </div>
 <% end %>
