@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :skypeid, length: { minimum: 1 }
+  validates :skypeid, length: { minimum: 1 },  :allow_blank => true
 
 
 

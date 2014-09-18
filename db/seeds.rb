@@ -25,7 +25,9 @@ teachers.each do |firstname, lastname, email, password, role_id|
 	user.password_confirmation = password
 	user.role_id = role_id
 	user.save!
+	UserSettings.create!(:user_id => user.id, :purchased_dudu => false, :receive_morning_emails => true, :view_large_plans => false)
 end
+
 
 Plan.create!(:name => "1 Lesson", :price => 30, :duration => 2, :lessons => 1)
 Plan.create!(:name => "2 Lessons", :price => 58, :duration => 2, :lessons => 2)
