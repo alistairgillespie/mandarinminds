@@ -36,9 +36,9 @@ Current lessons to spend: <%= current_user.lesson_count %></br>
 $('#calendar-select-teacher-dropdown').change(function(){
 	var t = $( "#calendar-select-teacher-dropdown option:selected" ).attr("value");
 	if (t == "all") {
-		window.location.href = 'lessons';
+		window.location.href = '/lessons';
 	} else {
-		window.location.href = 'lessons?teacher=' + t;
+		window.location.href = '/lessons?teacher=' + t;
 	}
 	
 
