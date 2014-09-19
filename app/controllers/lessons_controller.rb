@@ -281,14 +281,15 @@ class LessonsController < ApplicationController
     @lesson.save!
     redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully confirmed."
   end
+
   # DELETE /lessons/1
   # DELETE /lessons/1.json
 
 
   def destroy
-    
-    @lesson.destroy!
 
+    @lesson.destroy!
+    
     unless @lesson.student_id.nil?
 
       @lesson.notifications.each do |n|
@@ -299,60 +300,63 @@ class LessonsController < ApplicationController
           n.save!
         end
       end
+    end
+ 
+    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
-      
-      @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
+    #IF the student cancels their lesson
+    if current_user.role_id == 1
+      @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson."
 
-      #IF the student cancels their lesson
-      if current_user.role_id == 1
-        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson."
-
-        if @lesson.starts_at < Time.now + 24.hours #student will not be refunded a lesson
-          @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
-        else
-          @lesson.student.lesson_count = @lesson.student.lesson_count + 1
-          @lesson.student.save!
-        end
-
-        @notification_params = {
-                :user_id => @lesson.student.id,
-                :image => '<i class="fa fa-ban"></i>',                
-                :content => @studentmessage,
-                :lesson_id => 0,
-                :dismissed => true,
-                :appear_at => Time.now
-                }
-              @n = Notification.new(@notification_params)
-              @n.save!
-        @notification_params = {
-                :user_id => @lesson.teacher.id,
-                :image => '<i class="fa fa-ban"></i>',
-                :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
-                :lesson_id => 0,
-                :dismissed => false,
-                :appear_at => Time.now
-                }
-              @n = Notification.new(@notification_params)
-              @n.save!
-              pushtopusher
-
-        #Create replacement lesson because student cancelled
-        @newLesson = Lesson.new
-        @newLesson.starts_at = @lesson.starts_at
-        @newLesson.teacher_id = @lesson.teacher_id
-        @newLesson.confirmed = true
-        @newLesson.save!
-
-        respond_to do |format|
-          format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully cancelled."}
-          format.json { head :no_content }
-        end
-
-      #ELSE if the teacher cancels the lesson  
+      if @lesson.starts_at < Time.now + 24.hours #student will not be refunded a lesson
+        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
       else
         @lesson.student.lesson_count = @lesson.student.lesson_count + 1
         @lesson.student.save!
-        
+      end
+
+      @notification_params = {
+              :user_id => @lesson.student.id,
+              :image => '<i class="fa fa-ban"></i>',                
+              :content => @studentmessage,
+              :lesson_id => 0,
+              :dismissed => true,
+              :appear_at => Time.now
+              }
+            @n = Notification.new(@notification_params)
+            @n.save!
+      @notification_params = {
+              :user_id => @lesson.teacher.id,
+              :image => '<i class="fa fa-ban"></i>',
+              :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
+              :lesson_id => 0,
+              :dismissed => false,
+              :appear_at => Time.now
+              }
+            @n = Notification.new(@notification_params)
+            @n.save!
+            pushtopusher
+
+      #Create replacement lesson because student cancelled
+      @newLesson = Lesson.new
+      @newLesson.starts_at = @lesson.starts_at
+      @newLesson.teacher_id = @lesson.teacher_id
+      @newLesson.confirmed = true
+      @newLesson.save!
+
+      respond_to do |format|
+        format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully cancelled."}
+        format.json { head :no_content }
+      end
+
+    #ELSE if the teacher cancels the lesson  
+    else
+
+      if @lesson.student
+        @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+        @lesson.student.save!
+      
+      
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => '<i class="fa fa-ban"></i>',
@@ -374,11 +378,11 @@ class LessonsController < ApplicationController
                 }
               @n = Notification.new(@notification_params)
               @n.save!
-
-        respond_to do |format|
-          format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: 'Lesson was successfully cancelled.' }
-          format.json { head :no_content }
-        end
+      end
+      
+      respond_to do |format|
+        format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: 'Lesson was successfully cancelled.' }
+        format.json { head :no_content }
       end
     end
   end
