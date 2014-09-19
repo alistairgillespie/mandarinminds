@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_next_lesson
   
   def update_sanitized_params
-	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :email, :password)}
+	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:skypeid, :firstname, :lastname, :email, :password)}
   end  
 
   def get_next_lesson
