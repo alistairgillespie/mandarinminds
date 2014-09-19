@@ -5,36 +5,44 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
+    @lesson = Lesson.new
+
     if current_user.role_id == 2
-      @lessons = Lesson.all.order(starts_at: :asc)
+      @lessons = Lesson.all.where("teacher_id = ?", current_user.id).order(starts_at: :asc)
     else current_user.role_id == 1
-      case params[:teacher]
-      when "minnie"
-        minnie = User.find_by firstname: "Minnie", lastname: "Dong", role_id: 2
-        @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
-        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
-        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
-        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", minnie.id, current_user.id).order(starts_at: :asc)
-      when "esther"
-        esther = User.find_by firstname: "Esther", lastname: "Ma", role_id: 2
-         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
-        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
-        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
-        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", esther.id, current_user.id).order(starts_at: :asc)
-      when "joan"
-        joan = User.find_by firstname: "Joan", lastname: "Zhou", role_id: 2
-         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
-        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
-        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
-        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", joan.id, current_user.id).order(starts_at: :asc)
+
+      if params[:teacher]
+        
+        case params[:teacher]  
+          when "minnie"
+            teacher = User.find_by firstname: "Minnie", lastname: "Dong", role_id: 2
+          when "esther"
+            teacher = User.find_by firstname: "Esther", lastname: "Ma", role_id: 2
+          when "joan"
+            teacher = User.find_by firstname: "Joan", lastname: "Zhou", role_id: 2
+          else
+            teacher = nil
+        end
+
+        if teacher
+          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+        else
+          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).order(starts_at: :asc)
+          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).order(starts_at: :asc)
+          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).order(starts_at: :asc)
+          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)
+          redirect_to lessons_path, notice: "Teacher '#{params[:teacher]}' not found."
+        end
       else
         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day, Time.now.in_time_zone("Perth").beginning_of_day + 7.days).order(starts_at: :asc)
         @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 7.days, Time.now.in_time_zone("Perth").beginning_of_day + 14.days).order(starts_at: :asc)
         @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 14.days, Time.now.in_time_zone("Perth").beginning_of_day + 21.days).order(starts_at: :asc)
-        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)
-      end 
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", Time.now.in_time_zone("Perth").beginning_of_day + 21.days, Time.now.in_time_zone("Perth").beginning_of_day + 28.days).order(starts_at: :asc)    
+      end
     end
-    @lesson = Lesson.new
   end
 
   def get_users_next_lesson
@@ -342,6 +350,9 @@ class LessonsController < ApplicationController
 
       #ELSE if the teacher cancels the lesson  
       else
+        @lesson.student.lesson_count = @lesson.student.lesson_count + 1
+        @lesson.student.save!
+        
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => '<i class="fa fa-ban"></i>',

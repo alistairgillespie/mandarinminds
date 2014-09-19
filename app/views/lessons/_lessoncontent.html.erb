@@ -35,7 +35,7 @@
           <%= image_tag "callbutton_32pxGS.png" %>
         <% end %>
       </div>
-      <%= link_to 'Cancel Lesson', lesson_path(lesson, :teacher => params[:teacher]), method: :delete, :class => "btn btn-primary", :disabled => "disabled" %>
+      <i class="lockable"><%= link_to 'Cancel Lesson', lesson_path(lesson, :teacher => params[:teacher]), method: :delete, :class => "btn btn-primary", :disabled => "disabled" %></i>
       <i class="fa fa-lock lock"></i>
     <% end %>
   </div>
