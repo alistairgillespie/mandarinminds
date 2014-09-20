@@ -7,24 +7,26 @@
 <i class="fa fa-book no-slot"></i> - There is no slot available</br>
 <i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
 <i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
+
+<p>Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %></p>
 <div class="table-responsive">
-<%= calendar table: {class: "table"}, number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link, events: @lessons do |date, events| %>
+<%= calendar table: {class: "table"}, start_date: Time.now.utc + timezone_offset.hours, number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link do |date| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
-  <% for i in 9..23 %>
-    <% @time = date.in_time_zone("Perth").beginning_of_day + i.hours %>
+  <% for i in 0..23 %>
+    <% @time = date.beginning_of_day + i.hours %>
     <% @formatteddate = date.strftime('%Y-%m-%d') %>
     <%= content_tag :div, class: "hour" do %>
       <span class="time"><%= @time.strftime('%l:%M%P') %></span>
       
         <% @plannedlesson = nil %>
-        <% events.each do |lesson| %>
+        <% @lessons.each do |lesson| %>
           <% if lesson.starts_at == @time && lesson.teacher == current_user%>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
 
         <% if @plannedlesson.nil? %> <!-- There is no lesson in this timeslot -->
-          <% if @time > Time.now + 48.hours %>
+          <% if @time > Time.now + 48.hours + timezone_offset.hours %>
           <form role="form" accept-charset="UTF-8" action="/lessons" class="new_lesson" id='newlesson-<%= @formatteddate.to_s%>' method="post" style="display: inline">
             <button class="btn btn-default" name="commit" type="submit">
               <i class="fa fa-book no-slot"></i>
@@ -67,7 +69,7 @@
             </button>
           <% end %>
           <div class="modal fade" id= 'viewlesson<%=@formatteddate%><%= i %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <%= render "lessons/lessonmodal", lesson: @plannedlesson %>
+            <%= render "lessons/lessonmodal", lesson: @plannedlesson, timezone_offset: timezone_offset %>
           </div> 
         <% end %>
       

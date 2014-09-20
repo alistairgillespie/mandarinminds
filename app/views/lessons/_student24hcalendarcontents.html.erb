@@ -49,7 +49,7 @@
 									</thead>
 									<tbody>
 									<% events.each do |lesson| %>
-										<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at + timezone_offset.hours == @time%>
+										<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at == @time%>
 											<tr>
 												<td>
 													<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
@@ -73,10 +73,12 @@
 			<% end %>
 		<% else %> 
 		<%# There are no slots and the student hasn't booked a slot here 
-		Add a grey book %>
-				<!--<button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled>
+		If it is closer than 48h then leave it blank, otherwise add a grey book %>
+			<% if @time > (Time.now + 48.hours + timezone_offset.hours) %>
+				<button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled>
 					<i class="fa fa-book no-slot"></i>
-				</button>-->
+				</button>
+			<% end %>
 		<% end %>				
 	<% end %>
 <% end %>

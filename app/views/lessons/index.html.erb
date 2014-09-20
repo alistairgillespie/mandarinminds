@@ -1,10 +1,23 @@
+<% unless current_user.timezone_offset.nil? %>
+	<% timezone_offset = current_user.timezone_offset %>
+<% else %>
+	<% timezone_offset = 8 %>
+	<div class="bs-callout bs-callout-warning">
+
+		<h4>Customise your Calendar Timezone</h4>
+
+		<p>Our teachers are located in China and are so their times are set in GMT +8 but yours don't have to be! You've been defaulted to using the same timezone as our teachers but if it's more convenient you can choose a different one to show your local times.</p>
+
+		<p>Visit the <a href="/users/edit">Settings Menu</a> to choose your timezone and dismiss this message.</p></div>
+<% end %>
+
 <% if current_user.role_id == 2 %>
   <div id="teacher_calendar">
-    <%= render partial: "teachercalendar", locals: {events: @lessons} %>
+    <%= render partial: "teachercalendar", locals: { timezone_offset: timezone_offset} %>
   </div>
 <% else %>
   <div id="student_calendar">
-    <%= render partial: "studentcalendar", locals: {events: @lessons} %>
+    <%= render partial: "studentcalendar", locals: { timezone_offset: timezone_offset} %>
   </div>
 <% end %>
 

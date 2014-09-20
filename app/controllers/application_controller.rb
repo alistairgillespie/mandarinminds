@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
     @nextlesson = nil
     if user_signed_in?
       if current_user.role_id == 1 #student
-        @nextlesson = Lesson.where("student_id = ? AND starts_at > ? AND teacher_id IS NOT NULL", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        @nextlesson = Lesson.where("student_id = ? AND starts_at > ? AND teacher_id IS NOT NULL", current_user.id, Time.now.utc - 15.minutes).order(starts_at: :asc).first
       elsif current_user.role_id == 2 #teacher
-        @nextlesson = Lesson.where("teacher_id = ? AND starts_at > ? AND student_id IS NOT NULL", current_user.id, Time.now - 15.minutes).order(starts_at: :asc).first
+        @nextlesson = Lesson.where("teacher_id = ? AND starts_at > ? AND student_id IS NOT NULL", current_user.id, Time.now.utc - 15.minutes).order(starts_at: :asc).first
       end
     end
   end
@@ -38,6 +38,9 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :skypeid
     devise_parameter_sanitizer.for(:account_update) << :skypeid
+    devise_parameter_sanitizer.for(:account_update) << :firstname
+    devise_parameter_sanitizer.for(:account_update) << :lastname
+    devise_parameter_sanitizer.for(:account_update) << :timezone_offset
   end
   
 

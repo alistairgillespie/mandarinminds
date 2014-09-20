@@ -1,4 +1,4 @@
-<%#  %>
+
 <div class="introduction">
 	<p>Welcome to the Mandarin Minds calendar where you can spend your lessons to book lesson slots with our teachers in China.</p>
 
@@ -45,28 +45,30 @@ $('#calendar-select-teacher-dropdown').change(function(){
 });
 
 </script>
+<p>Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %></p>
+<% first_day = Time.now.utc + timezone_offset.hours %>
 
 <div class="table-responsive" id="week1">
-	<%= calendar table: {class: "table"}, number_of_days: 7, previous_link: "", next_link: "", events: @lessons_week1 do |date, events| %>
-		<%= render "lessons/studentcalendarcontents", date: date, events: events %>
+	<%= calendar table: {class: "table"}, start_date: first_day, number_of_days: 7, previous_link: "", next_link: "" do |date| %>
+		<%= render "lessons/studentcalendarcontents", date: date, timezone_offset: timezone_offset, events: @lessons_week1 %>
 	<% end %>
 </div>
 
 <div class="table-responsive" id="week2" style="display: none">
-	<%= calendar table: {class: "table"}, start_date: (Time.now + 7.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons_week2 do |date, events| %>
-		<%= render "lessons/studentcalendarcontents", date: date, events: events %>	
+	<%= calendar table: {class: "table"}, start_date: first_day + 7.days, number_of_days: 7, previous_link: "", next_link: "" do |date| %>
+		<%= render "lessons/studentcalendarcontents", date: date, timezone_offset: timezone_offset, events: @lessons_week2 %>
 	<% end %>
 </div>
 
 <div class="table-responsive" id="week3" style="display: none">
-	<%= calendar table: {class: "table"}, start_date: (Time.now + 14.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons_week3 do |date, events| %>
-		<%= render "lessons/studentcalendarcontents", date: date, events: events %>	
+	<%= calendar table: {class: "table"}, start_date: first_day + 14.days, number_of_days: 7, previous_link: "", next_link: "" do |date| %>
+		<%= render "lessons/studentcalendarcontents", date: date, timezone_offset: timezone_offset, events: @lessons_week3 %>
 	<% end %>
 </div>
 
 <div class="table-responsive" id="week4" style="display: none">
-	<%= calendar table: {class: "table"}, start_date: (Time.now + 21.day).to_date, number_of_days: 7, previous_link: "", next_link: "", events: @lessons_week4 do |date, events| %>
-		<%= render "lessons/studentcalendarcontents", date: date, events: events %>	
+	<%= calendar table: {class: "table"}, start_date: first_day + 21.days, number_of_days: 7, previous_link: "", next_link: "" do |date| %>
+		<%= render "lessons/studentcalendarcontents", date: date, timezone_offset: timezone_offset, events: @lessons_week4 %>
 	<% end %>
 </div>
 

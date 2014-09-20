@@ -1,3 +1,5 @@
+<% offset = current_user.timezone_offset %>
+<% offset ||= 8 %>
 <div id="wrapper">
 	<div class="row">
 		<div id="sidebar-wrapper" class="col-sm-3 col-md-2 sidebar">
@@ -10,17 +12,19 @@
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Plans"><a href="/plans"><span class="sidenav-icons"><i class="fa fa-credit-card"></i></span>Buy Lessons</a></li>
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Settings"><a href="/users/edit"><span class="sidenav-icons"><i class="fa fa-cogs"></i></span>Settings</a></li>   
 		        <% unless @nextlesson.nil? %>
-					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now, "%H %N")%>
+					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now.utc, "%H %N")%>
 					</br>
 					<div class="next-lesson">
-						<% if Time.now < @nextlesson.starts_at - 5.minutes %>
+						<% if Time.now.utc < @nextlesson.starts_at.utc - 5.minutes %>
 							Your next lesson is on:</br> 
-							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
+							<%= (@nextlesson.starts_at + offset.hours).strftime("#{(@nextlesson.starts_at + offset.hours).day.ordinalize} %b %Y at %l:%M%P") %>
+							<% if offset >= 0 %> <%= "(UTC +#{offset})"%><% else %><%= "(UTC #{offset})" %><% end %>
 							</br></br>
 							<div id="countdown"></div>	
 						<% else %> 
 							Your next lesson is on:</br> 
-							<%= @nextlesson.starts_at.strftime("#{@nextlesson.starts_at.day.ordinalize} %b %Y at %l:%M%P") %>
+							<%= @nextlesson.starts_at.strftime("#{(@nextlesson.starts_at + offset.hours).day.ordinalize} %b %Y at %l:%M%P") %>
+							<% if offset >= 0 %> <%= "(UTC +#{offset})"%><% else %><%= "(UTC #{offset})" %><% end %>
 							</br></br>
 							<div id="countdown">
 								<%= link_to "The lesson is ready to begin. Click here to view it", @nextlesson %>
@@ -28,8 +32,9 @@
 						<% end %>
 					</div>
 					
-					<div id="next-lesson-start-time" data-lesson=<%=@nextlesson.id%> style="display:none"><%= @nextlesson.starts_at.strftime("%B %e, %Y %T") %>
+					<div id="next-lesson-start-time" data-lesson=<%=@nextlesson.id%> data-timezone-offset=<%= offset %> style="display:none"><%= (@nextlesson.starts_at + offset.hours).strftime("%B %e, %Y %T") %>
 					</div>
+
 				<% end %>
 				</ul>
 		</div>
@@ -51,9 +56,12 @@
 			startTime();
 			function startTime() {
 				if ($('#next-lesson-start-time').contents().text() != 0){
-					var now = new Date();
+					var now = new Date(); 
+					var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+					var offset = parseInt($('#next-lesson-start-time').attr('data-timezone-offset'));
+					var now_offset = new Date(now_utc.getTime() + offset*3600000);
 				    var date = new Date($('#next-lesson-start-time').contents().text());
-				    var difference = date-now;
+				    var difference = date-now_offset;
 				    var h = Math.floor(difference/(1000*60*60));
 				    var m = Math.floor((difference - h*60*60*1000)/(1000*60));
 				    var s = Math.floor((difference- h*60*60*1000 - m*60*1000) / 1000);

@@ -1,8 +1,46 @@
-<% if flash[:notice] %>
-<div id="notice"><%= flash[:notice] %></div>
+<% timezones = [
+      ['Select', nil],
+      ['UTC -12', -12], 
+      ['UTC -11', -11],
+      ['UTC -10', -10],
+      ['UTC -9', -9],
+      ['UTC -8', -8],
+      ['UTC -7', -7],
+      ['UTC -6', -6],
+      ['UTC -5', -5],
+      ['UTC -4', -4],
+      ['UTC -3', -3],
+      ['UTC -2', -2],
+      ['UTC -1', -1],
+      ['UTC +0 (GMT)', 0],
+      ['UTC +1', 1],
+      ['UTC +2', 2],
+      ['UTC +3', 3],
+      ['UTC +4', 4],
+      ['UTC +5', 5],
+      ['UTC +6', 6],
+      ['UTC +7', 7],
+      ['UTC +8', 8],
+      ['UTC +9', 9],
+      ['UTC +10', 10],
+      ['UTC +11', 11],
+      ['UTC +12', 12],
+    ] %>
+
+<% if current_user.skypeid.nil? || current_user.skypeid == "" %>
+  <div class="bs-callout bs-callout-danger">
+    <h4>Skype Id Required</h4>
+
+    <p>We use <a href="http://www.skype.com">Skype</a> for our live video lessons with teachers in China. In order to join in you'll need to sign up and provide us with your Skype ID. You'll also need Skype installed on your computer or your mobile device - whichever you prefer to video call on.</p>
+  </div>
 <% end %>
-<% if flash[:error] %>
-<div id="error"><%= flash[:error] %></div>
+
+<% if current_user.timezone_offset.nil? %>
+  <div class="bs-callout bs-callout-warning">
+    <h4>Customise your Calendar Timezone</h4>
+
+    <p>Our teachers are located in China and are so their times are set in GMT +8 but yours don't have to be! You've been defaulted to using the same timezone as our teachers but if it's more convenient you can choose a different one to show your local times.</p>
+  </div>
 <% end %>
 
 <div class="edit-form col-md-6 col-md-offset-3">
@@ -28,6 +66,11 @@
   <div class="form-group">
     <%= f.label :name, "Email" %>
     <%= f.email_field :email, :class => "form-control", autofocus: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, "Timezone" %>
+    <%= f.select :timezone_offset, timezones %>
   </div>
 
   <div class="form-group">

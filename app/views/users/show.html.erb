@@ -1,3 +1,5 @@
+<% offset = current_user.timezone_offset %>
+<% offset ||= 8 %>
 
 <div class="profile-pic row">
 	<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
@@ -38,8 +40,9 @@
 <div id="week-schedule">
 	<div class="calendar">
 	<header>Lessons for the week ahead</header>
+
 	<div class="table-responsive">
-	<%= calendar number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
+	<%= calendar start_date: Time.now.utc + offset.hours, number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
   		<div class="inner">
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   		</div>
@@ -48,10 +51,10 @@
 
 	    		<div>
 	    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>">
-	    				<i class="fa fa-search"><%=" #{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}" %></i>
+	    				<i class="fa fa-search"><%=" #{(lesson.starts_at + offset.hours).strftime("%l:%M%P")}" %></i>
 	    			</button>
 					<div class="modal fade" id= 'viewbookedlesson<%= lesson.id %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<%= render 'lessons/lessonmodal', lesson: lesson %>
+						<%= render 'lessons/lessonmodal', lesson: lesson, timezone_offset: offset %>
 					</div>
 	    		</div>
 
