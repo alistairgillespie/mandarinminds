@@ -52,7 +52,7 @@
 										<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at + timezone_offset.hours == @time%>
 											<tr>
 												<td>
-													<%="#{lesson.starts_at.in_time_zone("Perth").strftime("%l:%M%P")}"%>
+													<%="#{(lesson.starts_at + timezone_offset.hours).strftime("%l:%M%P")}"%>
 												</td>
 												<td>
 													<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>

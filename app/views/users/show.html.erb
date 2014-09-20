@@ -73,7 +73,7 @@
 <script type="text/javascript">
 $(".lock").click(function(){
 	var lock = $(this);
-	var button = lock.prev();
+	var button = lock.prev().children();
 	if (lock.hasClass("fa-lock")) {
 		lock.removeClass("fa-lock");
 		lock.addClass("fa-unlock-alt");
@@ -84,6 +84,21 @@ $(".lock").click(function(){
 		button.attr('disabled','disabled');		
 	}
 });
+
+
+$('.lockable').hover(
+  function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+	    $( this ).next().removeClass("fa-lock");
+		$( this ).next().addClass("fa-unlock-alt");
+	}
+  }, function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+    	$( this ).next().removeClass("fa-unlock-alt");
+		$( this ).next().addClass("fa-lock");
+	}
+  }
+);
 </script>
 
 

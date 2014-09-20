@@ -101,6 +101,9 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
+    offset = current_user.timezone_offset
+    offset ||= 8
+
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
@@ -114,7 +117,7 @@ class LessonsController < ApplicationController
         format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
@@ -160,6 +163,9 @@ class LessonsController < ApplicationController
 =end
 
   def createlessonslot
+    offset = current_user.timezone_offset
+    offset ||= 8
+
     @lesson = Lesson.new(lesson_params)
     @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
@@ -173,7 +179,7 @@ class LessonsController < ApplicationController
         format.html { redirect_to (lessons_path), notice: 'Your lesson slot has been successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a slot at #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
+        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a slot at #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
@@ -242,6 +248,7 @@ class LessonsController < ApplicationController
 
   def booklessonslot
 
+
     if ( current_user.lesson_count.nil? || current_user.lesson_count < 1)
       respond_to do |format|
           format.html { redirect_to lessons_url, notice: 'You do not have any lessons to spend. Visit the Plans page to purchase more.' }
@@ -258,15 +265,34 @@ class LessonsController < ApplicationController
           format.json { head :no_content }
       end
     end
+
     @lesson.student = current_user
+
+    teacher_offset = @lesson.teacher.timezone_offset
+    teacher_offset ||= 8
+    student_offset = @lesson.student.timezone_offset
+    student_offset ||= 8
+
+    if teacher_offset >= 0
+      teachertimezone = "(UTC +#{teacher_offset})"
+    else
+      teachertimezone = "(UTC -#{teacher_offset})"
+    end
+
+    if student_offset >= 0
+      studenttimezone = "(UTC +#{student_offset})"
+    else
+      studenttimezone = "(UTC -#{student_offset})"
+    end
     
-    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
+    @teacherstarttime = (@lesson.starts_at + teacher_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + teacher_offset.hours).day.ordinalize} %B %Y #{teachertimezone}")
+    @studentstarttime = (@lesson.starts_at + student_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + student_offset.hours).day.ordinalize} %B %Y #{studenttimezone}")
     current_user.lesson_count = current_user.lesson_count - 1
     current_user.save!
           @notification_params = {
             :user_id => @lesson.teacher.id,
             :image => '<i class="fa fa-book"></i>',
-            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@starttime}",
+            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@teacherstarttime}",
             :lesson_id => @lesson.id,
             :dismissed => false,
             :appear_at => Time.now
@@ -277,7 +303,7 @@ class LessonsController < ApplicationController
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => '<i class="fa fa-book"></i>',
-            :content => "You have booked a lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}",
+            :content => "You have booked a lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}",
             :lesson_id => @lesson.id,
             :dismissed => true,
             :appear_at => Time.now
@@ -307,15 +333,33 @@ class LessonsController < ApplicationController
         end
       end
     end
- 
-    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
+    teacher_offset = @lesson.teacher.timezone_offset
+    teacher_offset ||= 8
+    student_offset = @lesson.student.timezone_offset
+    student_offset ||= 8
+
+    if teacher_offset >= 0
+      teachertimezone = "(UTC +#{teacher_offset})"
+    else
+      teachertimezone = "(UTC -#{teacher_offset})"
+    end
+
+    if student_offset >= 0
+      studenttimezone = "(UTC +#{student_offset})"
+    else
+      studenttimezone = "(UTC -#{student_offset})"
+    end
+
+    @teacherstarttime = (@lesson.starts_at + teacher_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + teacher_offset.hours).day.ordinalize} %B %Y #{teachertimezone}")
+    @studentstarttime = (@lesson.starts_at + student_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + student_offset.hours).day.ordinalize} %B %Y #{studenttimezone}")
+    
     #IF the student cancels their lesson
     if current_user.role_id == 1
-      @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson."
+      @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}. You have been credited a lesson."
 
       if @lesson.starts_at < Time.now + 24.hours #student will not be refunded a lesson
-        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
+        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
       else
         @lesson.student.lesson_count = @lesson.student.lesson_count + 1
         @lesson.student.save!
@@ -334,7 +378,7 @@ class LessonsController < ApplicationController
       @notification_params = {
               :user_id => @lesson.teacher.id,
               :image => '<i class="fa fa-ban"></i>',
-              :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
+              :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@teacherstarttime}. A new blank lesson slot has been created in its place.",
               :lesson_id => 0,
               :dismissed => false,
               :appear_at => Time.now
@@ -366,7 +410,7 @@ class LessonsController < ApplicationController
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => '<i class="fa fa-ban"></i>',
-                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@starttime}. You have been credited the lesson you spent.",
+                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@studentstarttime}. You have been credited the lesson you spent.",
                 :lesson_id => 0,
                 :dismissed => false,
                 :appear_at => Time.now
@@ -377,7 +421,7 @@ class LessonsController < ApplicationController
         @notification_params = {
                 :user_id => @lesson.teacher.id,
                 :image => '<i class="fa fa-ban"></i>',
-                :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@starttime}. The student has been notified.",
+                :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@teacherstarttime}. The student has been notified.",
                 :lesson_id => 0,
                 :dismissed => true,
                 :appear_at => Time.now
