@@ -55,4 +55,18 @@ $('.lockable').hover(
 	}
   }
 );
+
+$('.edit-comment-btn').click(function(){
+	var p = $(this).parent();
+	p.hide();
+	p.next().show();
+});
+
+$('.cancel-comment-edit-btn').click(function(){
+	var p = $(this).parent().parent();
+	p.hide();
+	p.prev().show();
+});
+
+
 </script>

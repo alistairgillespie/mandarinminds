@@ -20,20 +20,23 @@ Is an Administrator
 
 <p>Number of lessons to spend: <%= @user.lesson_count %></p>
 
-<b>Upcoming Lessons</b>
+<b>Student's Lessons</b>
 
 <% @upcominglessons = Lesson.where("student_id = ?", @user.id).order(starts_at: :desc) %>
 <table>
 	<thead>
 		<tr>
+			<td></td>
 			<td>Date</td>
 			<td>Starts At</td>
 			<td>Teacher</td>
 			<td>Completed</td>
+			<td>Comment</td>
 		</tr>
 	</thead>
 <% @upcominglessons.each do |lesson| %>
 	<tr>
+		<td><%= link_to "View", lesson_path(lesson) %></td>
 		<td><%= lesson.starts_at.in_time_zone("Perth").strftime("%d/%m/%Y") %></td>
 		<td><%= lesson.starts_at.in_time_zone("Perth").strftime("%l:00%P") %></td>
 		<td><%= "#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%></td>
@@ -42,6 +45,7 @@ Is an Administrator
 		<% else %>
 			<td>No</td>
 		<% end %>
+		<td><%= lesson.comment.nil? ? "" : "#{truncate(lesson.comment, :length => 80)}"%></td>
 
 
 	</tr>
