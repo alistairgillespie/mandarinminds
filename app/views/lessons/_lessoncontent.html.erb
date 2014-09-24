@@ -14,7 +14,7 @@
         <%= lesson.teacher.nil? ? "No Teacher has accepted this lesson" : "#{lesson.teacher.firstname} #{lesson.teacher.lastname}" %>
       </li>        
       <li class="list-group-item"><strong>Starts at:</strong>
-        <%= "#{(lesson.starts_at + timezone_offset.hours).strftime('%l:%M%P')} on #{(lesson.starts_at + timezone_offset.hours).strftime("#{lesson.starts_at.day.ordinalize} %B %Y")} " %>
+        <%= "#{(lesson.starts_at.utc + timezone_offset.hours).strftime('%l:%M%P')} on #{(lesson.starts_at + timezone_offset.hours).strftime("#{(lesson.starts_at.utc + timezone_offset.hours).day.ordinalize} %B %Y")} " %>
         <% if timezone_offset >= 0 %> <%= "(UTC +#{timezone_offset})"%><% else %><%= "(UTC #{timezone_offset})" %><% end %></p>
       </li>
     </ul>

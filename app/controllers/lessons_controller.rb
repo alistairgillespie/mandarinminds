@@ -65,6 +65,45 @@ class LessonsController < ApplicationController
     #end
   end
 
+  def add_multiple_lessons
+    offset = current_user.timezone_offset
+    offset ||= 8
+    start_time = Time.utc(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i, params[:start][:hour].to_i,0,0) - offset.hours
+    num = params[:end][:hour].to_i - params[:start][:hour].to_i + 1
+
+    if num < 1
+      redirect_to lessons_path, notice: "Invalid times. 'To' cannot be earlier than 'From'"
+      return
+    end
+
+    if (Time.now + 48.hours) > start_time
+      redirect_to lessons_path, notice: "You cannot open lesson slots that are less than 48 hours away"
+      return
+    end
+
+    unless current_user.role_id == 2
+      redirect_to lessons_path, notice: "Only teachers may open lesson slots"
+      return
+    end
+
+    skipped = 0
+    created = 0
+
+    for j in 0..(params[:repeat].to_i - 1)
+      for i in 0..(num - 1)
+        if Lesson.where("teacher_id = ? and starts_at = ?", current_user.id, start_time + j.days + i.hours).count() > 0
+          skipped += 1
+        else
+          Lesson.create(:confirmed => true, :teacher_id => current_user.id, :starts_at => start_time + j.days + i.hours)
+          created += 1
+        end
+      end
+    end
+
+    date_string = start_time.strftime("#{start_time.day.ordinalize} %b %Y")
+    redirect_to lessons_path, notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
+  end
+
   # GET /lessons/1
   # GET /lessons/1.json
   def show
