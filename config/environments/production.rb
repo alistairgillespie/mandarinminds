@@ -44,7 +44,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  #####config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
@@ -87,10 +87,10 @@ Rails.application.configure do
   
   #mail options
   config.action_mailer.default_url_options = {
-    :host => 'http://calm-hamlet-3077.herokuapp.com/',
+    :host => 'http://www.mandarinminds.com/',
     :only_path => false
 	}
-  ActionMailer::Base.asset_host = 'http://calm-hamlet-3077.herokuapp.com/'
+  ActionMailer::Base.asset_host = 'http://www.mandarinminds.com/'
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true 
   ActionMailer::Base.delivery_method = :smtp

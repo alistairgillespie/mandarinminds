@@ -10,23 +10,23 @@
   Role.where(name: role).first_or_create
 end
 
-teachers = [
-	["Esther", "Ma", "esther@mm.com", "12345678", 2],
-	["Joan", "Zhou", "joan@mm.com", "12345678", 2],
-	["Minnie", "Dong", "minnie@mm.com", "12345678", 2]
-]
-
-teachers.each do |firstname, lastname, email, password, role_id|
-	user = User.new
-	user.firstname = firstname
-	user.lastname = lastname
-	user.email = email
-	user.password = password
-	user.password_confirmation = password
-	user.role_id = role_id
-	user.save!
-	UserSettings.create!(:user_id => user.id, :purchased_dudu => false, :receive_morning_emails => true, :view_large_plans => false)
-end
+#teachers = [
+#	["Esther", "Ma", "esther@mm.com", "12345678", 2],
+#	["Joan", "Zhou", "joan@mm.com", "12345678", 2],
+#	["Minnie", "Dong", "minnie@mm.com", "12345678", 2]
+#]
+#
+#teachers.each do |firstname, lastname, email, password, role_id|
+#	user = User.new
+#	user.firstname = firstname
+#	user.lastname = lastname
+#	user.email = email
+#	user.password = password
+#	user.password_confirmation = password
+#	user.role_id = role_id
+#	user.save!
+#	UserSettings.create!(:user_id => user.id, :purchased_dudu => false, :receive_morning_emails => true, :view_large_plans => false)
+#end
 
 
 Plan.create!(:name => "1 Lesson", :price => 30, :duration => 2, :lessons => 1)
