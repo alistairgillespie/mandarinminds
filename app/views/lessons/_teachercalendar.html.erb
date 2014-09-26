@@ -1,16 +1,27 @@
+<% first_day = params[:start_date] %>
+<% first_day ||= (Time.now.utc + timezone_offset.hours).strftime('%Y-%m-%d') %>
+<% first_day = Time.parse(first_day + ' 00:00:00') %>
+<% last_week = (first_day - 7.days).strftime('%Y-%m-%d') %>
+<% next_week = (first_day + 7.days).strftime('%Y-%m-%d') %>
+
 <div class="introduction">
   <p>Slots that you have not made available for booking are marked with a grey book. If you wish to make it available then all you need to do is click on it. This should be done for each hour of your standard working day unless you require a certain time off. These free slots will be red until a student books it, at which point it will turn black and you will be send a notification that it has occured.</p>
 
   <p>While students can only book up to four weeks in advance you can, and should, make your availability known beyond that timeframe. You cannot book lessons for timeslots that have already passed so no book will appear for those slots.</p>
 </div>
 
-<i class="fa fa-book no-slot"></i> - There is no slot available</br>
-<i class="fa fa-book free-slot"></i> - A slot is available to be booked</br>
-<i class="fa fa-book slot-booked"></i> - Lesson has been booked</br>
+<i class="fa fa-book no-slot"></i> - You are not available to teach.</br>
+<i class="fa fa-book free-slot"></i> - You are marked as available but no student has booked with you.</br>
+<i class="fa fa-book slot-booked"></i> - A student has booked a lesson with you.</br></br>
 
-<p>Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %></p>
+
+<%= link_to "<< Previous Week", lessons_path(start_date: last_week), class: "btn btn-primary" %>
+<%= link_to "Current Week", lessons_path(start_date: (Time.now.utc + timezone_offset.hours).strftime('%Y-%m-%d')), class: "btn btn-primary" %>
+<%= link_to "Next Week >>", lessons_path(start_date: next_week), class: "btn btn-primary" %></br>
+
+Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %>
 <div class="table-responsive">
-<%= calendar table: {class: "table"}, start_date: Time.now.utc + timezone_offset.hours, number_of_days: 7, previous_link: events_ajax_previous_link, next_link: events_ajax_next_link do |date| %>
+<%= calendar table: {class: "table"}, start_date: Time.now.utc + timezone_offset.hours, number_of_days: 7, previous_link: "", next_link: "" do |date| %>
   <p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   <% for i in 0..23 %>
     <% @time = date.beginning_of_day + i.hours %>
@@ -20,7 +31,7 @@
       
         <% @plannedlesson = nil %>
         <% @lessons.each do |lesson| %>
-          <% if lesson.starts_at == @time && lesson.teacher == current_user%>
+          <% if lesson.starts_at + timezone_offset.hours == @time && lesson.teacher == current_user%>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
@@ -77,60 +88,38 @@
   <% end %>
 <% end %>
 </div>
-<!--<script type="text/javascript">
-$('.viewlesson').click(function(){
-  var body = $(this).next().find(".modal-body");
-  $.ajax({
-    type: 'GET',
-    url: '/users',
-    data: "id=4",
-    dataType: 'json',
-    cache: false,
-    success:  function(data){ 
-      console.log(data);
-    }
-  });
-  /*$.ajax({
-      type: 'GET',
-      url: '/lessons/get_lesson_details',
-      data: 'id='+ $(this).attr('data-lesson'),
-      dataType: 'json',
-      async: false,
-      success:  function(data){ 
-        console.log(data); 
-        body.html("");
-        if (data[0].student_id == null){
-          body.append("<b>Student: </b> None booked yet</br>");
-        } else {
-          updateUserData(data[0].student_id, body, "s"); 
-        }
-        if (data[0].teacher_id == null){
-          body.append("<b>Teacher: </b> None assigned yet</br>");
-        } else {
-          updateUserData(data[0].student_id, body, "t"); 
-        }
-      }
-  });*/
-});
 
-function updateUserData(uid, body, role){
-  $.ajax({
-    type: 'GET',
-    url: '/users/'+uid+".json",
-    dataType: 'json',
-    async: false,
-    success:  function(user){ 
-      console.log(user[0]);
-      if (role == "s"){
-        body.append("<b>Student: </b>" + user[0].firstname + " " + user[0].lastname + "</br>");
-      } else if (role == "t") {
-        body.append("<b>Teacher: </b>" + user[0].firstname + " " + user[0].lastname + "</br>");
-      }
-    }
-  });
-  
-}
-</script>-->
+<div><%= form_tag("/lessons/add_multiple") do %>
+<h3> Add Multiple Lesson Slots at Once</h3>
+<p><%= select_date (Date.today + timezone_offset.hours), prefix: :start %></p>
+
+<p>From: 
+<select id="start_date_hour" name="start[hour]">
+<option selected="selected" value="0">12:00am</option>
+<% for i in 1..23 do %>
+<option value="<%= i %>"><%= (Time.now.utc.beginning_of_day + i.hours).strftime('%l:%M%P') %></option>
+<% end %>
+</select>
+
+To:
+<select id="end_date_hour" name="end[hour]">
+<option selected="selected" value="0">12:00am</option>
+<% for i in 1..23 do %>
+  <option value="<%= i %>"><%= (Time.now.utc.beginning_of_day + i.hours).strftime('%l:%M%P') %></option>
+<% end %>
+</select></p>
+
+<p>Repeat for 
+<select id="repeat_days" name="repeat">
+<option selected="selected" value="1">1 day</option>
+<% for i in 2..7 do %>
+<option value="<%= i %>"><%= i %> days</option>
+<% end %>
+</select>
+</p>
+
+<%= submit_tag("Add Lessons") %>
+<% end %></div>
 
 
 

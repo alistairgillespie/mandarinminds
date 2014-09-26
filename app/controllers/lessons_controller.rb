@@ -65,6 +65,45 @@ class LessonsController < ApplicationController
     #end
   end
 
+  def add_multiple_lessons
+    offset = current_user.timezone_offset
+    offset ||= 8
+    start_time = Time.utc(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i, params[:start][:hour].to_i,0,0) - offset.hours
+    num = params[:end][:hour].to_i - params[:start][:hour].to_i + 1
+
+    if num < 1
+      redirect_to lessons_path, notice: "Invalid times. 'To' cannot be earlier than 'From'"
+      return
+    end
+
+    if (Time.now + 48.hours) > start_time
+      redirect_to lessons_path, notice: "You cannot open lesson slots that are less than 48 hours away"
+      return
+    end
+
+    unless current_user.role_id == 2
+      redirect_to lessons_path, notice: "Only teachers may open lesson slots"
+      return
+    end
+
+    skipped = 0
+    created = 0
+
+    for j in 0..(params[:repeat].to_i - 1)
+      for i in 0..(num - 1)
+        if Lesson.where("teacher_id = ? and starts_at = ?", current_user.id, start_time + j.days + i.hours).count() > 0
+          skipped += 1
+        else
+          Lesson.create(:confirmed => true, :teacher_id => current_user.id, :starts_at => start_time + j.days + i.hours)
+          created += 1
+        end
+      end
+    end
+
+    date_string = start_time.strftime("#{start_time.day.ordinalize} %b %Y")
+    redirect_to lessons_path, notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
+  end
+
   # GET /lessons/1
   # GET /lessons/1.json
   def show
@@ -187,25 +226,20 @@ class LessonsController < ApplicationController
 
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
-=begin
+
   def update
     respond_to do |format|
 
-      if @lesson.starts_at < Time.now 
-        redirect_to (lessons_path), :flash => { :error => "That lesson has already passed. Please try a later time"}
-        return
-      end
-
       if @lesson.update(lesson_params)
-        format.html { redirect_to (lessons_path), notice: 'Your lesson has been booked successfully. Check your Dashboard for your upcoming timetable' }
+        format.html { redirect_to :back, notice: 'Your lesson has been updated successfully.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"}}
+        format.html { redirect_to :back, :flash => { :error => "An error occured while trying to update"}}
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
   end
-=end
+
 
 =begin
   def confirmlessonrequest
@@ -451,7 +485,7 @@ class LessonsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def lesson_params
-    params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :confirmed)
+    params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :confirmed, :comment)
   end  
     
 end

@@ -42,7 +42,7 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 		  <% if plan.name == "Dudu Package" %>
 		  <% duduPlan = plan %>
 		  <% else %>
-		  	<% if plan.lessons < 20 || (user_signed_in? && current_user.settings.view_large_plans) %>
+		  	<% if plan.lessons <= 50 || (user_signed_in? && current_user.settings.view_large_plans) %>
 			    <div class="plan col-md-3">
 				    <div class="plan-wrapper">
 				      <div class="name">&nbsp;<%= plan.name %></div>

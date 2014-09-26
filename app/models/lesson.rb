@@ -5,6 +5,8 @@ class Lesson < ActiveRecord::Base
 	belongs_to :teacher, :class_name => 'User', inverse_of: :lessons_to_teach
 	has_many :notifications
 
+	validates_uniqueness_of :teacher_id, :scope => [:starts_at]
+	validates_uniqueness_of :student_id, :scope => [:starts_at]
 
 	#validates :starts_at, :uniqueness => {scope: :teacher_id, message: 'You cannot teach two lessons at the same time'}
 	#validates :starts_at, :uniqueness => {scope: :student_id, message: 'You cannot book two lessons at the same time'}
