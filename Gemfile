@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Multithreaded server best suited for Production environments
-gem 'unicorn'
+gem 'puma'
+gem 'rack-timeout'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
