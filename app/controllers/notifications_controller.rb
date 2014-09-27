@@ -8,12 +8,11 @@ class NotificationsController < ApplicationController
   def index
     if user_signed_in?
       @notifications = current_user.notifications.order(created_at: :desc)
-      @notifications.where("dismissed = false") do |n|
-        n.dismissed = true
-        n.save
+      @notifications.each do |n|
+        n.update_attribute(:dismissed, true) unless n.dismissed 
       end
     else
-      @notifications = {}
+      redirect_to "/sign_in", notice: "You must be signed in to view this content"
     end
   end
 
@@ -95,8 +94,7 @@ class NotificationsController < ApplicationController
   def dismiss_all
     @allnotifications = current_user.notifications.where("dismissed = false")
     @allnotifications.each do |n|
-      n.dismissed = true
-      n.save!
+      n.update_attribute(:dismissed, true)
     end
     redirect_to notifications_url, notice: 'All notifications were successfully dismissed.'
   end

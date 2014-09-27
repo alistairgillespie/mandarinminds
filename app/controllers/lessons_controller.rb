@@ -233,7 +233,7 @@ class LessonsController < ApplicationController
             :user_id => @lesson.teacher.id,
             :image => '<i class="fa fa-book"></i>',
             :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@teacherstarttime}",
-            :link => 'lessons/#{@lesson_id}',
+            :link => "lessons/#{@lesson.id}",
             :lesson_id => @lesson.id,
             :dismissed => false
             }
@@ -244,7 +244,7 @@ class LessonsController < ApplicationController
             :user_id => @lesson.student.id,
             :image => '<i class="fa fa-book"></i>',
             :content => "You have booked a lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}",
-            :link => 'lessons/#{@lesson_id}',
+            :link => "lessons/#{@lesson.id}",
             :lesson_id => @lesson.id,
             :dismissed => true
             }
