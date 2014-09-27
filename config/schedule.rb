@@ -19,12 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :hour, at: 45 do
-	runner "Notification.check45"
+every :hour, at: 40 do
+	runner "Notification.check40"
 end
 
-every :hour, at: 55 do
-	runner "Notification.check55"
+every :hour, at: 50 do
+	runner "Notification.check50"
 end
 
 every 1.day, :at => '7:00 am' do

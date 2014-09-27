@@ -3,13 +3,10 @@ class UserSettingsController < ApplicationController
 
 	def toggle_config_morning_email
     @settings = current_user.settings
-    logger.debug "**** Current value: #{current_user.settings.receive_morning_emails}"
     if @settings.receive_morning_emails
-      logger.debug "**** True block"
       @settings.receive_morning_emails = false
       @settings.save
     else
-      logger.debug "**** False block"
       @settings.receive_morning_emails = true
       @settings.save
     end

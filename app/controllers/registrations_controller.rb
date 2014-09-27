@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
             :content => "Welcome to Mandarin Minds, #{@user.firstname}! Please accept this free lesson as a gift to help start you on your adventure here with us",
             :lesson_id => nil,
             :dismissed => false,
-            :appear_at => Time.now
+            :link => nil
             }
         @n = Notification.new(@notification_params)
         @n.save

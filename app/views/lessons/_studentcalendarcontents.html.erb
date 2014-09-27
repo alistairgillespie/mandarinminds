@@ -8,8 +8,8 @@
 		<% @hasfreeslot = false %> 		<%# remains false unless a lesson is found a this timeslot -%>
 		<% @bookedlesson = nil %> 		<%#  becomes the lesson found in this slot, if there is one -%>
 		<% events.each do |lesson| %> 	<%# look for a lesson in this slot -%>
-			<% @bookedlesson = lesson if lesson.student == current_user && lesson.confirmed && (lesson.starts_at + timezone_offset.hours) == @time %>
-			<% @hasfreeslot = true if lesson.student.nil? && lesson.confirmed && (lesson.starts_at + timezone_offset.hours) == @time%>
+			<% @bookedlesson = lesson if lesson.student == current_user && (lesson.starts_at + timezone_offset.hours) == @time %>
+			<% @hasfreeslot = true if lesson.student.nil? && (lesson.starts_at + timezone_offset.hours) == @time%>
 		<% end %>
 
 		<% if !@bookedlesson.nil? %> 	<%# If not nil then there is a lesson booked. Make the modal for it  %>
@@ -49,7 +49,7 @@
 									</thead>
 									<tbody>
 									<% events.each do |lesson| %>
-										<% if lesson.student.nil? && lesson.confirmed && lesson.starts_at + timezone_offset.hours == @time%>
+										<% if lesson.student.nil? && lesson.starts_at + timezone_offset.hours == @time%>
 											<tr>
 												<td>
 													<%="#{(lesson.starts_at + timezone_offset.hours).strftime("%l:%M%P")}"%>

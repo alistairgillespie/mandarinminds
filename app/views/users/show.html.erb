@@ -47,8 +47,6 @@
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   		</div>
  		<% events.each do |lesson| %>
- 			<% if lesson.confirmed %>
-
 	    		<div>
 	    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>">
 	    				<i class="fa fa-search"><%=" #{(lesson.starts_at + offset.hours).strftime("%l:%M%P")}" %></i>
@@ -57,8 +55,6 @@
 						<%= render 'lessons/lessonmodal', lesson: lesson, timezone_offset: offset %>
 					</div>
 	    		</div>
-
-			<% end %>
 		<% end %>		
 	<% end %>
 </div>

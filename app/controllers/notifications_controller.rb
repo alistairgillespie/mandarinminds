@@ -7,8 +7,8 @@ class NotificationsController < ApplicationController
   # GET /notifications.json
   def index
     if user_signed_in?
-      @notifications = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc)
-      @notifications.each do |n|
+      @notifications = current_user.notifications.order(created_at: :desc)
+      @notifications.where("dismissed = false") do |n|
         n.dismissed = true
         n.save
       end
@@ -56,7 +56,7 @@ class NotificationsController < ApplicationController
   end
 
   def get_notifications_for_header
-    @data = current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4)
+    @data = current_user.notifications.order(created_at: :desc).limit(4)
 
     respond_to do |format|
       format.js { render :json => @data.to_json}
@@ -64,7 +64,7 @@ class NotificationsController < ApplicationController
   end
 
   def get_notifications_for_bubble
-    @newnotifications = current_user.notifications.where("appear_at < ? AND dismissed = false", Time.now)
+    @newnotifications = current_user.notifications.where("dismissed = false")
     
     respond_to do |format|
       format.js { render :json => @newnotifications.to_json}
@@ -93,7 +93,7 @@ class NotificationsController < ApplicationController
   end
 
   def dismiss_all
-    @allnotifications = current_user.notifications.where("dismissed = false AND appear_at < ?", Time.now)
+    @allnotifications = current_user.notifications.where("dismissed = false")
     @allnotifications.each do |n|
       n.dismissed = true
       n.save!
@@ -119,6 +119,6 @@ class NotificationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
-      params.require(:notification).permit(:user_id, :image, :content, :dismissed, :appear_at, :lesson)
+      params.require(:notification).permit(:user_id, :image, :content, :dismissed, :lesson, :link)
     end
 end

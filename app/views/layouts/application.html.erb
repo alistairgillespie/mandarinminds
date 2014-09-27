@@ -33,7 +33,7 @@
         $('#notification-dropdown').html("");
         $.each( data, function( key, array ) {
           $('#notification-dropdown').append('<li class="notification"><div class="notify-block"><div class="notify-img">img' + array["image"] + '</div><p>'+ array["content"] +'</p></div></li>');
-          if (array["lesson_id"] != 0)  {
+          if (array["link"])  {
 
           }      
           if (array["content"].charAt(0) == '<'){

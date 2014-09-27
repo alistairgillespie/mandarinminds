@@ -15,20 +15,20 @@
       <li class="notify" id="notification-menu"> 
         <% @newnotifications = 0 %>
         <% current_user.notifications.each do |n| %>
-        <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
+        <% @newnotifications += 1 unless n.dismissed %>
         <% end %>
         <i id="notification-bell" class="fa fa-bell-o" data-toggle="dropdown"></i>
         <% if @newnotifications > 0 %>     
         <div class="notification-bubble"> <%= @newnotifications %> </div>       
         <% end %> 
         <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
-          <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
+          <% current_user.notifications.order(created_at: :desc).limit(4).each do |n| %>
 
           <li class="notification">
 
            <div class="notify-block row">
-            <% unless n.lesson_id == 0 %>
-            <a href="/lessons/<%=n.lesson_id%>">
+            <% unless n.link.nil? %>
+            <a href="<%= n.link %>">
               <% end %>
               <div class="notify-img col-xs-2">
                 <% if n.image[0,1] == "<" %>
@@ -41,15 +41,11 @@
               <p>
                <%= n.content %>
              </p>
-             <span style="font-size: 10px; color: black; float: right">
-             <% if n.appear_at > Time.now - 24.hours %>
-             <%= n.appear_at.in_time_zone("Perth").strftime('%l:%M%P') %>
-             <% else %>
-             <%= n.appear_at.in_time_zone("Perth").strftime('%-d %B %Y') %>
-             <% end %>
-            </span>
+             <span style="font-size: 10px; color: black; position: absolute; right: 0px; bottom: 0px;">
+                <%= time_ago_in_words(n.created_at) %> ago
+             </span>
            </div>
-             <% unless n.lesson_id == 0 %>
+             <% unless n.link.nil? %>
            </a>
            <% end %>
          </div>                        

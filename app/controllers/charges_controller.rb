@@ -63,7 +63,7 @@ def create
             :content => "Your Dudu purchase has been successful. You can now access your Dudu resources from the Dashboard.",
             :lesson_id => nil,
             :dismissed => false,
-            :appear_at => Time.now
+            :link => nil
             }
     @n = Notification.new(@notification_params)
     @n.save
@@ -76,7 +76,7 @@ def create
             :content => "Your purchased has been processed successfully and your number of lessons to spend has increased by #{@plan.lessons}",
             :lesson_id => nil,
             :dismissed => false,
-            :appear_at => Time.now
+            :link => nil
             }
     @n = Notification.new(@notification_params)
     @n.save

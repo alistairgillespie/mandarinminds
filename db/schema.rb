@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924084806) do
+ActiveRecord::Schema.define(version: 20140927062324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "confirmed",  default: false
     t.text     "comment"
   end
 
@@ -47,10 +46,10 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.string   "image"
     t.text     "content"
     t.boolean  "dismissed",  default: false
-    t.datetime "appear_at"
     t.integer  "lesson_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link"
   end
 
   add_index "notifications", ["lesson_id"], name: "index_notifications_on_lesson_id", using: :btree

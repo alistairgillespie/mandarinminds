@@ -8,7 +8,7 @@ class Charge < ActiveRecord::Base
 	end
 
 	def purchase_summary
-		@purchases = Charge.where("created_at > ? AND created_at < ?", Time.now.in_time_zone("Perth").beginning_of_day - 1.day, Time.now.in_time_zone("Perth").beginning_of_day).order(created_at: :asc)
+		@purchases = Charge.where("created_at > ? AND created_at < ?", Time.now.beginning_of_day - 1.day, Time.now.beginning_of_day).order(created_at: :asc)
 		if @purchases.size > 0
 			Notifier.purchase_summary(@purchases).deliver!
 		end
