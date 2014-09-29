@@ -221,9 +221,9 @@ h1 {
 }
 
 h2 {
-	font-family: "proxima-nova",sans-serif;
+	font-family: "Clavo",sans-serif !important;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 400;
 }
 
 
@@ -462,9 +462,14 @@ h2 {
 	.navbar-header {
 		a.navbar-brand {
 			img {
-				width: 225px !important;
+				width: 195px !important;
 			}
 		}
+	}
+	
+	.navbar .navbar-nav > li > a { 
+		font-size: 14px !important;
+		padding-top: 20px !important; 
 	}
 	
 	.navbar-toggle {
@@ -474,7 +479,13 @@ h2 {
 
 //Media 320px - 960px
 @media(min-width 320px max-width 960px) {
-
+	a.navbar-brand {
+		img {
+			
+		}
+	}
+	
+	
 }
 
 //Media 320px - 760px
@@ -537,6 +548,12 @@ h2 {
 				}
 			}
 		}
+	}
+}
+
+.devise {
+	.icon {
+		text-align: center;
 	}
 }
 
@@ -694,6 +711,13 @@ h2 {
 	.lead {
 		color: #8c989e;
 	}
+	
+	h3 {
+		font-family: "Clavo",sans-serif;
+		font-style: normal;
+		font-weight: 400;
+	}
+	
 }
 
 
@@ -701,8 +725,14 @@ h2 {
 	border-radius: none;
 	background: transparent;
 	
+	h3 {
+		font-family: "Clavo",sans-serif !important;
+		font-style: normal;
+		font-weight: 400;	
+	}
+	
 	.row {
-		padding-top: 100px; 
+		padding-top: 50px; 
 	}
 	
 	.service {
@@ -856,6 +886,7 @@ p.lead {
 	background-image: url('/assets/asiancentury.jpg');
 	margin-bottom: 0px;
 	height: 450px;
+	
 }
 
 .asian-century-points.jumbotron {
@@ -870,6 +901,12 @@ p.lead {
 			}
 			.icon {
 				opacity: 0.6;
+			}
+			
+			.title {
+				font-family: "Clavo",sans-serif;
+				font-style: normal;
+				font-weight: 400;
 			}
 			
 			&:hover {
@@ -1321,6 +1358,57 @@ html, body {
     }
 }
 
+/* FAQ
+------------------------------------------------------------------------------------------------------------------------------------------------------*/ 
+
+#faq {
+	padding: 20px 0;
+	h1 {
+		text-align: center;
+	}
+	
+	b {
+		cursor: pointer;
+	}
+	
+	* {
+		text-align: center;
+	}
+	
+	.icon {
+		text-align: center;
+	}
+	
+	.row {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		
+		p {
+			text-align: center;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-top:20px;
+			
+		}
+		
+		a {
+			color: #214387;
+			text-decoration: underline;
+			font-weight: 400;
+		}
+	}
+	
+	p {
+		font-family: "proxima-nova",sans-serif;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 100;
+	    line-height: 1.5;
+	    padding-left: 10px;
+		padding-right: 10px;
+		
+	}
+}
 
 /* Footer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/ 

@@ -30,11 +30,32 @@
 
 		<div id="plans" class="">
 			<div class="row">
-			<p class="col-md-4">Take a free trial with one of our passionate Chinese teachers. Why not, it’s free? Choose from one of our packages?</p>
-			<p class="col-md-4">Take a short quiz so we can assess your Mandarin level. It’s best we get this right now so we don’t waste your time!</p>
-			<p class="col-md-4">You may not be aware but your journey has already begun so go ahead, it’s time to start your learning adventure
-Practice and retain what you have learned through periodic quizzes. Monitor your improvement with continued teacher feedback.</p>
+			<% if user_signed_in? %>
+			<% else %>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "teachers.png", class:"action" %>
 			</div>
+			<h1>1</h1>
+			<p>Take a free trial with one of our passionate Chinese teachers. Why not, it’s free? Choose from one of our packages?</p></div>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "laptop.png", class:"action" %>
+			</div>
+			<h1>2</h1>
+			<p>Take a short quiz so we can assess your Mandarin level. It’s best we get this right now so we don’t waste your time!</p></div>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "plane.png", class:"action" %>
+			</div>
+			<h1>3</h1>
+			<p>You may not be aware but your journey has already begun so go ahead, it’s time to start your learning adventure
+Practice and retain what you have learned through periodic quizzes. Monitor your improvement with continued teacher feedback.</p></div>
+			</div>
+			<% end %>
 		<div class="row">
 		<h1>Pricing</h1>
 		<% duduPlan = nil %>
@@ -64,6 +85,7 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 		  <p> Visit your Dashboard to access your Dudu Package </p>
 		  <% else %>
 			<div class="plan col-md-offset-4 col-md-4">
+				<h1>DuDu Pricing (eBooks)</h1>
 			    <div class="plan-wrapper">
 			      <div class="name">&nbsp;<%= duduPlan.name %></div>
 			      <div class="details">
@@ -78,6 +100,7 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 		    </div>
 		  
 		  <div class="row">
+		  	
 		  		<p class="col-md-8 col-md-offset-2">Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online plan. This one-off purchase provides you with a wealth of features including:</p>
 			  <ul class="col-md-8 col-md-offset-2">
 				<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
