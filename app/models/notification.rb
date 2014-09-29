@@ -42,9 +42,8 @@ class Notification < ActiveRecord::Base
 		        :image => '<i class="fa fa-clock-o"></i>',
 		        :content => "Your lesson with #{h.teacher.firstname} #{h.teacher.lastname} is almost ready to begin. Your teacher will soon call you via Skype"
 		    }
-		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson_alert', {"image" => @notification_params[:image],
-	            "message" => @notification_params[:content], 
-	            })
+		    Pusher.trigger("private-#{@notification_params[:user_id]}",'lesson_alert', 
+		    	{"image" => @notification_params[:image], "message" => @notification_params[:content] })
 			end	
 		end
   end

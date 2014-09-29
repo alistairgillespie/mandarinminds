@@ -14,9 +14,9 @@
 		        <% unless @nextlesson.nil? %>
 					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now.utc, "%H %N")%>
 					</br>
-					<div class="next-lesson">
+					<li><div class="next-lesson">
 						<% if Time.now.utc < @nextlesson.starts_at.utc - 5.minutes %>
-							Your next lesson is on:</br> 
+							<b>Your next lesson is on:</b></br> 
 							<%= (@nextlesson.starts_at + offset.hours).strftime("#{(@nextlesson.starts_at + offset.hours).day.ordinalize} %b %Y at %l:%M%P") %>
 							<% if offset >= 0 %> <%= "(UTC +#{offset})"%><% else %><%= "(UTC #{offset})" %><% end %>
 							</br></br>
@@ -33,7 +33,7 @@
 					</div>
 					
 					<div id="next-lesson-start-time" data-lesson=<%=@nextlesson.id%> data-timezone-offset=<%= offset %> style="display:none"><%= (@nextlesson.starts_at + offset.hours).strftime("%B %e, %Y %T") %>
-					</div>
+					</div></li>
 
 				<% end %>
 				</ul>
