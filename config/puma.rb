@@ -16,3 +16,7 @@ on_worker_boot do
     ActiveRecord::Base.establish_connection(config)
   end
 end
+
+lowlevel_error_handler do
+  [302, {'Content-Type' => 'text', 'Location' => 'public/404.html'}, ['302 found']]
+end
