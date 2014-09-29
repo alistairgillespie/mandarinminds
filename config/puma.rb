@@ -18,5 +18,5 @@ on_worker_boot do
 end
 
 lowlevel_error_handler do
-  [302, {'Content-Type' => 'text', 'Location' => 'public/404.html'}, ['302 found']]
+  [302, {'Content-Type' => 'text', 'Location' => '/404.html'}, ['302 found']]
 end
