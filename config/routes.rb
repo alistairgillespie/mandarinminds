@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   resources :notifications
 
   
+  match 'users/promote_to_teacher' => 'users#promote_to_teacher', via: :get
+  match '/teachers/update' => 'teachers#update', via: :post
 
   match 'users/:id' => 'users#show', as: :user, via: :get
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
@@ -69,7 +71,7 @@ Rails.application.routes.draw do
   get "/what-we-offer" => "static#what-we-offer"
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
-  get "/teachers" => "static#teachers"
+  get "/teachers" => "static#teachers", as: 'teachers'
   get "/privacy" => "static#privacy"
   get "/terms" => "static#terms"
   get "/contact" => "static#contact"

@@ -1,18 +1,37 @@
-
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
 
 <div class="row">
 	<div class="packages jumbotron">
 				<h1>Meet the Mandarin Minds gang</h1>
-				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit tincidunt imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut rutrum augue. Pellentesque consequat lectus lorem, scelerisque tempor arcu euismod in. Praesent varius molestie consequat. Mauris sed massa purus.</p>
+				<p class="lead">All of our staff are fluent in Mandarin and have a passion for teaching. Here's a quick snapshot of just what makes them tick.</p>
 			</div>
 	<div class="teacher showcase row">
 		<div class="image-holder col-md-3">
 			<%= image_tag "mmsample.jpg", class:"img-circle" %>
 		</div>
-		<div class="description co-md-9">
-			<h2 class="title"> Minnie Dong</h2>
+		<div class="description col-md-9">
+			<h2 class="title">Minnie Dong</h2>
 			<p class="lead">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit tincidunt imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut rutrum augue. Pellentesque consequat lectus lorem, scelerisque tempor arcu euismod in. Praesent varius molestie consequat. Mauris sed massa purus.
+				Minnie is from Qufu in the Shangdong province of China, the home of Confucius. When she isn’t working Minnie enjoys watching Disney movies, Doctor Who and the NBA; the LA Lakers in particular. Around the office Minnie is the joker - she has an outgoing personality and will often try to sneak a biscuit from the jar when no one is looking. </br></br>
+
+				Minnie is fluent Mandarin, English and also speaks a little bit of Japanese.</p>
+		</div>
+	</div>
+	
+	<div class="teacher showcase row">
+		<div class="image-holder col-md-3">
+			<%= image_tag "mmsample.jpg", class:"img-circle" %>
+		</div>
+		<div class="description col-md-9">
+			<h2 class="title">Joan Zhou</h2>
+			<p class="lead">
+				Joan comes from Xining in the Qinghai province. During her spare time she enjoys mountain walking, reading and playing the piano. She would love to go to San Francisco or Quebec and spend her time visiting art galleries and museums. Shawshank Redemption is he favourite movie while she also enjoys the TV show Modern Family. Every morning Joan will get her exercise by climbing 15 floors to get to the office. </br></br>
+
+				Jo is fluent in both Mandarin and English.
 			</p>
 		</div>
 	</div>
@@ -21,24 +40,151 @@
 		<div class="image-holder col-md-3">
 			<%= image_tag "mmsample.jpg", class:"img-circle" %>
 		</div>
-		<div class="description co-md-9">
-			<h2 class="title"> Minnie Dong</h2>
+		<div class="description col-md-9">
+			<h2 class="title">Esther Ma</h2>
 			<p class="lead">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit tincidunt imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut rutrum augue. Pellentesque consequat lectus lorem, scelerisque tempor arcu euismod in. Praesent varius molestie consequat. Mauris sed massa purus.
+				Esther comes from Xining in the Qinghai province. She enjoys reading, mountain walking and listening to light music. 
+				Of all our teachers Esther is our longest serving one. Her ideal holiday would be enjoying the natural scenery with her close family and friends. </br></br>
+
+				She speaks Mandarin, English and a little bit of German.
 			</p>
 		</div>
 	</div>
-	
-	<div class="teacher showcase row">
-		<div class="image-holder col-md-3">
-			<%= image_tag "mmsample.jpg", class:"img-circle" %>
-		</div>
-		<div class="description co-md-9">
-			<h2 class="title"> Minnie Dong</h2>
-			<p class="lead">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit tincidunt imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam ut rutrum augue. Pellentesque consequat lectus lorem, scelerisque tempor arcu euismod in. Praesent varius molestie consequat. Mauris sed massa purus.
-			</p>
-		</div>
-	</div>
-	
 </div>
+
+<% if user_signed_in? && current_user.role_id > 2 %>
+<h2>Add New Teachers</h2>
+	<% if params[:confirm] #Email entered and person found in database. Confirm you wish to promote%>
+
+		<% promotee = User.find_by id: params[:id] %>
+		<% if promotee.nil? %>
+			An error occured. Please <a href="/teachers">reload</a>.
+		<% else %>
+
+		<b>Name:</b> <%= "#{promotee.firstname} #{promotee.lastname}" %></br>
+		<b>Email:</b> <%= "#{promotee.email}" %></br>
+
+		<% if promotee.role_id == 2 %>
+			This person is already a teacher. </br></br>
+
+			<form accept-charset="UTF-8" action="/users/promote_to_teacher" method="get">
+		<input name="utf8" type="hidden" value="&#x2713;" /></div>
+	  	<label for="email">New Teacher's Email:</label>
+	  	<input id="email" name="email" type="email" />
+	  	<input name="commit" type="submit" value="Search"/>
+	</form>
+
+		<% else %>
+
+			<form accept-charset="UTF-8" action="/users/promote_to_teacher" method="get">
+				<input name="utf8" type="hidden" value="&#x2713;" /></div>
+			  	<input id="id" name="id" type="hidden" value="<%= promotee.id %>" />
+			  	<input id="secret_key" name="secret_key" type="hidden" value="secret" />
+			  	<input name="commit" type="submit" value="Promote to Teacher"/>
+			</form>
+		<% end %>
+	<% end %>
+
+<% else #Either you just arrived on the page or the person was not found%>
+	
+	<form accept-charset="UTF-8" action="/users/promote_to_teacher" method="get">
+		<input name="utf8" type="hidden" value="&#x2713;" /></div>
+	  	<label for="email">New Teacher's Email:</label>
+	  	<input id="email" name="email" type="email" />
+	  	<input name="commit" type="submit" value="Search"/>
+	</form>
+
+<% end %>
+
+<h2>Current Teachers</h2>
+
+<% teachers = Teacher.all %>
+<div class="row">
+	<div class="col-xs-2"><b>Name</b></div>
+	<div class="col-xs-2"><b>Abbreviated Name</b></div>
+	<div class="col-xs-2"><b>Display on Teachers Page</b></div>
+	<div class="col-xs-2"><b>Display in Lesson Dropdown</b></div>
+</div>
+<% teachers.each do |t| %>
+	<% teacher = User.find_by id: t.user_id %>
+	<div class="row">
+	<div class="col-xs-2"><%= "#{teacher.firstname} #{teacher.lastname}" %></div>
+	<div class="col-xs-2"><%= t.abbr.nil? || t.abbr == "" ? "-" : "#{t.abbr}" %></div>
+	<div class="col-xs-2"><%= t.show_on_page %></div>
+	<div class="col-xs-2"><%= t.show_in_dropdown %></div>
+	<div class="col-xs-2"><a class="edit-link" data-id="<%=t.id%>">Edit</a></div>
+	</div>
+
+<div class="well" id="teacher-form-<%=t.id%>" style="display: none; width: 80%; height: auto">
+	<form accept-charset="UTF-8" action="/teachers/update" method="post" class="form-horizontal" role="form">
+	</br>
+		<input name="utf8" type="hidden" value="&#x2713;" />
+		<input id="teacher_id" name="id" type="hidden" value="<%= t.id %>" />
+
+	<div class="form-group">
+		<div class="col-sm-offset-1 col-sm-3">
+			<label>Appear on the Teachers Page?</label></br>
+		
+  			<label class="radio-inline">
+    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_true" value="true" checked="<%= t.show_on_page %>">
+				Yes  			
+			</label>
+		
+  			<label class="radio-inline">
+    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_false" value="false" checked="<%= !t.show_on_page %>">
+				No  			
+			</label>
+		</div>
+		
+
+		
+		<div class="col-sm-3">
+			<label>Appear in the Calendar Dropdown?</label></br>
+		
+  			<label class="radio-inline">
+    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_true" value="true" checked="<%= t.show_in_dropdown %>">
+				Yes  			
+			</label>
+		
+  			<label class="radio-inline">
+    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_false" value="false" checked="<%= !t.show_in_dropdown %>">
+				No  			
+			</label>
+		</div>
+	</div>
+		
+		<div class="form-group">
+    		<label for="teacher_abbr" class="col-sm-3 control-label">Abbreviated Name:</br><small>Should be one word only.</small></label>
+    		
+      		<input id="teacher_abbr" name="teacher[abbr]" type="text" class="form-control" value="<%= t.abbr %>" style="width: 30%">
+    		
+  		</div>
+
+
+  		<div class="form-group">
+  			<label for="teacher_description" class="col-sm-3 control-label">Biography:</br><small>Add one &lt;/br&gt; tag for a new line or two for a new paragraph.</small></label>
+  				<textarea id="teacher_description" name="teacher[description]" rows="4" class="form-control" style="width: 65%"><%= t.description %></textarea>
+  		</div>
+
+  		<input name="commit" type="submit" value="Save" class="btn btn-primary" /> <a class="btn btn-primary cancel-btn">Cancel</a>
+	</form>
+</div>
+
+
+<% end %>
+
+
+<% end %>
+
+</div>
+
+<script type="text/javascript">
+
+	$(".cancel-btn").click(function(){
+		$(this).parent().parent().slideUp();
+	});
+
+	$(".edit-link").click(function(){
+		$('#teacher-form-' + $(this).attr("data-id")).toggle();
+	});
+</script>

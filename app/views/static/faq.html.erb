@@ -1,4 +1,8 @@
-<div class="container">
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
 <div id="faq">
 <div class="row">
 <h1>How does Mandarin Minds work?</h1>
@@ -25,7 +29,7 @@
 
 <div class="question"><p><i class="fa fa-plus"> </i><i class="fa fa-minus"> </i><b>Can I have a class with any teacher?</b></p></div>
 
-<p class="answer">After signing up you will be able to view a brief bio of the teachers by clicking the ‘Teacher' tab on the  sidebar. Once you have chosen the most suitable teacher for your needs you can book a lesson at your leisure. Please note, it is not possible to book a class less than 48hrs before the scheduled lesson time.</p>
+<p class="answer">After signing up you will be able to view a brief bio of the teachers by clicking the ‘Teacher' tab on the sidebar. Once you have chosen the most suitable teacher for your needs you can book a lesson at your leisure. Please note, it is not possible to book a class less than 48hrs before the scheduled lesson time.</p>
 
 <div class="question"><p><i class="fa fa-plus"> </i><i class="fa fa-minus"> </i><b>Can I work with the same tutor each time?</b></p></div>
 
@@ -37,7 +41,7 @@
 
 <div class="question"><p><i class="fa fa-plus"> </i><i class="fa fa-minus"> </i><b>How do I communicate with my teachers?</b></p></div>
 
-<p class="answer">At the conclusion of your first lesson with a new teacher she will provide you with her e-mail address which you can use to exchange materials. Teachers will be unable to arrange lessons via e-mail, so please book lessons yourself within the portal.</p>
+<p class="answer">At the conclusion of your first lesson with a new teacher she will provide you with their e-mail address which you can use to exchange materials. Teachers will be unable to arrange lessons via e-mail, so please book lessons yourself within the portal.</p>
 
 <div class="question"><p><i class="fa fa-plus"> </i><i class="fa fa-minus"> </i><b>What time is the online calendar linked to?</b></p></div> 
 
@@ -64,6 +68,7 @@
 	.fa-plus, .fa-minus {
 		display: none;
 	}
+
 </style>
 
 <script type="text/javascript">

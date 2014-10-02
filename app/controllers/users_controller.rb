@@ -2,7 +2,28 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate_user! 
 
-  
+  def promote_to_teacher
+    if params[:id] && params[:secret_key] = "secret"
+      promotee = User.find_by id: params[:id]
+      promotee.update_attribute(:role_id, 2)
+      Teacher.create(:user_id => promotee.id, :description => "", :show_on_page => false, :show_in_dropdown => false, :abbr => "")
+      redirect_to teachers_path, notice: "Successfully promoted #{params[:email]}"
+      return      
+    else
+      promotee = User.find_by email: params[:email]
+      if promotee
+        redirect_to teachers_path(confirm: true, id: promotee.id), notice: "#{params[:email]} success!" 
+        return   
+      else
+        redirect_to teachers_path, notice: "Could not find a person with the email: #{params[:email]}"
+        return
+      end      
+    end
+    redirect_to teachers_path, notice: "An error occured."
+  end
+
+  def demote_to_student
+  end
 
   # GET /users
   # GET /users.json

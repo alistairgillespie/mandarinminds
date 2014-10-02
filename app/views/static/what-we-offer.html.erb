@@ -1,24 +1,19 @@
-<div class="container">
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
   <div class="row">
 
 	<div class="welcome jumbotron">
 			<%= image_tag "bigfoot.png" %> 
 	        <h2>Begin a journey with Mandarin Minds</h2>
-	        <p class="lead">Join the 1% of Australians studying Mandarin today and lead Australia into the Asian Century tomorrow. We believe Australia should develop closer ties with China and benefit from its astronomical rise in global stature.</p>
+	        <p class="lead">No Mandarin? No problem! Our teachers will guide you on your learning experience from the very beginning.</p>
 	        <p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
 	</div>
 	<div class="features jumbotron">
 		<a style="padding-top: 100px;" name="whatwedo"></a>
-		<div class="row service">
-			<div class="col-md-7 descriptor video">
-				<h3 class="title">Video Courses</h3>
-				<p class="lead">Our teachers are hand selected by our team and have a passion to teach. Our short video courses are crafted on a syllabus used by a prestigious Chinese university</p>
-	        <p><a href="/plans" class="">Coming soon   <i class="fa fa-arrow-right"></i></a></p>
-			</div>
-			<div class="col-md-5 icon">
-	        	<%= image_tag "laptop.png", class:"action" %>
-			</div>
-		</div>
+
 		<div class="row service">
 			<div class="col-md-7 descriptor live-lessons">
 				<h3 class="title">Live lessons online</h3>
@@ -29,11 +24,23 @@
 	        	<%= image_tag "video.png", class:"action" %>
 			</div>
 		</div>
+
 		<div class="row service">
 			<div class="col-md-7 descriptor video">
-				<h3 class="title">E-Books</h3>
+				<h3 class="title">Coming Soon: Video Courses!</h3>
+				<p class="lead">Our teachers are hand selected by our team and have a passion to teach. Our short video courses are crafted on a syllabus used by a prestigious Chinese university</p>
+	        <p><a  class="">Coming soon   <i class="fa fa-arrow-right"></i></a></p>
+			</div>
+			<div class="col-md-5 icon">
+	        	<%= image_tag "laptop.png", class:"action" %>
+			</div>
+		</div>
+		
+		<div class="row service">
+			<div class="col-md-7 descriptor video">
+				<h3 class="title">Coming Soon: E-Books</h3>
 				<p class="lead">Enjoy access to over 100 e-books ranging from beginner to advanced learners. Test yourself with the interactive quiz after each read.</p>
-	        <p><a href="/plans" class="">See our packages   <i class="fa fa-arrow-right"></i></a></p>
+	        <p><a href="/plans" class="">See our current packages   <i class="fa fa-arrow-right"></i></a></p>
 			</div>
 			<div class="col-md-5 icon">
 	        	<%= image_tag "browser.png", class:"action" %>
@@ -46,7 +53,7 @@
 <div class="asian-century jumbotron">
   <div class="container">
     <h1>Why Mandarin?</h1>
-    <p class="lead">Every parent wants the best for their child. In today's evolving world, an additional language helps to open doors and increase career opportunities across the globe. China's emergence as an economic superpower and her close ties to Australia will put your child in good standing when it comes to University and job applications.</p>
+    <p class="lead">In today's evolving world, an additional language helps to open doors and increase career opportunities across the globe. China's emergence as an economic superpower and her close ties to Australia will put you or your child in good standing when it comes to University and job applications.</p>
     <p><a href="#why" role="button" class="btn btn-primary btn-lg">Learn more</a></p>
   </div>
  </div>
@@ -80,6 +87,8 @@
     <span>Rita Mae Brown</span>
     <p>We do not want our members to just learn Mandarin but also to engage in the rich history of the Chinese culture. It is one thing to be able to speak the language but understanding the culture and traditions can be the foundation for friendships and business relationships.</p>
     </div>
+		
+
   </div>
  </div>
  

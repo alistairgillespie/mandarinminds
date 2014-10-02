@@ -5,69 +5,69 @@
 	<div class="container">
 <% end %>
 
-  <div class="row">
+<div class="row">
 
-<div class="welcome jumbotron">
-		<%= image_tag "mmsample.jpg", class:"img-circle" %> 
-        <h2>Take live classes with our teachers in China</h2>
-        <p class="lead">Join the 1% of Australians studying Mandarin today and lead Australia into the Asian Century tomorrow. We believe Australia should develop closer ties with China and benefit from its astronomical rise in global stature.</p>
-        
-        <% if user_signed_in? %>
-		<% else %>
-			<p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
-		<% end %>
-</div>
-
-<div class="features jumbotron">
-	<div class="row service">
-		<div class="col-md-5 icon">
-        	<%= image_tag "teachers.png", class:"action" %>
-		</div>
-		
-		<div class="col-md-7 descriptor flexibility">
-			<h3 class="title">Certified teachers</h3>
-			<p class="lead">Learn from <b>top teachers</b> who are passionate about teaching. Schedule classes 6 days a week.</p>
-        <% if user_signed_in? %>
-		<% else %>
-			<p class="arrow-link"><a data-toggle="modal" data-target="#signup">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
-		<% end %>
-		</div>
-	</div>
-	<div class="row service">
-		<div class="col-md-5 icon">
-        	<%= image_tag "laptop.png", class:"action" %>
-		</div>
-		
-		<div class="col-md-7 descriptor quality">
-			<h3 class="title">Variety of instruction</h3>
-			<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request.</p>
-			<% if user_signed_in? %>
+	<div class="welcome jumbotron">
+			<%= image_tag "mmsample.jpg", class:"img-circle" %> 
+	        <h2>Take live classes with our teachers in China</h2>
+	        <p class="lead">Join the few Australians studying Mandarin today and lead Australia into the Asian Century.</p>
+	        
+	        <% if user_signed_in? %>
 			<% else %>
-				<p class="arrow-link"><a href="/what-we-offer" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+				<p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
 			<% end %>
+	</div>
+
+	<div class="features jumbotron">
+		<div class="row service">
+			<div class="col-md-5 icon">
+	        	<%= image_tag "teachers.png", class:"action" %>
+			</div>
+			
+			<div class="col-md-7 descriptor flexibility">
+				<h3 class="title">Certified teachers</h3>
+				<p class="lead">Learn from <b>top teachers</b> who are passionate about teaching. Schedule classes 6 days a week.</p>
+	        <% if user_signed_in? %>
+			<% else %>
+				<p class="arrow-link"><a data-toggle="modal" data-target="#signup">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
+			<% end %>
+			</div>
+		</div>
+		<div class="row service">
+			<div class="col-md-5 icon">
+	        	<%= image_tag "laptop.png", class:"action" %>
+			</div>
+			
+			<div class="col-md-7 descriptor quality">
+				<h3 class="title">Variety of instruction</h3>
+				<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request.</p>
+				<% if user_signed_in? %>
+				<% else %>
+					<p class="arrow-link"><a href="/what-we-offer" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+				<% end %>
+			</div>
+		</div>
+		<div class="row service">
+			<div class="col-md-5 icon">
+	        	<%= image_tag "onthego.png", class:"action" %>
+			</div>
+			
+			<div class="col-md-7 descriptor quality">
+				<h3 class="title">On-the-go learning</h3>
+				<p class="lead">Take live classes and read e-books from the comfort of your own home, using your <b>computer</b>, <b>tablet</b>, or <b>mobile device</b>. Switch back and forth as you choose.</p>
+			</div>
+		</div>
+		<div class="row service">
+			<div class="col-md-5 icon">
+	        	<%= image_tag "certified.png", class:"action" %>
+			</div>
+			
+			<div class="col-md-7 descriptor quality">
+				<h3 class="title">Periodic Quizzes</h3>
+				<p class="lead"><b>Practice</b> what you have learned with your teacher through quizzes. </p>
+			</div>
 		</div>
 	</div>
-	<div class="row service">
-		<div class="col-md-5 icon">
-        	<%= image_tag "onthego.png", class:"action" %>
-		</div>
-		
-		<div class="col-md-7 descriptor quality">
-			<h3 class="title">On-the-go learning</h3>
-			<p class="lead">Take live classes and read e-books from the comfort of your own home, using your <b>computer</b>, <b>tablet</b>, or <b>mobile device</b>. Switch back and forth as you choose.</p>
-		</div>
-	</div>
-	<div class="row service">
-		<div class="col-md-5 icon">
-        	<%= image_tag "certified.png", class:"action" %>
-		</div>
-		
-		<div class="col-md-7 descriptor quality">
-			<h3 class="title">Periodic Quizzes</h3>
-			<p class="lead"><b>Practice</b> what you have learned with your teacher through quizzes. </p>
-		</div>
-	</div>
-</div>
 
   </div>
 </div>

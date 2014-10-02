@@ -1,5 +1,8 @@
-
-<div class="container">
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
 <h1>Privacy Policy </h1>
 
 <p>WEBSITE PRIVACY POLICY</p>

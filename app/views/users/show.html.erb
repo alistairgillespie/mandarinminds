@@ -24,6 +24,8 @@
 <% end %>
 
 
+
+
 <% if current_user.role_id == 1 %>
 <div class="lesson-board">
 	<p>
@@ -34,7 +36,12 @@
 <% end %>
 
 <% if current_user.settings.purchased_dudu %>
-<p>You have purchased Dudu - access it <a href="#">here</a></p>
+
+<% safename = "#{current_user.firstname} #{current_user.lastname}".gsub(/[^0-9a-z ]/i, '') %>
+<% tsoid = Digest::SHA1.hexdigest "#{Time.now.utc.strftime('%Y-%m-%d %k')}id,fullname,grouplearnfast#{current_user.id},#{safename},MandarinMinds"%>
+<% link = "http://dudu.qoqolo.com/cos/o.x?c=/ca4_dd/user&attribs=id,fullname,group&values=#{current_user.id},#{safename},MandarinMinds&tsoid=#{tsoid}" %></br>
+
+<p>You have purchased Dudu - access it <a href="<%= link %>">here</a></p>
 <% end %>
 
 <div id="week-schedule">

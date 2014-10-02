@@ -1,26 +1,351 @@
-<%= form_tag buy_path(@plan) do %>
-  <article>
-  	<strong>Confirm Your Purchase</strong>
-  	<p>Seller: Mandarin Minds Pty. Ltd. Incorporated Professional Name</p>
-  	<p>Buyer: <%= "#{current_user.firstname} #{current_user.lastname}" %></p>
-  	<p>Mailing Address: <%= current_user.email %></p>
-  	<p>Product: <%= @plan.name %></p>
-
-    <label class="amount">
-      <span>Amount: $<%= @plan.price %></span>
-    </label>
-  </article>
-
-  <form action="/charge" method="POST">
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-image="/images/footerlogo.png"
-            data-name="Mandarin Minds"
-            data-description="<%= @plan.name %>"
-            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-email="<%= current_user.email %>"          
-            data-amount="<%= @plan.price * 100 %>"
-            data-allow-remember-me="false"
-            data-label="Open Checkout">
-    </script>
-  </form>
+<% if user_signed_in? %>
+<% offset = current_user.timezone_offset %>
 <% end %>
+<% offset ||= 8 %>
+
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tbody>
+        <tr>
+          <td bgcolor="f9fafa" style="border:0;margin:0;padding:0">
+
+            
+            <table style="background-color:#921b2f" border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td align="center" style="border:0;margin:0;padding:0">
+
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tbody>
+                        <tr>
+                          <td align="center" style="border:0;margin:0;padding:0">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="500">
+                              <tbody>
+                                <tr>
+                                  <td align="center" height="20" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#921b2f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">
+                                    Thank you for shopping with <span style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#921b2f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">Mandarin Minds</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" width="500">
+                      <tbody>
+                        <tr>
+                          <td height="7" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="100%">
+                            <div style="min-height:7px;width:1px">&nbsp;</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" valign="middle">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                              <tbody><tr>
+                                <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="20">
+                                  <div style="min-height:1px;width:20px"></div>
+                                </td>
+                                <td style="border:0;margin:0;padding:0" width="100%">
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                      <tbody><tr>
+                                        <td align="center" height="72" style="border:0;margin:0;padding:0">
+                                          <a href="http://www.mandarinminds.com" style="border:0;margin:0;padding:0" target="_blank">
+                                            <span>
+                                              <img alt="" height="72" src="https://ci4.googleusercontent.com/proxy/QDjPtSsITV82AW-zkJANXPt85BkDtaO8pxvLPUDglgS_DEpqJsljzJqBLZGgkQ39xFdI-hi1LDLQTcBng5Bl9bkz7QAmCQuUtsgYmnJeK7ITNixchb21J8WxrSk0v82JJAfBEQRLvU39t1Jdkg=s0-d-e1-ft#https://stripe-images.s3.amazonaws.com/emails/acct_14j3UvAtcvz1Ns6f/9/circular_icon.png" style="border:0;margin:0;padding:0" width="72" class="CToWUd">
+                                            </span>
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    <tr>
+                                      <td height="22" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="100%">
+                                        <div style="min-height:22px;width:1px">&nbsp;</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td align="center" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;line-height:25px">
+                                          <span style="color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;line-height:25px"></span><span style="color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;line-height:25px"></span><a href="http://www.mandarinminds.com" style="color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;line-height:25px;text-decoration:none" target="_blank"><span style="color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;line-height:25px;text-decoration:none"><h2>Mandarin Minds</h2></span></a>
+                                      </td>
+                                    </tr>
+
+                                      
+                                      
+                                      
+                                  </tbody></table>
+                                </td>
+                                <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="20">
+                                  <div style="min-height:1px;width:20px"></div>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="27" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="100%">
+                            <div style="min-height:27px;width:1px">&nbsp;</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+
+                    
+                    <table bgcolor="#2C3E50" border="0" cellpadding="0" cellspacing="0" width="100%" style="background: #2C3E50">
+                      <tbody>
+                        <tr>
+                          <td align="center" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                            <table border="0" cellpadding="0" cellspacing="0" width="500">
+                              <tbody>
+                                <tr>
+                                  <td colspan="4" height="8" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="100%">
+                                    <div style="min-height:8px;width:1px">&nbsp;</div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="20">
+                                    <div style="min-height:1px 20px"></div>
+                                  </td>
+                                  <td align="left" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:17px" width="230">
+                                    <span style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:17px"><%= (Time.now.utc + offset.hours).strftime("%-d %B %Y")%></span>
+                                  </td>
+                                  <td align="right" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:17px" width="230">
+                                    <span style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:17px"><%= current_user.email %></span>
+                                  </td>
+                                  <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="20">
+                                    <div style="min-height:1px 20px"></div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="4" height="8" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="100%">
+                                    <div style="min-height:8px;width:1px">&nbsp;</div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+
+              
+<table bgcolor="ffffff" border="0" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #e4e6e8" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" style="border:0;margin:0;padding:0">
+        <table border="0" cellpadding="0" cellspacing="0" width="500">
+          <tbody>
+            <tr>
+              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                <div style="min-height:1px;width:20px"></div>
+              </td>
+              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="460">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+
+                    
+                    <tr>
+                      <td colspan="5" height="12" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                        <div style="min-height:12px;width:1px">&nbsp;</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                        <div style="min-height:1px;width:1px"></div>
+                      </td>
+                      <td align="left" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#77858c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;line-height:20px" width="100%">
+                        Description
+                      </td>
+                      <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="10">
+                        <div style="min-height:1px;width:10px"></div>
+                      </td>
+                      <td align="right" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#77858c;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;line-height:20px" width="120">
+                        Price
+                      </td>
+                      <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                        <div style="min-height:1px;width:1px"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" height="12" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;border-bottom:1px solid #eaeff2">
+                        <div style="min-height:12px;width:1px">&nbsp;</div>
+                      </td>
+                    </tr>
+                    
+
+                      
+                      <tr>
+                        <td colspan="5" height="11" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;border-top:1px solid #eaeff2">
+                          <div style="min-height:11px;width:1px">&nbsp;</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                          <div style="min-height:1px;width:1px"></div>
+                        </td>
+                        <td align="left" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#292e31;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:normal;line-height:17px" width="100%">
+                          <span style="border:0;margin:0;padding:0"><%= @plan.name %></span>
+                        </td>
+                        <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="10">
+                          <div style="min-height:1px;width:10px"></div>
+                        </td>
+                        <td align="right" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#292e31;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:normal;line-height:17px" width="120">
+                          $<%= @plan.price %>.00
+                        </td>
+                        <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                          <div style="min-height:1px;width:1px"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="5" height="12" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                          <div style="min-height:12px;width:1px">&nbsp;</div>
+                        </td>
+                      </tr>
+                      
+
+                    
+                    <tr>
+                      <td colspan="5" align="right" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;border-top:2px solid #eaeff2">
+                        <table border="0" cellpadding="0" cellspacing="0" width="320">
+                          <tbody>
+
+                            
+                            <tr>
+                              <td colspan="5" height="11" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                                <div style="min-height:11px;width:1px">&nbsp;</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                                <div style="min-height:1px;width:1px"></div>
+                              </td>
+                              <td align="left" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#292e31;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;line-height:17px" width="100">
+                                Total
+                              </td>
+                              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="10">
+                                <div style="min-height:1px;width:10px"></div>
+                              </td>
+                              <td align="right" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#292e31;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:17px" width="208">
+                                $<%= @plan.price %>.00
+                              </td>
+                              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px" width="1">
+                                <div style="min-height:1px;width:1px"></div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="5" height="12" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                                <div style="min-height:12px;width:1px">&nbsp;</div>
+                              </td>
+                            </tr>
+                            
+
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    
+
+                  </tbody>
+                </table>
+              </td>
+              <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                <div style="min-height:1px;width:20px"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+<div style="display: table; margin-left: auto; margin-right: auto;">
+                </br>
+
+
+
+<%= form_tag buy_path(@plan) do %>
+                  
+                  <form action="/charge" method="POST">
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-image="/images/bigfoot-circle.png"
+                            data-name="Mandarin Minds"
+                            data-description="<%= @plan.name %>"
+                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                            data-email="<%= current_user.email %>"          
+                            data-amount="<%= @plan.price * 100 %>"
+                            data-allow-remember-me="false"
+                            data-label="Open Checkout">
+                    </script>
+                  </form>
+                <% end %>
+                </div>
+            
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                
+                <tr>
+                  <td align="center" style="border:0;margin:0;padding:0">
+                    <table border="0" cellpadding="0" cellspacing="0" width="500">
+                      <tbody>
+
+                        <tr>
+                          <td colspan="3" height="37" style="border:0;margin:0;padding:0">
+                            <div style="min-height:37px;width:1px">&nbsp;</div>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                            <div style="min-height:1px;width:20px"></div>
+                          </td>
+                          <td align="center" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px;color:#515f66;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:21px">
+                            You can contact us with any questions by emailing <a href="mailto:sales@mandarinminds.com" style="border:0;margin:0;padding:0;color:#515f66;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none" target="_blank"><span style="border:0;margin:0;padding:0;color:#008cdd;text-decoration:none">sales@mandarinminds.com</span></a>
+                          </td>
+                          <td style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                            <div style="min-height:1px;width:20px"></div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" height="37" style="border:0;margin:0;padding:0">
+                            <div style="min-height:37px;width:1px">&nbsp;</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" align="center" height="1" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="200">
+                              <tbody>
+                                <tr>
+                                  <td bgcolor="edeff0" style="border:0;margin:0;padding:0;font-size:1px;line-height:1px">
+                                    <div style="min-height:1px;width:200px">&nbsp;</div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    
