@@ -3,7 +3,12 @@ class UsersController < ApplicationController
   #before_action :authenticate_user! 
 
   def promote_to_teacher
-    if params[:id] && params[:secret_key] = "secret"
+    unless user_signed_in? && current_user.role_id == 3
+      redirect_to teachers_path, notice: "Access Denied"
+      return
+    end
+
+    if params[:id] 
       promotee = User.find_by id: params[:id]
       promotee.update_attribute(:role_id, 2)
       Teacher.create(:user_id => promotee.id, :description => "", :show_on_page => false, :show_in_dropdown => false, :abbr => "")
@@ -23,6 +28,23 @@ class UsersController < ApplicationController
   end
 
   def demote_to_student
+    unless user_signed_in? && current_user.role_id == 3
+      redirect_to teachers_path, notice: "Access Denied"
+      return
+    end
+
+    if params[:teacher]
+      demotee = User.find_by id: params[:teacher]
+      teacher = Teacher.find_by user_id: params[:teacher]
+      teacher.destroy
+      if demotee
+        demotee.update_attribute(:role_id, 1)
+        redirect_to teachers_path, notice: "#{demotee.firstname} #{demotee.lastname} has been demoted to a student"
+        return
+      end
+    end
+
+    redirect_to teachers_path, notice: "An error occured. Teacher not found"
   end
 
   # GET /users

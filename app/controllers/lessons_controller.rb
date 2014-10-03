@@ -18,18 +18,13 @@ class LessonsController < ApplicationController
     else current_user.role_id == 1
 
       if params[:teacher]
-        
-        case params[:teacher]  
-          when "minnie"
-            teacher = User.find_by firstname: "Minnie", lastname: "Dong", role_id: 2
-          when "esther"
-            teacher = User.find_by firstname: "Esther", lastname: "Ma", role_id: 2
-          when "joan"
-            teacher = User.find_by firstname: "Joan", lastname: "Zhou", role_id: 2
-          else
-            teacher = nil
+        teacher_entry = Teacher.find_by abbr: params[:teacher]
+        if teacher_entry
+          teacher = User.find_by id: teacher_entry.user_id
+        else
+          teacher = nil
         end
-
+          
         if teacher
           @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
           @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)

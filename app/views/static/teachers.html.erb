@@ -4,11 +4,40 @@
 	<div class="container">
 <% end %>
 
+
+
 <div class="row">
 	<div class="packages jumbotron">
 				<h1>Meet the Mandarin Minds gang</h1>
 				<p class="lead">All of our staff are fluent in Mandarin and have a passion for teaching. Here's a quick snapshot of just what makes them tick.</p>
+	</div>
+	
+	<% teachers = Teacher.all.order(abbr: :asc) %>
+	<% if false # Teacher CMS%>
+	<% teachers_to_show = teachers.select { |t| t.show_on_page } %>
+
+	<% if teachers_to_show.size == 0 %>
+		<h2>It looks like all our teachers are a little shy at the moment. Check back later to read all about them</h2>
+	<% else %>
+
+		<% teachers_to_show.each do |t| %>
+			<% teacher = User.find_by id: t.user_id %>
+			<div class="teacher showcase row">
+				<div class="image-holder col-md-3">
+					<img class="img-circle" src="/images/bigfoot-circle.png"><%###### Update with teacher avatar %>
+				</div>
+				<div class="description col-md-9">
+					<h2 class="title"><%= "#{teacher.firstname} #{teacher.lastname}" %></h2>
+					<p class="lead"><%= t.description.html_safe %></p>
+					<% if t.show_in_dropdown && t.abbr.length > 0 && user_signed_in? %>
+					<a href="/lessons?teacher=<%= t.abbr %>">View My Lesson Calendar <i class="fa fa-arrow-right"></i></a>
+					<% end %>
+				</div>
 			</div>
+		<% end %>
+	<% end %>
+	<% end ##########%>
+
 	<div class="teacher showcase row">
 		<div class="image-holder col-md-3">
 			<%= image_tag "mmsample.jpg", class:"img-circle" %>
@@ -79,7 +108,6 @@
 			<form accept-charset="UTF-8" action="/users/promote_to_teacher" method="get">
 				<input name="utf8" type="hidden" value="&#x2713;" /></div>
 			  	<input id="id" name="id" type="hidden" value="<%= promotee.id %>" />
-			  	<input id="secret_key" name="secret_key" type="hidden" value="secret" />
 			  	<input name="commit" type="submit" value="Promote to Teacher"/>
 			</form>
 		<% end %>
@@ -97,15 +125,13 @@
 <% end %>
 
 <h2>Current Teachers</h2>
-
-<% teachers = Teacher.all %>
 <div class="row">
 	<div class="col-xs-2"><b>Name</b></div>
 	<div class="col-xs-2"><b>Abbreviated Name</b></div>
 	<div class="col-xs-2"><b>Display on Teachers Page</b></div>
 	<div class="col-xs-2"><b>Display in Lesson Dropdown</b></div>
 </div>
-<% teachers.each do |t| %>
+<% teachers.each do |t| #defined at top of page already%>
 	<% teacher = User.find_by id: t.user_id %>
 	<div class="row">
 	<div class="col-xs-2"><%= "#{teacher.firstname} #{teacher.lastname}" %></div>
@@ -115,60 +141,66 @@
 	<div class="col-xs-2"><a class="edit-link" data-id="<%=t.id%>">Edit</a></div>
 	</div>
 
-<div class="well" id="teacher-form-<%=t.id%>" style="display: none; width: 80%; height: auto">
-	<form accept-charset="UTF-8" action="/teachers/update" method="post" class="form-horizontal" role="form">
-	</br>
-		<input name="utf8" type="hidden" value="&#x2713;" />
-		<input id="teacher_id" name="id" type="hidden" value="<%= t.id %>" />
+	<div class="well" id="teacher-form-<%=t.id%>" style="display: none; width: 80%; height: auto; margin-top: 10px">
+		<form accept-charset="UTF-8" action="/teachers/update" method="post" class="form-horizontal" role="form"></br>
+			<input name="utf8" type="hidden" value="&#x2713;" />
+			<input id="teacher_id" name="id" type="hidden" value="<%= t.id %>" />
 
-	<div class="form-group">
-		<div class="col-sm-offset-1 col-sm-3">
-			<label>Appear on the Teachers Page?</label></br>
-		
-  			<label class="radio-inline">
-    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_true" value="true" checked="<%= t.show_on_page %>">
-				Yes  			
-			</label>
-		
-  			<label class="radio-inline">
-    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_false" value="false" checked="<%= !t.show_on_page %>">
-				No  			
-			</label>
-		</div>
-		
+			<div class="form-group">
+				<div class="col-sm-offset-1 col-sm-3">
+					<label>Appear on the Teachers Page?</label></br>
+				
+		  			<label class="radio-inline">
+		    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_true" value="true" 
+		    		<%= t.show_on_page ? 'checked="checked"' : "" %> >
+						Yes  			
+					</label>
+				
+		  			<label class="radio-inline">
+		    		<input type="radio" name="teacher[show_on_page]" id="teacher_display_false" value="false" 
+		    		<%= t.show_on_page ? "" : 'checked="checked"' %>>
+						No  			
+					</label>
+				</div>
+				
 
-		
-		<div class="col-sm-3">
-			<label>Appear in the Calendar Dropdown?</label></br>
-		
-  			<label class="radio-inline">
-    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_true" value="true" checked="<%= t.show_in_dropdown %>">
-				Yes  			
-			</label>
-		
-  			<label class="radio-inline">
-    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_false" value="false" checked="<%= !t.show_in_dropdown %>">
-				No  			
-			</label>
-		</div>
+				
+				<div class="col-sm-3">
+					<label>Appear in the Calendar Dropdown?</label></br>
+				
+		  			<label class="radio-inline">
+		    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_true" value="true" 
+		    		<%= t.show_in_dropdown ? 'checked="checked"' : "" %>>
+						Yes  			
+					</label>
+				
+		  			<label class="radio-inline">
+		    		<input type="radio" name="teacher[show_in_dropdown]" id="teacher_dropdown_false" value="false" <%= t.show_in_dropdown ? '' : 'checked="checked"' %>>
+						No  			
+					</label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+	    		<label for="teacher_abbr" class="col-sm-3 control-label">Abbreviated Name:</br><small>Should be one word only.</small></label>
+	    		
+	      		<input id="teacher_abbr" name="teacher[abbr]" type="text" class="form-control" value="<%= t.abbr %>" style="width: 30%">
+	    		
+	  		</div>
+
+
+	  		<div class="form-group">
+	  			<label for="teacher_description" class="col-sm-3 control-label">Biography:</br><small>Add one &lt;/br&gt; tag for a new line or two for a new paragraph.</small></label>
+	  				<textarea id="teacher_description" name="teacher[description]" rows="4" class="form-control" style="width: 65%"><%= t.description %></textarea>
+	  		</div>
+
+	  		<input name="commit" type="submit" value="Save" class="btn btn-primary" /> 
+	  		<a class="btn btn-primary cancel-btn">Cancel</a>
+
+	  		<span style="float: right"><i class="lockable" ><%= link_to 'Demote to Student', demote_to_student_path(:teacher => t.user_id), :class => "btn btn-primary", :disabled => "disabled" %></i>
+	      	<i class="fa fa-lock lock"></i></span>
+		</form>
 	</div>
-		
-		<div class="form-group">
-    		<label for="teacher_abbr" class="col-sm-3 control-label">Abbreviated Name:</br><small>Should be one word only.</small></label>
-    		
-      		<input id="teacher_abbr" name="teacher[abbr]" type="text" class="form-control" value="<%= t.abbr %>" style="width: 30%">
-    		
-  		</div>
-
-
-  		<div class="form-group">
-  			<label for="teacher_description" class="col-sm-3 control-label">Biography:</br><small>Add one &lt;/br&gt; tag for a new line or two for a new paragraph.</small></label>
-  				<textarea id="teacher_description" name="teacher[description]" rows="4" class="form-control" style="width: 65%"><%= t.description %></textarea>
-  		</div>
-
-  		<input name="commit" type="submit" value="Save" class="btn btn-primary" /> <a class="btn btn-primary cancel-btn">Cancel</a>
-	</form>
-</div>
 
 
 <% end %>
@@ -187,4 +219,47 @@
 	$(".edit-link").click(function(){
 		$('#teacher-form-' + $(this).attr("data-id")).toggle();
 	});
+
+$(".lock").click(function(){
+	var lock = $(this);
+	var button = lock.prev().children();
+	if (lock.hasClass("fa-lock")) {
+		lock.removeClass("fa-lock");
+		lock.addClass("fa-unlock-alt");
+		button.removeAttr('disabled');	
+	} else {
+		lock.removeClass("fa-unlock-alt");
+		lock.addClass("fa-lock");
+		button.attr('disabled','disabled');		
+	}
+});
+
+
+$('.lockable').hover(
+  function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+	    $( this ).next().removeClass("fa-lock");
+		$( this ).next().addClass("fa-unlock-alt");
+	}
+  }, function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+    	$( this ).next().removeClass("fa-unlock-alt");
+		$( this ).next().addClass("fa-lock");
+	}
+  }
+);
+
+$('.edit-comment-btn').click(function(){
+	var p = $(this).parent();
+	p.hide();
+	p.next().show();
+});
+
+$('.cancel-comment-edit-btn').click(function(){
+	var p = $(this).parent().parent();
+	p.hide();
+	p.prev().show();
+});
+
+
 </script>

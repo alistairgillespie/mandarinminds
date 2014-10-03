@@ -23,14 +23,19 @@
 	</span>
 </div>
 Current lessons to spend: <%= current_user.lesson_count %></br>
-<span id="calendar-select-teacher">Showing lessons taught by: 
+
+<% teachers = Teacher.where("show_in_dropdown = true").where("length(abbr) > 0").order(abbr: :asc) %>
+<% if teachers.size > 0 %>
+	<span id="calendar-select-teacher">Showing lessons taught by: 
 	<select id="calendar-select-teacher-dropdown">
-		<option value="all" <% if params[:teacher].nil? %> selected <% end %>>All Teachers</option>
-		<option value="esther" <% if params[:teacher] == "esther" %> selected <% end %>>Esther Ma</option>
-		<option value="joan" <% if params[:teacher] == "joan" %> selected <% end %>>Joan Zhou</option>
-		<option value="minnie" <% if params[:teacher] == "minnie" %> selected <% end %>>Minnie Dong</option>
+			<option value="all" <%= params[:teacher].nil? ? "selected" : "" %>>All Teachers</option>
+			<% teachers.each do |t| %>
+				<% teacher = User.find_by id: t.user_id %>
+				<option value="<%= t.abbr %>" <%= params[:teacher] ==  t.abbr ? "selected" : "" %>><%= "#{teacher.firstname} #{teacher.lastname}" %></option>
+			<% end %>
 	</select>
-</span>
+	</span>
+<% end %>
 
 <script type="text/javascript">
 $('#calendar-select-teacher-dropdown').change(function(){

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   get 'user_settings/toggle_config_morning_email' => 'user_settings#toggle_config_morning_email'
   resources :notifications
 
-  
+  get 'users/demote_to_student' => 'users#demote_to_student', as: 'demote_to_student'
   match 'users/promote_to_teacher' => 'users#promote_to_teacher', via: :get
   match '/teachers/update' => 'teachers#update', via: :post
 
