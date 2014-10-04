@@ -670,8 +670,8 @@ h2 {
 
 .landing.jumbotron {
 	margin-top: -50px;
-	background-image: url('/assets/samplebg.jpg');
-    background-position: center top;
+	background-image: url('/images/china-cityscape.jpg');
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
     border-bottom: 20px solid #2c3e50;
@@ -680,6 +680,7 @@ h2 {
     
     h1 {
 	    color: white;
+	    text-shadow: 2px 2px 4px #000;
 	    font-family: "clavo",sans-serif;
 		font-style: normal;
 		font-weight: 400;

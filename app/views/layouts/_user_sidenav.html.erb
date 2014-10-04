@@ -9,7 +9,7 @@
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Teachers"><a href="/teachers"><span class="sidenav-icons"><i class="fa fa-users"></i></span>Teachers</a></li>
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Calendar"><a href="/lessons"><span class="sidenav-icons"><i class="fa fa-calendar"></i></span>Lesson Calendar</a></li>
 		            <!--<li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Videos"><a href="#"><span class="sidenav-icons"><i class="fa fa-video-camera"></i></span>Videos</a></li>-->
-		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Plans"><a href="/plans"><span class="sidenav-icons"><i class="fa fa-credit-card"></i></span>Buy Lessons</a></li>
+		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Plans"><a href="/plans"><span class="sidenav-icons"><i class="fa fa-credit-card"></i></span>Packages</a></li>
 		            <li id="sidetips" data-toggle="tooltip" data-placement="right" data-animation="true" title="Settings"><a href="/users/edit"><span class="sidenav-icons"><i class="fa fa-cogs"></i></span>Settings</a></li>   
 		        <% unless @nextlesson.nil? %>
 					<% @timetolesson = Time.diff(@nextlesson.starts_at, Time.now.utc, "%H %N")%>

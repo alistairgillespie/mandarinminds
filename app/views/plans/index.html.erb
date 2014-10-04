@@ -87,12 +87,25 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 				  <% if user_signed_in? && current_user.settings.purchased_dudu %>
 				  <p> Visit your Dashboard to access your Dudu Package </p>
 				  <% else %>
-					<div class="plan col-md-offset-4 col-md-4">
+					
+				  
+				  <div class="row">
+				  		<p class="col-md-8 col-md-offset-2">Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online monthly plan. Subscribing to this package provides you with a wealth of features including:</p>
+					  <ul class="col-md-8 col-md-offset-2">
+						<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
+						<li><i class="fa fa-check"></i>Quality customer service for all Dudu products</li>
+						<li><i class="fa fa-check"></i>A quiz upon signing up to gauge your level and suggested material suited to you.</li>
+						<li><i class="fa fa-check"></i>Check out the Dudu brochure <a href="/images/brochure_dudu_ct.jpg">here</a></li>
+					  	</ul>
+					  	<p class="col-md-8 col-md-offset-2">Once subscribed you can access the Dudu resources from your Mandarin Minds dashboard.</p>
+				  </div>
+
+				  <div class="plan col-md-offset-4 col-md-4">
 					    <div class="plan-wrapper">
 					      <div class="name">&nbsp;<%= duduPlan.name %></div>
 					      <div class="details">
 					        <div class="price">
-					          <%= number_to_currency duduPlan.price, :precision => 0 %>
+					          <%= number_to_currency duduPlan.price, :precision => 0 %> / month
 					        </div>
 					      </div>
 					      <% if user_signed_in? %>
@@ -100,17 +113,6 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 					      <% end %>
 					    </div>
 				    </div>
-				  
-				  <div class="row">
-				  		<p class="col-md-8 col-md-offset-2">Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online plan. This one-off purchase provides you with a wealth of features including:</p>
-					  <ul class="col-md-8 col-md-offset-2">
-						<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
-						<li><i class="fa fa-check"></i>Quality customer service for all Dudu products</li>
-						<li><i class="fa fa-check"></i>Incredible feature three</li>
-						<li><i class="fa fa-check"></i>A link to the Dudu site and features should be included somewhere</li>
-					  	</ul>
-					  	<p class="col-md-8 col-md-offset-2">Once purchased you can access the wealth of Dudu resources from your Mandarin Minds dashboard.</p>
-				  </div>
 				  	
 
 				    <% end %>

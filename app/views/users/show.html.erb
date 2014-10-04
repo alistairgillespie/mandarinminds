@@ -2,7 +2,15 @@
 <% offset ||= 8 %>
 
 <div class="profile-pic row">
-	<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+	<div class="col-md-offset-2 col-md-3 col-xs-12">
+		<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+	</div>
+	<div class="col-md-5 col-xs-12">
+		<h1><%= "#{current_user.firstname} #{current_user.lastname}" %></h1>
+		<p class="lead">Welcome to your Dashboard</p>
+		<p class="lead">View your upcoming lessons for the week here or use the links in the left sidebar to navigate other sections of our site.</p>
+	</div>
+
 	<!--
 	<div class="progress">
 	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow=" <%= @count %>" aria-valuemin="0" aria-valuemax="" style="width: 80%">
@@ -38,10 +46,15 @@
 <% if current_user.settings.purchased_dudu %>
 
 <% safename = "#{current_user.firstname} #{current_user.lastname}".gsub(/[^0-9a-z ]/i, '') %>
-<% tsoid = Digest::SHA1.hexdigest "#{Time.now.utc.strftime('%Y-%m-%d %k')}id,fullname,grouplearnfast#{current_user.id},#{safename},MandarinMinds"%>
-<% link = "http://dudu.qoqolo.com/cos/o.x?c=/ca4_dd/user&attribs=id,fullname,group&values=#{current_user.id},#{safename},MandarinMinds&tsoid=#{tsoid}" %></br>
+<% tsoid = Digest::SHA1.hexdigest "#{Time.now.utc.strftime('%Y-%m-%d %H')}id,fullname,grouplearnfast#{current_user.id},#{safename},MandarinMinds"%>
+<% link = "http://dudu.qoqolo.com/cos/o.x?c=/ca4_dd/user&attribs=id,fullname,group&values=#{current_user.id},#{safename},MandarinMinds&tsoid=#{tsoid}" %>
 
-<p>You have purchased Dudu - access it <a href="<%= link %>">here</a></p>
+<div class="panel panel-default" style="width: 60%; margin-left: auto; margin-right: auto; display: table; margin-top: 10px">
+  <div class="panel-body" style="margin-left: auto; margin-right: auto; display: table">
+    <img src="/images/dudu-logo.png" height="50px" width="50px"> Access your Dudu textbook package <a href="<%= link %>">here</a>
+  </div>
+</div>
+
 <% end %>
 
 <div id="week-schedule">

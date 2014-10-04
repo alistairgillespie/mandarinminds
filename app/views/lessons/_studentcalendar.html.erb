@@ -12,16 +12,22 @@
 <i class="fa fa-book slot-booked"></i> - You have booked this slot</br></br>
 
 
-<div class="calendar-navigation" id="calendar-buttons">
-	<button class="btn btn-primary" id="previous-week-button" disabled="disabled"> << Previous Week </button> 
-	<button class="btn btn-primary" id="next-week-button"> Next Week >> </button></br>
-	<span id="calendar-pagination">
+<div class="calendar-navigation row" id="calendar-buttons" style="display: inline">
+	<div class="col-xs-offset-3 col-xs-3">
+		<button class="btn btn-primary" id="previous-week-button" disabled="disabled" style="margin-left: auto;margin-right: auto;display: block;"> << Previous Week </button>
+		</div>
+	<div class="col-xs-3">
+		<button class="btn btn-primary" id="next-week-button" style="margin-left: auto;margin-right: auto;display: block;"> Next Week >> </button>
+		</div>
+	</span></br>
+</div>
+	<div id="calendar-pagination" style="margin-left: auto; margin-right: auto">
 		<i id="circle1" class="fa fa-circle"></i>
 		<i id="circle2" class="fa fa-circle-o"></i>
 		<i id="circle3" class="fa fa-circle-o"></i>
 		<i id="circle4" class="fa fa-circle-o"></i>
-	</span>
-</div>
+	</div>
+
 Current lessons to spend: <%= current_user.lesson_count %></br>
 
 <% teachers = Teacher.where("show_in_dropdown = true").where("length(abbr) > 0").order(abbr: :asc) %>
