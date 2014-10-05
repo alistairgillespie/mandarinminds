@@ -37,7 +37,8 @@ def create
       redirect_to '/plans'  
       return
     end
-    
+
+    @user.update_attribute(:stripe_id, customer.id)
     @user.settings.update_attribute(:dudu_expiry_timestamp, subscription.current_period_end)
     @user.settings.update_attribute(:purchased_dudu, true)
     
@@ -52,7 +53,7 @@ def create
     @n = Notification.new(@notification_params)
     @n.save
 
-    redirect_to current_user, notice: "Purchase successful! Dudu expires on #{Time.at(subscription.current_period_end).strftime('%-d %B %Y')}"
+    redirect_to current_user, notice: "Purchase successful #{customer.id}! Dudu expires on #{Time.at(subscription.current_period_end).strftime('%-d %B %Y')}"
    
   else ### REGULAR LESSON PURCHASE
 

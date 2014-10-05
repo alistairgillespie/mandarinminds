@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  match '/edit_card',   to: 'users#edit_card',   via: 'get'
+  match '/update_card', to: 'users#update_card', via: 'post'
+
   get 'errors/file_not_found'
 
   get 'errors/unprocessable'
@@ -9,6 +12,9 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
+
+  # processing Stripe webhooks
+  resources :stripe_events, only: [:create]
 
   get 'dashboard', :controller => 'users', :action => 'dashboard'
 

@@ -2,6 +2,27 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate_user! 
 
+  def edit_card
+    @user = current_user
+  end
+
+  def update_card
+    @user = current_user
+    card_info = {
+      number:    "#{params[:number1]}#{params[:number2]}#{params[:number3]}#{params[:number4]}",
+      exp_month: params[:date][:month],
+      exp_year:  params[:date][:year],
+      cvc:       params[:cvc]
+    }
+    if @user.update_card(@user, card_info)
+      flash[:success] = 'Saved. Your card information has been updated.'
+      redirect_to "/dashboard"
+    else
+      flash[:warning] = 'Stripe reported an error while updating your card. Please try again.'
+      redirect_to "/users/edit"
+    end
+  end
+
   def promote_to_teacher
     unless user_signed_in? && current_user.role_id == 3
       redirect_to teachers_path, notice: "Access Denied"
