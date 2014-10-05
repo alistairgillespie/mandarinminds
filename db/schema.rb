@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001071050) do
+ActiveRecord::Schema.define(version: 20141004115527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20141001071050) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "view_large_plans"
+    t.integer  "dudu_expiry_timestamp"
   end
 
   create_table "users", force: true do |t|
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 20141001071050) do
     t.integer  "role_id"
     t.string   "skypeid"
     t.integer  "timezone_offset"
+    t.string   "stripe_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
