@@ -18,7 +18,7 @@ class StripeEventsController < ApplicationController
   def parse_and_validate_event
     @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
     Pusher.trigger("private-1",'notification', {"image" => "",
-              "message" => "New event",
+              "message" => "New event #{@event.inspect}",
               })
     
     unless @event.save

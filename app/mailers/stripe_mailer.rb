@@ -12,7 +12,7 @@ class StripeMailer < ActionMailer::Base
 
 	def admin_charge_succeeded(charge)
 	    @charge = charge
-	    mail(to: 'you@example.com', subject: 'Woo! Charge Succeeded!')
+	    mail(to: 'itsupport@mandarinminds.com', subject: 'AUTO: Woo! Charge Succeeded!')
 	end
 
   	#def receipt(charge)
