@@ -17,6 +17,12 @@ class StripeEventsController < ApplicationController
 
   def parse_and_validate_event
     @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
+    @scott = User.find_by :email 'scott.w.lyle@gmail.com'
+    if @scott
+      Pusher.trigger("private-#{@scott.id}",'notification', {"image" => "",
+              "message" => "New event #{@event}",
+              })
+    end
     unless @event.save
       if @event.valid?
         render nothing: true, status: 400 # valid event, try again later

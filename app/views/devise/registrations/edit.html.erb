@@ -102,35 +102,35 @@
 <%= form_tag( { controller: 'users', action: 'update_card' }, method: 'post', style: 'padding-top: 15px', class: 'edit-form col-xs-8 col-xs-offset-2') do %>
 <div class="wrapper">
   <h2>Update Your Credit Card </h2>
-  <div class='input-group row'>
-    <%= label_tag        :number, 'Card Number', class: 'col-sm-3 input-label' %>
-      <div class='col-sm-9'>
-      <%= text_field_tag :number1, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: auto' %>
-      <%= text_field_tag :number2, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: auto' %>
-      <%= text_field_tag :number3, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: auto' %>
-      <%= text_field_tag :number4, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: auto' %>
+  <div class='input-group row' style="width: 100%; padding-top: 15px">
+    <%= label_tag        :number, 'Card Number', class: 'col-xs-3 input-label' %>
+      <div class='col-xs-9'>
+      <%= text_field_tag :number1, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: 75px', placeholder: 'XXXX' %>
+      <%= text_field_tag :number2, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: 75px', placeholder: 'XXXX' %>
+      <%= text_field_tag :number3, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: 75px', placeholder: 'XXXX' %>
+      <%= text_field_tag :number4, nil, maxlength: "4", size: "4", class: 'form-control', style: 'width: 75px', placeholder: 'XXXX' %>
       </div>
   </div>
 
-  <div class='input-group row'>
+  <div class='input-group row' style="width: 100%; padding-top: 15px">
       <%= label_tag        :cvc, 'Security Code', class: 'col-xs-3 input-label' %>
       <div class='col-xs-9'>
-        <%= text_field_tag :cvc, nil, maxlength: "3", size: "3", class: 'form-control', style: 'width:auto' %>
+        <%= text_field_tag :cvc, nil, maxlength: "3", size: "3", class: 'form-control', style: 'width: auto' %>
       </div>
   </div>
 
-  <div class='input-group row'>
-    <%= label_tag        :exp_month, 'Expiration Date', class: 'col-sm-3 input-label' %>
+  <div class='input-group row' style="width: 100%; padding-top: 15px">
+    <%= label_tag        :exp_month, 'Expiration Date', class: 'col-xs-3 input-label' %>
     <div class='col-sm-9'>
       <%= select_month   nil, { add_month_numbers: true }, { id: 'exp_month', class: 'form-control btm-space', style: 'width: auto' } %>
     
       <%= select_year    nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { id: 'exp_year', class: 'form-control btm-space', style: 'width: auto'  } %>
     </div>
   </div>
-  <div class='input-group'>
-    <div class='col-sm-4 col-sm-offset-8'>
+  <div class='input-group' style='padding-top: 15px'>
+    
       <%= submit_tag 'Update', class: 'btn btn-primary' %>
-    </div>
+   
   </div>
 </div>
 <% end %>

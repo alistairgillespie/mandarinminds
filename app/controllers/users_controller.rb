@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def update_card
     @user = current_user
+    
     card_info = {
       number:    "#{params[:number1]}#{params[:number2]}#{params[:number3]}#{params[:number4]}",
       exp_month: params[:date][:month],
