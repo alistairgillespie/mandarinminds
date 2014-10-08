@@ -6,6 +6,8 @@ Pusher.secret = 'fa802c92494acc06181e'
 
 Rails.application.configure do
 
+  config.logger = Logger.new(STDOUT)
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

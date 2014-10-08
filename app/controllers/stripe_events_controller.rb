@@ -22,9 +22,9 @@ class StripeEventsController < ApplicationController
     puts "***LOG*** Starting parsing"
     @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
     puts "***LOG*** Event created"
-    Pusher.trigger("private-1",'notification', {"image" => "",
-              "message" => "New event #{@event.inspect}",
-              })
+    #Pusher.trigger("private-1",'notification', {"image" => "",
+    #          "message" => "New event #{@event.inspect}",
+    #          })
     puts "***LOG*** Pusher"
     unless @event.save
       if @event.valid?
@@ -35,14 +35,17 @@ class StripeEventsController < ApplicationController
         render nothing: true # invalid event, move along
       end
     end 
-    puts "***LOG*** Event saved!"
+    puts "***LOG*** End of parsing!"
   end
 
   def stripe_charge_dispute_created(event)
-    StripeMailer.admin_dispute_created(event).deliver
+
+    #StripeMailer.admin_dispute_created(event).deliver
+    puts "***LOG*** dispute created"
   end
 
-  def invoice_payment_succeeded(event)
+  def stripe_invoice_payment_succeeded(event)
+=begin
     StripeMailer.admin_charge_succeeded(event).deliver
     @charge = Charge.find_by(stripe_id: event.id)
     if @charge
@@ -63,7 +66,8 @@ class StripeEventsController < ApplicationController
         "message" => @notification_params[:content],
       })
     end 
-
+=end
+    puts "***LOG*** invoice payment succeeded"
   end
 
 
