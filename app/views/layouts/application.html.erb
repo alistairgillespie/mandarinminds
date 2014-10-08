@@ -44,7 +44,8 @@
             str = str + '<a href='+array["link"]+'>';
           }
 
-          str = str + '<div class="notify-img col-xs-2">'+array["image"]+'</div><div class="col-xs-10"><p style="padding-left: 3px">'+array["content"]+'</p><span style="font-size: 10px; color:black;position: absolute; right: -40px; bottom: -8px;">'+array["created_at"]+'</span></div>';
+          var date = new Date(array["created_at"]);
+          str = str + '<div class="notify-img col-xs-2">'+array["image"]+'</div><div class="col-xs-10"><p style="padding-left: 3px">'+array["content"]+'</p><span class="timeago" title="'+date.toISOString()+'" style="font-size: 10px; color: black; position: absolute; right: -40px; bottom: -8px;">'+date.getDate()+"/"+(date.getMonth() + 1)+"/"+date.getFullYear()+'</span></div>';
 
           if (array["link"])  {
             str = str + '</a>';
@@ -52,7 +53,8 @@
 
           $('#notification-dropdown').append(str + '</div></li>');            
         });
-        $('#notification-dropdown').append('<a class="see-all" href="/notifications">See All</a>');   
+        $('#notification-dropdown').append('<a class="see-all" href="/notifications">See All</a>'); 
+        jQuery("span.timeago").timeago();  
       }       
     });    
 
