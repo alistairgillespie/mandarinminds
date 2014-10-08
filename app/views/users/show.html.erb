@@ -43,7 +43,7 @@
 </div>
 <% end %>
 
-<% if current_user.settings.purchased_dudu && Time.now <= Time.at(current_user.settings.dudu_expiry_timestamp) %>
+<% if current_user.settings.dudu_expiry_timestamp && Time.now <= Time.at(current_user.settings.dudu_expiry_timestamp) %>
 
 <% safename = "#{current_user.firstname} #{current_user.lastname}".gsub(/[^0-9a-z ]/i, '') %>
 <% tsoid = Digest::SHA1.hexdigest "#{Time.now.utc.strftime('%Y-%m-%d %H')}id,fullname,grouplearnfast#{current_user.id},#{safename},MandarinMinds"%>
@@ -53,7 +53,14 @@
   <div class="panel-body row" style="margin-left: auto; margin-right: auto; display: table">
 
     <a href="<%= link %>"><img class="col-xs-2" src="/images/dudu-logo.png" height="50px" width="50px"></a> <span class="col-xs-10">Access your Dudu textbook package <a href="<%= link %>">here</a>. 
-    <%= "Your next payment will be made on #{Time.at(current_user.settings.dudu_expiry_timestamp).strftime('%-d %B %Y')}" %></span>
+    <% if current_user.settings.purchased_dudu %>
+    <%= "Your next payment will be made on #{Time.at(current_user.settings.dudu_expiry_timestamp).strftime('%-d %B %Y')}" %>
+<% else %>
+	<%= "You have cancelled your Dudu package but will have access until #{Time.at(current_user.settings.dudu_expiry_timestamp).strftime('%-d %B %Y')}" %>
+<% end %>
+</span>
+    <% else %>
+    <% end %>
   </div>
 </div>
 

@@ -64,8 +64,8 @@
 
 
 function notification_alert(msg) {
-  var str = msg.content;
-  if(str.length > 150) str = str.substring(0,150) + "...";
+  var str = msg["content"];
+  if(str && str.length > 150) str = str.substring(0,150) + "...";
   $('#notification-window').text(str);
   $('#notification-window').fadeIn();
   setTimeout(function() {
