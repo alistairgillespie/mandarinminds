@@ -5,6 +5,7 @@ class StripeEventsController < ApplicationController
   def create
     if self.class.private_method_defined? event_method
       self.send(event_method, @event.event_object)
+      render nothing: true, status: 200
     end
     render nothing: true
   end
@@ -17,6 +18,7 @@ class StripeEventsController < ApplicationController
 
   def parse_and_validate_event
     @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
+
     Pusher.trigger("private-1",'notification', {"image" => "",
               "message" => "New event #{@event.inspect}",
               })
