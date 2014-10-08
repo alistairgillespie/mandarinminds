@@ -30,13 +30,32 @@ class StripeEventsController < ApplicationController
     end 
   end
 
-  def stripe_charge_dispute_created(charge)
-    StripeMailer.admin_dispute_created(charge).deliver
+  def stripe_charge_dispute_created(event)
+    StripeMailer.admin_dispute_created(event).deliver
   end
 
-  def stripe_charge_succeeded(charge)
-    #StripeMailer.receipt(charge).deliver
-    StripeMailer.admin_charge_succeeded(charge).deliver
+  def invoice_payment_succeeded(event)
+    StripeMailer.admin_charge_succeeded(event).deliver
+    @charge = Charge.find_by(stripe_id: event.id)
+    if @charge
+      @user = User.find_by(id: @charge.user_id)
+      @subscription = Stripe::Customer.retrieve(@user.stripe_id).subscriptions.first
+      @user.settings.update_attribute(:dudu_expiry_timestamp, @subscription.current_period_end)
+      @notification_params = {
+                  :user_id => @user.id,
+                  :image => '<i class="fa fa-money"></i>',
+                  :content => "Your latest invoice payment has been paid successfully and your Dudu subscription has been extended to #{Time.at(@user.settings.dudu_expiry_timestamp).strftime('%-d %B %Y')}. Check your Charges Page to see more."
+                  :link => "/charges",
+                  :lesson_id => nil,
+                  :dismissed => false
+      }
+      @n = Notification.new(@notification_params)
+      @n.save
+      Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+        "message" => @notification_params[:content],
+      })
+    end 
+
   end
 
 
