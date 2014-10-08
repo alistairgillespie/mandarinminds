@@ -3,10 +3,12 @@ class StripeEventsController < ApplicationController
   before_action :parse_and_validate_event
 
   def create
+    puts "Starting  create"
     if self.class.private_method_defined? event_method
+      puts "method is defined"
       self.send(event_method, @event.event_object)
-      render nothing: true, status: 200
     end
+    puts "Method not defined or event handling finished"
     render nothing: true
   end
 
@@ -17,19 +19,23 @@ class StripeEventsController < ApplicationController
   end
 
   def parse_and_validate_event
+    puts "Starting parsing"
     @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
-
+    puts "Event created"
     Pusher.trigger("private-1",'notification', {"image" => "",
               "message" => "New event #{@event.inspect}",
               })
-    
+    puts "Pusher"
     unless @event.save
       if @event.valid?
+        puts "No save, valid"
         render nothing: true, status: 400 # valid event, try again later
       else
+        puts "No save, invalid"
         render nothing: true # invalid event, move along
       end
     end 
+    puts "Event saved!"
   end
 
   def stripe_charge_dispute_created(event)
