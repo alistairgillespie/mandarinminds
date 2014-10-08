@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
+  mount StripeEvent::Engine => '/stripe_events' # provide a custom path
+
   match '/edit_card',   to: 'users#edit_card',   via: 'get'
   match '/update_card', to: 'users#update_card', via: 'post'
+  match '/cancel_dudu', to: 'users#cancel_dudu', via: 'post'
 
   get 'errors/file_not_found'
 

@@ -26,10 +26,8 @@ def create
         :email => @user.email
       )
 
-      subscription = customer.subscriptions.create(:plan => "dudu")
+      subscription = customer.subscriptions.create(:plan => "dudu", :prorate => false)
       
-
-
      rescue Stripe::CardError => e
       @c.status = "Error"
       @c.save!
@@ -39,21 +37,21 @@ def create
     end
 
     @user.update_attribute(:stripe_id, customer.id)
-    @user.settings.update_attribute(:dudu_expiry_timestamp, subscription.current_period_end)
+    #dont show - invoice handler will deal with it @user.settings.update_attribute(:dudu_expiry_timestamp, subscription.current_period_end)
     @user.settings.update_attribute(:purchased_dudu, true)
     
     @notification_params = {
             :user_id => @user.id,
-            :image => '<i class="fa fa-plus"></i>',
-            :content => "Your Dudu purchase has been successful. You can now access your Dudu resources from the Dashboard.",
+            :image => '<i class="fa fa-money"></i>',
+            :content => "Your Dudu subscription has been successful. You will be notified when you payment has been processed (usually less than a minute) after which you can access the package from your Dashboard.",
             :lesson_id => nil,
             :dismissed => false,
-            :link => nil
+            :link => '/dashboard'
             }
     @n = Notification.new(@notification_params)
     @n.save
 
-    redirect_to current_user, notice: "Purchase successful #{customer.id}! Dudu expires on #{Time.at(subscription.current_period_end).strftime('%-d %B %Y')}"
+    redirect_to current_user, notice: "Your subscription to Dudu has been successful. You will be notified (usually in less than a minute) when your payment has been approved."
    
   else ### REGULAR LESSON PURCHASE
 
@@ -65,12 +63,7 @@ def create
               :status => "Pending"
               }
       @c = Charge.new(@charge_params)
-      @c.save!
-
-      #customer = Stripe::Customer.create(
-      #  :email => @user.email,
-      #  :card  => params[:stripeToken]
-      #)
+      @c.save
 
       charge = Stripe::Charge.create(
         #:customer    => customer.id,
@@ -110,12 +103,9 @@ def create
     @c.status = "Completed"
     @c.save!
 
-    redirect_to current_user, notice: "Purchase successful!"
+    redirect_to current_user
   end
-
-  ######Send email invoice to user  
-
-  
+ 
   end
 end
 

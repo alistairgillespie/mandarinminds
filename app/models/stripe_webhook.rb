@@ -1,44 +1,20 @@
-class StripeEventsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :parse_and_validate_event
+class StripeWebhook < ActiveRecord::Base
+	validates_uniqueness_of :stripe_id
 
-  def create
-    puts "***LOG*** Starting  create"
-    if self.class.private_method_defined? event_method
-      puts "***LOG*** method is defined"
-      self.send(event_method, @event.event_object)
-    end
-    puts "***LOG*** Method not defined or event handling finished"
-    render nothing: true
-  end
+  	def event_object
+  		begin
+  		puts "***LOG*** Looking up event"
+	    event = Stripe::Event.retrieve(stripe_id)
+	    puts "***LOG*** sending out event object"
+	    return event.data.object
 
-  private
+		rescue Stripe::InvalidRequestError => e
+			puts "Error: #{e.message}"
+			return nil
+		end
+	end 
 
-  def event_method
-    "stripe_#{@event.stripe_type.gsub('.', '_')}".to_sym
-  end
-
-  def parse_and_validate_event
-    puts "***LOG*** Starting parsing"
-    @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
-    puts "***LOG*** Event created"
-    #Pusher.trigger("private-1",'notification', {"image" => "",
-    #          "message" => "New event #{@event.inspect}",
-    #          })
-    puts "***LOG*** Pusher"
-    unless @event.save
-      if @event.valid?
-        puts "***LOG*** No save, valid"
-        render nothing: true, status: 400 # valid event, try again later
-      else
-        puts "***LOG*** No save, invalid"
-        render nothing: true # invalid event, move along
-      end
-    end 
-    puts "***LOG*** End of parsing!"
-  end
-
-  def stripe_charge_dispute_created(event)
+	def stripe_charge_dispute_created(event)
 
     #StripeMailer.admin_dispute_created(event).deliver
     puts "***LOG*** dispute created"
@@ -70,6 +46,9 @@ class StripeEventsController < ApplicationController
     puts "***LOG*** invoice payment succeeded"
   end
 
+  def stripe_customer_subscription_deleted(event)
+  	
+  end
 
-
+	
 end

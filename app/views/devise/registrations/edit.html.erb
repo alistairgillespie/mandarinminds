@@ -43,7 +43,7 @@
   </div>
 <% end %>
 
-<div class="edit-form col-md-6 col-md-offset-3">
+<div class="edit-form col-md-8 col-md-offset-2">
   <div class="wrapper">
     <h2>Edit your profile</h2>
     <p>Please enter your current password at the bottom of the form to confirm any changes you've made to your profile.</p>
@@ -102,6 +102,7 @@
 <%= form_tag( { controller: 'users', action: 'update_card' }, method: 'post', style: 'padding-top: 15px', class: 'edit-form col-xs-8 col-xs-offset-2') do %>
 <div class="wrapper">
   <h2>Update Your Credit Card </h2>
+  <p>If change the card you wish subscription payments to be made from, or your current card has expired, update your details here. Failure to do can result in your subscriptions being cancelled due to payments not being made.</p>
   <div class='input-group row' style="width: 100%; padding-top: 15px">
     <%= label_tag        :number, 'Card Number', class: 'col-xs-3 input-label' %>
       <div class='col-xs-9'>
@@ -135,6 +136,68 @@
 </div>
 <% end %>
 <% end %>
+
+<% if current_user.settings.purchased_dudu %>
+<%= form_tag( { controller: 'users', action: 'cancel_dudu' }, method: 'post', style: 'padding-top: 15px', class: 'edit-form col-xs-8 col-xs-offset-2') do %>
+<div class="wrapper">
+  <h2>Cancel Your Dudu Subscription </h2>
+  <p>If you wish to cancel your monthly Dudu scubscription you may do so by clicking the cancel button below - click the lock first to enable the button and confirm your choice. After cancelling you'll be able to access the Dudu system for the rest of your billing period (<%= Time.at(current_user.settings.dudu_expiry_timestamp).strftime('%-d %B %Y') %>)</p>
+  <div class='input-group row' style="display: none">
+    <%= hidden_field_tag 'stripe_id', current_user.stripe_id  %>
+  </div>
+
+  <div class='input-group' style='padding-top: 15px'> 
+    <i class="lockable"><%= submit_tag 'Cancel Subscription', class: 'btn btn-primary', :disabled => "disabled" %></i>
+    <i class="fa fa-lock lock"></i>
+  </div>
+</div>
+<% end %>
+<% end %>
+
+<script type="text/javascript">
+$(".lock").click(function(){
+  var lock = $(this);
+  var button = lock.prev().children();
+  if (lock.hasClass("fa-lock")) {
+    lock.removeClass("fa-lock");
+    lock.addClass("fa-unlock-alt");
+    button.removeAttr('disabled');  
+  } else {
+    lock.removeClass("fa-unlock-alt");
+    lock.addClass("fa-lock");
+    button.attr('disabled','disabled');   
+  }
+});
+
+
+$('.lockable').hover(
+  function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+      $( this ).next().removeClass("fa-lock");
+    $( this ).next().addClass("fa-unlock-alt");
+  }
+  }, function() {
+    if ($(this).children().attr("disabled") == "disabled") {
+      $( this ).next().removeClass("fa-unlock-alt");
+    $( this ).next().addClass("fa-lock");
+  }
+  }
+);
+
+$('.edit-comment-btn').click(function(){
+  var p = $(this).parent();
+  p.hide();
+  p.next().show();
+});
+
+$('.cancel-comment-edit-btn').click(function(){
+  var p = $(this).parent().parent();
+  p.hide();
+  p.prev().show();
+});
+
+
+</script>
 
 
 

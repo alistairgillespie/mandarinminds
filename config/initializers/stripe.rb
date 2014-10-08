@@ -7,6 +7,11 @@ Rails.configuration.stripe = {
   #:secret_key      => 'sk_live_3Q6TbtTYVgvwmXhoWQlNCQvd',
 }
 
-
-
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
+
+StripeEvent.configure do |events|
+	events.subscribe 'customer.subscription.deleted', CustomerSubscriptionDeleted.new
+	events.subscribe 'invoice.payment_succeeded', InvoicePaymentSucceeded.new	
+end
+  
+

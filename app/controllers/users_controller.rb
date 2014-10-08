@@ -24,6 +24,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def cancel_dudu
+    if params[:stripe_id]
+      begin
+
+        user = User.find_by stripe_id: params[:stripe_id]
+        if user
+          user.settings.update_attribute(:purchased_dudu, false)
+        end
+
+        sub = Stripe::Customer.retrieve(params[:stripe_id]).subscriptions.first
+        if sub
+          sub.delete
+          redirect_to "/dashboard", notice: "Your request to cancel your subscription has been submitted. You will be notified when it has been processed successfully."
+        else
+          redirect_to "/dashboard", notice: "You don't have a subscription to cancel."
+        end
+
+      rescue Stripe::InvalidRequestError => e
+        redirect_to "/dashboard", notice: "#{e.message}"
+      end
+    else
+      redirect_to "/dashboard", notice: "An error occured"
+    end
+  end
+
   def promote_to_teacher
     unless user_signed_in? && current_user.role_id == 3
       redirect_to teachers_path, notice: "Access Denied"
@@ -196,7 +221,7 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       #params[:user]
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation, :stripe_id)
 
     end
 end
