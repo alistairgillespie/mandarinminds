@@ -3,7 +3,12 @@
 
 <div class="profile-pic row">
 	<div class="col-md-offset-2 col-md-3 col-xs-12">
-		<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+		<% if current_user.avatar.nil? %>
+				<%= image_tag current_user.gravatar_url(:size => 175), :class => 'img-circle' %>
+		<% else %>
+				<img class="img-circle" size="175" src="<%= current_user.avatar %>">
+		<% end %>
+		
 	</div>
 	<div class="col-md-5 col-xs-12">
 		<h1><%= "#{current_user.firstname} #{current_user.lastname}" %></h1>

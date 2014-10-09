@@ -52,7 +52,9 @@ def create
     @n.save
 
     redirect_to current_user, notice: "Your subscription to Dudu has been successful. You will be notified (usually in less than a minute) when your payment has been approved."
-   
+    Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
+            "message" => @notification_params[:content],
+            })
   else ### REGULAR LESSON PURCHASE
 
     begin

@@ -13,7 +13,7 @@
 	</div>
 	
 	<% teachers = Teacher.all.order(abbr: :asc) %>
-	<% if false # Teacher CMS%>
+
 	<% teachers_to_show = teachers.select { |t| t.show_on_page } %>
 
 	<% if teachers_to_show.size == 0 %>
@@ -24,7 +24,11 @@
 			<% teacher = User.find_by id: t.user_id %>
 			<div class="teacher showcase row">
 				<div class="image-holder col-md-3">
-					<img class="img-circle" src="/images/bigfoot-circle.png"><%###### Update with teacher avatar %>
+					<% if teacher.avatar.nil? %>
+					<img class="img-circle" src="/images/bigfoot-circle.png">
+					<% else %>
+					<img class="img-circle" src="<%= teacher.avatar %>">
+					<% end %>
 				</div>
 				<div class="description col-md-9">
 					<h2 class="title"><%= "#{teacher.firstname} #{teacher.lastname}" %></h2>
@@ -36,8 +40,8 @@
 			</div>
 		<% end %>
 	<% end %>
-	<% end ##########%>
 
+	<% if false ###Old static teacher showcase %>
 	<div class="teacher showcase row">
 		<div class="image-holder col-md-3">
 			<%= image_tag "mmsample.jpg", class:"img-circle" %>
@@ -79,6 +83,7 @@
 			</p>
 		</div>
 	</div>
+	<% end ############# %>
 </div>
 
 <% if user_signed_in? && current_user.role_id > 2 %>
