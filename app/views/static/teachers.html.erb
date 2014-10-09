@@ -87,7 +87,7 @@
 </div>
 
 <% if user_signed_in? && current_user.role_id > 2 %>
-<hr></br>
+<hr>
 <h2>Add New Teachers</h2>
 	<% if params[:confirm] #Email entered and person found in database. Confirm you wish to promote%>
 
@@ -129,7 +129,7 @@
 	</form>
 
 <% end %>
-
+<hr>
 <h2>Current Teachers</h2>
 <div class="row">
 	<div class="col-xs-2"><b>Name</b></div>

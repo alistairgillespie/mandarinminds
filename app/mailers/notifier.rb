@@ -19,4 +19,13 @@ class Notifier < ActionMailer::Base
   	@date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
     mail(to: user.email, subject: "Lesson Alert for #{@date}")
   end
+
+  def contact_form(name, email, body)
+    puts "reached the notifier method"
+    @name = name
+    @email = email
+    @body = body
+    mail(to: itsupport@mandarinminds.com, subject: 'Contact Form Message From "#{name}"')
+    puts "mailed"
+  end
 end

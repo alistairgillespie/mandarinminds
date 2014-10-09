@@ -7,7 +7,7 @@
 
 <div class="row">
 
-	<div class="welcome jumbotron">
+	<div class="welcome jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
 			<%= image_tag "mmsample.jpg", class:"img-circle" %> 
 	        <h2>Take live classes with our teachers in China</h2>
 	        <p class="lead">Join the few Australians studying Mandarin today and lead Australia into the Asian Century.</p>
@@ -18,7 +18,7 @@
 			<% end %>
 	</div>
 
-	<div class="features jumbotron">
+	<div class="features jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
 		<div class="row service">
 			<div class="col-md-5 icon">
 	        	<%= image_tag "teachers.png", class:"action" %>
@@ -26,7 +26,7 @@
 			
 			<div class="col-md-7 descriptor flexibility">
 				<h3 class="title">Certified teachers</h3>
-				<p class="lead">Learn from <b>top teachers</b> who are passionate about teaching. Schedule classes 6 days a week.</p>
+				<p class="lead">Learn from <b>passionate teachers</b> who are passionate about teaching. Schedule classes 6 days a week.</p>
 	        <% if user_signed_in? %>
 			<% else %>
 				<p class="arrow-link"><a data-toggle="modal" data-target="#signup">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
@@ -43,7 +43,7 @@
 				<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request.</p>
 				<% if user_signed_in? %>
 				<% else %>
-					<p class="arrow-link"><a href="/what-we-offer" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+					<p class="arrow-link"><a href="/features" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
 				<% end %>
 			</div>
 		</div>
@@ -68,6 +68,41 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="asian-century-points jumbotron">
+	<a style="padding-top: 100px;" name="why"></a>
+  <div class="container">
+    <div class="col-md-4 point">
+    <div class="icon">
+    	<%= image_tag "plane.png", class:"action" %>
+	</div>
+    <h3 class="title">Be different</h3>
+    <quote>"One language sets you in a corridor for life. Two languages open every door along the way.”</quote>
+    <span>Frank Smith</span>
+    <p style="text-align: center;">In today's globalised world an additional language increases career opportunities around the world. At Mandarin Minds we assist our members in anyway possible to succeed in their Mandarin endeavors. China's emergence as an economic superpower and her close ties with Australia will put yourself or your child in good stead for decades to come.</p>
+    </div>
+    <div class="col-md-4 point">
+    <div class="icon">
+    	<%= image_tag "recognition.png", class:"action" %>
+	</div>
+    <h3 class="title">Earn recognition</h3>
+    <quote>“Knowledge of languages is the doorway to wisdom.”</quote>
+    <span>Roger Bacon</span>
+    <p style="text-align: center;">The HSK tests are the only globally recognised test used to gauge a student's proficiency in Mandarin. Our teaching methods allow our members to effectively prepare and complete an HSK test specific to their level.</p>
+    </div>
+    <div class="col-md-4 point">
+    <div class="icon">
+    	<%= image_tag "culture.png", class:"action" %>
+	</div>
+    <h3 class="title">Embrace a new culture</h3>
+    <quote>"Language is the road map of a culture. It tells you where its people come from and where they are going.”</quote>
+    <span>Rita Mae Brown</span>
+    <p style="text-align: center;">We do not want our members to just learn Mandarin but also to engage in the rich history of the Chinese culture. It is one thing to be able to speak the language but understanding the culture and traditions can be the foundation for friendships and business relationships.</p>
+    </div>
+		
+
+  </div>
+ </div>
 
   </div>
 </div>

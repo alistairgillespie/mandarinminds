@@ -29,38 +29,12 @@
 		<% end %>
 
 		<div id="plans" class="">
-			<div class="row">
-			<% if user_signed_in? %>
-			<% else %>
-			<div class="col-md-4 steps">
 			
-			<div class="icon">
-			<%= image_tag "teachers.png", class:"action" %>
-			</div>
-			<h1>1</h1>
-			<p>Take a free trial with one of our passionate Chinese teachers. Why not, it’s free? Choose from one of our packages?</p></div>
-			<div class="col-md-4 steps">
-			
-			<div class="icon">
-			<%= image_tag "laptop.png", class:"action" %>
-			</div>
-			<h1>2</h1>
-			<p>Take a short quiz so we can assess your Mandarin level. It’s best we get this right now so we don’t waste your time!</p></div>
-			<div class="col-md-4 steps">
-			
-			<div class="icon">
-			<%= image_tag "plane.png", class:"action" %>
-			</div>
-			<h1>3</h1>
-			<p>You may not be aware but your journey has already begun so go ahead, it’s time to start your learning adventure
-Practice and retain what you have learned through periodic quizzes. Monitor your improvement with continued teacher feedback.</p></div>
-			</div>
-			<% end %>
 		<div class="row">
-		<h1>Pricing</h1>
+		<h1>Live Lesson Packages</h1>
 		<% duduPlan = nil %>
 		  <% @plans.each do |plan| %>
-		  <% if plan.name == "Dudu Package" %>
+		  <% if plan.name == "eBooks Package Subscription" %>
 		  <% duduPlan = plan %>
 		  <% else %>
 		  	<% if plan.lessons <= 50 || (user_signed_in? && current_user.settings.view_large_plans) %>
@@ -82,22 +56,55 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 		  <% end %>
 		  </div>
 
+		  <!--<div style="text-align: center; margin-bottom: 30px; margin-top: 30px; padding-bottom: 20px; border: 1px #DDD solid; border-radius: 10px">
+		  	<h2>School and Corporate Packages</h2>
+		  	<p class="lead">Here at Mandarin Minds we offer a discounted price for those purchasing a large volume of lessons for their school or company.</p>
+		  	<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactform">Sales Enquiries</a>
+		  	<div class="modal fade" id="contactform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Contact Form</h4>
+			      </div>
+			      <div class="modal-body">
+			        <%= form_tag({controller: 'static', action: 'contact_form'}, method: 'post') do %>
+			          <div class="form-group">
+						  <%= text_field_tag :name, nil, :class => "form-control", placeholder: "Name" %>
+					  </div>
+					  <div class="form-group">
+						  <%= text_field_tag :email, nil, :class => "form-control", placeholder: "Email" %>
+					  </div>
+					  <div class="form-group">
+						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", placeholder: "Your Message" %>
+					  </div>
+					  <div class="form-group">
+						  <%= submit_tag 'Submit', :class => "btn btn-primary btn-lg" %>
+					  </div>
+					<% end %>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		  </div>-->
 
-		 <% if true %> <%# Not Showing Dudu yet %>
+
+		 
+		 	<% unless duduPlan.nil? %>
 				  <% if user_signed_in? && current_user.settings.purchased_dudu %>
-				  <p> Visit your Dashboard to access your Dudu Package </p>
+				  <p> Visit your Dashboard to access your eBooks Package </p>
 				  <% else %>
 					
 				  
-				  <div class="row">
-				  		<p class="col-md-8 col-md-offset-2">Here at Mandarin Minds we've teamed up with linguistics textbook provider DuDu to offer a discount on their online monthly plan. Subscribing to this package provides you with a wealth of features including:</p>
-					  <ul class="col-md-8 col-md-offset-2">
-						<li><i class="fa fa-check"></i>A range of eBooks to further your education in Mandarin</li>
-						<li><i class="fa fa-check"></i>Quality customer service for all Dudu products</li>
-						<li><i class="fa fa-check"></i>A quiz upon signing up to gauge your level and suggested material suited to you.</li>
-						<li><i class="fa fa-check"></i>Check out the Dudu brochure <a href="/images/brochure_dudu_ct.jpg">here</a></li>
+				  <div class="features jumbotron">
+				  		<h3 class="col-md-10 col-md-offset-1 lead">Research has shown that learning a second language improves cognitive abilities. More studies have determined that the best time to pick up a second language is during early childhood.</br></br> At Mandarin Minds, we greatly encourage younger children to start their Mandarin journey using our interactive online eBooks! </br></br>While these may be designed to attract and entertain children, it will also greatly benefit any Mandarin newbie!</h3>
+					  <ul class="col-md-10 col-md-offset-1">
+						<li><i class="fa fa-check"></i>A placement test will help you find the most suitable material to read.</li>
+						<li><i class="fa fa-check"></i>A range of eBooks for all levels to further your education in Mandarin</li>
+						<li><i class="fa fa-check"></i>Our interactive games and quizzes offer an exciting way of learning.</li>
+						<li><i class="fa fa-check"></i>Check out our brochure <a href="/images/brochure_dudu_ct.png">here</a></li>
 					  	</ul>
-					  	<p class="col-md-8 col-md-offset-2">Once subscribed you can access the Dudu resources from your Mandarin Minds dashboard.</p>
+					  	<h3 class="col-md-10 col-md-offset-1">Once subscribed you can access the resources from your Mandarin Minds dashboard.</h3>
 				  </div>
 
 				  <div class="plan col-md-offset-4 col-md-4">
@@ -117,6 +124,7 @@ Practice and retain what you have learned through periodic quizzes. Monitor your
 
 				    <% end %>
 		<% end %>
+		
 		    
 
 		    

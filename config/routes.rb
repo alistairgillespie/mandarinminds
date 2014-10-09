@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   match '/update_card', to: 'users#update_card', via: 'post'
   match '/cancel_dudu', to: 'users#cancel_dudu', via: 'post'
 
+  match '/contact_form', to: 'static#contact_form', via: 'post'
+
   get 'errors/file_not_found'
 
   get 'errors/unprocessable'
@@ -77,7 +79,7 @@ Rails.application.routes.draw do
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
-  get "/what-we-offer" => "static#what-we-offer"
+  get "/features" => "static#features"
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers", as: 'teachers'
