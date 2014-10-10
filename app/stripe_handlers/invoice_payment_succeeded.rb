@@ -17,7 +17,8 @@ class InvoicePaymentSucceeded
 		            :user_id => @user.id,
 		            :description => "Dudu Monthly Subscription",
 		            :amount => event.data.object.lines.data.first.plan.amount, #amount in cents
-		            :status => "Completed"
+		            :status => "Completed",
+		            :stripe_id => event.data.object.id
 		        }
 		        @c = Charge.new(@charge_params)
 		        @c.save
