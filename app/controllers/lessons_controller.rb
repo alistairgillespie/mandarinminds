@@ -15,8 +15,7 @@ class LessonsController < ApplicationController
 
     if current_user.role_id == 2
       @lessons = Lesson.all.where("teacher_id = ?", current_user.id).order(starts_at: :asc)
-    else current_user.role_id == 1
-
+    else #Not a teacher
       if params[:teacher]
         teacher_entry = Teacher.find_by abbr: params[:teacher]
         if teacher_entry
@@ -96,7 +95,7 @@ class LessonsController < ApplicationController
     end
 
     date_string = start_time.strftime("#{start_time.day.ordinalize} %b %Y")
-    redirect_to lessons_path, notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
+    redirect_to lessons_path, notice: "Attempted to make lesson slots from hour #{params[:start][:hour]} to hour #{params[:end][:hour]} for the #{params[:repeat]} day(s) starting on #{params[:start][:day]}/#{params[:start][:month]}/#{params[:start][:year]}. #{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
   end
 
   # GET /lessons/1

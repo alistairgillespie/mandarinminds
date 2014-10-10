@@ -31,7 +31,7 @@ Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% 
       
         <% @plannedlesson = nil %>
         <% @lessons.each do |lesson| %>
-          <% if lesson.starts_at + timezone_offset.hours == @time && lesson.teacher == current_user%>
+          <% if lesson.starts_at + timezone_offset.hours == @time %>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
@@ -107,7 +107,6 @@ To:
 <%= submit_tag("Add Lessons") %>
 <% end %></div>
 
-
-
-
-
+<% @lessons.each do |l| %>
+<smaller style="font-size: 10px"><%= l.inspect %></smaller></br>
+<% end %>
