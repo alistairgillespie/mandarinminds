@@ -5,9 +5,7 @@ class Lesson < ActiveRecord::Base
 	belongs_to :teacher, :class_name => 'User', inverse_of: :lessons_to_teach
 	has_many :notifications
 
-	validates_uniqueness_of :teacher_id, :scope => [:starts_at]
-	validates_uniqueness_of :student_id, :scope => [:starts_at]
-
+	
 	def self.lessonalert
   		User.where("role_id = 1").each do |u|
   			if u.settings.receive_morning_emails
