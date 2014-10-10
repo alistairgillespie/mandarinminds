@@ -14,7 +14,13 @@ class LessonsController < ApplicationController
     end
 
     if current_user.role_id == 2
-      @lessons = Lesson.all.where("teacher_id = ?", current_user.id).order(starts_at: :asc)
+      first_day = params[:start_date]
+      offset = current_user.timezone_offset
+      offset ||= 8
+      first_day ||= (Time.now.utc + offset.hours).strftime('%Y-%m-%d')
+      first_day = Time.parse(first_day + ' 00:00:00')
+
+      @lessons = Lesson.all.where("teacher_id = ?", current_user.id).where("starts_at > ? AND starts_at < ?", first_day - offset.hours - 1.hour, first_day - offset.hours + 8.days + 1.hour).order(starts_at: :asc)
     else #Not a teacher
       if params[:teacher]
         teacher_entry = Teacher.find_by abbr: params[:teacher]
@@ -95,7 +101,7 @@ class LessonsController < ApplicationController
     end
 
     date_string = start_time.strftime("#{start_time.day.ordinalize} %b %Y")
-    redirect_to lessons_path, notice: "Attempted to make lesson slots from hour #{params[:start][:hour]} to hour #{params[:end][:hour]} for the #{params[:repeat]} day(s) starting on #{params[:start][:day]}/#{params[:start][:month]}/#{params[:start][:year]}. #{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
+    redirect_to lessons_path, notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
   end
 
   # GET /lessons/1
@@ -120,49 +126,56 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    offset = current_user.timezone_offset
-    offset ||= 8
+    
+      offset = current_user.timezone_offset
+      offset ||= 8
 
-    @lesson = Lesson.new(lesson_params)
-    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+      @lesson = Lesson.new(lesson_params)
+      @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
-    if @lesson.starts_at < Time.now 
-      redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
-      return
-    end
-
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      if @lesson.starts_at < Time.now 
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        return
       end
-    end
+
+      respond_to do |format|
+        if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
+          @lesson.save
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
+          format.json { render :show, status: :created, location: @lesson }
+        else
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        end
+      end
+
+
   end
 
   def createlessonslot
     offset = current_user.timezone_offset
-    offset ||= 8
+      offset ||= 8
 
-    @lesson = Lesson.new(lesson_params)
-    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+      @lesson = Lesson.new(lesson_params)
+      @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
-    if @lesson.starts_at < Time.now 
+      if @lesson.starts_at < Time.now 
         redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
-    end
-
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to (lessons_path), notice: 'Your lesson slot has been successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a slot at #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
-    end
+
+      respond_to do |format|
+        if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
+          @lesson.save
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
+          format.json { render :show, status: :created, location: @lesson }
+        else
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        end
+      end
+
+
   end
 
   # PATCH/PUT /lessons/1

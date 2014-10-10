@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010110048) do
+ActiveRecord::Schema.define(version: 20141010111906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20141010110048) do
     t.text     "comment"
   end
 
-  add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", using: :btree
-  add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", using: :btree
+  add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", unique: true, using: :btree
+  add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", unique: true, using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"
