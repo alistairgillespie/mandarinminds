@@ -56,7 +56,7 @@
 		  <% end %>
 		  </div>
 
-		  <!--<div style="text-align: center; margin-bottom: 30px; margin-top: 30px; padding-bottom: 20px; border: 1px #DDD solid; border-radius: 10px">
+		  <div style="text-align: center; margin-bottom: 30px; margin-top: 30px; padding-bottom: 20px; border: 1px #DDD solid; border-radius: 10px">
 		  	<h2>School and Corporate Packages</h2>
 		  	<p class="lead">Here at Mandarin Minds we offer a discounted price for those purchasing a large volume of lessons for their school or company.</p>
 		  	<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactform">Sales Enquiries</a>
@@ -66,27 +66,64 @@
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			        <h4 class="modal-title" id="myModalLabel">Contact Form</h4>
+			        <p>All fields are required</p>
 			      </div>
 			      <div class="modal-body">
 			        <%= form_tag({controller: 'static', action: 'contact_form'}, method: 'post') do %>
 			          <div class="form-group">
-						  <%= text_field_tag :name, nil, :class => "form-control", placeholder: "Name" %>
+						  <%= text_field_tag :name, nil, :class => "form-control", :id => "contact-name", placeholder: "Name" %>
 					  </div>
 					  <div class="form-group">
-						  <%= text_field_tag :email, nil, :class => "form-control", placeholder: "Email" %>
+						  <%= text_field_tag :email, nil, :class => "form-control", :id => "contact-email", placeholder: "Email" %>
 					  </div>
 					  <div class="form-group">
-						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", placeholder: "Your Message" %>
+						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", :id => "contact-body", placeholder: "Your Message" %>
 					  </div>
 					  <div class="form-group">
-						  <%= submit_tag 'Submit', :class => "btn btn-primary btn-lg" %>
+						  <%= submit_tag 'Submit', :class => "btn btn-primary btn-lg", :id => "contact-form-submit-button" %>
+						  <a id="contact-form-sending-button" class="btn btn-primary btn-lg" disabled="disabled" style="display: none">Sending...</a>
 					  </div>
+
 					<% end %>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		  </div>-->
+
+			<script type="text/javascript">
+				$('#contact-form-submit-button').click(function(){
+					var submit = true;
+
+					if ($.trim($("#contact-name").val()) === "") {
+				        $("#contact-name").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-name").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-email").val()) === "") {
+				        $("#contact-email").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-email").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-body").val()) === "") {
+				        $("#contact-body").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-body").removeAttr("style");
+				    }
+
+				    if (submit){
+						$('#contact-form-submit-button').hide();
+						$('#contact-form-sending-button').show();
+					} else {
+						return false;
+					}
+				});
+			</script>
+		  </div>
 
 
 		 
@@ -97,7 +134,7 @@
 					
 				  
 				  <div class="features jumbotron">
-				  		<h3 class="col-md-10 col-md-offset-1 lead">Research has shown that learning a second language improves cognitive abilities. More studies have determined that the best time to pick up a second language is during early childhood.</br></br> At Mandarin Minds, we greatly encourage younger children to start their Mandarin journey using our interactive online eBooks! </br></br>While these may be designed to attract and entertain children, it will also greatly benefit any Mandarin newbie!</h3>
+				  		<h3 class="col-md-10 col-md-offset-1 lead">Research has shown that learning a second language improves cognitive abilities. More studies have determined that the best time to pick up a second language is during early childhood.At Mandarin Minds, we greatly encourage younger children to start their Mandarin journey using our interactive online eBooks! </br></br>While these may be designed to attract and entertain children, it will also greatly benefit any Mandarin newbie!</h3>
 					  <ul class="col-md-10 col-md-offset-1">
 						<li><i class="fa fa-check"></i>A placement test will help you find the most suitable material to read.</li>
 						<li><i class="fa fa-check"></i>A range of eBooks for all levels to further your education in Mandarin</li>

@@ -21,11 +21,9 @@ class Notifier < ActionMailer::Base
   end
 
   def contact_form(name, email, body)
-    puts "reached the notifier method"
     @name = name
     @email = email
     @body = body
-    mail(to: itsupport@mandarinminds.com, subject: 'Contact Form Message From "#{name}"')
-    puts "mailed"
+    mail(to: 'itsupport@mandarinminds.com', subject: "Sales Contact Form: New message from '#{name}'")
   end
 end

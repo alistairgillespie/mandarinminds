@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
   end
 
   
+
+  
   private
   def set_default_role
   		self.role ||= Role.find_by_name('student')
