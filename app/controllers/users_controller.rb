@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     else
       promotee = User.find_by email: params[:email]
       if promotee
-        redirect_to teachers_path(confirm: true, id: promotee.id), notice: "#{params[:email]} success!" 
+        redirect_to teachers_path(confirm: true, id: promotee.id), notice: "Please confirm the teacher's details below to promote them." 
         return   
       else
         redirect_to teachers_path, notice: "Could not find a person with the email: #{params[:email]}"

@@ -24,6 +24,6 @@ class Notifier < ActionMailer::Base
     @name = name
     @email = email
     @body = body
-    mail(to: 'itsupport@mandarinminds.com', subject: "Sales Contact Form: New message from '#{name}'")
+    mail(to: 'sales@mandarinminds.com', subject: "Sales Contact Form: New message from '#{name}'")
   end
 end

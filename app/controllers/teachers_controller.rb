@@ -3,6 +3,7 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(params[:id])
     
     if @teacher.update(teacher_params)
+        @teacher.update_attribute(:abbr, @teacher.abbr.downcase)
         redirect_to teachers_path, notice: 'Teacher was successfully updated.'
       else
         redirect_to teachers_path, notice: "An error occured. The teacher must have an abbreviated name, and it musn't have any spaces in it"
