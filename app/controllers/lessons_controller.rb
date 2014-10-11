@@ -276,9 +276,15 @@ class LessonsController < ApplicationController
       end
     end
 
-    teacher_offset = @lesson.teacher.timezone_offset
+    unless @lesson.teacher_id.nil?
+      teacher_offset = @lesson.teacher.timezone_offset
+    end
+
+    unless @lesson.student_id.nil?
+      student_offset = @lesson.student.timezone_offset
+    end
+
     teacher_offset ||= 8
-    student_offset = @lesson.student.timezone_offset
     student_offset ||= 8
 
     if teacher_offset >= 0
