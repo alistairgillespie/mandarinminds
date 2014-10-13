@@ -11,7 +11,9 @@
 		<p>Visit the <a href="/users/edit">Settings Menu</a> to choose your timezone and dismiss this message.</p></div>
 <% end %>
 
-<% params[:start_date] ||= (Time.now.utc + timezone_offset.hours).strftime('%Y-%m-%d') %>
+<% if current_user.role_id == 2 %>
+	<% params[:start_date] ||= (Time.now.utc + timezone_offset.hours).strftime('%Y-%m-%d') %>
+<% end %>
 
 <% if current_user.role_id == 2 %>
   <div id="teacher_calendar">

@@ -40,7 +40,7 @@ class LessonsController < ApplicationController
           @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).order(starts_at: :asc)
           @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 14.days - 1.second, (Time.now + offset.hours).beginning_of_day + 21.days + 1.second).order(starts_at: :asc)
           @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 21.days - 1.second, (Time.now + offset.hours).beginning_of_day + 28.days + 1.second).order(starts_at: :asc)
-          redirect_to lessons_path(:start_date => params[:start_date]), notice: "Teacher '#{params[:teacher]}' not found."
+          redirect_to lessons_path, notice: "Teacher '#{params[:teacher]}' not found."
         end
       else
         @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).order(starts_at: :asc)
@@ -72,12 +72,12 @@ class LessonsController < ApplicationController
     num = params[:end][:hour].to_i - params[:start][:hour].to_i + 1
 
     if num < 1
-      redirect_to lessons_path(:start_date => params[:start_date]), notice: "Invalid times. 'To' cannot be earlier than 'From'"
+      redirect_to lessons_path, notice: "Invalid times. 'To' cannot be earlier than 'From'"
       return
     end
 
     if (Time.now + 48.hours) > start_time
-      redirect_to lessons_path(:start_date => params[:start_date]), notice: "You cannot open lesson slots that are less than 48 hours away"
+      redirect_to lessons_path, notice: "You cannot open lesson slots that are less than 48 hours away"
       return
     end
 
@@ -101,7 +101,7 @@ class LessonsController < ApplicationController
     end
 
     date_string = start_time.strftime("#{start_time.day.ordinalize} %b %Y")
-    redirect_to lessons_path(:start_date => params[:start_date]), notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
+    redirect_to lessons_path, notice: "#{created} lesson(s) added on the #{params[:repeat]} day(s) starting from #{date_string} successfully. #{skipped} existing lesson slot(s) were skipped"
   end
 
   # GET /lessons/1
@@ -109,7 +109,7 @@ class LessonsController < ApplicationController
   def show
 
     if current_user.id != @lesson.student_id && current_user.id != @lesson.teacher_id
-            redirect_to lessons_path(:start_date => params[:start_date]), :flash => { :error => "You do not have permission to view that lesson."}
+            redirect_to (lessons_path), :flash => { :error => "You do not have permission to view that lesson."}
     end
 
   end
@@ -134,17 +134,17 @@ class LessonsController < ApplicationController
       @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
       if @lesson.starts_at < Time.now 
-        redirect_to lessons_path(:start_date => params[:start_date]), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
       end
 
       respond_to do |format|
         if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
           @lesson.save
-          format.html { redirect_to lessons_path(:start_date => params[:start_date]), notice: 'A lesson slot has been successfully created.' }
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
-          format.html { redirect_to lessons_path(:start_date => params[:start_date]), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
           format.json { render json: @lesson.errors, status: :unprocessable_entity }
         end
       end
@@ -160,17 +160,17 @@ class LessonsController < ApplicationController
       @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
       if @lesson.starts_at < Time.now 
-        redirect_to lessons_path(:start_date => params[:start_date]), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
+        redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
       end
 
       respond_to do |format|
         if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
           @lesson.save
-          format.html { redirect_to lessons_path(:start_date => params[:start_date]), notice: 'A lesson slot has been successfully created.' }
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
-          format.html { redirect_to lessons_path(:start_date => params[:start_date]), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
           format.json { render json: @lesson.errors, status: :unprocessable_entity }
         end
       end
@@ -342,7 +342,7 @@ class LessonsController < ApplicationController
       @newLesson.save!
 
       respond_to do |format|
-        format.html { redirect_to lessons_path(:teacher => params[:teacher], :start_date => params[:start_date]), notice: "Lesson was successfully cancelled."}
+        format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: "Lesson was successfully cancelled."}
         format.json { head :no_content }
       end
 
@@ -377,7 +377,7 @@ class LessonsController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to lessons_path(:teacher => params[:teacher], :start_date => params[:start_date]), notice: 'Lesson was successfully cancelled.' }
+        format.html { redirect_to lessons_path(:teacher => params[:teacher]), notice: 'Lesson was successfully cancelled.' }
         format.json { head :no_content }
       end
     end
