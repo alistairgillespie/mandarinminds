@@ -3,7 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     unless @user.invalid?
-    	Notifier.welcome(@user).deliver 
+    	Notifier.delay.welcome(@user)
+        Notifier.delay.welcome_report(@user)
     	@user.lesson_count = 1
         @user.save!
     	@settings = UserSettings.new

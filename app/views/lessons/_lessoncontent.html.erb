@@ -36,7 +36,7 @@
           <%= image_tag "callbutton_32pxGS.png" %>
         <% end %>
       </div>
-      <i class="lockable"><%= link_to 'Cancel Lesson', lesson_path(lesson, :teacher => params[:teacher]), method: :delete, :class => "btn btn-primary", :disabled => "disabled" %></i>
+      <i class="lockable"><%= link_to 'Cancel Lesson', lesson_path(lesson, :teacher => params[:teacher], :start_date => params[:start_date]), method: :delete, :class => "btn btn-primary", :disabled => "disabled" %></i>
       <i class="fa fa-lock lock"></i>
     <% end %>
   </div>
@@ -56,6 +56,7 @@
 
   <div class="edit-comment" style="display: none">
     <%= form_for(lesson, url: lesson_path(lesson), html: {method: "patch"}) do |f| %>
+    <input class="form-control" name="start_date" type="hidden" value="<%= params[:start_date] %>"> 
 
 
       <%= f.label :name, "Comments for this Lesson" %></br>

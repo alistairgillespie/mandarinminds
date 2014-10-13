@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Multithreaded server best suited for Production environments
 gem 'puma'
 gem 'rack-timeout'
+gem 'delayed_job_active_record' # delayed_job
+gem "daemons"
 
 gem 'stripe_event'
 

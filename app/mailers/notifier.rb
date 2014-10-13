@@ -7,6 +7,13 @@ class Notifier < ActionMailer::Base
     	subject: 'Welcome to Mandarin Minds')
   end
 
+  def welcome_report(user)
+    @user = user
+    mail(to: 'sales@mandarinminds.com', 
+      cc: 'itsupport@mandarinminds.com',
+      subject: "AUTO: New User '#{user.firstname} #{user.lastname}'")
+  end
+
   def purchase_summary(purchases)
     @purchases = purchases
     @date = (Time.now.in_time_zone("Perth") - 24.hours).strftime("#{(Time.now.in_time_zone("Perth") - 24.hours).day.ordinalize} %B")
