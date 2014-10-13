@@ -5,6 +5,7 @@ gem 'puma'
 gem 'rack-timeout'
 gem 'delayed_job_active_record' # delayed_job
 gem "daemons"
+gem 'newrelic_rpm'
 
 gem 'stripe_event'
 
