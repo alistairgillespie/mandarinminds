@@ -77,6 +77,10 @@
 						  <%= text_field_tag :email, nil, :class => "form-control", :id => "contact-email", placeholder: "Email" %>
 					  </div>
 					  <div class="form-group">
+							Type of request:
+					  <%= select_tag(:form_type, options_for_select([['General Enquiry', 'general'],['Sales Enquiry (or call 1800 19 18 89)', 'sales'], ['Technical Help', 'technical']],1)) %>
+						</div>
+					  <div class="form-group">
 						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", :id => "contact-body", placeholder: "Your Message" %>
 					  </div>
 					  <div class="form-group">

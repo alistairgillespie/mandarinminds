@@ -1,18 +1,63 @@
 <div class="packages jumbotron">
 	<div class="row">
 		<h1>Get in touch with Mandarin Minds</h1>
-		
-		<p class="lead">For sales and general inquiries:</br>
-		<a href="mailto:sales@mandarinminds.com">sales@mandarinminds.com</a></br>
-		1800 19 18 89</p>
-		
-		<p class="lead">Technical Support</br>
-		<a href="mailto:itsupport@mandarinminds.com">itsupport@mandarinminds.com</a></p>
+			
+		<div style="width: 500px; margin-left: auto; margin-right: auto">
+		<%= form_tag({controller: 'static', action: 'contact_form'}, method: 'post') do %>
+			          <div class="form-group">
+						  <%= text_field_tag :name, nil, :class => "form-control", :id => "contact-name", placeholder: "Name" %>
+					  </div>
+					  <div class="form-group">
+						  <%= text_field_tag :email, nil, :class => "form-control", :id => "contact-email", placeholder: "Email" %>
+					  </div>
+						<div class="form-group">
+							Type of request:
+					  <%= select_tag(:form_type, options_for_select([['General Enquiry', 'general'],['Sales Enquiry (or call 1800 19 18 89)', 'sales'], ['Technical Help', 'technical']],1)) %>
+						</div>
+
+					  <div class="form-group">
+						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", :id => "contact-body", placeholder: "Your Message" %>
+					  </div>
+					  <div class="form-group">
+						  <%= submit_tag 'Submit', :class => "btn btn-primary btn-lg", :id => "contact-form-submit-button" %>
+						  <a id="contact-form-sending-button" class="btn btn-primary btn-lg" disabled="disabled" style="display: none">Sending...</a>
+					  </div>
+
+					<% end %>
+				</div>
 	</div>
 </div>
-<div class="asian-century jumbotron">
-  <div class="container">
-    <h1>Why Mandarin?</h1>
-    <p class="lead">Every parent wants the best for their child. In today's evolving world, an additional language helps to open doors and increase career opportunities across the globe. China's emergence as an economic superpower and her close ties to Australia will put your child in good standing when it comes to University and job applications.</p>
-  </div>
- </div>
+
+<script type="text/javascript">
+				$('#contact-form-submit-button').click(function(){
+					var submit = true;
+
+					if ($.trim($("#contact-name").val()) === "") {
+				        $("#contact-name").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-name").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-email").val()) === "") {
+				        $("#contact-email").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-email").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-body").val()) === "") {
+				        $("#contact-body").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-body").removeAttr("style");
+				    }
+
+				    if (submit){
+						$('#contact-form-submit-button').hide();
+						$('#contact-form-sending-button').show();
+					} else {
+						return false;
+					}
+				});
+			</script>

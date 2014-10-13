@@ -27,10 +27,14 @@ class Notifier < ActionMailer::Base
     mail(to: user.email, subject: "Lesson Alert for #{@date}")
   end
 
-  def contact_form(name, email, body)
+  def contact_form(name, email, body, type)
     @name = name
     @email = email
     @body = body
-    mail(to: 'sales@mandarinminds.com', subject: "Sales Contact Form: New message from '#{name}'")
+    if type == 'sales'
+      mail(to: 'sales@mandarinminds.com', subject: "Sales Contact Form: New message from '#{name}'")
+    else
+      mail(to: 'itsupport@mandarinminds.com', subject: "Contact Form: New message from '#{name}'")
+    end
   end
 end

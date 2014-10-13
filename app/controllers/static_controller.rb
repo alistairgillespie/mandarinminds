@@ -3,6 +3,9 @@ class StaticController < ApplicationController
   # and add the .html.erb to the app/views/static folder
 
   def index
+    if user_signed_in?
+      redirect_to '/dashboard'
+    end
   end
 
   def about
@@ -33,7 +36,7 @@ class StaticController < ApplicationController
   end
 
   def contact_form
-    Notifier.contact_form(params[:name], params[:email], params[:body]).deliver
-    redirect_to '/plans', notice: "Your message has been sent successfully!"
+    Notifier.delay.contact_form(params[:name], params[:email], params[:body], params[:form_type])
+    redirect_to request.referrer, notice: "Your message has been sent successfully!"
   end
 end
