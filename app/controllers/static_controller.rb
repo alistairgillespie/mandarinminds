@@ -39,4 +39,7 @@ class StaticController < ApplicationController
     Notifier.delay.contact_form(params[:name], params[:email], params[:body], params[:form_type])
     redirect_to request.referrer, notice: "Your message has been sent successfully!"
   end
+
+  def translation
+  end
 end

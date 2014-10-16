@@ -1,0 +1,119 @@
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
+
+<div id="plans" class="container">
+	<h1>Mandarin Minds</h1> 
+	<p style="font-family: proxima-nova, sans-serif;
+font-size: 21px;
+font-style: normal;
+font-weight: 100; display: block; height: auto">Professionally mediating Chinese and Australian companies ensuring successful outcomes</p><hr>
+	<div class="row">
+		
+		<div class="col-md-4 steps">
+			<div class="icon">
+			<%= image_tag "australia.png", class:"action" %>
+			</div>
+		</div>
+
+		<div class="col-md-4 steps">
+			<div class="icon">
+			<%= image_tag "teachers.png", class:"action" %>
+			</div>
+		</div>
+
+		<div class="col-md-4 steps">
+			<div class="icon">
+			<%= image_tag "culture.png", class:"action" %>
+			</div>
+		</div>
+		</div>
+	</br></br>
+		<small style="color: rgb(147, 25, 44);
+display: block;
+font-family: proxima-nova, sans-serif;
+font-size: 21px;
+font-style: normal;
+font-weight: 100; text-align: center">Translating to get your message across is one thing; styling it in a way that is engaging, effective and leaves a lasting impression is another. Our team of professionals are trained to achieve just this.</small><hr>
+
+
+<h1 style="padding-bottom: 40px; padding-top: 10px">Translation Services</h1>
+
+<p style="font-family: proxima-nova, sans-serif;
+font-size: 21px;
+font-style: normal;
+font-weight: 100; display: block; height: auto; text-align: left; margin-bottom: 20px">Our partner in China is a company with more than 7 years experience in translation work. Among its clients are corporations, government departments, international NGOs and TV stations. Its translation work is a par above other local Chinese or Australian companies as it is able to merge the mindsets and skills of local Mandarin translators with native English speakers living in China.</p>
+</div>
+
+<div class="packages jumbotron">
+	<div class="row">
+		<h2>Get in touch for more information</h2></br>
+			
+		<div style="width: 500px; margin-left: auto; margin-right: auto">
+		<%= form_tag({controller: 'static', action: 'contact_form'}, method: 'post') do %>
+			          <div class="form-group">
+						  <%= text_field_tag :name, nil, :class => "form-control", :id => "contact-name", placeholder: "Name" %>
+					  </div>
+					  <div class="form-group">
+						  <%= text_field_tag :email, nil, :class => "form-control", :id => "contact-email", placeholder: "Email" %>
+					  </div>
+						<div class="form-group">
+							Type of request:
+					  <%= select_tag(:form_type, options_for_select([['General Enquiry', 'general'],['Sales Enquiry (or call 1800 19 18 89)', 'sales'], ['Technical Help', 'technical']],1)) %>
+						</div>
+
+					  <div class="form-group">
+						  <%= text_area_tag :body, nil, :size => '60x12', :class => "form-control", :id => "contact-body", placeholder: "Your Message" %>
+					  </div>
+					  <div class="form-group">
+						  <%= submit_tag 'Submit', :class => "btn btn-primary btn-lg", :id => "contact-form-submit-button" %>
+						  <a id="contact-form-sending-button" class="btn btn-primary btn-lg" disabled="disabled" style="display: none">Sending...</a>
+					  </div>
+
+					<% end %>
+				</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+				$('#contact-form-submit-button').click(function(){
+					var submit = true;
+
+					if ($.trim($("#contact-name").val()) === "") {
+				        $("#contact-name").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-name").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-email").val()) === "") {
+				        $("#contact-email").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-email").removeAttr("style");
+				    }
+
+				    if ($.trim($("#contact-body").val()) === "") {
+				        $("#contact-body").css("border-color", "red");
+				        submit = false;
+				    } else {
+				    	$("#contact-body").removeAttr("style");
+				    }
+
+				    if (submit){
+						$('#contact-form-submit-button').hide();
+						$('#contact-form-sending-button').show();
+					} else {
+						return false;
+					}
+				});
+			</script>
+	
+
+
+
+
+
+	</div>

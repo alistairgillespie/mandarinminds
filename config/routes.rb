@@ -87,6 +87,7 @@ Rails.application.routes.draw do
   get "/terms" => "static#terms"
   get "/contact" => "static#contact"
   get "/faq" => "static#faq"
+  get "/translation" => "static#translation"
   
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
