@@ -58,8 +58,10 @@
 													<%="#{lesson.teacher.firstname} #{lesson.teacher.lastname}"%>
 												</td>
 												<td>
+													<% unless current_user.role_id == 4 %>
 													<i class="lockable"><%= link_to "Make Booking", book_lesson_slot_path(lesson, :teacher => params[:teacher]), :class => "btn btn-primary", :disabled => "disabled" %></i>
 													<i class="fa fa-lock lock"></i>
+													<% end %>
 												</td>	
 											</tr>
 										<% end %>
@@ -72,11 +74,6 @@
 				</div>
 			<% end %>
 		<% else %> 
-		<%# There are no slots and the student hasn't booked a slot here 
-		Add a grey book %>
-				<!--<button data-toggle="modal" data-target="#booklesson<%=@formatteddate%>" disabled>
-					<i class="fa fa-book no-slot"></i>
-				</button>-->
 		<% end %>				
 	<% end %>
 <% end %>
