@@ -9,8 +9,7 @@ class Notifier < ActionMailer::Base
 
   def welcome_report(user)
     @user = user
-    mail(to: 'sales@mandarinminds.com', 
-      cc: 'itsupport@mandarinminds.com',
+    mail(to: 'sales@mandarinminds.com, itsupport@mandarinminds.com, admin@mandarinminds.com',
       subject: "AUTO: New User '#{user.firstname} #{user.lastname}'")
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013011428) do
+ActiveRecord::Schema.define(version: 20141020051752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20141013011428) do
     t.string   "stripe_id"
     t.string   "status"
   end
+
+  add_index "charges", ["user_id"], name: "index_charges_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -87,6 +89,8 @@ ActiveRecord::Schema.define(version: 20141013011428) do
     t.integer  "author_id"
   end
 
+  add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -110,6 +114,8 @@ ActiveRecord::Schema.define(version: 20141013011428) do
     t.string   "abbr"
   end
 
+  add_index "teachers", ["user_id"], name: "index_teachers_on_user_id", using: :btree
+
   create_table "user_settings", force: true do |t|
     t.integer  "user_id"
     t.boolean  "purchased_dudu"
@@ -119,6 +125,8 @@ ActiveRecord::Schema.define(version: 20141013011428) do
     t.boolean  "view_large_plans"
     t.integer  "dudu_expiry_timestamp"
   end
+
+  add_index "user_settings", ["user_id"], name: "index_user_settings_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -147,5 +155,6 @@ ActiveRecord::Schema.define(version: 20141013011428) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["stripe_id"], name: "index_users_on_stripe_id", using: :btree
 
 end

@@ -13,12 +13,7 @@ class StripeMailer < ActionMailer::Base
 	def admin_charge_succeeded(event)
 	    @event = event
 	    @charge = Charge.find_by(stripe_id: @event.id)
-	    mail(to: 'itsupport@mandarinminds.com', subject: 'AUTO: Charge Succeeded!')
+	    mail(to: 'sales@mandarinminds.com, itsupport@mandarinminds.com, admin@mandarinminds.com', subject: 'AUTO: Charge Succeeded!')
 	end
-
-  	#def receipt(charge)
-	#    @charge = charge
-	#    @sale = Sale.find_by!(stripe_id: @charge.id)
-	#    mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
-	#end
+	
 end
