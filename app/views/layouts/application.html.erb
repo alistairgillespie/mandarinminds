@@ -132,6 +132,8 @@ function notification_alert(msg) {
 
   var user_id = $('body').attr('id');
   ga('create', 'UA-55922607-1', { 'userId': user_id });
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
 </script>
 
