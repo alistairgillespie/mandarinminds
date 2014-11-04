@@ -45,7 +45,10 @@ Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% 
 
             <% utctime = @time - timezone_offset.hours %>
             <input class="form-control" name="utf8" type="hidden" value="✓">   
-            <input class="form-control" name="start_date" type="hidden" value="<%= params[:start_date] %>">           
+            <input class="form-control" name="start_date" type="hidden" value="<%= params[:start_date] %>">  
+            <input name="authenticity_token" 
+               type="hidden" 
+               value="<%= form_authenticity_token %>"/>         
             <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=utctime.year%>"/>
             <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=utctime.month%>"/>
             <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=utctime.day%>"/>
