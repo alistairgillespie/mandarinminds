@@ -111,10 +111,13 @@ class UsersController < ApplicationController
       return
     end
 
+    offset = current_user.timezone_offset
+    offset ||= 8
+
     if @user.role_id == 1 
-      @userlessons = @user.lessons_to_attend.where("starts_at > ? AND teacher_id IS NOT NULL", Time.now.utc.advance(:hours => -1)).order(starts_at: :asc)
+      @userlessons = @user.lessons_to_attend.where("starts_at > ? AND teacher_id IS NOT NULL", ((Time.now.utc + offset.hours).beginning_of_day - 1.hour - offset.hours)).order(starts_at: :asc)
     elsif @user.role_id == 2
-      @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", Time.now.utc.advance(:hours => -1)).order(starts_at: :asc)
+      @userlessons = @user.lessons_to_teach.where("starts_at > ? AND student_id IS NOT NULL", ((Time.now.utc + offset.hours).beginning_of_day - 1.hour - offset.hours)).order(starts_at: :asc)
     else
       @userlessons = []
     end

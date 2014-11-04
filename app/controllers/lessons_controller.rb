@@ -31,22 +31,22 @@ class LessonsController < ApplicationController
         end
           
         if teacher
-          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
-          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
-          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 14.days - 1.second, (Time.now + offset.hours).beginning_of_day + 21.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
-          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 21.days - 1.second, (Time.now + offset.hours).beginning_of_day + 28.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 7.days + 1.second - offset.hours).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 7.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 14.days + 1.second - offset.hours).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 14.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 21.days + 1.second - offset.hours).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
+          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 21.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 28.days + 1.second - offset.hours).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
         else
-          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).order(starts_at: :asc)
-          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).order(starts_at: :asc)
-          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 14.days - 1.second, (Time.now + offset.hours).beginning_of_day + 21.days + 1.second).order(starts_at: :asc)
-          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 21.days - 1.second, (Time.now + offset.hours).beginning_of_day + 28.days + 1.second).order(starts_at: :asc)
+          @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 7.days + 1.second - offset.hours).order(starts_at: :asc)
+          @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 7.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 14.days + 1.second - offset.hours).order(starts_at: :asc)
+          @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 14.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 21.days + 1.second - offset.hours).order(starts_at: :asc)
+          @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 21.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 28.days + 1.second - offset.hours).order(starts_at: :asc)
           redirect_to lessons_path, notice: "Teacher '#{params[:teacher]}' not found."
         end
       else
-        @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).order(starts_at: :asc)
-        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).order(starts_at: :asc)
-        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 14.days - 1.second, (Time.now + offset.hours).beginning_of_day + 21.days + 1.second).order(starts_at: :asc)
-        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 21.days - 1.second, (Time.now + offset.hours).beginning_of_day + 28.days + 1.second).order(starts_at: :asc)
+        @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 7.days + 1.second - offset.hours).order(starts_at: :asc)
+        @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 7.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 14.days + 1.second - offset.hours).order(starts_at: :asc)
+        @lessons_week3 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 14.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 21.days + 1.second - offset.hours).order(starts_at: :asc)
+        @lessons_week4 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now.utc + offset.hours).beginning_of_day + 21.days - 1.second - offset.hours, (Time.now.utc + offset.hours).beginning_of_day + 28.days + 1.second - offset.hours).order(starts_at: :asc)
       end
     end
   end
