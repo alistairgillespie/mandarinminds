@@ -20,10 +20,12 @@ class Notifier < ActionMailer::Base
   end
   
   def lessonalert(user, lessons)
-  	@user = user
-  	@lessonstoday = lessons
-  	@date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
-    mail(to: user.email, subject: "Lesson Alert for #{@date}")
+  	@user = User.find_by_id(user)
+    if @user.settings.receive_morning_emails
+    	@lessonstoday = lessons
+    	@date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
+      mail(to: @user.email, subject: "Lesson Alert for #{@date}")
+    end
   end
 
   def contact_form(name, email, body, type)

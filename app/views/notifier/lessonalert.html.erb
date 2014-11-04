@@ -60,15 +60,15 @@
 		<td>						
 			<h1 style="color: #93192C;font-size: 22px;">Your Lesson Alert for <%= Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %b %Y")%></h1>
 			
-			<p>Good morning, <%= @user.firstname %>. This is just a quick email reminder that you have a lesson booked today:</p>
+			<p>Good morning, <%= @user.firstname %>. This is just a quick email reminder about your lesson(s) booked today:</p>
 			
 			<ul>
 				<% @lessonstoday.each do |l| %>
-				<li><a href="<%= lesson_url(l, host: 'localhost:3000') %>"><%= l.starts_at.strftime('%l:%M%P')%> with <%= l.teacher.firstname %> <%= l.teacher.lastname %></a></li>
+				<li><a href="<%= lesson_url(l, host: 'https://www.mandarinminds.com') %>"><%= l.starts_at.strftime('%l:%M%P')%> with <%= l.teacher.firstname %> <%= l.teacher.lastname %></a></li>
 				<% end %>
 			</ul>
 						
-			<p>Visit your <a href="<%= user_url(@user, host: 'localhost:3000') %>">User Dashboard</a> to see your lessons for today and the rest of the week</p>
+			<p>Visit your <a href="<%= user_url(@user, host: 'https://www.mandarinminds.com') %>">User Dashboard</a> to see your lessons for today and the rest of the week</p>
 						
 			<p>Regards,</p>
 			<p>The Team at Mandarin Minds</p>
@@ -94,7 +94,7 @@
 					<td align="center">
 						<p>
 							<a href="http://mandarinminds.com/terms">Terms</a> |
-							<a href="http://mandarinminds.com/terms">Privacy</a> |
+							<a href="http://mandarinminds.com/privacy">Privacy</a> |
 							<a href="https://www.facebook.com/MandarinMinds">Facebook</a> |
 							<a href="https://plus.google.com/112068283749340185255">Google+</a>
 						</p>

@@ -1,17 +1,28 @@
 desc "These tasks are called by the Heroku scheduler add-on"
 
 task :lesson_alert => :environment do
-	User.where("role_id = 1").each do |u|
-  		@lessonalerttoday = u.lessons_to_attend.where('starts_at BETWEEN ? AND ?', DateTime.now.in_time_zone("Perth").beginning_of_day, DateTime.now.in_time_zone("Perth").end_of_day)
-  		if (@lessonalerttoday.size > 0)
-  			Notifier.lessonalert(u, @lessonalerttoday).deliver
-  		end
-  	end 
-  
+
+	@todayslessons = Lesson.where("student_id IS NOT NULL").where('starts_at BETWEEN ? AND ?', DateTime.now.utc, DateTime.now.utc + 24.hours).order("student_id") 
+	@todayslessons.each do |l| 
+		if @lessonarray.nil? || @lessonarray[0].nil? 
+			@lessonarray = [] 
+			@lessonarray << l 
+		elsif @lessonarray[0].student_id != l.student_id 
+			Notifier.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+			@lessonarray = [] 
+			@lessonarray << l 
+		else 
+			@lessonarray << l 
+		end 
+	end 
+	if @lessonarray.size > 0 
+		Notifier.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+	end 
 end
 
+
 task :notification_check_50 => :environment do
-	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.in_time_zone("Perth").beginning_of_hour + 1.hour)
+	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.utc.beginning_of_hour + 1.hour)
 
   	@lessonsthishour.each do |h|
 
@@ -39,7 +50,7 @@ task :notification_check_50 => :environment do
 end
 
 task :notification_check_40 => :environment do
-  	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.in_time_zone("Perth").beginning_of_hour + 1.hour)
+  	@lessonsthishour = Lesson.where("starts_at = ?", Time.now.utc.beginning_of_hour + 1.hour)
 
   	@lessonsthishour.each do |h|
 
