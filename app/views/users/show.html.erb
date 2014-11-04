@@ -74,11 +74,12 @@
 	<header>Lessons for the week ahead</header>
 
 	<div class="table-responsive">
-	<%= calendar start_date: Time.now.utc + offset.hours, number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date, events| %>
+	<%= calendar start_date: Time.now.utc + offset.hours, number_of_days: 7, previous_link: "", next_link: "", events: @userlessons do |date| %>
   		<div class="inner">
   			<p class="date"><%= date.strftime("#{date.day.ordinalize} %b") %></p>
   		</div>
- 		<% events.each do |lesson| %>
+ 		<% @userlessons.each do |lesson| %>
+ 			<% if (lesson.starts_at + offset.hours).to_date == date %>
 	    		<div>
 	    			<button class="view-lesson" data-toggle="modal" data-target="#viewbookedlesson<%= lesson.id %>">
 	    				<i class="fa fa-search"><%=" #{(lesson.starts_at + offset.hours).strftime("%l:%M%P")}" %></i>
@@ -87,6 +88,7 @@
 						<%= render 'lessons/lessonmodal', lesson: lesson, timezone_offset: offset %>
 					</div>
 	    		</div>
+	    		<% end %>
 		<% end %>		
 	<% end %>
 </div>
