@@ -39,7 +39,7 @@
 
 
 
-<% if current_user.role_id == 1 %>
+<% unless current_user.role_id == 2 %>
 <div class="lesson-board">
 	<p>
 	<span><%= current_user.lesson_count %></span>

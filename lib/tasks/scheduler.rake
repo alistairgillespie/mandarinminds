@@ -2,13 +2,13 @@ desc "These tasks are called by the Heroku scheduler add-on"
 
 task :lesson_alert => :environment do
 
-	@todayslessons = Lesson.where("student_id IS NOT NULL").where('starts_at BETWEEN ? AND ?', DateTime.now.utc, DateTime.now.utc + 24.hours).order("student_id") 
+	@todayslessons = Lesson.where("student_id IS NOT NULL").where('starts_at BETWEEN ? AND ?', DateTime.now.utc, DateTime.now.utc + 24.hours).order(student_id: :asc, starts_at: :asc) 
 	@todayslessons.each do |l| 
 		if @lessonarray.nil? || @lessonarray[0].nil? 
 			@lessonarray = [] 
 			@lessonarray << l 
 		elsif @lessonarray[0].student_id != l.student_id 
-			Notifier.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+			Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
 			@lessonarray = [] 
 			@lessonarray << l 
 		else 
@@ -16,7 +16,7 @@ task :lesson_alert => :environment do
 		end 
 	end 
 	if @lessonarray.size > 0 
-		Notifier.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+		Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
 	end 
 end
 

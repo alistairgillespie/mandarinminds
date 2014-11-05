@@ -70,7 +70,7 @@
 				<li><a href="<%= lesson_url(l, host: 'https://www.mandarinminds.com') %>"><%= (l.starts_at.utc + timezone_offset.hours).strftime('%l:%M%P on %b %-d')%> with <%= l.teacher.firstname %> <%= l.teacher.lastname %></a></li>
 				<% end %>
 			</ul>
-			<p>Times are given in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %></p>
+			Times are given in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% else %><%= timezone_offset %><% end %>
 						
 			<p>Visit your <a href="https://www.mandarinminds.com/dashboard">User Dashboard</a> to see your lessons for today and the rest of the week</p>
 						
