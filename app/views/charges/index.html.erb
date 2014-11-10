@@ -1,26 +1,34 @@
+<% offset = current_user.timezone_offset %>
+<% offset ||= 8 %>
+
 <h1>List of Charges</h1>
 
 <% if @mycharges.length > 0 %>
+<div id="charge-list">
+	<div class="row">
+		<div class="col-xs-2"><b>Paid On</b></div>
+		<div class="col-xs-4"><b>Item</b></div>
+		<div class="col-xs-2"><b>Amount</b></div>
+		<div class="col-xs-4"><b>Transaction ID</b></div>
+	</div>
 
-<table>
-<thead><tr>
-	<td>Paid On</td>
-	<td>Item</td>
-	<td>Amount</td>
-	<td>Transaction ID</td>
-</tr></thead>
-<tbody>
-<% @mycharges.each do |c| %>
-	<tr>
-		<td><%= c.created_at.in_time_zone("Perth").strftime('%D') %></td>
-		<td><%= c.description %></td>
-		<td><%= number_to_currency (c.amount/100.00), :precision => 2 %></td>
-		<td><%= c.sale_id %></td>
-	</tr>
-<% end %>
-</tbody>
-</table>
+	<% @mycharges.each do |c| %>
+	<div class="row charge-listing">
+		<div class="col-xs-2"><%= (c.created_at.utc + offset.hours).strftime('%D') %></div>
+		<div class="col-xs-4"><%= c.description %></div>
+		<div class="col-xs-2"><%= number_to_currency (c.amount/100.00), :precision => 2 %></div>
+		<div class="col-xs-4"><%= c.sale_id %></div>
+	</div>
+		
+	<% end %>
+</div>
+
 
 <% else %>
-<p>You have not made any purchases yet. Visit the <a href="/plans">Plans</a> page to view what's on offer.</p>
+	<p>You have not made any purchases yet. Visit the <a href="/plans">Plans</a> page to view what's on offer.</p>
 <% end %>
+
+<style type="text/css">
+.charge-listing:nth-child(odd) {background: #FFF}
+.charge-listing:nth-child(even) {background: #EEE}
+</style>

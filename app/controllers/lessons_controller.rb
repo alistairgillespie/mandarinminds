@@ -14,22 +14,22 @@ class LessonsController < ApplicationController
     end
 
     if current_user.role_id == 2
-      @lessons = Lesson.all.where("teacher_id = ?", current_user.id).order(starts_at: :asc)
-    else current_user.role_id == 1
+      first_day = params[:start_date]
+      offset = current_user.timezone_offset
+      offset ||= 8
+      first_day ||= (Time.now.utc + offset.hours).strftime('%Y-%m-%d')
+      first_day = Time.parse(first_day + ' 00:00:00')
 
+      @lessons = Lesson.all.where("teacher_id = ?", current_user.id).where("starts_at > ? AND starts_at < ?", first_day - offset.hours - 1.hour, first_day - offset.hours + 8.days + 1.hour).order(starts_at: :asc)
+    else #Not a teacher
       if params[:teacher]
-        
-        case params[:teacher]  
-          when "minnie"
-            teacher = User.find_by firstname: "Minnie", lastname: "Dong", role_id: 2
-          when "esther"
-            teacher = User.find_by firstname: "Esther", lastname: "Ma", role_id: 2
-          when "joan"
-            teacher = User.find_by firstname: "Joan", lastname: "Zhou", role_id: 2
-          else
-            teacher = nil
+        teacher_entry = Teacher.find_by abbr: params[:teacher]
+        if teacher_entry
+          teacher = User.find_by id: teacher_entry.user_id
+        else
+          teacher = nil
         end
-
+          
         if teacher
           @lessons_week1 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day - 1.second, (Time.now + offset.hours).beginning_of_day + 7.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
           @lessons_week2 = Lesson.where("starts_at > ? AND starts_at < ?", (Time.now + offset.hours).beginning_of_day + 7.days - 1.second, (Time.now + offset.hours).beginning_of_day + 14.days + 1.second).where("teacher_id = ? or student_id = ?", teacher.id, current_user.id).order(starts_at: :asc)
@@ -94,7 +94,7 @@ class LessonsController < ApplicationController
         if Lesson.where("teacher_id = ? and starts_at = ?", current_user.id, start_time + j.days + i.hours).count() > 0
           skipped += 1
         else
-          Lesson.create(:confirmed => true, :teacher_id => current_user.id, :starts_at => start_time + j.days + i.hours)
+          Lesson.create(:teacher_id => current_user.id, :starts_at => start_time + j.days + i.hours)
           created += 1
         end
       end
@@ -123,99 +123,59 @@ class LessonsController < ApplicationController
   def edit
   end
 
-  #def get_lesson_details
-  #  @lesson = Lesson.find(params[:id])
-  #  @student = User.find(@lesson.student_id)
-  #  @teacher = User.find(@lesson.teacher_id)  
-  #  @data = {
-  #    "lesson" => @lesson,
-  #    "student" => @student,
-  #    "teacher" => @teacher
-  #  }  
-  #  respond_to do |format|
-  #    format.js { render :json => @data.to_json}
-  #  end
-  #end
-
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
-    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+    
+      offset = current_user.timezone_offset
+      offset ||= 8
 
-    if @lesson.starts_at < Time.now 
-      redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
-      return
-    end
-
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-=begin
-  def requestlesson
-    @lesson = Lesson.new(lesson_params)
-    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
-
-    respond_to do |format|
+      @lesson = Lesson.new(lesson_params)
+      @lesson.starts_at = @lesson.starts_at.beginning_of_hour
 
       if @lesson.starts_at < Time.now 
         redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
       end
 
-      if @lesson.save
-        #Specific request to a teacher, notify them
-        unless @lesson.teacher.nil?
-          @notification_params = {
-            :user_id => @lesson.teacher.id,
-            :image => @lesson.student.id,
-            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has requested a lesson with you.",
-            :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => Time.now
-            }
-          @n = Notification.new(@notification_params)
-          @n.save
-          pushtopusher
-
+      respond_to do |format|
+        if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
+          @lesson.save
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
+          format.json { render :show, status: :created, location: @lesson }
+        else
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.json { render json: @lesson.errors, status: :unprocessable_entity }
         end
-
-        format.html { redirect_to (lessons_path), notice: 'Your request has been successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a request or booked lesson for #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
-    end
+
+
   end
-=end
 
   def createlessonslot
-    @lesson = Lesson.new(lesson_params)
-    @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+    offset = current_user.timezone_offset
+      offset ||= 8
 
-    if @lesson.starts_at < Time.now 
+      @lesson = Lesson.new(lesson_params)
+      @lesson.starts_at = @lesson.starts_at.beginning_of_hour
+
+      if @lesson.starts_at < Time.now 
         redirect_to (lessons_path), :flash => { :error => "The time selected for the lesson slot has already passed. Please try a later time"}
         return
-    end
-
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to (lessons_path), notice: 'Your lesson slot has been successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { redirect_to (lessons_path), :flash => { :error => "You already have a slot at #{@lesson.starts_at.in_time_zone('Perth').strftime('%d/%m/%y')} at #{@lesson.starts_at.in_time_zone('Perth').strftime('%l:%M%P')}"} }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
-    end
+
+      respond_to do |format|
+        if Lesson.where("teacher_id = ? AND starts_at = ?", @lesson.teacher_id, @lesson.starts_at).count == 0
+          @lesson.save
+          format.html { redirect_to (lessons_path), notice: 'A lesson slot has been successfully created.' }
+          format.json { render :show, status: :created, location: @lesson }
+        else
+          format.html { redirect_to (lessons_path), :flash => { :error => "You already have a lesson slot booked for #{(@lesson.starts_at + offset.hours).strftime('%d/%m/%y')} at #{(@lesson.starts_at + offset.hours).strftime('%l:%M%P')}"} }
+          format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        end
+      end
+
+
   end
 
   # PATCH/PUT /lessons/1
@@ -233,46 +193,6 @@ class LessonsController < ApplicationController
       end
     end
   end
-
-
-=begin
-  def confirmlessonrequest
-    @lesson = Lesson.find(params[:id])
-    @lesson.confirmed = true
-          @notification_params = {
-            :user_id => @lesson.student.id,
-            :image => @lesson.teacher.id,
-            :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has confirmed a lesson with you.",
-            :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => Time.now
-            }
-          @n = Notification.new(@notification_params)
-          @n.save
-          @notification_params = {
-            :user_id => @lesson.student.id,
-            :image => @lesson.teacher.id,
-            :content => "You have a lesson starting in 15 minutes.",
-            :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => (@lesson.starts_at - 15.minutes)
-            }
-          @n = Notification.new(@notification_params)
-          @n.save
-          @notification_params = {
-            :user_id => @lesson.student.id,
-            :image => @lesson.teacher.id,
-            :content => "Your lesson is ready.",
-            :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => (@lesson.starts_at - 5.minutes)
-            }
-          @n = Notification.new(@notification_params)
-          @n.save
-    @lesson.save!
-    redirect_to lessons_path, notice: 'Lesson was successfully confirmed'
-  end
-=end
 
   def booklessonslot
 
@@ -292,18 +212,37 @@ class LessonsController < ApplicationController
           format.json { head :no_content }
       end
     end
+
     @lesson.student = current_user
+
+    teacher_offset = @lesson.teacher.timezone_offset
+    teacher_offset ||= 8
+    student_offset = @lesson.student.timezone_offset
+    student_offset ||= 8
+
+    if teacher_offset >= 0
+      teachertimezone = "(UTC +#{teacher_offset})"
+    else
+      teachertimezone = "(UTC -#{teacher_offset})"
+    end
+
+    if student_offset >= 0
+      studenttimezone = "(UTC +#{student_offset})"
+    else
+      studenttimezone = "(UTC -#{student_offset})"
+    end
     
-    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
+    @teacherstarttime = (@lesson.starts_at + teacher_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + teacher_offset.hours).day.ordinalize} %B %Y #{teachertimezone}")
+    @studentstarttime = (@lesson.starts_at + student_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + student_offset.hours).day.ordinalize} %B %Y #{studenttimezone}")
     current_user.lesson_count = current_user.lesson_count - 1
     current_user.save!
           @notification_params = {
             :user_id => @lesson.teacher.id,
             :image => '<i class="fa fa-book"></i>',
-            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@starttime}",
+            :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has booked a lesson with you at #{@teacherstarttime}",
+            :link => "lessons/#{@lesson.id}",
             :lesson_id => @lesson.id,
-            :dismissed => false,
-            :appear_at => Time.now
+            :dismissed => false
             }
           @n = Notification.new(@notification_params)
           @n.save
@@ -311,10 +250,10 @@ class LessonsController < ApplicationController
           @notification_params = {
             :user_id => @lesson.student.id,
             :image => '<i class="fa fa-book"></i>',
-            :content => "You have booked a lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}",
+            :content => "You have booked a lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}",
+            :link => "lessons/#{@lesson.id}",
             :lesson_id => @lesson.id,
-            :dismissed => true,
-            :appear_at => Time.now
+            :dismissed => true
             }
           @n = Notification.new(@notification_params)
           @n.save
@@ -325,31 +264,50 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
 
-
   def destroy
 
     @lesson.destroy!
     
     unless @lesson.student_id.nil?
-
       @lesson.notifications.each do |n|
-        if n.appear_at > Time.now
-          n.destroy
-        else
           n.lesson_id = 0
+          n.link = nil
           n.save!
-        end
       end
     end
- 
-    @starttime = @lesson.starts_at.strftime("%l:%M%P on the #{@lesson.starts_at.day.ordinalize} %B %Y")
 
+    unless @lesson.teacher_id.nil?
+      teacher_offset = @lesson.teacher.timezone_offset
+    end
+
+    unless @lesson.student_id.nil?
+      student_offset = @lesson.student.timezone_offset
+    end
+
+    teacher_offset ||= 8
+    student_offset ||= 8
+
+    if teacher_offset >= 0
+      teachertimezone = "(UTC +#{teacher_offset})"
+    else
+      teachertimezone = "(UTC -#{teacher_offset})"
+    end
+
+    if student_offset >= 0
+      studenttimezone = "(UTC +#{student_offset})"
+    else
+      studenttimezone = "(UTC -#{student_offset})"
+    end
+
+    @teacherstarttime = (@lesson.starts_at + teacher_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + teacher_offset.hours).day.ordinalize} %B %Y #{teachertimezone}")
+    @studentstarttime = (@lesson.starts_at + student_offset.hours).strftime("%l:%M%P on the #{(@lesson.starts_at + student_offset.hours).day.ordinalize} %B %Y #{studenttimezone}")
+    
     #IF the student cancels their lesson
     if current_user.role_id == 1
-      @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. You have been credited a lesson."
+      @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}. You have been credited a lesson."
 
       if @lesson.starts_at < Time.now + 24.hours #student will not be refunded a lesson
-        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@starttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
+        @studentmessage = "You have cancelled your lesson with #{@lesson.teacher.firstname} #{@lesson.teacher.lastname} at #{@studentstarttime}. As you cancelled it within 24h of the start time you have not been credited the lesson."
       else
         @lesson.student.lesson_count = @lesson.student.lesson_count + 1
         @lesson.student.save!
@@ -360,18 +318,18 @@ class LessonsController < ApplicationController
               :image => '<i class="fa fa-ban"></i>',                
               :content => @studentmessage,
               :lesson_id => 0,
-              :dismissed => true,
-              :appear_at => Time.now
+              :link => nil,
+              :dismissed => true
               }
             @n = Notification.new(@notification_params)
             @n.save!
       @notification_params = {
               :user_id => @lesson.teacher.id,
               :image => '<i class="fa fa-ban"></i>',
-              :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@starttime}. A new blank lesson slot has been created in its place.",
+              :content => "#{@lesson.student.firstname} #{@lesson.student.lastname} has cancelled their lesson with you at #{@teacherstarttime}. A new blank lesson slot has been created in its place.",
               :lesson_id => 0,
-              :dismissed => false,
-              :appear_at => Time.now
+              :link => nil,
+              :dismissed => false
               }
             @n = Notification.new(@notification_params)
             @n.save!
@@ -381,7 +339,6 @@ class LessonsController < ApplicationController
       @newLesson = Lesson.new
       @newLesson.starts_at = @lesson.starts_at
       @newLesson.teacher_id = @lesson.teacher_id
-      @newLesson.confirmed = true
       @newLesson.save!
 
       respond_to do |format|
@@ -396,14 +353,13 @@ class LessonsController < ApplicationController
         @lesson.student.lesson_count = @lesson.student.lesson_count + 1
         @lesson.student.save!
       
-      
         @notification_params = {
                 :user_id => @lesson.student.id,
                 :image => '<i class="fa fa-ban"></i>',
-                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@starttime}. You have been credited the lesson you spent.",
+                :content => "#{@lesson.teacher.firstname} #{@lesson.teacher.lastname} has cancelled their lesson with you at #{@studentstarttime}. You have been credited the lesson you spent.",
                 :lesson_id => 0,
-                :dismissed => false,
-                :appear_at => Time.now
+                :link => nil,
+                :dismissed => false
                 }
               @n = Notification.new(@notification_params)
               @n.save!
@@ -411,10 +367,10 @@ class LessonsController < ApplicationController
         @notification_params = {
                 :user_id => @lesson.teacher.id,
                 :image => '<i class="fa fa-ban"></i>',
-                :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@starttime}. The student has been notified.",
+                :content => "You have cancelled your lesson with #{@lesson.student.firstname} #{@lesson.student.lastname} at #{@teacherstarttime}. The student has been notified.",
                 :lesson_id => 0,
-                :dismissed => true,
-                :appear_at => Time.now
+                :link => nil,
+                :dismissed => true
                 }
               @n = Notification.new(@notification_params)
               @n.save!
@@ -441,7 +397,7 @@ class LessonsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def lesson_params
-    params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :confirmed, :comment)
+    params.require(:lesson).permit(:student_id, :teacher_id, :starts_at, :status, :comment)
   end  
     
 end

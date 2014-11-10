@@ -1,51 +1,57 @@
 <% unless user_signed_in? %>
 Redirect - user not signed in
 <% else %>
+<% offset = current_user.timezone_offset %>
+<% offset ||= 8 %>
 
 <h1>Listing Notifications</h1>
 
-  <table>
-    <tbody>
-      <% if @notifications.length > 0 %>
-        <% @day = @notifications.first.appear_at.day %>
-        <% @month = @notifications.first.appear_at.month %>
-        <% @year = @notifications.first.appear_at.year %>
-        <tr>
-          <td>
-            <strong><%= "#{@notifications.first.appear_at.day.ordinalize} #{@notifications.first.appear_at.strftime('%B')}"%></strong>
-          </td>
-        </tr>
+<% if @notifications.length > 0 %>
+<div id="user-notifications-list">
+        <% @day = @notifications.first.created_at.day %>
+        <% @month = @notifications.first.created_at.month %>
+        <% @year = @notifications.first.created_at.year %>
+        
+        <strong><%= "#{@notifications.first.created_at.day.ordinalize} #{@notifications.first.created_at.strftime('%B')}"%></strong>
+        
 
         <% @notifications.each do |n| %>
-          <% unless n.appear_at.day == @day && n.appear_at.month == @month && n.appear_at.year == @year %>
-            <tr>
-              <td>
-                </br><strong><%= "#{n.appear_at.day.ordinalize} #{n.appear_at.strftime('%B')}"%></strong>
-                <% @day = n.appear_at.day %>
-                <% @month = n.appear_at.month %>
-                <% @year = n.appear_at.year %>
-              </td>
-            </tr>
+          <% unless n.created_at.day == @day && n.created_at.month == @month && n.created_at.year == @year %>
+                </br><strong><%= "#{n.created_at.day.ordinalize} #{n.created_at.strftime('%B')}"%></strong>
+                <% @day = n.created_at.day %>
+                <% @month = n.created_at.month %>
+                <% @year = n.created_at.year %>
           <% end %>
-          <tr>
-            <td>
-              <% if n.lesson_id  && n.lesson_id > 0 %>
-              <a href="/lessons/<%= n.lesson_id %>">- <%= n.content %></a>
-              <% else %>
-              - <%= n.content %>
-              <% end %>
-            </td>
-            <td class="time"><%= "#{n.appear_at.strftime('%l:%M%P')}"%></td> 
-          </tr>
-        <% end %>
-      <% else %>
+
+          <div class="row notification-listing">
+            <% if n.link.nil? %>
+            <div class="col-xs-1"><%= n.image.html_safe %></div>
+            <% else %>
+            <div class="col-xs-1"><a href="<%= n.link %>"><%= n.image.html_safe %></a></div>
+            <% end %>
+             <div class="col-xs-9"><%= n.content %></div>
+            <div class="col-xs-1 time"><%= "#{(n.created_at.utc + offset.hours).strftime('%l:%M%P')}"%></div>
+          </div>
+        <% end %>    
+  </div>   
+<% else %>
         No Notifications
-      <% end %>
-    </tbody>
-  </table>
 <% end %>
+<% end %>
+  
+
 
 <style type="text/css">
+.notification-listing:nth-child(even) {background: #FFF}
+.notification-listing:nth-child(odd) {background: #EEE}
+
+i {
+  font-size: 15px;
+  color: black;
+}
+a > i {
+  color: #890f0f;
+}
 .time {
   text-align: right;
   min-width: 100px;

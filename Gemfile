@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+# Multithreaded server best suited for Production environments
+gem 'puma'
+gem 'rack-timeout'
+gem 'delayed_job_active_record' # delayed_job
+gem "daemons"
+gem 'newrelic_rpm'
+
+gem 'stripe_event'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

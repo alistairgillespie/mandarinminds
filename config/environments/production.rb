@@ -1,4 +1,6 @@
 Rails.application.configure do
+
+  config.logger = Logger.new(STDOUT)
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -44,7 +46,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  #####config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
@@ -87,11 +89,11 @@ Rails.application.configure do
   
   #mail options
   config.action_mailer.default_url_options = {
-    :host => 'http://www.mandarinminds.com/',
+    :host => 'https://www.mandarinminds.com/',
     :only_path => false
 	}
-  ActionMailer::Base.asset_host = 'http://www.mandarinminds.com/'
-  config.action_mailer.raise_delivery_errors = true
+  ActionMailer::Base.asset_host = 'https://www.mandarinminds.com/'
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_deliveries = true 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {

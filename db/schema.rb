@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924084806) do
+ActiveRecord::Schema.define(version: 20141013011428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,32 +27,43 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.string   "status"
   end
 
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "lessons", force: true do |t|
     t.integer  "student_id"
     t.integer  "teacher_id"
     t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "confirmed",  default: false
     t.text     "comment"
   end
 
-  add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", using: :btree
-  add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", using: :btree
-  add_index "lessons", ["student_id", "starts_at"], name: "index_lessons_on_student_id_and_starts_at", unique: true, using: :btree
-  add_index "lessons", ["student_id"], name: "index_lessons_on_student_id", using: :btree
-  add_index "lessons", ["teacher_id", "starts_at"], name: "index_lessons_on_teacher_id_and_starts_at", unique: true, using: :btree
-  add_index "lessons", ["teacher_id"], name: "index_lessons_on_teacher_id", using: :btree
+  add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", unique: true, using: :btree
+  add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", unique: true, using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"
     t.string   "image"
     t.text     "content"
     t.boolean  "dismissed",  default: false
-    t.datetime "appear_at"
     t.integer  "lesson_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link"
   end
 
   add_index "notifications", ["lesson_id"], name: "index_notifications_on_lesson_id", using: :btree
@@ -82,6 +93,23 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.datetime "updated_at"
   end
 
+  create_table "stripe_webhooks", force: true do |t|
+    t.string   "stripe_id"
+    t.string   "stripe_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.boolean  "show_on_page"
+    t.boolean  "show_in_dropdown"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "abbr"
+  end
+
   create_table "user_settings", force: true do |t|
     t.integer  "user_id"
     t.boolean  "purchased_dudu"
@@ -89,6 +117,7 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "view_large_plans"
+    t.integer  "dudu_expiry_timestamp"
   end
 
   create_table "users", force: true do |t|
@@ -108,10 +137,12 @@ ActiveRecord::Schema.define(version: 20140924084806) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.integer  "role_id"
     t.integer  "lesson_count"
+    t.integer  "role_id"
     t.string   "skypeid"
     t.integer  "timezone_offset"
+    t.string   "stripe_id"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

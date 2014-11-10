@@ -1,4 +1,8 @@
-<div class="container">
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
 
 <h1>Terms of Service</h1>
 

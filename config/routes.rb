@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  mount StripeEvent::Engine => '/stripe_events' # provide a custom path
+
+  match '/edit_card',   to: 'users#edit_card',   via: 'get'
+  match '/update_card', to: 'users#update_card', via: 'post'
+  match '/cancel_dudu', to: 'users#cancel_dudu', via: 'post'
+
+  match '/contact_form', to: 'static#contact_form', via: 'post'
+
   get 'errors/file_not_found'
 
   get 'errors/unprocessable'
@@ -9,6 +17,9 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
+
+  # processing Stripe webhooks
+  resources :stripe_events, only: [:create]
 
   get 'dashboard', :controller => 'users', :action => 'dashboard'
 
@@ -52,7 +63,9 @@ Rails.application.routes.draw do
   get 'user_settings/toggle_config_morning_email' => 'user_settings#toggle_config_morning_email'
   resources :notifications
 
-  
+  get 'users/demote_to_student' => 'users#demote_to_student', as: 'demote_to_student'
+  match 'users/promote_to_teacher' => 'users#promote_to_teacher', via: :get
+  match '/teachers/update' => 'teachers#update', via: :post
 
   match 'users/:id' => 'users#show', as: :user, via: :get
   match 'lessons/request' => 'lessons#requestlesson', as: "request_lesson", via: :post
@@ -66,10 +79,10 @@ Rails.application.routes.draw do
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
-  get "/what-we-offer" => "static#what-we-offer"
+  get "/features" => "static#features"
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
-  get "/teachers" => "static#teachers"
+  get "/teachers" => "static#teachers", as: 'teachers'
   get "/privacy" => "static#privacy"
   get "/terms" => "static#terms"
   get "/contact" => "static#contact"

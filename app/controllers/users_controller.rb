@@ -2,7 +2,97 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate_user! 
 
-  
+  def edit_card
+    @user = current_user
+  end
+
+  def update_card
+    @user = current_user
+    
+    card_info = {
+      number:    "#{params[:number1]}#{params[:number2]}#{params[:number3]}#{params[:number4]}",
+      exp_month: params[:date][:month],
+      exp_year:  params[:date][:year],
+      cvc:       params[:cvc]
+    }
+    if @user.update_card(@user, card_info)
+      flash[:success] = 'Saved. Your card information has been updated.'
+      redirect_to "/dashboard"
+    else
+      flash[:warning] = 'Stripe reported an error while updating your card. Please try again.'
+      redirect_to "/users/edit"
+    end
+  end
+
+  def cancel_dudu
+    if params[:stripe_id]
+      begin
+
+        user = User.find_by stripe_id: params[:stripe_id]
+        if user
+          user.settings.update_attribute(:purchased_dudu, false)
+        end
+
+        sub = Stripe::Customer.retrieve(params[:stripe_id]).subscriptions.first
+        if sub
+          sub.delete
+          redirect_to "/dashboard", notice: "Your request to cancel your subscription has been submitted. You will be notified when it has been processed successfully."
+        else
+          redirect_to "/dashboard", notice: "You don't have a subscription to cancel."
+        end
+
+      rescue Stripe::InvalidRequestError => e
+        redirect_to "/dashboard", notice: "#{e.message}"
+      end
+    else
+      redirect_to "/dashboard", notice: "An error occured"
+    end
+  end
+
+  def promote_to_teacher
+    unless user_signed_in? && current_user.role_id == 3
+      redirect_to teachers_path, notice: "Access Denied"
+      return
+    end
+
+    if params[:id] 
+      promotee = User.find_by id: params[:id]
+      promotee.update_attribute(:role_id, 2)
+      Teacher.create(:user_id => promotee.id, :description => "", :show_on_page => false, :show_in_dropdown => false, :abbr => "")
+      redirect_to teachers_path, notice: "Successfully promoted #{params[:email]}"
+      return      
+    else
+      promotee = User.find_by email: params[:email]
+      if promotee
+        redirect_to teachers_path(confirm: true, id: promotee.id), notice: "Please confirm the teacher's details below to promote them." 
+        return   
+      else
+        redirect_to teachers_path, notice: "Could not find a person with the email: #{params[:email]}"
+        return
+      end      
+    end
+    redirect_to teachers_path, notice: "An error occured."
+  end
+
+  def demote_to_student
+    unless user_signed_in? && current_user.role_id == 3
+      redirect_to teachers_path, notice: "Access Denied"
+      return
+    end
+
+    if params[:teacher]
+      demotee = User.find_by id: params[:teacher]
+      teacher = Teacher.find_by user_id: params[:teacher]
+      teacher.destroy
+      if demotee
+        demotee.update_attribute(:role_id, 1)
+        redirect_to teachers_path, notice: "#{demotee.firstname} #{demotee.lastname} has been demoted to a student"
+        return
+      end
+    end
+
+    redirect_to teachers_path, notice: "An error occured. Teacher not found"
+  end
 
   # GET /users
   # GET /users.json
@@ -131,7 +221,7 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       #params[:user]
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation, :stripe_id)
 
     end
 end

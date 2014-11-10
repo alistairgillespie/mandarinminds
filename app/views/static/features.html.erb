@@ -1,0 +1,95 @@
+<% if user_signed_in? %>
+	<div class="container-fluid">
+<% else %>
+	<div class="container">
+<% end %>
+  <div class="row">
+
+	<div class="welcome jumbotron">
+			<%= image_tag "bigfoot.png" %> 
+	        <h2>Differentiate yourself in a competitive workplace.</h2>
+	        <p class="lead">No Mandarin? No problem! Our teachers will guide you on your learning experience from the very beginning.</p>
+	        <p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
+	</div>
+	<div class="features jumbotron">
+		<a style="padding-top: 100px;" name="whatwedo"></a>
+
+		<div class="row service">
+			<div class="col-md-7 descriptor live-lessons">
+				<h3 class="title">Live lessons online</h3>
+				<p class="lead">Learn Mandarin from the comfort of your home. Simply select a teacher and schedule lessons using our online timetable.</p>
+	     
+			</div>
+			<div class="col-md-5 icon">
+	        	<%= image_tag "video.png", class:"action" %>
+			</div>
+		</div>
+
+		<div class="row service">
+			<div class="col-md-7 descriptor video">
+				<h3 class="title">Coming Soon: Video Courses!</h3>
+				<p class="lead">Our teachers have been carefully chosen because of their passion to teach. Our short video courses are crafted to be engaging and interactive.</p>
+	        <p><a  class="">Coming soon   <i class="fa fa-arrow-right"></i></a></p>
+			</div>
+			<div class="col-md-5 icon">
+	        	<%= image_tag "laptop.png", class:"action" %>
+			</div>
+		</div>
+		
+		<div class="row service">
+			<div class="col-md-7 descriptor video">
+				<h3 class="title">eBooks</h3>
+				<p class="lead">Enjoy access to over one hundred e-books ranging from beginner to advanced learners. Test yourself with the interactive quiz after each read.</p>
+	        <p><a href="/plans" class="">See our current packages   <i class="fa fa-arrow-right"></i></a></p>
+			</div>
+			<div class="col-md-5 icon">
+	        	<%= image_tag "browser.png", class:"action" %>
+			</div>
+		</div>
+	</div>
+
+  </div>
+</div>
+<div class="asian-century jumbotron">
+  <div class="container">
+    <h1>Why Mandarin?</h1>
+    <p class="lead">In today's evolving world, an additional language helps to open doors and increase career opportunities across the globe. China's emergence as an economic superpower and her close ties with Australia will put you or your child in good stead for the future.</p>
+    <p><a href="#why" role="button" class="btn btn-primary btn-lg">Learn more</a></p>
+  </div>
+ </div>
+</br>
+<div id="plans" class="container">
+	<h1>How Do I Start?</h1><hr>
+	<div class="row">
+			<% if user_signed_in? %>
+			<% else %>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "teachers.png", class:"action" %>
+			</div>
+			<h1>1</h1>
+			<p>Take a free trial with one of our passionate Chinese teachers. Why not, it’s free? Choose from one of our packages!</p></div>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "laptop.png", class:"action" %>
+			</div>
+			<h1>2</h1>
+			<p>Take a short quiz so we can assess your Mandarin level. It’s best to know your current level so we can monitor your progress. 
+</p></div>
+			<div class="col-md-4 steps">
+			
+			<div class="icon">
+			<%= image_tag "plane.png", class:"action" %>
+			</div>
+			<h1>3</h1>
+			<p>Practice and retain what you have learned through periodic quizzes. Monitor your improvement with continued teacher feedback.
+</p></div>
+			</div>
+			<p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Sign Up</a></p></br>
+			<% end %>
+
+		</div>
+
+ 

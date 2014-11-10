@@ -12,25 +12,36 @@
 <i class="fa fa-book slot-booked"></i> - You have booked this slot</br></br>
 
 
-<div class="calendar-navigation" id="calendar-buttons">
-	<button class="btn btn-primary" id="previous-week-button" disabled="disabled"> << Previous Week </button> 
-	<button class="btn btn-primary" id="next-week-button"> Next Week >> </button></br>
-	<span id="calendar-pagination">
+<div class="calendar-navigation row" id="calendar-buttons" style="display: inline">
+	<div class="col-xs-offset-3 col-xs-3">
+		<button class="btn btn-primary" id="previous-week-button" disabled="disabled" style="margin-left: auto;margin-right: auto;display: block;"> << Previous Week </button>
+		</div>
+	<div class="col-xs-3">
+		<button class="btn btn-primary" id="next-week-button" style="margin-left: auto;margin-right: auto;display: block;"> Next Week >> </button>
+		</div>
+	</span></br>
+</div>
+	<div id="calendar-pagination" style="margin-left: auto; margin-right: auto">
 		<i id="circle1" class="fa fa-circle"></i>
 		<i id="circle2" class="fa fa-circle-o"></i>
 		<i id="circle3" class="fa fa-circle-o"></i>
 		<i id="circle4" class="fa fa-circle-o"></i>
-	</span>
-</div>
+	</div>
+
 Current lessons to spend: <%= current_user.lesson_count %></br>
-<span id="calendar-select-teacher">Showing lessons taught by: 
+
+<% teachers = Teacher.where("show_in_dropdown = true").where("length(abbr) > 0").order(abbr: :asc) %>
+<% if teachers.size > 0 %>
+	<span id="calendar-select-teacher">Showing lessons taught by: 
 	<select id="calendar-select-teacher-dropdown">
-		<option value="all" <% if params[:teacher].nil? %> selected <% end %>>All Teachers</option>
-		<option value="esther" <% if params[:teacher] == "esther" %> selected <% end %>>Esther Ma</option>
-		<option value="joan" <% if params[:teacher] == "joan" %> selected <% end %>>Joan Zhou</option>
-		<option value="minnie" <% if params[:teacher] == "minnie" %> selected <% end %>>Minnie Dong</option>
+			<option value="all" <%= params[:teacher].nil? ? "selected" : "" %>>All Teachers</option>
+			<% teachers.each do |t| %>
+				<% teacher = User.find_by id: t.user_id %>
+				<option value="<%= t.abbr %>" <%= params[:teacher] ==  t.abbr ? "selected" : "" %>><%= "#{teacher.firstname} #{teacher.lastname}" %></option>
+			<% end %>
 	</select>
-</span>
+	</span>
+<% end %>
 
 <script type="text/javascript">
 $('#calendar-select-teacher-dropdown').change(function(){

@@ -1,4 +1,8 @@
-
+<div id="timezone-offset" style="display:none">
+    <% offset = current_user.timezone_offset %>
+    <% offset ||= 8 %>
+    <%= offset %>
+</div>
 <div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar" role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,7 +11,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/"><%= image_tag("logo.png", :alt => "rss feed") %></a>
+    <a class="navbar-brand" href="/dashboard"><%= image_tag("logo.png", :alt => "rss feed") %></a>
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav pull-right">
@@ -15,20 +19,20 @@
       <li class="notify" id="notification-menu"> 
         <% @newnotifications = 0 %>
         <% current_user.notifications.each do |n| %>
-        <% @newnotifications += 1 unless n.dismissed || n.appear_at > Time.now %>
+        <% @newnotifications += 1 unless n.dismissed %>
         <% end %>
         <i id="notification-bell" class="fa fa-bell-o" data-toggle="dropdown"></i>
         <% if @newnotifications > 0 %>     
         <div class="notification-bubble"> <%= @newnotifications %> </div>       
         <% end %> 
         <ul id="notification-dropdown" class="dropdown dropdown-menu-right dropdown-menu" role="menu" aria-labelledby="notificationmenu">
-          <% current_user.notifications.where("appear_at < ?", Time.now).order(appear_at: :desc).limit(4).each do |n| %>
+          <% current_user.notifications.order(created_at: :desc).limit(4).each do |n| %>
 
           <li class="notification">
 
            <div class="notify-block row">
-            <% unless n.lesson_id == 0 %>
-            <a href="/lessons/<%=n.lesson_id%>">
+            <% unless n.link.nil? %>
+            <a href="<%= n.link %>">
               <% end %>
               <div class="notify-img col-xs-2">
                 <% if n.image[0,1] == "<" %>
@@ -38,18 +42,14 @@
                 <% end %>                    		
               </div>
               <div class="col-xs-10">
-              <p>
+              <p style="padding-left: 3px">
                <%= n.content %>
              </p>
-             <span style="font-size: 10px; color: black; float: right">
-             <% if n.appear_at > Time.now - 24.hours %>
-             <%= n.appear_at.in_time_zone("Perth").strftime('%l:%M%P') %>
-             <% else %>
-             <%= n.appear_at.in_time_zone("Perth").strftime('%-d %B %Y') %>
-             <% end %>
-            </span>
+             <span class="timeago" title="<%= n.created_at.to_time.iso8601 %>"style="font-size: 10px; color: black; position: absolute; right: -40px; bottom: -8px;">
+                <%= (n.created_at + offset.hours).strftime('%-d %B %Y') %>
+             </span>
            </div>
-             <% unless n.lesson_id == 0 %>
+             <% unless n.link.nil? %>
            </a>
            <% end %>
          </div>                        
@@ -91,8 +91,10 @@ z-index: 1;
 color: white;
 display: none;
 padding: 5px;
-font-size: 14px">
+font-size: 12px;
+border-radius: 10px;">
 </div>
+
 
 <script type="text/javascript">
 

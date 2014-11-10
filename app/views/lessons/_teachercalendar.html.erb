@@ -31,7 +31,7 @@ Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% 
       
         <% @plannedlesson = nil %>
         <% @lessons.each do |lesson| %>
-          <% if lesson.starts_at + timezone_offset.hours == @time && lesson.teacher == current_user%>
+          <% if lesson.starts_at + timezone_offset.hours == @time %>
             <% @plannedlesson = lesson %>
           <% end %>
         <% end %>
@@ -42,31 +42,18 @@ Showing Times in UTC <% if timezone_offset > 0 %> <%= "+#{timezone_offset}"%><% 
             <button class="btn btn-default" name="commit" type="submit">
               <i class="fa fa-book no-slot"></i>
             </button>
-            <input class="form-control" name="utf8" type="hidden" value="✓">             
-            <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=date.year%>"/>
-            <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=date.month%>"/>
-            <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=date.day%>"/>
-            <input class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]" type="hidden" value="<%=@time.hour%>"/>
+
+            <% utctime = @time - timezone_offset.hours %>
+            <input class="form-control" name="utf8" type="hidden" value="✓">   
+            <input class="form-control" name="start_date" type="hidden" value="<%= params[:start_date] %>">           
+            <input class="form-control" id="lesson_starts_at_1i" name="lesson[starts_at(1i)]" type="hidden" value="<%=utctime.year%>"/>
+            <input class="form-control"id="lesson_starts_at_2i" name="lesson[starts_at(2i)]" type="hidden" value="<%=utctime.month%>"/>
+            <input class="form-control"id="lesson_starts_at_3i" name="lesson[starts_at(3i)]" type="hidden" value="<%=utctime.day%>"/>
+            <input class="form-control"id="lesson_starts_at_4i" name="lesson[starts_at(4i)]" type="hidden" value="<%=utctime.hour%>"/>
             <input class="form-control"id="lesson_starts_at_5i" name="lesson[starts_at(5i)]" type="hidden" value="00"/>
             <input class="form-control"id="lesson_teacher_id" name="lesson[teacher_id]" type="hidden" value="<%=current_user.id%>"/>
-            <input class="form-control"id="lesson_confirmed_id" name="lesson[confirmed]" type="hidden" value="true"/>
           </form>
-          <!--<script type="text/javascript">
-            $('#newlesson-<%= @formatteddate.to_s%>').submit(function() {  
-              var valuesToSubmit = $(this).serialize();
-              var button = $(this).find('button');
-              $.ajax({
-                type: "POST",
-                url: $(this).attr('action'), 
-                data: valuesToSubmit,
-                dataType: "JSON",
-                success: function(){
-                  button.html('<i class="fa fa-book free-slot"></i>');
-                }
-              });
-              return false;
-            });
-          </script>-->
+          
           <% end %>
         <% else %> <!-- There IS a lesson in this slot -->
 
@@ -117,11 +104,8 @@ To:
 <% end %>
 </select>
 </p>
+<input class="form-control" name="start_date" type="hidden" value="<%= params[:start_date] %>"> 
 
 <%= submit_tag("Add Lessons") %>
 <% end %></div>
-
-
-
-
 

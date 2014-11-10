@@ -26,6 +26,35 @@ class User < ActiveRecord::Base
 
   
   before_create :set_default_role
+
+  def update_card(subscriber, card_info)
+
+    token = Stripe::Token.create(
+      card: {
+        number: card_info[:number],
+        exp_month: card_info[:exp_month],
+        exp_year: card_info[:exp_year],
+        cvc: card_info[:cvc]
+      }
+    )
+    customer = Stripe::Customer.retrieve(subscriber.stripe_id)
+    card = customer.cards.create(card: token.id)
+    card.save
+    customer.default_card = card.id
+    customer.save
+
+  rescue Stripe::InvalidRequestError => e
+    logger.error "Stripe error while updating card info: #{e.message}"
+    errors.add :base, "#{e.message}"
+    false
+  rescue Stripe::CardError => e
+      logger.error "You card details were not correct: #{e.message}"
+      errors.add :base, "#{e.message}"
+      false
+  end
+
+  
+
   
   private
   def set_default_role

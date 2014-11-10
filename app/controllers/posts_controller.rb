@@ -51,22 +51,6 @@ class PostsController < ApplicationController
     @post.author_id = current_user.id
 	  @post.save
 
-    #    User.all.each do |u|
-    #      unless u.id == @currentauthor.id
-    #        @notification_params = {
-    #                :user_id => u.id,
-    #                :image => '<i class="fa fa-paper-plane"></i>',
-    #                :content => "#{@currentauthor.firstname} #{@currentauthor.lastname} has posted a new blog entry: #{@post.title}.",
-    #                :lesson_id => nil,#@post.id,
-    #                :dismissed => false,
-    #                :appear_at => Time.now
-    #                }
-    #              @n = Notification.new(@notification_params)
-    #              @n.save!
-    #              Pusher.trigger("private-#{@notification_params[:user_id]}",'notification', {"image" => @notification_params[:image],
-    #           "message" => @notification_params[:content],
-    #            })
-    #      end
     redirect_to '/posts' 
   end
 
@@ -78,16 +62,6 @@ class PostsController < ApplicationController
     
     @post.update_attributes(post_params)
     redirect_to @post, notice: "Update successful!"
-    
-    #respond_to do |format|
-     # if @post.update(post_params)
-      #  format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-       # format.json { render :show, status: :ok, location: @post }
-      #else
-       # format.html { render :edit }
-        #format.json { render json: @post.errors, status: :unprocessable_entity }
-      #end
-    #end
   end
 
   # DELETE /posts/1
@@ -97,7 +71,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
   	
-    
     respond_to do |format|
      format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
      format.json { head :no_content }

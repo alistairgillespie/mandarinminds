@@ -4,18 +4,18 @@
     <div class="control-group">
       <%= f.label :title, class:"control-label" %>
       <div class="controls">
-        <%= f.text_field :title, id: "title-input", :autocomplete => :off %>
+        <%= f.text_field :title, size: "60x1", id: "title-input", :autocomplete => :off %>
       </div>
     </div>
     <div class="control-group">
       <%= f.label :body, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :body, id: "body-input", :autocomplete => :off %>
+        <%= f.text_area :body, size: "80x10", id: "body-input", :autocomplete => :off %>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <%= f.submit class: "btn btn-primary" %>
-    <%= link_to "Cancel", "#", class: "btn", id: "cancel-post", data: {dismiss: "modal"} %>
+    <%= link_to "Cancel", "#", class: "btn btn-primary", id: "cancel-post", data: {dismiss: "modal"} %>
   </div>
 <% end %>

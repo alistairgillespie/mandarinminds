@@ -1,0 +1,5 @@
+<html>
+  <body>
+    <p>Charge succeeded! Amount: <%= @charge.amount %>, Sale ID: <%= @charge.guid %> </p>
+  </body>
+</html>
