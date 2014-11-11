@@ -25,5 +25,15 @@ $(document).ready(function() {
 	$("a").click(function() {
 		var href = $(this).attr('href').replace('#', '')
 		scrollToAnchor(href);
-	});			
+	});
+	
+	// Calling LayerSlider on the target element
+	$('#layerslider').layerSlider({
+		pauseOnHover: false,
+		imgPreload: true
+		
+	    // Slider options goes here,
+	    // please check the 'List of slider options' section in the documentation
+	});
+		
 });

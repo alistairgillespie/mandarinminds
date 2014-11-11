@@ -199,7 +199,7 @@ a {
 // End Calendar Styling
  
 body {
-	 padding-top:50px;
+	 //padding-top:40px;
 	 padding-bottom: 80px;
 	 font-family: "proxima-nova",sans-serif;
 	 font-style: normal;
@@ -706,6 +706,42 @@ h2 {
     
 }
 
+.ls-container.ls-v5 {
+	border-bottom: 40px solid #2c3e50;
+}
+
+h1.ls-l {
+    color: white;
+    text-shadow: 2px 2px 4px #000;
+    font-family: "clavo",sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 50px;
+	line-height: 1.5;
+	width: 480px;
+	margin-bottom: 30px;
+	padding:80px 0 0 85px;
+	
+	> span {
+		display: block;
+		width: 100%;
+	}
+	
+}
+
+p.ls-l {
+	color: rgba(255, 255, 255, 0.9);
+	line-height: 1.5;
+	font-size: 27px;
+	font-family: "proxima-nova",sans-serif;
+	font-style: normal;
+	font-weight: 100;
+	width: 500px;
+	text-shadow: 2px 2px 4px black;
+
+}
+
+
 .welcome.jumbotron {
 	border-radius: none;
 	background: transparent;
@@ -1093,9 +1129,13 @@ p.lead {
 
 // Dashboard Layout
 
-html, body {
-    padding-top: 50px;
+html {
     background: white;
+}
+
+body {
+	background: white;
+	padding-top: 40px;
 }
 
 .edit-form {

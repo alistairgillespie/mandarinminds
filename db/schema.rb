@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20141020051752) do
 
   add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", unique: true, using: :btree
   add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", unique: true, using: :btree
+  add_index "lessons", ["teacher_id", "starts_at"], name: "index_lessons_on_teacher_id_and_starts_at", unique: true, using: :btree
+  add_index "lessons", ["teacher_id"], name: "index_lessons_on_teacher_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"
@@ -145,8 +147,8 @@ ActiveRecord::Schema.define(version: 20141020051752) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.integer  "lesson_count"
     t.integer  "role_id"
+    t.integer  "lesson_count"
     t.string   "skypeid"
     t.integer  "timezone_offset"
     t.string   "stripe_id"
