@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/basecamp/mail_view.git
-  revision: bc6ab46866a1544cb2c40877142087b0898485eb
+  revision: 50831ad31c6f9042469a33dab1394bd2a4042fd8
   specs:
     mail_view (2.0.4)
       tilt

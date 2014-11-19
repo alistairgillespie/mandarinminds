@@ -38,4 +38,17 @@ class Notifier < ActionMailer::Base
       mail(to: 'itsupport@mandarinminds.com', subject: "Contact Form: New message from '#{name}'")
     end
   end
+
+  def manager_lesson_alert(lesson_hash)
+    @date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
+    @lesson_hash = lesson_hash
+    mail(to: 'rstrade@qbs-china.com', subject: "Mandarin Minds Lesson Alert for #{@date}")
+  end
+
+  def teacher_lesson_alert(teacher_id, lessons)
+    @user = User.find_by_id(teacher_id)
+    @date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
+    @lessonstoday = lessons
+    mail(to: @user.email, subject: "Lesson Alert for #{@date}")
+  end
 end

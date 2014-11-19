@@ -3,20 +3,39 @@ desc "These tasks are called by the Heroku scheduler add-on"
 task :lesson_alert => :environment do
 
 	@todayslessons = Lesson.where("student_id IS NOT NULL").where('starts_at BETWEEN ? AND ?', DateTime.now.utc, DateTime.now.utc + 24.hours).order(student_id: :asc, starts_at: :asc) 
-	@todayslessons.each do |l| 
+	teacher_hash = {} 									# blank hash
+
+	@todayslessons.each do |lesson| 					# group lessons by teacher
+		if teacher_hash.has_key?(lesson.teacher_id) 
+			teacher_hash[lesson.teacher_id] << lesson 
+		else 
+			teacher_hash.store(lesson.teacher_id, []) 
+			teacher_hash[lesson.teacher_id] << lesson 
+		end  
+	end 
+
+	Notifier.delay.manager_lesson_alert(teacher_hash)	# Send all lessons to the manager
+
+	teacher_hash.each do |t, array|  
+		Notifier.delay.teacher_lesson_alert(t, array)	# Send the teacher their lessons
+	end 
+	
+	
+	@todayslessons.each do |l| 							# Send each student their lessons
 		if @lessonarray.nil? || @lessonarray[0].nil? 
 			@lessonarray = [] 
 			@lessonarray << l 
 		elsif @lessonarray[0].student_id != l.student_id 
-			Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+			Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray)
 			@lessonarray = [] 
 			@lessonarray << l 
 		else 
 			@lessonarray << l 
 		end 
 	end 
+
 	if @lessonarray.size > 0 
-		Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray).deliver
+		Notifier.delay.lessonalert(@lessonarray[0].student_id, @lessonarray)
 	end 
 end
 
