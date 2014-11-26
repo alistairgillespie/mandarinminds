@@ -1,25 +1,22 @@
 <div id="layerslider" style="width: 100%; height: 600px;">
-    <!-- The contents on your slider will be here -->
+    
 
 	<!-- first slide -->
     <div class="ls-slide">
-        <!-- slide contents goes here -->
-        <%= image_tag("female-laptop.jpg", :class => "ls-bg", :alt => "rss feed") %>
         
-         <!-- text layer -->
-		<h1 class="ls-l">Learn Mandarin, Chinese culture, history and much more 
+        <%= image_tag(asset_path("jumbotrons/female-laptop.jpg"), :class => "ls-bg", :alt => "rss feed") %>
+        
+		  <h1 class="ls-l">Learn Mandarin, Chinese culture, history and much more 
 			<span>
 			<a data-toggle="modal" data-target="#signup" class="btn btn-primary btn-lg">Try it out for free</a>
 			</span>
-		</h1>
+		  </h1>
     </div>
 
     <div class="ls-slide">
-	    <!-- slide contents goes here -->
-        <%= image_tag("group-ipad.jpg", :class => "ls-bg", :alt => "rss feed") %>
-        
-         <!-- text layer -->
-		<h1 class="ls-l">Check out all of the features we offer at Mandarin Minds
+        <%= image_tag(asset_path("jumbotrons/group-ipad.jpg"), :class => "ls-bg", :alt => "rss feed") %>
+
+		  <h1 class="ls-l">Check out all of the features we offer at Mandarin Minds
 			<span>
 			<%= link_to "What we offer", "/features", :class => 'btn btn-primary btn-lg' %>
 			</span>

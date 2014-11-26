@@ -8,7 +8,7 @@
 <div class="row">
 
 	<div class="welcome jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
-			<%= image_tag "mmsample.jpg", class:"img-circle" %> 
+			<%= image_tag asset_path("mmsample.jpg"), class:"img-circle" %> 
 	        <h2>Take live classes with our teachers in China</h2>
 	        <p class="lead">Join the few Australians studying Mandarin today and lead Australia into the Asian Century.</p>
 	        
@@ -21,7 +21,7 @@
 	<div class="features jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
 		<div class="row service">
 			<div class="col-md-5 icon">
-	        	<%= image_tag "teachers.png", class:"action" %>
+				<%= image_tag asset_path("circle-icons/teachers.png"), class:"action" %>
 			</div>
 			
 			<div class="col-md-7 descriptor flexibility">
@@ -33,9 +33,10 @@
 			<% end %>
 			</div>
 		</div>
+
 		<div class="row service">
 			<div class="col-md-5 icon">
-	        	<%= image_tag "laptop.png", class:"action" %>
+	        	<%= image_tag asset_path("circle-icons/laptop.png"), class:"action" %>
 			</div>
 			
 			<div class="col-md-7 descriptor quality">
@@ -47,9 +48,11 @@
 				<% end %>
 			</div>
 		</div>
+
+
 		<div class="row service">
 			<div class="col-md-5 icon">
-	        	<%= image_tag "onthego.png", class:"action" %>
+	        	<%= image_tag asset_path("circle-icons/onthego.png"), class:"action" %>
 			</div>
 			
 			<div class="col-md-7 descriptor quality">
@@ -59,7 +62,7 @@
 		</div>
 		<div class="row service">
 			<div class="col-md-5 icon">
-	        	<%= image_tag "certified.png", class:"action" %>
+	        	<%= image_tag asset_path("circle-icons/certified.png"), class:"action" %>
 			</div>
 			
 			<div class="col-md-7 descriptor quality">
@@ -70,9 +73,7 @@
 	</div>
 
 
-	<div class="welcome jumbotron" style="height: 500px;background-image: url('/images/chinese-temple.jpg');position:absolute;
-left:0;
-right:0;background-size:cover;margin-top:40px;background-position: center top;">
+	<div class="welcome jumbotron" style="height: 500px;background-image: url('<%= asset_path("jumbotrons/chinese-temple.jpg") %>');position:absolute; left:0; right:0; background-size:cover; margin-top:40px; background-position: center top;">
 			
 	        <h1 style="color: white;
 text-shadow: 2px 2px 4px #000;
@@ -91,7 +92,7 @@ padding-top: 100px">Work with our native Chinese teachers to learn the language 
   <div class="container">
     <div class="col-md-4 point">
     <div class="icon">
-    	<%= image_tag "plane.png", class:"action" %>
+    	<%= image_tag asset_path("circle-icons/plane.png"), class:"action" %>
 	</div>
     <h3 class="title">Be different</h3>
     <quote>"One language sets you in a corridor for life. Two languages open every door along the way.”</quote>
@@ -100,7 +101,7 @@ padding-top: 100px">Work with our native Chinese teachers to learn the language 
     </div>
     <div class="col-md-4 point">
     <div class="icon">
-    	<%= image_tag "recognition.png", class:"action" %>
+    	<%= image_tag asset_path("circle-icons/recognition.png"), class:"action" %>
 	</div>
     <h3 class="title">Earn recognition</h3>
     <quote>“Knowledge of languages is the doorway to wisdom.”</quote>
@@ -109,7 +110,7 @@ padding-top: 100px">Work with our native Chinese teachers to learn the language 
     </div>
     <div class="col-md-4 point">
     <div class="icon">
-    	<%= image_tag "culture.png", class:"action" %>
+    	<%= image_tag asset_path("circle-icons/culture.png"), class:"action" %>
 	</div>
     <h3 class="title">Embrace a new culture</h3>
     <quote>"Language is the road map of a culture. It tells you where its people come from and where they are going.”</quote>
