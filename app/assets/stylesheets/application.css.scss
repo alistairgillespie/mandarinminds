@@ -73,7 +73,6 @@ a {
 
 	table{
 		width: 100%;
-		//background-image: url('/assets/table-background.png');
 		background-repeat: repeat;
 		border-spacing: 10px;
     	border-collapse: separate;
@@ -670,7 +669,7 @@ h2 {
 
 .landing.jumbotron {
 	margin-top: -50px;
-	background-image: url('/images/china-cityscape.jpg');
+	background-image: url(image_path('jumbotrons/china-cityscape.jpg'));
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
@@ -922,7 +921,7 @@ p.lead {
 }
 
 .asian-century.jumbotron {
-	background-image: url('/assets/asiancentury.jpg');
+	background-image: url(image_path('jumbotrons/asiancentury.jpg'));
 	margin-bottom: 0px;
 	height: 450px;
 	

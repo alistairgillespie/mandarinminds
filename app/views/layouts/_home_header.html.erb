@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><%= image_tag("logo.png", :alt => "rss feed") %></a>
+      <a class="navbar-brand" href="/"><%= image_tag(asset_path("branding/logo.png"), :alt => "rss feed") %></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
@@ -20,7 +20,6 @@
         <% if user_signed_in? %>
 
 
-<!--/<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li> -->
 <li>
   <div class="dropdown dropdown-menu-right">
     <button type="button" class="btn btn-default btn-lg">
