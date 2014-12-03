@@ -42,10 +42,8 @@ class MailPreview < MailView
 		@lessonstoday = Lesson.where("student_id IS NOT NULL").limit(6)
 	end
 
-
-
-
-
-
-
+	def weekly_student_update
+		@date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
+		@students = User.all
+	end
 end

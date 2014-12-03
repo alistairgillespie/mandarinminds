@@ -51,4 +51,10 @@ class Notifier < ActionMailer::Base
     @lessonstoday = lessons
     mail(to: @user.email, subject: "Lesson Alert for #{@date}")
   end
+
+  def weekly_student_update(students)
+    @students = students
+    @date = Time.now.in_time_zone("Perth").strftime("#{Time.now.in_time_zone("Perth").day.ordinalize} %B")
+    mail(to: 'scott.w.lyle@gmail.com', subject: "Weekly Student Review for #{@date}")
+  end
 end

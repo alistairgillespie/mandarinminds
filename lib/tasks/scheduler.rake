@@ -1,5 +1,16 @@
 desc "These tasks are called by the Heroku scheduler add-on"
 
+task :weekly_student_update => :environment do
+	@students = User.where("role_id = 1 AND lesson_count < 2").order(created_at: :desc)
+	@inactive_users = []
+	@students.each do |s|
+		if Lesson.where("student_id = ?", s.id).count < 2
+			@inactive_users << s
+		end
+	end
+	Notifier.delay.weekly_student_update(@inactive_users)
+end
+
 task :lesson_alert => :environment do
 
 	@todayslessons = Lesson.where("student_id IS NOT NULL").where('starts_at BETWEEN ? AND ?', DateTime.now.utc, DateTime.now.utc + 24.hours).order(student_id: :asc, starts_at: :asc) 
