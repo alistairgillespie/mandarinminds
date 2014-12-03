@@ -86,8 +86,45 @@ function notification_alert(msg) {
 }
 </script>
 <% end %>
-  <script src="//use.typekit.net/kqu8wnu.js"></script>
-  <script>try{Typekit.load();}catch(e){}</script>
+
+  <!--<script src="//use.typekit.net/kqu8wnu.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>-->
+  <script type="text/javascript">
+  (function() {
+    var config = {
+      kitId: 'kqu8wnu',
+      scriptTimeout: 3000
+    };
+    var h = document.getElementsByTagName('html')[0];
+    h.className += ' wf-loading';
+    var t = setTimeout(function() {
+      h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, ' ');
+      h.className += ' wf-inactive';
+    }, config.scriptTimeout);
+    var d = false;
+    var tk = document.createElement('script');
+    tk.src = '//use.typekit.net/' + config.kitId + '.js';
+    tk.type = 'text/javascript';
+    tk.async = 'true';
+    tk.onload = tk.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (d || rs && rs != 'complete' && rs != 'loaded') return;
+      d = true;
+      clearTimeout(t);
+      try { Typekit.load(config); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(tk, s);
+  })();
+</script>
+<style type="text/css">
+#page-title {
+  font-family: proxima-nova-1, proxima-nova-2, sans-serif;
+}
+.wf-loading #page-title {
+  visibility: hidden;
+}
+</style>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <!--<script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>-->
 </head>
