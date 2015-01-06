@@ -18,6 +18,7 @@ class InvoicePaymentSucceeded
 			            :user_id => @user.id,
 			            :description => "Dudu Monthly Subscription",
 			            :amount => event.data.object.lines.data.first.plan.amount, #amount in cents
+			            :currency    => 'aud',
 			            :status => "Completed",
 			            :stripe_id => event.data.object.id
 			        }
