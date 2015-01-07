@@ -17,7 +17,7 @@ def create
   @plan = Plan.find(params[:id])
   @user = current_user
 
-  if @plan.name == "Dudu Package"
+  if @plan.name == "eBooks Package Subscription"
 
     begin
 
