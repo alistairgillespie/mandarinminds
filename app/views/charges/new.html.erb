@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <title>Checkout</title>
+  <meta name="description" content="Use our secure checkout to complete your purchase.">
+<% end %>
+
 <% if user_signed_in? %>
 <% offset = current_user.timezone_offset %>
 <% end %>

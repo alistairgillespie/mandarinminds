@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <title>Dashboard</title>
+  <meta name="description" content="Your account's home page here at Mandarin Mind.">
+<% end %>
+
 <% offset = current_user.timezone_offset %>
 <% offset ||= 8 %>
 

@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <title>Your Charges</title>
+  <meta name="description" content="A list of all payments you have made to Mandarin Minds.">
+<% end %>
+
 <% offset = current_user.timezone_offset %>
 <% offset ||= 8 %>
 

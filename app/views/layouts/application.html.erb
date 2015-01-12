@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mandarin Minds</title>
+  <% if content_for?(:head) %>
+    <%= content_for(:head) %>
+  <% else %>
+    <title>Mandarin Minds</title>
+    <meta name="description" content="Learn Mandarin, Chinese culture, history and much more.">
+  <% end %>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-	<meta content="Learn Mandarin, Chinese culture, history and much more." name="description">
+
 	<link href="https://mandarinminds.com/" rel="canonical">
 	<meta content="en_US" property="og:locale">
 	<meta content="website" property="og:type">
@@ -14,6 +20,7 @@
 	<meta content="https://mandarinminds.com/" property="og:url">
 	<meta content="Mandarin Minds" property="og:site_name">
 
+  <%# Google Webmaster verification %>
   <meta name="google-site-verification" content="iiUzasC3Bnucetrin0_axQWl9EME--_U8uQxFl5B7Lo" />
 
   <link rel="shortcut icon" href="http://www.mandarinminds.com/favicon.ico?v=2" />

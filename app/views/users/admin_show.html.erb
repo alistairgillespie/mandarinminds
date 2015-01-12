@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title>View Student</title>
+  <meta name="description" content="View a student's record here at Mandarin Minds.">
+<% end %>
 
 <div class="profile-pic row">
 	<%= image_tag @user.gravatar_url(:size => 175), :class => 'img-circle' %>

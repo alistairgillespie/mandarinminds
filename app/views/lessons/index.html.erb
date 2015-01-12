@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <title>Lesson Calendar</title>
+  <meta name="description" content="Use our handy booking calendar to schedule a session with one of our qualified teachers.">
+<% end %>
+
 <% unless current_user.timezone_offset.nil? %>
 	<% timezone_offset = current_user.timezone_offset %>
 <% else %>
