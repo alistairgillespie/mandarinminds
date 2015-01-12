@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   get "/faq" => "static#faq"
   get "/translation" => "static#translation"
   get "/ebooks" => "static#ebooks"
+  get "/sitemap.xml.gz" => "static#sitemap"
   
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all

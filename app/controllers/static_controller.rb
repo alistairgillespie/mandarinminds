@@ -42,4 +42,8 @@ class StaticController < ApplicationController
 
   def translation
   end
+
+  def sitemap
+    render :file=>"/public/sitemap.xml.gz", :content_type => 'application/xml'
+  end
 end
