@@ -1,0 +1,57 @@
+<% content_for :head do %>
+  <title>eBooks Package</title>
+  <meta name="description" content="We offer an eBooks package which includes over one hundred books and quizzes for all stages of Mandarin expertise.">
+<% end %>
+
+<% if user_signed_in? %>
+<div class="container-fluid">
+<% else %>
+<div class="container">
+<% end %>
+
+<div class="packages jumbotron">
+  	<h1>eBooks Package</h1>
+  		<p class="col-md-12 lead">Research has shown that learning a second language improves cognitive abilities. More studies have determined that the best time to pick up a second language is during early childhood. At Mandarin Minds, we greatly encourage younger children to start their Mandarin journey using our interactive online eBooks! </br></br>While these may be designed to attract and entertain children, it will also greatly benefit any Mandarin newbie!</p>
+	  <ul class="col-md-10 col-md-offset-1">
+		<li><i class="fa fa-check"></i>A placement test will help you find the most suitable material to read</li>
+		<li><i class="fa fa-check"></i>A range of over 100 eBooks for all levels to further your education in Mandarin</li>
+		<li><i class="fa fa-check"></i>Our interactive games and quizzes offer an exciting way of learning</li>
+		<li><i class="fa fa-check"></i>Check out our brochure <a href="/images/dudu-brochure.jpg">here</a></li>
+	  	</ul>	
+
+	  	<% unless user_signed_in? %>
+   		<p class="col-md-12 lead">Sign in or sign up to purchase this package.</p>
+   		<% end %>  	
+ </div>
+
+<% duduPlan = Plan.find_by name: "eBooks Package Subscription" %>
+
+<% if duduPlan %>
+  <div id='plans' class="plan col-md-offset-4 col-md-4">
+	    <div class="plan-wrapper">
+	      <div class="name">&nbsp;<%= duduPlan.name %></div>
+	      <div class="details">
+	        <div class="price">
+	          <%= number_to_currency duduPlan.price, :precision => 0 %> / month
+	        </div>
+	      </div>
+	      <% if user_signed_in? %>
+	      	<% if current_user.settings.purchased_dudu %>
+	      		<%= link_to "Visit your Dashboard to access your eBooks Package",  '/dashboard', :class => 'btn btn-primary btn-lg' %>
+	      	<% else %>
+	      		<%= link_to "Buy now",  charge_plan_path(duduPlan), :class => 'btn btn-primary btn-lg' %>
+	      	<% end %>
+	      <% end %>
+	    </div>
+   </div>
+
+   
+<% end %>
+
+	
+	
+
+		    
+		</div>
+	</div>
+</div>

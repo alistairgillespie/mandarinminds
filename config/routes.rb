@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   # Add static pages here. 
   # get "/extension" => "static#extension_in_controller"
   get "/asian-century" => "static#asian-century"
-  get "/features" => "static#features"
+  get "/tutoring" => "static#tutoring"
   get "/pricing" => "static#pricing"
   get "/chatroom" => "static#chatroom"
   get "/teachers" => "static#teachers", as: 'teachers'
@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   get "/contact" => "static#contact"
   get "/faq" => "static#faq"
   get "/translation" => "static#translation"
+  get "/ebooks" => "static#ebooks"
   
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
