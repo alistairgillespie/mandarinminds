@@ -79,7 +79,15 @@ def create
       @c.stripe_id = charge.id
       @c.save!
 
+      if current_user.lesson_count.nil?
+        @current_user.update_attribute(:lesson_count, 0)
+      end
       current_user.lesson_count = current_user.lesson_count + @plan.lessons
+      
+      if current_user.total_lessons_bought.nil?
+        @current_user.update_attribute(:total_lessons_bought, 0)
+      end
+      current_user.total_lessons_bought = current_user.total_lessons_bought + @plan.lessons
       current_user.save
       @notification_params = {
               :user_id => @user.id,
@@ -91,6 +99,21 @@ def create
               }
       @n = Notification.new(@notification_params)
       @n.save
+
+      if current_user.total_lessons_bought >= 10 && current_user.total_lessons_bought - @plan.lessons < 10 && current_user.referred_by
+        @referrer = User.find(current_user.referred_by)
+        @notification_params = {
+              :user_id => @referrer.id,
+              :image => '<i class="fa fa-gift"></i>',
+              :content => "Your referred student #{@user.firstname} #{@user.lastname} has just bought enough lessons to grant you a bonus 5 lessons! Your new lesson total is #{@referrer.lesson_count + 5}",
+              :lesson_id => nil,
+              :dismissed => false,
+              :link => nil
+              }
+        @n = Notification.new(@notification_params)
+        @n.save
+        @referrer.update_attribute(:lesson_count, @referrer.lesson_count + 5)
+      end
 
 
 

@@ -2,7 +2,7 @@
   <div class="container">
     <%= image_tag asset_path("branding/footerlogo.png")%>
     <p>©2014 Mandarin Minds, Inc.</p>
-	<p><a href="/terms">Terms</a> | <a href="/privacy">Privacy</a> | <a href="/contact">Contact Us</a></p>
+	<p><a href=<%= params[:ref] ? "/terms?ref=#{params[:ref]}" : "/terms"%>>Terms</a> | <a href=<%= params[:ref] ? "/privacy?ref=#{params[:ref]}" : "/privacy"%>>Privacy</a> | <a href=<%= params[:ref] ? "/contact?ref=#{params[:ref]}" : "/contact"%>>Contact Us</a></p>
 	<p><a href="https://plus.google.com/112068283749340185255"><i class="fa fa-google-plus"></i></a><a href="https://www.facebook.com/MandarinMinds"><i class="fa fa-facebook"></i></a><a href="http://www.linkedin.com/company/mandarin-minds"><i class="fa fa-linkedin"></i></a>
   </div>
 

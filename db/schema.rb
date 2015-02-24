@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020051752) do
+ActiveRecord::Schema.define(version: 20150224112119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,8 +56,6 @@ ActiveRecord::Schema.define(version: 20141020051752) do
 
   add_index "lessons", ["starts_at", "student_id"], name: "index_lessons_on_starts_at_and_student_id", unique: true, using: :btree
   add_index "lessons", ["starts_at", "teacher_id"], name: "index_lessons_on_starts_at_and_teacher_id", unique: true, using: :btree
-  add_index "lessons", ["teacher_id", "starts_at"], name: "index_lessons_on_teacher_id_and_starts_at", unique: true, using: :btree
-  add_index "lessons", ["teacher_id"], name: "index_lessons_on_teacher_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"
@@ -147,12 +145,14 @@ ActiveRecord::Schema.define(version: 20141020051752) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.integer  "role_id"
     t.integer  "lesson_count"
+    t.integer  "role_id"
     t.string   "skypeid"
     t.integer  "timezone_offset"
     t.string   "stripe_id"
     t.string   "avatar"
+    t.integer  "referred_by"
+    t.integer  "total_lessons_bought"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

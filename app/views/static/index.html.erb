@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <title>Mandarin Minds</title>
-    <meta name="description" content="Learn Mandarin, Chinese culture, history and much more.">
+    <meta name="description" content="Mandarin Minds offers online tutoring in Mandarin using quality teachers at competitive rates. Learn Mandarin, Chinese culture, history and much more from home or on your mobile device.">
 <% end %>
 
 <% if user_signed_in? %>
@@ -48,7 +48,7 @@
 				<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request.</p>
 				<% if user_signed_in? %>
 				<% else %>
-					<p class="arrow-link"><a href="/tutoring" class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
+					<p class="arrow-link"><a href=<%= params[:ref] ? "/tutoring?ref=#{params[:ref]}" : "/tutoring"%> class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
 				<% end %>
 			</div>
 		</div>
