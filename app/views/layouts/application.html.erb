@@ -155,6 +155,9 @@ function notification_alert(msg) {
 <!-- Jumbotron for about page -->
 <%= render  "static/jumbotronabout"  if controller_name == "static" && action_name == "tutoring"  %>
 
+<!-- Jumbotron for about page -->
+<%= render  "static/jumbotronebooks"  if controller_name == "static" && action_name == "ebooks"  %>
+
 <!-- Dashboard layout when signed in -->
 <% if user_signed_in? %>
 	<%= render 'layouts/user_sidenav' %>

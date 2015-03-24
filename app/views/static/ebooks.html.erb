@@ -10,17 +10,26 @@
 <% end %>
 
 <div class="packages jumbotron">
-  	<h1>eBooks Package</h1>
-  		<p class="col-md-12 lead">Research has shown that learning a second language improves cognitive abilities. More studies have determined that the best time to pick up a second language is during early childhood. At Mandarin Minds, we greatly encourage younger children to start their Mandarin journey using our interactive online eBooks! </br></br>While these may be designed to attract and entertain children, it will also greatly benefit any Mandarin newbie!</p>
+  	<h1>Over 100 eBooks</h1>
+  		<p class="col-md-12 lead">Join over 9,000 students who are currently improving their Mandarin with Mandarin Minds eBooks.</p>
+  		 <p style="margin-right: 0px !important;"><a style="" data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Sign up</a></p>
 	  <ul class="col-md-10 col-md-offset-1">
-		<li><i class="fa fa-check"></i>A placement test will help you find the most suitable material to read</li>
-		<li><i class="fa fa-check"></i>A range of over 100 eBooks for all levels to further your education in Mandarin</li>
-		<li><i class="fa fa-check"></i>Our interactive games and quizzes offer an exciting way of learning</li>
-		<li><i class="fa fa-check"></i>Check out our brochure <a href="/images/dudu-brochure.jpg">here</a></li>
+		<li><i class="fa fa-check"></i>Content that suits you.
+		<p class="lead">Learn at a level that is appropriate for you. An initial placement test will determine your current skill and knowledge level and allocate the appropriate eBook content for you.  Get the best results with learning material that is just challenging enough to keep you interested, engaged and hungry for more!</p>
+		</li>
+		<li><i class="fa fa-check"></i>Fun and engaging.
+		<p class="lead">Each eBook contains interactive exercises, fun activities and plenty of pictures. You will be quickly improving your grammar, vocabulary and pronunciation skills without even realising you are learning!</p>
+		</li>
+		<li><i class="fa fa-check"></i>Monitor your learning.
+		<p class="lead">Track your progress with periodic quizzes and feedback reports. Keep motivated with rewards that will fast track you towards achieving your personal targets.</p>
+		</li>
+		<li><i class="fa fa-check"></i>Convenient.
+		<p class="lead">To continue improving your Mandarin, it is important that you learn at a time and place that best suits you. Engage with Mandarin eBooks from your computer, tablet or smartphone and enjoy the benefits of a flexible learning system.</p>
+		</li>
 	  	</ul>	
 
 	  	<% unless user_signed_in? %>
-   		<p class="col-md-12 lead">Sign in or sign up to purchase this package.</p>
+   		<h2>Check out the eBooks brochure <a href="ebooks.pdf">here.</a></h2>
    		<% end %>  	
  </div>
 
@@ -28,6 +37,8 @@
 
 <% if duduPlan %>
   <div id='plans' class="plan col-md-offset-4 col-md-4">
+	  	<h1>Enjoy learning Mandarin with eBooks!</h1>
+		<p class="lead" style="text-align: center; font-size: 21px;">Monthly eBook subscriptions for individuals and schools</p>
 	    <div class="plan-wrapper">
 	      <div class="name">&nbsp;<%= duduPlan.name %></div>
 	      <div class="details">

@@ -2,78 +2,72 @@
   <title>Mandarin Minds</title>
     <meta name="description" content="Mandarin Minds offers online tutoring in Mandarin using quality teachers at competitive rates. Learn Mandarin, Chinese culture, history and much more from home or on your mobile device.">
 <% end %>
+<div class="welcome jumbotron" style="margin-bottom: 0px; padding-bottom: 0px; background-image: url('<%= asset_path("jumbotrons/welcome-bg.png") %>'); background-size: cover;"> 
+	        <div class="video-holder">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/T4nVAahLOCc?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> 
+			</div>
+	        
+	        <h2>Every journey begins with a single step</h2>
+	        <p class="lead">Mandarin Minds is an interactive, complete eLearning system that combines fun and effective teaching methods with state-of-the-art technology.</p>
+	        
+	        <% if user_signed_in? %>
+			<% else %>
+				<p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
+			<% end %>
+			
+</div>
 
 <% if user_signed_in? %>
 	<div class="container-fluid">
 <% else %>
 	<div class="container">
 <% end %>
-
 <div class="row">
 
-	<div class="welcome jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
-			<%= image_tag asset_path("mmsample.jpg"), class:"img-circle" %> 
-	        <h2>Take live classes with our teachers in China</h2>
-	        <p class="lead">Join the few Australians studying Mandarin today and lead Australia into the Asian Century.</p>
-	        
-	        <% if user_signed_in? %>
-			<% else %>
-				<p><a data-toggle="modal" data-target="#signup" class="btn btn-lg btn-primary" >Get started today</a></p>
-			<% end %>
-	</div>
+	
 
 	<div class="features jumbotron" style="margin-bottom: 0px; padding-bottom: 0px">
-		<div class="row service">
-			<div class="col-md-5 icon">
-				<%= image_tag asset_path("circle-icons/teachers.png"), class:"action" %>
+			<div class="row service">
+				<div class="col-md-6">
+					<div class="col-md-5 icon">
+						<%= image_tag asset_path("circle-icons/teachers.png"), class:"action" %>
+					</div>
+					<div class="col-md-7 descriptor flexibility">
+						<h3 class="title">Your learning. Your way.</h3>
+						<p class="lead">Maximise your learning with a Mandarin Minds curriculum that is adapted to you.<br>A personalised learning approach that suits your requirements, level and pace will keep you motivated and on track to achieving your goals in no time.</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-md-5 icon">
+			        	<%= image_tag asset_path("circle-icons/laptop.png"), class:"action" %>
+					</div>
+					<div class="col-md-7 descriptor quality">
+						<h3 class="title">Flexible, yet structured.</h3>
+						<p class="lead">Learn Mandarin in an easier, more flexible way, by learning what you want, when you want and where you want.<br>Choose tutoring lessons with tutors and times that are best for you. Work through eBooks whenever, wherever. Assess your progress with quizzes, fun exercises and tutor feedback.</p>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-md-7 descriptor flexibility">
-				<h3 class="title">Certified teachers</h3>
-				<p class="lead">Learn from <b>passionate teachers</b> who are passionate about teaching. Schedule classes 6 days a week.</p>
-	        <% if user_signed_in? %>
-			<% else %>
-				<p class="arrow-link"><a data-toggle="modal" data-target="#signup">Start a free trial   <i class="fa fa-arrow-right"></i></a></p>
-			<% end %>
-			</div>
-		</div>
-
-		<div class="row service">
-			<div class="col-md-5 icon">
-	        	<%= image_tag asset_path("circle-icons/laptop.png"), class:"action" %>
-			</div>
-			
-			<div class="col-md-7 descriptor quality">
-				<h3 class="title">Variety of instruction</h3>
-				<p class="lead">Courses for all levels, ages and professional requirements. <b>Corporate</b> and <b>School packages</b> available upon request.</p>
-				<% if user_signed_in? %>
-				<% else %>
-					<p class="arrow-link"><a href=<%= params[:ref] ? "/tutoring?ref=#{params[:ref]}" : "/tutoring"%> class="">What we offer <i class="fa fa-arrow-right"></i></a></p>
-				<% end %>
-			</div>
-		</div>
-
-
-		<div class="row service">
-			<div class="col-md-5 icon">
-	        	<%= image_tag asset_path("circle-icons/onthego.png"), class:"action" %>
-			</div>
-			
-			<div class="col-md-7 descriptor quality">
-				<h3 class="title">On-the-go learning</h3>
-				<p class="lead">Take live classes and read e-books from the comfort of your own home, using your <b>computer</b>, <b>tablet</b>, or <b>mobile device</b>. Switch back and forth as you choose.</p>
-			</div>
-		</div>
-		<div class="row service">
-			<div class="col-md-5 icon">
-	        	<%= image_tag asset_path("circle-icons/certified.png"), class:"action" %>
-			</div>
-			
-			<div class="col-md-7 descriptor quality">
-				<h3 class="title">Periodic Quizzes</h3>
-				<p class="lead"><b>Practice</b> what you have learned with your teacher through quizzes. </p>
-			</div>
-		</div>
+			<div class="row service">
+				<div class="col-md-6">
+					<div class="col-md-5 icon">
+			        	<%= image_tag asset_path("circle-icons/certified.png"), class:"action" %>
+					</div>
+					
+					<div class="col-md-7 descriptor quality">
+						<h3 class="title">Get real results.</h3>
+						<p class="lead">Pick up Mandarin for real world use with live online tutoring that uses the best elements of one-on-one teaching. Watch your proficiency flourish when backed up with the latest digital technologies.</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-md-5 icon">
+			        	<%= image_tag asset_path("circle-icons/onthego.png"), class:"action" %>
+					</div>
+					<div class="col-md-7 descriptor quality">
+						<h3 class="title">Your language buddy.</h3>
+						<p class="lead">Have an authentic Chinese experience via your computer, tablet or smartphone.<br>Connect with our native Mandarin tutors from wherever you are. All you need is an Internet connection and a Skype-supported device!</p>
+					</div>
+				</div>
+			</div>	
 	</div>
 
 
