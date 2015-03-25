@@ -279,12 +279,28 @@ h2 {
 		text-decoration: none;
 		
 		&:active, &:hover {
-			background-color: #94192D !important;
+			
 		}
 		
 		li a:active, li a:hover {
 			//border-bottom: 2px solid white;
 		}
+	}
+	
+	a:link { /* Essentially means a[href], or that the link actually goes somewhere */
+	  //background-color: #94192D !important;
+	}
+	
+	a:visited {
+	 
+	}
+	
+	a:hover {
+	  background-color: #94192D !important;
+	}
+	
+	a:active {
+	  background-color: #94192D !important;
 	}	
 }
 
