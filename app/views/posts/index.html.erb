@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <title>Blog Posts</title>
+  <meta name="description" content="Keep up to date with our latest news and updates by reading our blog posts.">
+<% end %>
+
 <% if user_signed_in? && current_user.role_id > 2 %>
 		<button class= "blog-crud btn btn-primary" id="new-post">New Post</button>
 		<%= render "form" %>
