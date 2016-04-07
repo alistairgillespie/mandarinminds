@@ -1115,7 +1115,14 @@ p.lead {
 		display: none;
 	}
 	
+	h1.ls-l {
+	    font-size: 22px !important;
+	    padding: 45px 0 0 10px !important;
+	}
 	
+	.welcome.jumbotron .video-holder iframe {
+			display: none !important;
+	}
 }
 
 .private {

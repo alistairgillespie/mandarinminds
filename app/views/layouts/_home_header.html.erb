@@ -10,7 +10,7 @@
       <a class="navbar-brand" href="/<%="?ref=#{params[:ref]}" if params[:ref] %>"><%= image_tag(asset_path("branding/logo.png"), :alt => "rss feed") %></a>
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav pull-right">
+      <ul class="nav navbar-nav pull-left">
 <li><%= link_to 'Online Tutoring', params[:ref] ? "/tutoring?ref=#{params[:ref]}" : "/tutoring" , :class => 'navbar-link' %></li>
 <li><%= link_to 'eBooks', params[:ref] ? "/ebooks?ref=#{params[:ref]}" : "/ebooks", :class => 'navbar-link' %></li>
 <li><%= link_to 'Translating', params[:ref] ? "/translation?ref=#{params[:ref]}" : "/translation", :class => 'navbar-link' %></li>
